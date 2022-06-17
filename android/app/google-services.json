@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1030413660346",
+    "project_id": "poultry-feed-tracker",
+    "storage_bucket": "poultry-feed-tracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030413660346:android:558361909c8c37e6a75283",
+        "android_client_info": {
+          "package_name": "com.example.home_login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1030413660346-i9lill1td5lahsag3sk2glh86f52f2vd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvKymQJUWAfKWsrLeCkYHEiFS5h3Ow3UQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1030413660346-i9lill1td5lahsag3sk2glh86f52f2vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
