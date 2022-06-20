@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/signin_screen.dart';
@@ -36,7 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Column(
               children: <Widget>[
                 Text(
-                  "Sign Up",
+                  "signup".tr,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
@@ -47,22 +48,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(
                   height: 0,
                 ),
-                reusableTextField("Enter User Name", Icons.person_sharp, false,
+                reusableTextField("enterUsername".tr, Icons.person_sharp, false,
                     _userNameTextController),
                 SizedBox(
                   height: 20,
                 ),
                 reusableTextField(
-                    "Enter Email Id", Icons.email, false, _emailTextController),
+                    "enteremail".tr, Icons.email, false, _emailTextController),
                 SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Enter Password", Icons.lock_sharp, true,
+                reusableTextField("enterPassword".tr, Icons.lock_sharp, true,
                     _passwordTextController),
                 SizedBox(
                   height: 20,
                 ),
-                firebaseUIButton(context, "Sign Up", () {
+                firebaseUIButton(context, "signup".tr, () {
                   FirebaseAuth.instance
                       .createUserWithEmailAndPassword(
                           email: _emailTextController.text,
@@ -94,18 +95,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Already have an account?",
-            style: TextStyle(color: Color.fromARGB(255, 165, 53, 130))),
+        Text("have_acc".tr,
+            style: TextStyle(
+                color: Color.fromARGB(255, 165, 53, 130), fontSize: 13)),
         GestureDetector(
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => SignInScreen()));
           },
-          child: const Text(
-            " Sign In",
+          child: Text(
+            "singin".tr,
             style: TextStyle(
                 color: Color.fromARGB(255, 165, 53, 130),
-                fontWeight: FontWeight.bold),
+                fontWeight: FontWeight.bold,
+                fontSize: 13),
           ),
         )
       ],

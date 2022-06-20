@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/signin_screen.dart';
 
@@ -27,7 +28,7 @@ class _WelcomeState extends State<Welcome> {
             child: Column(
               children: <Widget>[
                 Text(
-                  "Hello Farmer!",
+                  "welcomeTitle".tr,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
@@ -62,7 +63,7 @@ Container welcomeButton(BuildContext context, Function onTap) {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => SignInScreen()));
       },
-      child: Text('GET STARTED',
+      child: Text('getStart'.tr,
           style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
