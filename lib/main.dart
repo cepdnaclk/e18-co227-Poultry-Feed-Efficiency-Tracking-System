@@ -1,8 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:home_login/localeString.dart';
+
+import 'package:flutter/services.dart';
+
 import 'package:home_login/screens/farmReg_screen.dart';
+import 'package:home_login/screens/farm_view.dart';
 import 'package:home_login/screens/fcr_screen.dart';
 import 'package:home_login/screens/feed_screen.dart';
 import 'package:home_login/screens/mortality_screen.dart';
@@ -31,7 +36,7 @@ class MyApp extends StatelessWidget {
 
         '/FCR': (context) => const FCRScreen(),
         '/feed': (context) => const FeedScreen(),
-        '/farm': (context) => const FarmRegScreen(),
+        '/farm': (context) => FarmView(),
         '/mortal': (context) => const MortalityScreen(),
         '/todo': (context) => const ToDoScreen(),
         '/set': (context) => const SettingsScreen(),

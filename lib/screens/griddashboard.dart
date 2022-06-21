@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
+
 
 class GridDashboard extends StatefulWidget {
   const GridDashboard({Key? key}) : super(key: key);
@@ -16,7 +18,11 @@ class _GridDashboardState extends State<GridDashboard> {
   );
 
   Items item2 = Items(
+
     title: "feedintake".tr,
+
+    
+
     img: "assets/icons/feed2.png",
     routeName: '/feed',
   );
@@ -31,6 +37,7 @@ class _GridDashboardState extends State<GridDashboard> {
     title: "mortality".tr,
     img: "assets/icons/mortality2.png",
     routeName: '/mortal',
+
   );
 /*
   Items item5 = Items(
@@ -49,6 +56,9 @@ class _GridDashboardState extends State<GridDashboard> {
   );
 
  */
+
+  
+
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +87,11 @@ class _GridDashboardState extends State<GridDashboard> {
                   children: <Widget>[
                     Image.asset(
                       data.img,
+
                       width: 100,
+
+                      width: 130,
+
                     ),
                     const SizedBox(
                       height: 14,
