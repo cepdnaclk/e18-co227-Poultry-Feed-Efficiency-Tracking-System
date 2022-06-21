@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:get/get.dart';
+
+
 class GridDashboard extends StatefulWidget {
   const GridDashboard({Key? key}) : super(key: key);
 
@@ -15,37 +18,47 @@ class _GridDashboardState extends State<GridDashboard> {
   );
 
   Items item2 = Items(
-    title: "Feed intake",
+
+    title: "feedintake".tr,
+
+    
+
     img: "assets/icons/feed2.png",
     routeName: '/feed',
   );
 
   Items item3 = Items(
-    title: "Farm Registration",
+    title: "farmreg".tr,
     img: "assets/icons/reg.png",
     routeName: '/farm',
   );
 
   Items item4 = Items(
-    title: "Mortality",
+    title: "mortality".tr,
     img: "assets/icons/mortality2.png",
     routeName: '/mortal',
+
+  );
+/*
+  Items item5 = Items(
+    title: "To do",
+    img: "assets/icons/todo.png",
+    routeName:'/todo',
+  
   );
 
-  // Items item5 = Items(
-  //   title: "To do",
-  //   img: "assets/icons/todo.png",
-  //   routeName: '/todo',
-  // );
+  Items item6 = Items(
+    title: "Settings",
+    img: "assets/icons/setting.png",
+    routeName:'/set',
+   
 
-//   Items item6 = Items(
-//     title: "Settings",
-//     img: "assets/icons/setting.png",
-//     routeName:'/set',
+  );
 
-//   );
+ */
 
-//  */
+  
+
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +87,11 @@ class _GridDashboardState extends State<GridDashboard> {
                   children: <Widget>[
                     Image.asset(
                       data.img,
+
+                      width: 100,
+
                       width: 130,
+
                     ),
                     const SizedBox(
                       height: 14,
