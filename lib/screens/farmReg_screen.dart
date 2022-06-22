@@ -59,12 +59,12 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
                     height: 50,
                   ),
                   reusableTextField("Enter Farm Name", Icons.house, false,
-                      _farmNameController),
+                      _farmNameController, null),
                   const SizedBox(
                     height: 20,
                   ),
                   reusableTextField("Enter Farm location", Icons.location_on,
-                      false, _locationController),
+                      false, _locationController, null),
                   const SizedBox(
                     height: 20,
                   ),
