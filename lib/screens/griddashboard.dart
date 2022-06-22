@@ -90,7 +90,7 @@ class _GridDashboardState extends State<GridDashboard> {
 
                       width: 100,
 
-                      width: 130,
+                      //width: 130,
 
                     ),
                     const SizedBox(
