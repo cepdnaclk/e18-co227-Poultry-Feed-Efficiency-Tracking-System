@@ -6,7 +6,7 @@ import 'package:home_login/localeString.dart';
 
 import 'package:flutter/services.dart';
 
-import 'package:home_login/screens/farmReg_screen.dart';
+import 'package:home_login/screens/RegScreens/farmReg_screen.dart';
 import 'package:home_login/screens/farm_view.dart';
 import 'package:home_login/screens/fcr_screen.dart';
 import 'package:home_login/screens/feed_screen.dart';

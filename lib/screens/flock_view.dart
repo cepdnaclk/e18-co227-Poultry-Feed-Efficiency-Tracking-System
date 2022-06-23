@@ -1,36 +1,59 @@
-// import 'dart:html';
+import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
-import 'package:home_login/screens/branch_view.dart';
-import 'package:home_login/screens/RegScreens/farmReg_screen.dart';
+//import 'package:home_login/screens/flock_view.dart';
+//import 'package:home_login/screens/RegScreens/shedReg_screen.dart';
 
 import '../net/flutter_fire.dart';
 
-class FarmView extends StatefulWidget {
-  FarmView({Key? key}) : super(key: key);
+/* class FlockScreen extends StatelessWidget{//StatefulWidget {
+  //const BranchScreen({Key? key}) : super(key: key);
 
   @override
-  _FarmViewState createState() => _FarmViewState();
+  Widget build(BuildContext context) {
+
+    return const Scaffold(
+
+      body: Center(
+          child: Text("Welcome to the Shed View Screen")
+      )
+    );
+  }
+} */
+
+class FlockScreen extends StatefulWidget {
+  final String shedName;
+  const FlockScreen(this.shedName, {Key? key}) : super(key: key);
+  //const ShedScreen({Key? key}) : super(key: key);
+
+  @override
+  // ignore: library_private_types_in_public_api, no_logic_in_create_state
+  _FlockScreen createState() => _FlockScreen(shedName);
+
+
 }
 
-class _FarmViewState extends State<FarmView> {
-  TextEditingController _controller = TextEditingController();
+
+class _FlockScreen extends State<FlockScreen> {
+  String shedName;
+  _FlockScreen(this.shedName);
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle:
             SystemUiOverlayStyle(statusBarColor: Colors.purple[200]),
-        title: const Text('Your Farms'),
-        backgroundColor: Color.fromARGB(255, 165, 53, 130),
+        title: Text('$shedName Flocks'),
+        backgroundColor: const Color.fromARGB(255, 165, 53, 130),
         //foregroundColor: Colors.amber,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
         ),
         height: MediaQuery.of(context).size.height,
@@ -40,12 +63,12 @@ class _FarmViewState extends State<FarmView> {
               stream: FirebaseFirestore.instance
                   .collection('Farmers')
                   .doc(FirebaseAuth.instance.currentUser!.uid)
-                  .collection('Farms')
+                  .collection('Shed').where('shedName',isEqualTo: shedName)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
@@ -53,59 +76,59 @@ class _FarmViewState extends State<FarmView> {
                 return ListView(
                   children: snapshot.data!.docs.map((document) {
                     return GestureDetector(
-                        onTap: () {
+                        /* onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => BranchScreen(document.id)),
+                                builder: (context) => FlockScreen()),
                           );
-                        },
+                        }, */
                         child: Padding(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                                 top: 20.0, left: 25.0, right: 25),
                             child: Container(
                                 height: MediaQuery.of(context).size.height / 12,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(14.5),
-                                  color: Color(0xffd16fb2),
+                                  color: const Color(0xffd16fb2),
                                 ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.only(left: 20),
+                                      padding: const EdgeInsets.only(left: 20),
                                       child: ElevatedButton.icon(
                                         onPressed: () async {
                                           //print("elevated");
                                           await openDialog(document.id,
-                                              document['Location']);
+                                              document['ShedName']);
                                         },
-                                        icon: Icon(Icons.edit),
-                                        label: Text("Edit"),
+                                        icon: const Icon(Icons.edit),
+                                        label: const Text("Edit"),
                                         style: ElevatedButton.styleFrom(
-                                            primary: Color.fromARGB(
+                                            primary: const Color.fromARGB(
                                                 255, 165, 53, 130)),
                                       ),
                                     ),
                                     Text(
-                                      " ${document.id + " - " + document['Location']}",
-                                      style: TextStyle(
+                                      " ${document.id}",
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
                                       ),
                                     ),
                                     IconButton(
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.delete,
                                         color:
                                             Color.fromARGB(255, 165, 53, 130),
                                       ),
                                       alignment: Alignment.centerRight,
                                       onPressed: () async {
-                                        print("Test");
+                                        //print("Delete Shed Dialog Box");
                                         await openDialogDelete(
-                                            document.id, document['Location']);
+                                            document.id, document['ShedName']);
                                       },
                                     ),
                                   ],
@@ -117,15 +140,15 @@ class _FarmViewState extends State<FarmView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
+          /* Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => FarmRegScreen(),
+              builder: (context) => ShedRegScreen(shedName),
             ),
-          );
-        },
-        backgroundColor: Color.fromARGB(255, 165, 53, 130),
-        child: Icon(
+          );*/
+        }, 
+        backgroundColor: const Color.fromARGB(255, 165, 53, 130),
+        child: const Icon(
           Icons.add,
           color: Colors.white,
         ),
@@ -133,14 +156,15 @@ class _FarmViewState extends State<FarmView> {
     );
   }
 
-  Future openDialog(String id, String location) => showDialog(
+
+  Future openDialog(String id, String shedName) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Edit Farm Details"),
+          title: const Text("Edit Shed Details"),
           content: TextField(
-            controller: _controller,
+            //controller: _controller,
             autofocus: true,
-            decoration: InputDecoration(hintText: location),
+            decoration: InputDecoration(hintText: shedName),
           ),
           actions: [
             TextButton(
@@ -148,17 +172,18 @@ class _FarmViewState extends State<FarmView> {
                   //_controller.text = location;
                   await updateFarm(id, _controller.text);
                   _controller.clear();
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pop();
                 },
-                child: Text("Change"))
+                child: const Text("Change"))
           ],
         ),
       );
 
-  Future openDialogDelete(String id, String location) => showDialog(
+  Future openDialogDelete(String id, String shedName) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Want to delete farm-$id details?"),
+          title: Text("Want to delete $id flock details?"),
           actions: [
             TextButton(
                 onPressed: () async {
@@ -166,7 +191,7 @@ class _FarmViewState extends State<FarmView> {
                   removeFarm(id);
                   Navigator.of(context).pop();
                 },
-                child: Text(
+                child: const Text(
                   "Yes",
                   style: TextStyle(color: Colors.red),
                 )),
@@ -174,7 +199,7 @@ class _FarmViewState extends State<FarmView> {
               onPressed: () async {
                 Navigator.of(context).pop();
               },
-              child: Text(
+              child: const Text(
                 "No",
                 style: TextStyle(color: Colors.green),
               ),
