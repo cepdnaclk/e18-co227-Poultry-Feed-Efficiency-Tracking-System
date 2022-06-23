@@ -62,8 +62,7 @@ class _BranchRegScreenState extends State<BranchRegScreen> {
                   const SizedBox(
                     height: 50,
                   ),
-                  reusableTextField("Enter Branch Name", Icons.house, false,
-                      _branchNameController),
+                  reusableTextField("Enter Branch Name", Icons.house, false,_branchNameController),
                   const SizedBox(
                     height: 20,
                   ),

@@ -62,8 +62,7 @@ class _BranchRegScreenState extends State<ShedRegScreen> {
                   const SizedBox(
                     height: 50,
                   ),
-                  reusableTextField("Enter Shed Name", Icons.house, false,
-                      _branchNameController),
+                  reusableTextField("Enter Shed Name", Icons.house, false,_branchNameController),
                   const SizedBox(
                     height: 20,
                   ),
