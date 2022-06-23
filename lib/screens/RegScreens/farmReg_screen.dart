@@ -58,11 +58,21 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
                   const SizedBox(
                     height: 50,
                   ),
+<<<<<<< HEAD:lib/screens/RegScreens/farmReg_screen.dart
                   reusableTextField("Enter Farm Name", Icons.house, false,_farmNameController),
                   const SizedBox(
                     height: 20,
                   ),
                   reusableTextField("Enter Farm location", Icons.location_on,false, _locationController),
+=======
+                  reusableTextField("Enter Farm Name", Icons.house, false,
+                      _farmNameController, null),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextField("Enter Farm location", Icons.location_on,
+                      false, _locationController, null),
+>>>>>>> 6fa7ff3cdbe89e9ed041ba1c944387ecbcfb2f1c:lib/screens/farmReg_screen.dart
                   const SizedBox(
                     height: 20,
                   ),
