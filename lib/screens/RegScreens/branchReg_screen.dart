@@ -5,19 +5,23 @@ import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/signup_screen.dart';
 
-class FarmRegScreen extends StatefulWidget {
-  const FarmRegScreen({Key? key}) : super(key: key);
-
+class BranchRegScreen extends StatefulWidget {
+  late String farmName;
+  BranchRegScreen(this.farmName);
+  //const BrachRegScreen({Key? key}) : super(key: key);
+  
+  
   @override
-  State<FarmRegScreen> createState() => _FarmRegScreenState();
+  State<BranchRegScreen> createState() => _BranchRegScreenState(farmName);
 }
 
-class _FarmRegScreenState extends State<FarmRegScreen> {
+class _BranchRegScreenState extends State<BranchRegScreen> {
   //GlobalKey<FormState> formKey = GlobalKey<FormState>();
   //late String _username,_password;
-
-  final TextEditingController _locationController = TextEditingController();
-  final TextEditingController _farmNameController = TextEditingController();
+  late String farmName;
+  _BranchRegScreenState(this.farmName);
+  //final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _branchNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -41,7 +45,7 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
               child: Column(
                 children: <Widget>[
                   const Text(
-                    "Add Farm",
+                    "Add Branch",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
@@ -49,7 +53,7 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
                   ),
                   const SizedBox(height: 40),
                   Image.asset(
-                    "assets/icons/farm.png",
+                    "assets/icons/branch.jpg",
                     fit: BoxFit.fitWidth,
                     width: 300,
                     height: 300,
@@ -58,13 +62,7 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
                   const SizedBox(
                     height: 50,
                   ),
-                  reusableTextField("Enter Farm Name", Icons.house, false,
-                      _farmNameController, null),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  reusableTextField("Enter Farm location", Icons.location_on,
-                      false, _locationController, null),
+                  reusableTextField("Enter Branch Name", Icons.house, false,_branchNameController),
                   const SizedBox(
                     height: 20,
                   ),
@@ -76,8 +74,8 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
                         BoxDecoration(borderRadius: BorderRadius.circular(90)),
                     child: ElevatedButton(
                       onPressed: () async {
-                        await addFarmer(
-                            _farmNameController.text, _locationController.text);
+                        await addBranch(
+                            _branchNameController.text, farmName);
                         Navigator.of(context).pop();
                       },
                       child: Text(
