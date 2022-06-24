@@ -2,9 +2,11 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
+import 'package:home_login/constants.dart';
 import 'package:home_login/screens/shed_view.dart';
 import 'package:home_login/screens/RegScreens/branchReg_screen.dart';
 
@@ -26,8 +28,6 @@ import '../net/flutter_fire.dart';
 }
  */
 
-
-
 class BranchScreen extends StatefulWidget {
   final String farmName;
   const BranchScreen(this.farmName, {Key? key}) : super(key: key);
@@ -36,10 +36,7 @@ class BranchScreen extends StatefulWidget {
   @override
   // ignore: library_private_types_in_public_api, no_logic_in_create_state
   _BranchScreen createState() => _BranchScreen(farmName);
-
-
 }
-
 
 class _BranchScreen extends State<BranchScreen> {
   String farmName;
@@ -49,10 +46,8 @@ class _BranchScreen extends State<BranchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle:
-            SystemUiOverlayStyle(statusBarColor: Colors.purple[200]),
         title: Text('$farmName Branches'),
-        backgroundColor: const Color.fromARGB(255, 165, 53, 130),
+        backgroundColor: mPrimaryColor,
         //foregroundColor: Colors.amber,
       ),
       body: Container(
@@ -66,7 +61,8 @@ class _BranchScreen extends State<BranchScreen> {
               stream: FirebaseFirestore.instance
                   .collection('Farmers')
                   .doc(FirebaseAuth.instance.currentUser!.uid)
-                  .collection('Branch').where('FarmName',isEqualTo: farmName)
+                  .collection('Branch')
+                  .where('FarmName', isEqualTo: farmName)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -84,7 +80,7 @@ class _BranchScreen extends State<BranchScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ShedScreen(document.id)),
-                               // builder: (context) => ShedScreen(document.id)),
+                            // builder: (context) => ShedScreen(document.id)),
                           );
                         },
                         child: Padding(
@@ -94,7 +90,7 @@ class _BranchScreen extends State<BranchScreen> {
                                 height: MediaQuery.of(context).size.height / 12,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(14.5),
-                                  color: const Color(0xffd16fb2),
+                                  color: mSecondColor,
                                 ),
                                 child: Row(
                                   mainAxisAlignment:
@@ -109,10 +105,9 @@ class _BranchScreen extends State<BranchScreen> {
                                               document['FarmName']);
                                         },
                                         icon: const Icon(Icons.edit),
-                                        label: const Text("Edit"),
+                                        label: Text("Edit"),
                                         style: ElevatedButton.styleFrom(
-                                            primary: const Color.fromARGB(
-                                                255, 165, 53, 130)),
+                                            primary: mNewColor),
                                       ),
                                     ),
                                     Text(
@@ -123,10 +118,9 @@ class _BranchScreen extends State<BranchScreen> {
                                       ),
                                     ),
                                     IconButton(
-                                      icon: const Icon(
+                                      icon: Icon(
                                         Icons.delete,
-                                        color:
-                                            Color.fromARGB(255, 165, 53, 130),
+                                        color: mNewColor,
                                       ),
                                       alignment: Alignment.centerRight,
                                       onPressed: () async {
@@ -151,7 +145,7 @@ class _BranchScreen extends State<BranchScreen> {
             ),
           );
         },
-        backgroundColor: const Color.fromARGB(255, 165, 53, 130),
+        backgroundColor: mNewColor,
         child: const Icon(
           Icons.add,
           color: Colors.white,
@@ -159,7 +153,6 @@ class _BranchScreen extends State<BranchScreen> {
       ),
     );
   }
-
 
   Future openDialog(String id, String branchName) => showDialog(
         context: context,

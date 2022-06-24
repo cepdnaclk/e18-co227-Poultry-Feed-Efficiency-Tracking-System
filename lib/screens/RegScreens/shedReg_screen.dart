@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:home_login/constants.dart';
 import 'package:home_login/net/flutter_fire.dart';
 import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
@@ -9,8 +10,7 @@ class ShedRegScreen extends StatefulWidget {
   late String branchName;
   ShedRegScreen(this.branchName);
   //const BrachRegScreen({Key? key}) : super(key: key);
-  
-  
+
   @override
   State<ShedRegScreen> createState() => _BranchRegScreenState(branchName);
 }
@@ -30,11 +30,6 @@ class _BranchRegScreenState extends State<ShedRegScreen> {
         body: Container(
           height: double.infinity,
           width: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/background.png"),
-                fit: BoxFit.cover),
-          ),
           child: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.fromLTRB(
@@ -44,16 +39,16 @@ class _BranchRegScreenState extends State<ShedRegScreen> {
                   MediaQuery.of(context).size.height * 0.1),
               child: Column(
                 children: <Widget>[
-                  const Text(
+                  Text(
                     "Add Shed",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
-                        color: Color.fromARGB(255, 165, 53, 130)),
+                        color: mPrimaryColor),
                   ),
                   const SizedBox(height: 40),
                   Image.asset(
-                    "assets/icons/shed.jpg",
+                    "assets/icons/shedNew.jpg",
                     fit: BoxFit.fitWidth,
                     width: 300,
                     height: 300,
@@ -62,7 +57,8 @@ class _BranchRegScreenState extends State<ShedRegScreen> {
                   const SizedBox(
                     height: 50,
                   ),
-                  reusableTextField("Enter Shed Name", Icons.house, false,_branchNameController),
+                  reusableTextField("Enter Shed Name", Icons.house, false,
+                      _branchNameController, null),
                   const SizedBox(
                     height: 20,
                   ),
@@ -74,13 +70,12 @@ class _BranchRegScreenState extends State<ShedRegScreen> {
                         BoxDecoration(borderRadius: BorderRadius.circular(90)),
                     child: ElevatedButton(
                       onPressed: () async {
-                        await addShed(
-                            _branchNameController.text, branchName);
+                        await addShed(_branchNameController.text, branchName);
                         Navigator.of(context).pop();
                       },
-                      child: Text(
+                      child: const Text(
                         "Submit",
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
@@ -91,7 +86,7 @@ class _BranchRegScreenState extends State<ShedRegScreen> {
                             if (states.contains(MaterialState.pressed)) {
                               return Colors.white;
                             }
-                            return Color.fromARGB(255, 165, 53, 130);
+                            return mPrimaryColor;
                           }),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(

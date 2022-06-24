@@ -7,8 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:home_login/screens/flock_view.dart';
 import 'package:home_login/screens/RegScreens/shedReg_screen.dart';
 
+import '../constants.dart';
 import '../net/flutter_fire.dart';
-
 
 class ShedScreen extends StatefulWidget {
   final String branchName;
@@ -18,10 +18,7 @@ class ShedScreen extends StatefulWidget {
   @override
   // ignore: library_private_types_in_public_api, no_logic_in_create_state
   _ShedScreen createState() => _ShedScreen(branchName);
-
-
 }
-
 
 class _ShedScreen extends State<ShedScreen> {
   String branchName;
@@ -31,10 +28,8 @@ class _ShedScreen extends State<ShedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle:
-            SystemUiOverlayStyle(statusBarColor: Colors.purple[200]),
         title: Text('$branchName Sheds'),
-        backgroundColor: const Color.fromARGB(255, 165, 53, 130),
+        backgroundColor: mPrimaryColor,
         //foregroundColor: Colors.amber,
       ),
       body: Container(
@@ -48,7 +43,8 @@ class _ShedScreen extends State<ShedScreen> {
               stream: FirebaseFirestore.instance
                   .collection('Farmers')
                   .doc(FirebaseAuth.instance.currentUser!.uid)
-                  .collection('Shed').where('BranchName',isEqualTo: branchName)
+                  .collection('Shed')
+                  .where('BranchName', isEqualTo: branchName)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -75,7 +71,7 @@ class _ShedScreen extends State<ShedScreen> {
                                 height: MediaQuery.of(context).size.height / 12,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(14.5),
-                                  color: const Color(0xffd16fb2),
+                                  color: mSecondColor,
                                 ),
                                 child: Row(
                                   mainAxisAlignment:
@@ -92,8 +88,7 @@ class _ShedScreen extends State<ShedScreen> {
                                         icon: const Icon(Icons.edit),
                                         label: const Text("Edit"),
                                         style: ElevatedButton.styleFrom(
-                                            primary: const Color.fromARGB(
-                                                255, 165, 53, 130)),
+                                            primary: mNewColor),
                                       ),
                                     ),
                                     Text(
@@ -104,16 +99,15 @@ class _ShedScreen extends State<ShedScreen> {
                                       ),
                                     ),
                                     IconButton(
-                                      icon: const Icon(
+                                      icon: Icon(
                                         Icons.delete,
-                                        color:
-                                            Color.fromARGB(255, 165, 53, 130),
+                                        color: mNewColor,
                                       ),
                                       alignment: Alignment.centerRight,
                                       onPressed: () async {
                                         //print("Delete Shed Dialog Box");
-                                        await openDialogDelete(
-                                            document.id, document['BranchName']);
+                                        await openDialogDelete(document.id,
+                                            document['BranchName']);
                                       },
                                     ),
                                   ],
@@ -132,7 +126,7 @@ class _ShedScreen extends State<ShedScreen> {
             ),
           );
         },
-        backgroundColor: const Color.fromARGB(255, 165, 53, 130),
+        backgroundColor: mNewColor,
         child: const Icon(
           Icons.add,
           color: Colors.white,
@@ -140,7 +134,6 @@ class _ShedScreen extends State<ShedScreen> {
       ),
     );
   }
-
 
   Future openDialog(String id, String shedName) => showDialog(
         context: context,
