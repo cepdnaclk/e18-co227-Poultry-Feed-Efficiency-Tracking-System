@@ -1,6 +1,7 @@
 // import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:firebase_autString id, h/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -26,8 +27,6 @@ import '../net/flutter_fire.dart';
 }
  */
 
-
-
 class BranchScreen extends StatefulWidget {
   final String farmName;
   const BranchScreen(this.farmName, {Key? key}) : super(key: key);
@@ -36,10 +35,7 @@ class BranchScreen extends StatefulWidget {
   @override
   // ignore: library_private_types_in_public_api, no_logic_in_create_state
   _BranchScreen createState() => _BranchScreen(farmName);
-
-
 }
-
 
 class _BranchScreen extends State<BranchScreen> {
   String farmName;
@@ -66,7 +62,8 @@ class _BranchScreen extends State<BranchScreen> {
               stream: FirebaseFirestore.instance
                   .collection('Farmers')
                   .doc(FirebaseAuth.instance.currentUser!.uid)
-                  .collection('Branch').where('FarmName',isEqualTo: farmName)
+                  .collection('Branch')
+                  .where('FarmName', isEqualTo: farmName)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -84,7 +81,7 @@ class _BranchScreen extends State<BranchScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ShedScreen(document.id)),
-                               // builder: (context) => ShedScreen(document.id)),
+                            // builder: (context) => ShedScreen(document.id)),
                           );
                         },
                         child: Padding(
@@ -159,7 +156,6 @@ class _BranchScreen extends State<BranchScreen> {
       ),
     );
   }
-
 
   Future openDialog(String id, String branchName) => showDialog(
         context: context,
