@@ -6,6 +6,8 @@ import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/signin_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../constants.dart';
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
@@ -28,11 +30,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         body: Container(
           height: double.infinity,
           width: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/background.png"),
-                fit: BoxFit.cover),
-          ),
           child: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.fromLTRB(
@@ -44,13 +41,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: <Widget>[
                   Text(
                     "signup".tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        color: Color.fromARGB(255, 165, 53, 130)),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: mPrimaryColor,
+                    ),
                   ),
-                  SizedBox(height: 15),
-                  logoWidget("assets/icons/signup.jpg"),
+                  logoWidget("assets/icons/register.png"),
                   const SizedBox(
                     height: 0,
                   ),
@@ -83,8 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               timeInSecForIosWeb: 1,
-                              backgroundColor:
-                                  const Color.fromARGB(255, 253, 180, 233),
+                              backgroundColor: mSecondColor,
                               textColor: Colors.white);
 
                           Navigator.push(
@@ -100,8 +96,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.CENTER,
                             timeInSecForIosWeb: 1,
-                            backgroundColor:
-                                const Color.fromARGB(255, 253, 180, 233),
+                            backgroundColor: mSecondColor,
                             textColor: Colors.black);
                       }
                       setState(() {});
@@ -128,8 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text("have_acc".tr,
-            style: TextStyle(
-                color: Color.fromARGB(255, 165, 53, 130), fontSize: 13)),
+            style: TextStyle(color: mPrimaryTextColor, fontSize: 13)),
         GestureDetector(
           onTap: () {
             Navigator.push(context,
@@ -138,7 +132,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Text(
             "singin".tr,
             style: TextStyle(
-                color: Color.fromARGB(255, 165, 53, 130),
+                color: mPrimaryTextColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 13),
           ),

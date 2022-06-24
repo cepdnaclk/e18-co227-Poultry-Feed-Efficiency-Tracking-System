@@ -6,6 +6,8 @@ import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/signup_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../constants.dart';
+
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
@@ -28,11 +30,6 @@ class _SignInScreenState extends State<SignInScreen> {
         body: Container(
           height: double.infinity,
           width: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/background.png"),
-                fit: BoxFit.cover),
-          ),
           child: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.fromLTRB(
@@ -45,10 +42,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   language(context, () {}),
                   Text(
                     "singin".tr,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        color: Color.fromARGB(255, 165, 53, 130)),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: mPrimaryColor,
+                    ),
                   ),
                   const SizedBox(height: 40),
                   Image.asset(
@@ -56,7 +54,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     fit: BoxFit.fitWidth,
                     width: 300,
                     height: 300,
-                    color: Colors.purple,
+                    color: mPrimaryTextColor,
                   ),
                   const SizedBox(
                     height: 50,
@@ -85,8 +83,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.BOTTOM,
                               timeInSecForIosWeb: 1,
-                              backgroundColor:
-                                  const Color.fromARGB(255, 253, 180, 233),
+                              backgroundColor: mSecondColor,
                               textColor: Colors.black);
 
                           Navigator.push(
@@ -102,8 +99,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.CENTER,
                             timeInSecForIosWeb: 1,
-                            backgroundColor:
-                                const Color.fromARGB(255, 253, 180, 233),
+                            backgroundColor: mSecondColor,
                             textColor: Colors.black);
                       }
                       setState(() {});
@@ -129,8 +125,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("dont_acc".tr,
-            style: TextStyle(color: Color.fromARGB(255, 165, 53, 130))),
+        Text("dont_acc".tr, style: TextStyle(color: mPrimaryTextColor)),
         GestureDetector(
           onTap: () {
             Navigator.push(context,
@@ -138,9 +133,8 @@ class _SignInScreenState extends State<SignInScreen> {
           },
           child: Text(
             "signup".tr,
-            style: const TextStyle(
-                color: Color.fromARGB(255, 165, 53, 130),
-                fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: mPrimaryTextColor, fontWeight: FontWeight.bold),
           ),
         )
       ],
@@ -151,12 +145,11 @@ class _SignInScreenState extends State<SignInScreen> {
 Container language(BuildContext context, Function onTap) {
   return Container(
     width: MediaQuery.of(context).size.width,
-    height: 50,
+    height: 40,
     margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
-    decoration: BoxDecoration(borderRadius: BorderRadius.circular(30.0)),
     child: IconButton(
       icon: const Icon(Icons.language),
-      color: const Color.fromARGB(255, 165, 53, 130),
+      color: mPrimaryColor,
       alignment: Alignment.topRight,
       onPressed: () {
         builddialog(context);
@@ -194,7 +187,7 @@ void builddialog(BuildContext context) {
                 },
                 separatorBuilder: (context, index) {
                   return Divider(
-                    color: Color.fromARGB(255, 165, 53, 130),
+                    color: mPrimaryColor,
                   );
                 },
                 itemCount: locale.length),

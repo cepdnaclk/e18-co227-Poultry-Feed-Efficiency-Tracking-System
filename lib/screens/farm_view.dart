@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
+import 'package:home_login/constants.dart';
 import 'package:home_login/screens/branch_view.dart';
 import 'package:home_login/screens/RegScreens/farmReg_screen.dart';
 
@@ -23,10 +24,8 @@ class _FarmViewState extends State<FarmView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle:
-            SystemUiOverlayStyle(statusBarColor: Colors.purple[200]),
         title: const Text('Your Farms'),
-        backgroundColor: Color.fromARGB(255, 165, 53, 130),
+        backgroundColor: mPrimaryColor,
         //foregroundColor: Colors.amber,
       ),
       body: Container(
@@ -57,7 +56,8 @@ class _FarmViewState extends State<FarmView> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => BranchScreen(document.id)),
+                                builder: (context) =>
+                                    BranchScreen(document.id)),
                           );
                         },
                         child: Padding(
@@ -67,7 +67,7 @@ class _FarmViewState extends State<FarmView> {
                                 height: MediaQuery.of(context).size.height / 12,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(14.5),
-                                  color: Color(0xffd16fb2),
+                                  color: mSecondColor,
                                 ),
                                 child: Row(
                                   mainAxisAlignment:
@@ -84,8 +84,7 @@ class _FarmViewState extends State<FarmView> {
                                         icon: Icon(Icons.edit),
                                         label: Text("Edit"),
                                         style: ElevatedButton.styleFrom(
-                                            primary: Color.fromARGB(
-                                                255, 165, 53, 130)),
+                                            primary: mNewColor),
                                       ),
                                     ),
                                     Text(
@@ -98,8 +97,7 @@ class _FarmViewState extends State<FarmView> {
                                     IconButton(
                                       icon: Icon(
                                         Icons.delete,
-                                        color:
-                                            Color.fromARGB(255, 165, 53, 130),
+                                        color: mNewColor,
                                       ),
                                       alignment: Alignment.centerRight,
                                       onPressed: () async {
@@ -124,7 +122,7 @@ class _FarmViewState extends State<FarmView> {
             ),
           );
         },
-        backgroundColor: Color.fromARGB(255, 165, 53, 130),
+        backgroundColor: mNewColor,
         child: Icon(
           Icons.add,
           color: Colors.white,

@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         '/todo': (context) => const ToDoScreen(),
         '/set': (context) => const SettingsScreen(),
       },
-      home: const Welcome(),
+      home: SplashScreen(),
     );
   }
 }

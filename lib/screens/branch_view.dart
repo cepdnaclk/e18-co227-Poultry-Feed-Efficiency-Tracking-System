@@ -3,9 +3,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:firebase_autString id, h/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
+import 'package:home_login/constants.dart';
 import 'package:home_login/screens/shed_view.dart';
 import 'package:home_login/screens/RegScreens/branchReg_screen.dart';
 
@@ -45,10 +47,8 @@ class _BranchScreen extends State<BranchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle:
-            SystemUiOverlayStyle(statusBarColor: Colors.purple[200]),
         title: Text('$farmName Branches'),
-        backgroundColor: const Color.fromARGB(255, 165, 53, 130),
+        backgroundColor: mPrimaryColor,
         //foregroundColor: Colors.amber,
       ),
       body: Container(
@@ -91,7 +91,7 @@ class _BranchScreen extends State<BranchScreen> {
                                 height: MediaQuery.of(context).size.height / 12,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(14.5),
-                                  color: const Color(0xffd16fb2),
+                                  color: mSecondColor,
                                 ),
                                 child: Row(
                                   mainAxisAlignment:
@@ -106,10 +106,9 @@ class _BranchScreen extends State<BranchScreen> {
                                               document['FarmName']);
                                         },
                                         icon: const Icon(Icons.edit),
-                                        label: const Text("Edit"),
+                                        label: Text("Edit"),
                                         style: ElevatedButton.styleFrom(
-                                            primary: const Color.fromARGB(
-                                                255, 165, 53, 130)),
+                                            primary: mNewColor),
                                       ),
                                     ),
                                     Text(
@@ -120,10 +119,9 @@ class _BranchScreen extends State<BranchScreen> {
                                       ),
                                     ),
                                     IconButton(
-                                      icon: const Icon(
+                                      icon: Icon(
                                         Icons.delete,
-                                        color:
-                                            Color.fromARGB(255, 165, 53, 130),
+                                        color: mNewColor,
                                       ),
                                       alignment: Alignment.centerRight,
                                       onPressed: () async {
@@ -148,7 +146,7 @@ class _BranchScreen extends State<BranchScreen> {
             ),
           );
         },
-        backgroundColor: const Color.fromARGB(255, 165, 53, 130),
+        backgroundColor: mNewColor,
         child: const Icon(
           Icons.add,
           color: Colors.white,

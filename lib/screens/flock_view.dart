@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 //import 'package:home_login/screens/flock_view.dart';
 //import 'package:home_login/screens/RegScreens/shedReg_screen.dart';
 
+import '../constants.dart';
 import '../net/flutter_fire.dart';
 
 /* class FlockScreen extends StatelessWidget{//StatefulWidget {
@@ -33,10 +34,7 @@ class FlockScreen extends StatefulWidget {
   @override
   // ignore: library_private_types_in_public_api, no_logic_in_create_state
   _FlockScreen createState() => _FlockScreen(shedName);
-
-
 }
-
 
 class _FlockScreen extends State<FlockScreen> {
   String shedName;
@@ -46,10 +44,8 @@ class _FlockScreen extends State<FlockScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle:
-            SystemUiOverlayStyle(statusBarColor: Colors.purple[200]),
         title: Text('$shedName Flocks'),
-        backgroundColor: const Color.fromARGB(255, 165, 53, 130),
+        backgroundColor: mPrimaryColor,
         //foregroundColor: Colors.amber,
       ),
       body: Container(
@@ -63,7 +59,8 @@ class _FlockScreen extends State<FlockScreen> {
               stream: FirebaseFirestore.instance
                   .collection('Farmers')
                   .doc(FirebaseAuth.instance.currentUser!.uid)
-                  .collection('Shed').where('shedName',isEqualTo: shedName)
+                  .collection('Shed')
+                  .where('shedName', isEqualTo: shedName)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -90,7 +87,7 @@ class _FlockScreen extends State<FlockScreen> {
                                 height: MediaQuery.of(context).size.height / 12,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(14.5),
-                                  color: const Color(0xffd16fb2),
+                                  color: mSecondColor,
                                 ),
                                 child: Row(
                                   mainAxisAlignment:
@@ -107,8 +104,7 @@ class _FlockScreen extends State<FlockScreen> {
                                         icon: const Icon(Icons.edit),
                                         label: const Text("Edit"),
                                         style: ElevatedButton.styleFrom(
-                                            primary: const Color.fromARGB(
-                                                255, 165, 53, 130)),
+                                            primary: mNewColor),
                                       ),
                                     ),
                                     Text(
@@ -119,10 +115,9 @@ class _FlockScreen extends State<FlockScreen> {
                                       ),
                                     ),
                                     IconButton(
-                                      icon: const Icon(
+                                      icon: Icon(
                                         Icons.delete,
-                                        color:
-                                            Color.fromARGB(255, 165, 53, 130),
+                                        color: mNewColor,
                                       ),
                                       alignment: Alignment.centerRight,
                                       onPressed: () async {
@@ -146,8 +141,8 @@ class _FlockScreen extends State<FlockScreen> {
               builder: (context) => ShedRegScreen(shedName),
             ),
           );*/
-        }, 
-        backgroundColor: const Color.fromARGB(255, 165, 53, 130),
+        },
+        backgroundColor: mNewColor,
         child: const Icon(
           Icons.add,
           color: Colors.white,
@@ -155,7 +150,6 @@ class _FlockScreen extends State<FlockScreen> {
       ),
     );
   }
-
 
   Future openDialog(String id, String shedName) => showDialog(
         context: context,
