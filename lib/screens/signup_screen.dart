@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/signin_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -13,77 +14,108 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final GlobalKey<FormState> _key2 = GlobalKey<FormState>();
+  String errorMessage = '';
+
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _userNameTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/background.png"),
-              fit: BoxFit.cover),
-        ),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(
-                20,
-                MediaQuery.of(context).size.height * 0.1,
-                20,
-                MediaQuery.of(context).size.height * 0.1),
-            child: Column(
-              children: <Widget>[
-                Text(
-                  "signup".tr,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: Color.fromARGB(255, 165, 53, 130)),
-                ),
-                SizedBox(height: 15),
-                logoWidget("assets/icons/signup.jpg"),
-                SizedBox(
-                  height: 0,
-                ),
-                reusableTextField("enterUsername".tr, Icons.person_sharp, false,
-                    _userNameTextController),
-                SizedBox(
-                  height: 20,
-                ),
-                reusableTextField(
-                    "enteremail".tr, Icons.email, false, _emailTextController),
-                SizedBox(
-                  height: 20,
-                ),
-                reusableTextField("enterPassword".tr, Icons.lock_sharp, true,
-                    _passwordTextController),
-                SizedBox(
-                  height: 20,
-                ),
-                firebaseUIButton(context, "signup".tr, () {
-                  FirebaseAuth.instance
-                      .createUserWithEmailAndPassword(
+    return Form(
+      key: _key2,
+      child: Scaffold(
+        body: Container(
+          height: double.infinity,
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/background.png"),
+                fit: BoxFit.cover),
+          ),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                  20,
+                  MediaQuery.of(context).size.height * 0.1,
+                  20,
+                  MediaQuery.of(context).size.height * 0.1),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    "signup".tr,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        color: Color.fromARGB(255, 165, 53, 130)),
+                  ),
+                  SizedBox(height: 15),
+                  logoWidget("assets/icons/signup.jpg"),
+                  const SizedBox(
+                    height: 0,
+                  ),
+                  reusableTextField("enterUsername".tr, Icons.person_sharp,
+                      false, _userNameTextController, null),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextField("enteremail".tr, Icons.email, false,
+                      _emailTextController, validateEmail),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextField("enterPassword".tr, Icons.lock_sharp, true,
+                      _passwordTextController, validatePassword),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  firebaseUIButton(context, "signup".tr, () async {
+                    if (_key2.currentState!.validate()) {
+                      try {
+                        await FirebaseAuth.instance
+                            .createUserWithEmailAndPassword(
                           email: _emailTextController.text,
-                          password: _passwordTextController.text)
-                      .then((value) {
-                    print("Created New Account");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
-                  }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
-                  });
-                }),
-                SizedBox(
-                  height: 5,
-                ),
-                signUpOption(),
-                SizedBox(
-                  height: 300,
-                ),
-              ],
+                          password: _passwordTextController.text,
+                        )
+                            .then((value) {
+                          Fluttertoast.showToast(
+                              msg: 'User Account Created!',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor:
+                                  const Color.fromARGB(255, 253, 180, 233),
+                              textColor: Colors.white);
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomeScreen()));
+                        });
+                        errorMessage = '';
+                      } on FirebaseAuthException catch (error) {
+                        errorMessage = error.message!;
+                        Fluttertoast.showToast(
+                            msg: errorMessage,
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor:
+                                const Color.fromARGB(255, 253, 180, 233),
+                            textColor: Colors.black);
+                      }
+                      setState(() {});
+                    }
+                  }),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  signUpOption(),
+                  SizedBox(
+                    height: 300,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
