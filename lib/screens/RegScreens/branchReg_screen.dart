@@ -9,8 +9,7 @@ class BranchRegScreen extends StatefulWidget {
   late String farmName;
   BranchRegScreen(this.farmName);
   //const BrachRegScreen({Key? key}) : super(key: key);
-  
-  
+
   @override
   State<BranchRegScreen> createState() => _BranchRegScreenState(farmName);
 }
@@ -62,7 +61,8 @@ class _BranchRegScreenState extends State<BranchRegScreen> {
                   const SizedBox(
                     height: 50,
                   ),
-                  reusableTextField("Enter Branch Name", Icons.house, false,_branchNameController),
+                  reusableTextField("Enter Branch Name", Icons.house, false,
+                      _branchNameController, null),
                   const SizedBox(
                     height: 20,
                   ),
@@ -74,8 +74,7 @@ class _BranchRegScreenState extends State<BranchRegScreen> {
                         BoxDecoration(borderRadius: BorderRadius.circular(90)),
                     child: ElevatedButton(
                       onPressed: () async {
-                        await addBranch(
-                            _branchNameController.text, farmName);
+                        await addBranch(_branchNameController.text, farmName);
                         Navigator.of(context).pop();
                       },
                       child: Text(
