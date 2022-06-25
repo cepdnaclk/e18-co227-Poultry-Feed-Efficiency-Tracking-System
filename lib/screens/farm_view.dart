@@ -73,20 +73,7 @@ class _FarmViewState extends State<FarmView> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 20),
-                                      child: ElevatedButton.icon(
-                                        onPressed: () async {
-                                          //print("elevated");
-                                          await openDialog(document.id,
-                                              document['Location']);
-                                        },
-                                        icon: Icon(Icons.edit),
-                                        label: Text("Edit"),
-                                        style: ElevatedButton.styleFrom(
-                                            primary: mNewColor),
-                                      ),
-                                    ),
+                                    SizedBox(),
                                     Text(
                                       " ${document.id + " - " + document['Location']}",
                                       style: TextStyle(
@@ -94,18 +81,50 @@ class _FarmViewState extends State<FarmView> {
                                         fontSize: 18,
                                       ),
                                     ),
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.delete,
+                                    PopupMenuButton<int>(
+                                        itemBuilder: (context) => [
+                                              // popupmenu item 1
+                                              PopupMenuItem(
+                                                value: 1,
+                                                // row has two child icon and text.
+                                                child: Row(
+                                                  children: [
+                                                    Icon(Icons.edit),
+                                                    SizedBox(
+                                                      // sized box with width 10
+                                                      width: 10,
+                                                    ),
+                                                    Text("Edit")
+                                                  ],
+                                                ),
+                                              ),
+                                              // popupmenu item 2
+                                              PopupMenuItem(
+                                                value: 2,
+                                                // row has two child icon and text
+                                                child: Row(
+                                                  children: [
+                                                    Icon(Icons.delete),
+                                                    SizedBox(
+                                                      // sized box with width 10
+                                                      width: 10,
+                                                    ),
+                                                    Text("Delete")
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                        offset: Offset(-20, 15),
                                         color: mNewColor,
-                                      ),
-                                      alignment: Alignment.centerRight,
-                                      onPressed: () async {
-                                        print("Test");
-                                        await openDialogDelete(
-                                            document.id, document['Location']);
-                                      },
-                                    ),
+                                        elevation: 2,
+                                        onSelected: (value) async {
+                                          if (value == 1) {
+                                            openDialog(document.id,
+                                                document["Location"]);
+                                          } else if (value == 2) {
+                                            openDialogDelete(document.id);
+                                          }
+                                        }),
                                   ],
                                 ))));
                   }).toList(),
@@ -153,7 +172,7 @@ class _FarmViewState extends State<FarmView> {
         ),
       );
 
-  Future openDialogDelete(String id, String location) => showDialog(
+  Future openDialogDelete(String id) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text("Want to delete farm-$id details?"),
