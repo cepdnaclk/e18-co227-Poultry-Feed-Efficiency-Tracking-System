@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-
 class GridDashboard extends StatefulWidget {
   const GridDashboard({Key? key}) : super(key: key);
 
@@ -13,56 +12,43 @@ class GridDashboard extends StatefulWidget {
 class _GridDashboardState extends State<GridDashboard> {
   Items item1 = Items(
     title: "FCR",
-    img: "assets/icons/FCR2.png",
+    img: "assets/images/feeding.png",
     routeName: '/FCR',
   );
 
   Items item2 = Items(
-
     title: "feedintake".tr,
-
-    
-
-    img: "assets/icons/feed2.png",
+    img: "assets/images/feed.png",
     routeName: '/feed',
   );
 
   Items item3 = Items(
     title: "farmreg".tr,
-    img: "assets/icons/reg.png",
+    img: "assets/images/reg.png",
     routeName: '/farm',
   );
 
   Items item4 = Items(
     title: "mortality".tr,
-    img: "assets/icons/mortality2.png",
+    img: "assets/images/dead.png",
     routeName: '/mortal',
-
   );
-/*
+
   Items item5 = Items(
-    title: "To do",
-    img: "assets/icons/todo.png",
-    routeName:'/todo',
-  
+    title: "weight",
+    img: "assets/images/weight.png",
+    routeName: '/weight',
   );
 
   Items item6 = Items(
-    title: "Settings",
-    img: "assets/icons/setting.png",
-    routeName:'/set',
-   
-
+    title: "view",
+    img: "assets/images/view.png",
+    routeName: '/view',
   );
-
- */
-
-  
-
 
   @override
   Widget build(BuildContext context) {
-    List<Items> mylist = [item1, item2, item3, item4];
+    List<Items> mylist = [item1, item2, item3, item4, item5, item6];
     //var color = 0xff453658;
     var color = 0xffd16fb2;
 
@@ -80,18 +66,26 @@ class _GridDashboardState extends State<GridDashboard> {
               },
               child: Container(
                 decoration: BoxDecoration(
-                    color: Color(color),
-                    borderRadius: BorderRadius.circular(10)),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: const [
+                    BoxShadow(
+                        offset: Offset(5, 10),
+                        color: Colors.grey,
+                        spreadRadius: 2,
+                        blurRadius: 5),
+                  ],
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Image.asset(
-                      data.img,
-
+                    Container(
+                      height: 100,
                       width: 100,
-
-                      //width: 130,
-
+                      child: Image.asset(
+                        data.img,
+                        //width: 130,
+                      ),
                     ),
                     const SizedBox(
                       height: 14,
@@ -99,7 +93,7 @@ class _GridDashboardState extends State<GridDashboard> {
                     Text(
                       data.title,
                       style: const TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 16,
                           fontWeight: FontWeight.w600),
                     ),

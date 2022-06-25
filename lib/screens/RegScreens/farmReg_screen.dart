@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:home_login/constants.dart';
 import 'package:home_login/net/flutter_fire.dart';
 import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/signup_screen.dart';
+import 'package:home_login/constants.dart';
 
 class FarmRegScreen extends StatefulWidget {
   const FarmRegScreen({Key? key}) : super(key: key);
@@ -26,11 +28,6 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
         body: Container(
           height: double.infinity,
           width: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/background.png"),
-                fit: BoxFit.cover),
-          ),
           child: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.fromLTRB(
@@ -40,31 +37,20 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
                   MediaQuery.of(context).size.height * 0.1),
               child: Column(
                 children: <Widget>[
-                  const Text(
+                  Text(
                     "Add Farm",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
-                        color: Color.fromARGB(255, 165, 53, 130)),
+                        color: mPrimaryColor),
                   ),
-                  const SizedBox(height: 40),
                   Image.asset(
-                    "assets/icons/farm.png",
+                    "assets/images/farm.png",
                     fit: BoxFit.fitWidth,
-                    width: 300,
-                    height: 300,
+                    width: 420,
+                    height: 420,
                     //color: Colors.purple,
                   ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  reusableTextField("Enter Farm Name", Icons.house, false,
-                      _farmNameController, null),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  reusableTextField("Enter Farm location", Icons.location_on,
-                      false, _locationController, null),
                   reusableTextField("Enter Farm Name", Icons.house, false,
                       _farmNameController, null),
                   const SizedBox(
@@ -100,7 +86,7 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
                             if (states.contains(MaterialState.pressed)) {
                               return Colors.white;
                             }
-                            return Color.fromARGB(255, 165, 53, 130);
+                            return mPrimaryColor;
                           }),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
