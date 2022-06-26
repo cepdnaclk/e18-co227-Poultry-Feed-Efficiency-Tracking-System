@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
 
@@ -62,7 +63,11 @@ class _GridDashboardState extends State<GridDashboard> {
           children: mylist.map((data) {
             return InkWell(
               onTap: () {
-                Navigator.pushNamed(context, data.routeName);
+                if (data.routeName != '/FCR') {
+                  Navigator.pushNamed(context, data.routeName);
+                } else {
+                  popupDialog(context, data.routeName);
+                }
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -126,6 +131,31 @@ class _GridDashboardState extends State<GridDashboard> {
             );
           }).toList()),
     );
+  }
+
+  void popupDialog(BuildContext context, String routename) {
+    showDialog(
+        context: context,
+        builder: (builder) {
+          return AlertDialog(
+            title: const Text("Checking for Update"),
+            content: const Text("Do you have updated the Mortality?"),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("No")),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, routename);
+                  },
+                  child: Text("Yes"))
+            ],
+            //child: ListView.separated(
+            //shrinkWrap: true,
+          );
+        });
   }
 }
 

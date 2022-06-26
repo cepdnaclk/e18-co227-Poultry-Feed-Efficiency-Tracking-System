@@ -38,8 +38,8 @@ class MyApp extends StatelessWidget {
         '/feed': (context) => const FeedScreen(),
         '/farm': (context) => FarmView(),
         '/mortal': (context) => const MortalityScreen(),
-        '/todo': (context) => const ToDoScreen(),
-        '/set': (context) => const SettingsScreen(),
+        '/weight': (context) => const ToDoScreen(),
+        '/view': (context) => const SettingsScreen(),
       },
       home: SplashScreen(),
     );
