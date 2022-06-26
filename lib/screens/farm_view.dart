@@ -61,72 +61,90 @@ class _FarmViewState extends State<FarmView> {
                           );
                         },
                         child: Padding(
-                            padding: EdgeInsets.only(
-                                top: 20.0, left: 25.0, right: 25),
-                            child: Container(
-                                height: MediaQuery.of(context).size.height / 12,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14.5),
-                                  color: mSecondColor,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SizedBox(),
-                                    Text(
-                                      " ${document.id + " - " + document['Location']}",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                      ),
+                          padding: const EdgeInsets.only(
+                              top: 20.0, left: 25.0, right: 25),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(14.5),
+                              boxShadow: const [
+                                BoxShadow(
+                                    offset: Offset(5, 10),
+                                    color: Colors.grey,
+                                    spreadRadius: 2,
+                                    blurRadius: 5),
+                              ],
+                            ),
+                            child: Padding(
+                                padding:
+                                    EdgeInsets.only(top: 0, left: 0, right: 0),
+                                child: Container(
+                                    height:
+                                        MediaQuery.of(context).size.height / 12,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(14.5),
+                                      color: mSecondColor,
                                     ),
-                                    PopupMenuButton<int>(
-                                        itemBuilder: (context) => [
-                                              // popupmenu item 1
-                                              PopupMenuItem(
-                                                value: 1,
-                                                // row has two child icon and text.
-                                                child: Row(
-                                                  children: [
-                                                    Icon(Icons.edit),
-                                                    SizedBox(
-                                                      // sized box with width 10
-                                                      width: 10,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SizedBox(),
+                                        Text(
+                                          " ${document.id + " - " + document['Location']}",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        PopupMenuButton<int>(
+                                            itemBuilder: (context) => [
+                                                  // popupmenu item 1
+                                                  PopupMenuItem(
+                                                    value: 1,
+                                                    // row has two child icon and text.
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(Icons.edit),
+                                                        SizedBox(
+                                                          // sized box with width 10
+                                                          width: 10,
+                                                        ),
+                                                        Text("Edit")
+                                                      ],
                                                     ),
-                                                    Text("Edit")
-                                                  ],
-                                                ),
-                                              ),
-                                              // popupmenu item 2
-                                              PopupMenuItem(
-                                                value: 2,
-                                                // row has two child icon and text
-                                                child: Row(
-                                                  children: [
-                                                    Icon(Icons.delete),
-                                                    SizedBox(
-                                                      // sized box with width 10
-                                                      width: 10,
+                                                  ),
+                                                  // popupmenu item 2
+                                                  PopupMenuItem(
+                                                    value: 2,
+                                                    // row has two child icon and text
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(Icons.delete),
+                                                        SizedBox(
+                                                          // sized box with width 10
+                                                          width: 10,
+                                                        ),
+                                                        Text("Delete")
+                                                      ],
                                                     ),
-                                                    Text("Delete")
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                        offset: Offset(-20, 15),
-                                        color: mNewColor,
-                                        elevation: 2,
-                                        onSelected: (value) async {
-                                          if (value == 1) {
-                                            openDialog(document.id,
-                                                document["Location"]);
-                                          } else if (value == 2) {
-                                            openDialogDelete(document.id);
-                                          }
-                                        }),
-                                  ],
-                                ))));
+                                                  ),
+                                                ],
+                                            offset: Offset(-20, 15),
+                                            color: mNewColor,
+                                            elevation: 2,
+                                            onSelected: (value) async {
+                                              if (value == 1) {
+                                                openDialog(document.id,
+                                                    document["Location"]);
+                                              } else if (value == 2) {
+                                                openDialogDelete(document.id);
+                                              }
+                                            }),
+                                      ],
+                                    ))),
+                          ),
+                        ));
                   }).toList(),
                 );
               }),
@@ -153,7 +171,7 @@ class _FarmViewState extends State<FarmView> {
   Future openDialog(String id, String location) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Edit Farm Details"),
+          title: Text("Edit Farm Reg. No."),
           content: TextField(
             controller: _controller,
             autofocus: true,
@@ -175,7 +193,7 @@ class _FarmViewState extends State<FarmView> {
   Future openDialogDelete(String id) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Want to delete farm-$id details?"),
+          title: Text("Want to delete $id farm details?"),
           actions: [
             TextButton(
                 onPressed: () async {
