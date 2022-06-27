@@ -23,96 +23,99 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _key,
-      child: Scaffold(
-        //key: formKey,
-        body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(
-                  20,
-                  MediaQuery.of(context).size.height * 0.05,
-                  20,
-                  MediaQuery.of(context).size.height * 0.5),
-              child: Column(
-                children: <Widget>[
-                  language(context, () {}),
-                  Text(
-                    "singin".tr,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: mPrimaryColor,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Form(
+        key: _key,
+        child: Scaffold(
+          //key: formKey,
+          body: Container(
+            height: double.infinity,
+            width: double.infinity,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(
+                    20,
+                    MediaQuery.of(context).size.height * 0.05,
+                    20,
+                    MediaQuery.of(context).size.height * 0.5),
+                child: Column(
+                  children: <Widget>[
+                    language(context, () {}),
+                    Text(
+                      "singin".tr,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        color: mPrimaryColor,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 40),
-                  Image.asset(
-                    "assets/icons/loginFarmer.png",
-                    fit: BoxFit.fitWidth,
-                    width: 300,
-                    height: 300,
-                    color: mPrimaryTextColor,
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  reusableTextField("enteremail".tr, Icons.person_sharp, false,
-                      _emailTextController, validateEmail),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  reusableTextField("enterPassword".tr, Icons.lock_sharp, true,
-                      _passwordTextController, validatePasswordSignIn),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  firebaseUIButton(context, "singin".tr, () async {
-                    if (_key.currentState!.validate()) {
-                      try {
-                        await FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text,
-                        )
-                            .then((value) {
+                    const SizedBox(height: 40),
+                    Image.asset(
+                      "assets/icons/loginFarmer.png",
+                      fit: BoxFit.fitWidth,
+                      width: 300,
+                      height: 300,
+                      color: mPrimaryTextColor,
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    reusableTextField("enteremail".tr, Icons.person_sharp,
+                        false, _emailTextController, validateEmail),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    reusableTextField("enterPassword".tr, Icons.lock_sharp,
+                        true, _passwordTextController, validatePasswordSignIn),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    firebaseUIButton(context, "singin".tr, () async {
+                      if (_key.currentState!.validate()) {
+                        try {
+                          await FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                            email: _emailTextController.text,
+                            password: _passwordTextController.text,
+                          )
+                              .then((value) {
+                            Fluttertoast.showToast(
+                                msg: 'Signed In',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: mSecondColor,
+                                textColor: Colors.black);
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const HomeScreen()));
+                          });
+                          errorMessage = '';
+                        } on FirebaseAuthException catch (error) {
+                          errorMessage = error.message!;
                           Fluttertoast.showToast(
-                              msg: 'Signed In',
+                              msg: errorMessage,
                               toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
+                              gravity: ToastGravity.CENTER,
                               timeInSecForIosWeb: 1,
                               backgroundColor: mSecondColor,
                               textColor: Colors.black);
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const HomeScreen()));
-                        });
-                        errorMessage = '';
-                      } on FirebaseAuthException catch (error) {
-                        errorMessage = error.message!;
-                        Fluttertoast.showToast(
-                            msg: errorMessage,
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: mSecondColor,
-                            textColor: Colors.black);
+                        }
+                        setState(() {});
                       }
-                      setState(() {});
-                    }
-                  }),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  signUpOption(),
-                  const SizedBox(
-                    height: 300,
-                  ),
-                ],
+                    }),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    signUpOption(),
+                    const SizedBox(
+                      height: 300,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
