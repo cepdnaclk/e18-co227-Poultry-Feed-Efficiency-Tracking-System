@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/net/flutter_fire.dart';
 import 'package:home_login/screens/reusable.dart';
@@ -34,7 +35,7 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    "Add Farm",
+                    "Add Farm".tr,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
@@ -47,13 +48,13 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
                     height: 420,
                     //color: Colors.purple,
                   ),
-                  reusableTextField("Enter Farm Name", Icons.house, false,
+                  reusableTextField("Enter Farm Name".tr, Icons.house, false,
                       _farmNameController, null),
                   const SizedBox(
                     height: 20,
                   ),
-                  reusableTextField("Enter Farm location", Icons.location_on,
-                      false, _locationController, null),
+                  reusableTextField("Enter Farm Registration Number".tr,
+                      Icons.app_registration, false, _locationController, null),
                   const SizedBox(
                     height: 20,
                   ),
@@ -69,6 +70,16 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
                             _farmNameController.text, _locationController.text);
                         Navigator.of(context).pop();
                       },
+
+
+                      child: Text(
+                        "Submit".tr,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      ),
+
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.resolveWith((states) {

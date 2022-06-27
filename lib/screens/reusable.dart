@@ -36,7 +36,7 @@ TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
       labelText: text,
       labelStyle: const TextStyle(color: Colors.black38),
       filled: true,
-      floatingLabelBehavior: FloatingLabelBehavior.never,
+      floatingLabelBehavior: FloatingLabelBehavior.auto,
       fillColor: Colors.white,
       focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30.0),

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:home_login/net/auth.dart';
+import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
 
 import '../constants.dart';
@@ -9,6 +12,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Widget currentPage = SignInScreen();
+  final storage = new FlutterSecureStorage();
+  AuthClass auth = AuthClass();
+
   @override
   void initState() {
     var d = const Duration(seconds: 3);
@@ -19,13 +26,19 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(
           builder: (context) {
+
             return const SignInScreen();
+
+            //return SignInScreen();
+            return currentPage;
+
           },
         ),
         (route) => false,
       );
     });
     super.initState();
+    checklogin();
   }
 
   @override
@@ -58,5 +71,18 @@ class _SplashScreenState extends State<SplashScreen> {
             ]),
       ),
     );
+  }
+
+  void checklogin() async {
+    String? token = await auth.getToken();
+    // print("Shamod : " + token.toString());
+    if (token != null) {
+      // print("Shamod : login checking...");
+      currentPage = HomeScreen();
+      setState(() {});
+    } else {
+      currentPage = SignInScreen();
+      setState(() {});
+    }
   }
 }

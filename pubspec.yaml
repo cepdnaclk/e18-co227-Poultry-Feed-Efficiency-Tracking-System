@@ -39,8 +39,12 @@ dependencies:
   cloud_firestore: ^3.1.17
   fluttertoast: ^8.0.9
   sizer: ^2.0.13
+
   multi_select_flutter: ^4.1.2
   font_awesome_flutter: ^10.1.0
+
+  flutter_secure_storage: ^5.0.2
+
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +56,12 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.9.3
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/cccc.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

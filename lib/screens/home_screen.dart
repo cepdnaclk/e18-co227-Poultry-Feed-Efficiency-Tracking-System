@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:home_login/constants.dart';
+import 'package:home_login/screens/signin_screen.dart';
+import '../net/auth.dart';
 import 'griddashboard.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,6 +24,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
 
+
+
+
+  AuthClass auth = AuthClass();
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +117,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         ],
                       ),
+                      IconButton(
+                          onPressed: () async {
+                            await auth.logout();
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (builder) => SignInScreen()),
+                                (route) => false);
+                          },
+                          icon: Icon(Icons.logout))
                       /*
                     IconButton(
 

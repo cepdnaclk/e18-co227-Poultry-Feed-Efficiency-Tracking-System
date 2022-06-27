@@ -25,6 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _userNameTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+
     return Form(
       key: _key2,
       child: Scaffold(
@@ -46,42 +47,84 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                       color: mPrimaryColor,
+
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Form(
+        key: _key2,
+        child: Scaffold(
+          body: Container(
+            height: double.infinity,
+            width: double.infinity,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(
+                    20,
+                    MediaQuery.of(context).size.height * 0.1,
+                    20,
+                    MediaQuery.of(context).size.height * 0.1),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      "signup".tr,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        color: mPrimaryColor,
+                      ),
+
                     ),
-                  ),
-                  logoWidget("assets/icons/register.png"),
-                  const SizedBox(
-                    height: 0,
-                  ),
-                  reusableTextField("enterUsername".tr, Icons.person_sharp,
-                      false, _userNameTextController, null),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  reusableTextField("enteremail".tr, Icons.email, false,
-                      _emailTextController, validateEmail),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  reusableTextField("enterPassword".tr, Icons.lock_sharp, true,
-                      _passwordTextController, validatePassword),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  firebaseUIButton(context, "signup".tr, () async {
-                    if (_key2.currentState!.validate()) {
-                      try {
-                        await FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text,
-                        )
-                            .then((value) {
+                    logoWidget("assets/icons/register.png"),
+                    const SizedBox(
+                      height: 0,
+                    ),
+                    reusableTextField("enterUsername".tr, Icons.person_sharp,
+                        false, _userNameTextController, null),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    reusableTextField("enteremail".tr, Icons.email, false,
+                        _emailTextController, validateEmail),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    reusableTextField("enterPassword".tr, Icons.lock_sharp,
+                        true, _passwordTextController, validatePassword),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    firebaseUIButton(context, "signup".tr, () async {
+                      if (_key2.currentState!.validate()) {
+                        try {
+                          await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                            email: _emailTextController.text,
+                            password: _passwordTextController.text,
+                          )
+                              .then((value) {
+                            Fluttertoast.showToast(
+                                msg: 'User Account Created!',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: mSecondColor,
+                                textColor: Colors.white);
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const HomeScreen()));
+                          });
+                          errorMessage = '';
+                        } on FirebaseAuthException catch (error) {
+                          errorMessage = error.message!;
                           Fluttertoast.showToast(
-                              msg: 'User Account Created!',
+                              msg: errorMessage,
                               toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
+                              gravity: ToastGravity.CENTER,
                               timeInSecForIosWeb: 1,
                               backgroundColor: mSecondColor,
+
                               textColor: Colors.white);
 
                           Navigator.push(
@@ -111,6 +154,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 300,
                   ),
                 ],
+
+                              textColor: Colors.black);
+                        }
+                        setState(() {});
+                      }
+                    }),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    signUpOption(),
+                    SizedBox(
+                      height: 300,
+                    ),
+                  ],
+                ),
+
               ),
             ),
           ),
