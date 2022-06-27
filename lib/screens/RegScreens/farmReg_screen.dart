@@ -56,8 +56,8 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  reusableTextField("Enter Farm location", Icons.location_on,
-                      false, _locationController, null),
+                  reusableTextField("Enter Farm Registration Number",
+                      Icons.app_registration, false, _locationController, null),
                   const SizedBox(
                     height: 20,
                   ),
