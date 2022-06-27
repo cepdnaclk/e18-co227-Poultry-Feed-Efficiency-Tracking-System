@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:home_login/net/auth.dart';
 import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/signup_screen.dart';
@@ -18,6 +19,7 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   String errorMessage = '';
+  AuthClass auth = AuthClass();
 
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
@@ -74,11 +76,12 @@ class _SignInScreenState extends State<SignInScreen> {
                     firebaseUIButton(context, "singin".tr, () async {
                       if (_key.currentState!.validate()) {
                         try {
-                          await FirebaseAuth.instance
-                              .signInWithEmailAndPassword(
+                          auth
+                              .storetokenanddata(await FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
                             email: _emailTextController.text,
                             password: _passwordTextController.text,
-                          )
+                          ))
                               .then((value) {
                             Fluttertoast.showToast(
                                 msg: 'Signed In',
