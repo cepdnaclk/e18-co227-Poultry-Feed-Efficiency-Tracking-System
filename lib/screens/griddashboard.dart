@@ -135,27 +135,28 @@ class _GridDashboardState extends State<GridDashboard> {
 
   void popupDialog(BuildContext context, String routename) {
     showDialog(
-        context: context,
-        builder: (builder) {
-          return AlertDialog(
-            title: const Text("Checking for Update"),
-            content: const Text("Do you have updated the Mortality?"),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text("No")),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, routename);
-                  },
-                  child: Text("Yes"))
-            ],
-            //child: ListView.separated(
-            //shrinkWrap: true,
-          );
-        });
+      context: context,
+      builder: (builder) {
+        return AlertDialog(
+          title: const Text("Checking for Update"),
+          content: const Text("Do you have updated the Mortality?"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("No")),
+            TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, routename);
+                },
+                child: Text("Yes"))
+          ],
+          //child: ListView.separated(
+          //shrinkWrap: true,
+        );
+      },
+    );
   }
 }
 

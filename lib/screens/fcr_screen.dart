@@ -51,14 +51,27 @@ class _FCRScreenState extends State<FCRScreen> {
                 ),
               ],
             ),
+            SizedBox(
+              height: 10,
+            ),
             Center(
               child: ElevatedButton(
+                onPressed: () {
+                  displayFCRdialog();
+                },
                 style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(180, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
                   primary: mPrimaryColor,
                   elevation: 20,
                   shadowColor: mSecondColor,
+                  textStyle: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                onPressed: () {},
                 child: Text("Calculate"),
               ),
             ),
@@ -66,6 +79,31 @@ class _FCRScreenState extends State<FCRScreen> {
         ),
       ),
     );
+  }
+
+  void displayFCRdialog() {
+    showDialog(
+        context: context,
+        builder: (builder) {
+          return AlertDialog(
+            backgroundColor: mBackgroundColor,
+            title: const Text(
+              "Output",
+              textAlign: TextAlign.center,
+            ),
+            content: const Text("-----Details-----\n-----Details-----"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text("Close"),
+              ),
+            ],
+            //child: ListView.separated(
+            //shrinkWrap: true,
+          );
+        });
   }
 }
 
