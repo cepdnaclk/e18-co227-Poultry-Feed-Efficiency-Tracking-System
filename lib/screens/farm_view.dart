@@ -3,8 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/services.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/screens/branch_view.dart';
 import 'package:home_login/screens/RegScreens/farmReg_screen.dart';
@@ -12,14 +10,14 @@ import 'package:home_login/screens/RegScreens/farmReg_screen.dart';
 import '../net/flutter_fire.dart';
 
 class FarmView extends StatefulWidget {
-  FarmView({Key? key}) : super(key: key);
+  const FarmView({Key? key}) : super(key: key);
 
   @override
   _FarmViewState createState() => _FarmViewState();
 }
 
 class _FarmViewState extends State<FarmView> {
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +27,7 @@ class _FarmViewState extends State<FarmView> {
         //foregroundColor: Colors.amber,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
         ),
         height: MediaQuery.of(context).size.height,
@@ -44,9 +42,12 @@ class _FarmViewState extends State<FarmView> {
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {
-                  return Center(
+
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
+
+
                 }
 
                 return ListView(
@@ -61,7 +62,7 @@ class _FarmViewState extends State<FarmView> {
                           );
                         },
                         child: Padding(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                                 top: 20.0, left: 25.0, right: 25),
                             child: Container(
                                 height: MediaQuery.of(context).size.height / 12,
@@ -73,10 +74,10 @@ class _FarmViewState extends State<FarmView> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    SizedBox(),
+                                    const SizedBox(),
                                     Text(
-                                      " ${document.id + " - " + document['Location']}",
-                                      style: TextStyle(
+                                      " ${"${document.id} - " + document['Location']}",
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
                                       ),
@@ -88,7 +89,7 @@ class _FarmViewState extends State<FarmView> {
                                                 value: 1,
                                                 // row has two child icon and text.
                                                 child: Row(
-                                                  children: [
+                                                  children: const [
                                                     Icon(Icons.edit),
                                                     SizedBox(
                                                       // sized box with width 10
@@ -103,7 +104,7 @@ class _FarmViewState extends State<FarmView> {
                                                 value: 2,
                                                 // row has two child icon and text
                                                 child: Row(
-                                                  children: [
+                                                  children: const [
                                                     Icon(Icons.delete),
                                                     SizedBox(
                                                       // sized box with width 10
@@ -114,7 +115,7 @@ class _FarmViewState extends State<FarmView> {
                                                 ),
                                               ),
                                             ],
-                                        offset: Offset(-20, 15),
+                                        offset: const Offset(-20, 15),
                                         color: mNewColor,
                                         elevation: 2,
                                         onSelected: (value) async {
@@ -137,12 +138,12 @@ class _FarmViewState extends State<FarmView> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => FarmRegScreen(),
+              builder: (context) => const FarmRegScreen(),
             ),
           );
         },
         backgroundColor: mNewColor,
-        child: Icon(
+        child: const Icon(
           Icons.add,
           color: Colors.white,
         ),
@@ -153,7 +154,7 @@ class _FarmViewState extends State<FarmView> {
   Future openDialog(String id, String location) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Edit Farm Details"),
+          title: const Text("Edit Farm Details"),
           content: TextField(
             controller: _controller,
             autofocus: true,
@@ -167,7 +168,7 @@ class _FarmViewState extends State<FarmView> {
                   _controller.clear();
                   Navigator.of(context).pop();
                 },
-                child: Text("Change"))
+                child: const Text("Change"))
           ],
         ),
       );
@@ -183,7 +184,7 @@ class _FarmViewState extends State<FarmView> {
                   removeFarm(id);
                   Navigator.of(context).pop();
                 },
-                child: Text(
+                child: const Text(
                   "Yes",
                   style: TextStyle(color: Colors.red),
                 )),
@@ -191,7 +192,7 @@ class _FarmViewState extends State<FarmView> {
               onPressed: () async {
                 Navigator.of(context).pop();
               },
-              child: Text(
+              child: const Text(
                 "No",
                 style: TextStyle(color: Colors.green),
               ),

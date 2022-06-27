@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
+import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signup_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:home_login/screens/mortality_screen.dart';
 
 import '../constants.dart';
 
@@ -27,7 +28,7 @@ class _SignInScreenState extends State<SignInScreen> {
       key: _key,
       child: Scaffold(
         //key: formKey,
-        body: Container(
+        body: SizedBox(
           height: double.infinity,
           width: double.infinity,
           child: SingleChildScrollView(
@@ -89,7 +90,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const HomeScreen()));
+                                  //builder: (context) => const HomeScreen()));
+                                  builder: (context) =>  SelectionScreen()));
                         });
                         errorMessage = '';
                       } on FirebaseAuthException catch (error) {
@@ -159,9 +161,9 @@ Container language(BuildContext context, Function onTap) {
 }
 
 final List locale = [
-  {'name': 'ENGLISH', 'locale': Locale('en', 'US')},
-  {'name': 'தமிழ்', 'locale': Locale('ta', 'IN')},
-  {'name': 'සිංහල', 'locale': Locale('si', 'SL')}
+  {'name': 'ENGLISH', 'locale': const Locale('en', 'US')},
+  {'name': 'தமிழ்', 'locale': const Locale('ta', 'IN')},
+  {'name': 'සිංහල', 'locale': const Locale('si', 'SL')}
 ];
 
 void builddialog(BuildContext context) {
@@ -170,7 +172,7 @@ void builddialog(BuildContext context) {
       builder: (builder) {
         return AlertDialog(
           title: const Text("Choose a Language"),
-          content: Container(
+          content: SizedBox(
             width: double.maxFinite,
             child: ListView.separated(
                 shrinkWrap: true,
@@ -221,11 +223,12 @@ String? validatePassword(String? formPassword) {
   String pattern =
       r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
   RegExp regex = RegExp(pattern);
-  if (!regex.hasMatch(formPassword))
+  if (!regex.hasMatch(formPassword)) {
     return '''
       Password must be at least 8 characters,
       include an uppercase letter, number and symbol.
       ''';
+  }
 
   return null;
 }

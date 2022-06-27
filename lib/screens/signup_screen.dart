@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
+import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -19,15 +20,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _key2 = GlobalKey<FormState>();
   String errorMessage = '';
 
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _userNameTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _userNameTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _key2,
       child: Scaffold(
-        body: Container(
+        body: SizedBox(
           height: double.infinity,
           width: double.infinity,
           child: SingleChildScrollView(
@@ -86,7 +87,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const HomeScreen()));
+                                  builder: (context) => SelectionScreen()));
                         });
                         errorMessage = '';
                       } on FirebaseAuthException catch (error) {
@@ -102,11 +103,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       setState(() {});
                     }
                   }),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   signUpOption(),
-                  SizedBox(
+                  const SizedBox(
                     height: 300,
                   ),
                 ],
@@ -127,7 +128,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SignInScreen()));
+                MaterialPageRoute(builder: (context) => const SignInScreen()));
           },
           child: Text(
             "singin".tr,

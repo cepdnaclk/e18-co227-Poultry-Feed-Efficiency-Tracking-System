@@ -39,6 +39,8 @@ dependencies:
   cloud_firestore: ^3.1.17
   fluttertoast: ^8.0.9
   sizer: ^2.0.13
+  multi_select_flutter: ^4.1.2
+  font_awesome_flutter: ^10.1.0
 
 dev_dependencies:
   flutter_test:

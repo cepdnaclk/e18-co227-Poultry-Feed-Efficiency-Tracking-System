@@ -1,11 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/net/flutter_fire.dart';
-import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
-import 'package:home_login/screens/signup_screen.dart';
-import 'package:home_login/constants.dart';
 
 class FarmRegScreen extends StatefulWidget {
   const FarmRegScreen({Key? key}) : super(key: key);
@@ -25,7 +21,7 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
     return Form(
       child: Scaffold(
         //key: formKey,
-        body: Container(
+        body: SizedBox(
           height: double.infinity,
           width: double.infinity,
           child: SingleChildScrollView(
@@ -73,13 +69,6 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
                             _farmNameController.text, _locationController.text);
                         Navigator.of(context).pop();
                       },
-                      child: Text(
-                        "Submit",
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.resolveWith((states) {
@@ -93,6 +82,13 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
                                   RoundedRectangleBorder(
                                       borderRadius:
                                           BorderRadius.circular(30)))),
+                      child: const Text(
+                        "Submit",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      ),
                     ),
                   ),
                   const SizedBox(
