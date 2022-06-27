@@ -5,9 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/screens/branch_view.dart';
 import 'package:home_login/screens/RegScreens/farmReg_screen.dart';
+import 'package:home_login/screens/signin_screen.dart';
 
 import '../net/flutter_fire.dart';
 
@@ -24,10 +26,18 @@ class _FarmViewState extends State<FarmView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Farms'),
-        backgroundColor: mPrimaryColor,
-        //foregroundColor: Colors.amber,
-      ),
+          title: Text("farm_view_yourFarms".tr),
+          backgroundColor: mPrimaryColor,
+
+          // this button is for developing purpose only
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.language),
+              onPressed: () {
+                builddialog(context);
+              },
+            ),
+          ]),
       body: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -110,7 +120,7 @@ class _FarmViewState extends State<FarmView> {
                                                           // sized box with width 10
                                                           width: 10,
                                                         ),
-                                                        Text("Edit")
+                                                        Text("Edit".tr)
                                                       ],
                                                     ),
                                                   ),
@@ -125,7 +135,7 @@ class _FarmViewState extends State<FarmView> {
                                                           // sized box with width 10
                                                           width: 10,
                                                         ),
-                                                        Text("Delete")
+                                                        Text("Delete".tr)
                                                       ],
                                                     ),
                                                   ),
@@ -171,7 +181,7 @@ class _FarmViewState extends State<FarmView> {
   Future openDialog(String id, String location) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Edit Farm Reg. No."),
+          title: Text("Edit Farm Reg. No.".tr),
           content: TextField(
             controller: _controller,
             autofocus: true,
@@ -185,7 +195,7 @@ class _FarmViewState extends State<FarmView> {
                   _controller.clear();
                   Navigator.of(context).pop();
                 },
-                child: Text("Change"))
+                child: Text("Change".tr))
           ],
         ),
       );
@@ -193,7 +203,7 @@ class _FarmViewState extends State<FarmView> {
   Future openDialogDelete(String id) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Want to delete $id farm details?"),
+          title: Text("Want to delete".tr + id + "farm details?".tr),
           actions: [
             TextButton(
                 onPressed: () async {
@@ -202,7 +212,7 @@ class _FarmViewState extends State<FarmView> {
                   Navigator.of(context).pop();
                 },
                 child: Text(
-                  "Yes",
+                  "Yes".tr,
                   style: TextStyle(color: Colors.red),
                 )),
             TextButton(
@@ -210,7 +220,7 @@ class _FarmViewState extends State<FarmView> {
                 Navigator.of(context).pop();
               },
               child: Text(
-                "No",
+                "No".tr,
                 style: TextStyle(color: Colors.green),
               ),
             )

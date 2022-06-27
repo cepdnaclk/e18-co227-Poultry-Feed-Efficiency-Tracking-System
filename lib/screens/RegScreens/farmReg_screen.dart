@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/net/flutter_fire.dart';
 import 'package:home_login/screens/home_screen.dart';
@@ -38,7 +39,7 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    "Add Farm",
+                    "Add Farm".tr,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
@@ -51,12 +52,12 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
                     height: 420,
                     //color: Colors.purple,
                   ),
-                  reusableTextField("Enter Farm Name", Icons.house, false,
+                  reusableTextField("Enter Farm Name".tr, Icons.house, false,
                       _farmNameController, null),
                   const SizedBox(
                     height: 20,
                   ),
-                  reusableTextField("Enter Farm Registration Number",
+                  reusableTextField("Enter Farm Registration Number".tr,
                       Icons.app_registration, false, _locationController, null),
                   const SizedBox(
                     height: 20,
@@ -74,7 +75,7 @@ class _FarmRegScreenState extends State<FarmRegScreen> {
                         Navigator.of(context).pop();
                       },
                       child: Text(
-                        "Submit",
+                        "Submit".tr,
                         style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
