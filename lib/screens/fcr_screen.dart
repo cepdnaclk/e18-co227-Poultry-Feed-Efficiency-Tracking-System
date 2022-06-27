@@ -15,7 +15,7 @@ class _FCRScreenState extends State<FCRScreen> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text("FCR CALCULATION"),
+          title: const Text("FCR CALCULATION"),
           backgroundColor: mPrimaryColor,
         ),
         body: Column(
@@ -23,7 +23,7 @@ class _FCRScreenState extends State<FCRScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //reuseTextField("Mortality"),
-            SizedBox(
+            const SizedBox(
               height: 30.0,
             ),
             Padding(
@@ -72,7 +72,12 @@ class _FCRScreenState extends State<FCRScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+
+                onPressed: () {},
+                child: const Text("Calculate"),
+
                 child: Text("Calculate"),
+
               ),
             ),
           ],
@@ -111,7 +116,7 @@ TextField reuseTextField(String text) {
   return TextField(
     decoration: InputDecoration(
       labelText: text,
-      labelStyle: TextStyle(color: Colors.black38),
+      labelStyle: const TextStyle(color: Colors.black38),
       filled: true,
       floatingLabelBehavior: FloatingLabelBehavior.auto,
       fillColor: Colors.white,

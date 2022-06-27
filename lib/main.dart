@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_login/localeString.dart';
 
-import 'package:flutter/services.dart';
 
-import 'package:home_login/screens/RegScreens/farmReg_screen.dart';
 import 'package:home_login/screens/farm_view.dart';
 import 'package:home_login/screens/fcr_screen.dart';
 import 'package:home_login/screens/feed_screen.dart';
@@ -29,14 +27,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       translations: LocalString(),
-      locale: Locale('en', 'US'),
+      locale: const Locale('en', 'US'),
       debugShowCheckedModeBanner: false,
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
 
         '/FCR': (context) => const FCRScreen(),
         '/feed': (context) => const FeedScreen(),
-        '/farm': (context) => FarmView(),
+        '/farm': (context) => const FarmView(),
         '/mortal': (context) => const MortalityScreen(),
         '/weight': (context) => const ToDoScreen(),
         '/view': (context) => const SettingsScreen(),
