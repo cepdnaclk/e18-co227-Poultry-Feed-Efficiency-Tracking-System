@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
+import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -88,7 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const HomeScreen()));
+                                    builder: (context) => const SelectionScreen()));
                           });
                           errorMessage = '';
                         } on FirebaseAuthException catch (error) {

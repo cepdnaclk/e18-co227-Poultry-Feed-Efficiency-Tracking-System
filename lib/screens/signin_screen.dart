@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:home_login/net/auth.dart';
 import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
+import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signup_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -94,7 +95,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const HomeScreen()));
+                                    builder: (context) => const SelectionScreen()));
                           });
                           errorMessage = '';
                         } on FirebaseAuthException catch (error) {
