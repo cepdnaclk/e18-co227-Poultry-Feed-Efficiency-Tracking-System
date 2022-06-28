@@ -4,6 +4,7 @@ import 'package:home_login/net/auth.dart';
 import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
+import 'package:sizer/sizer.dart';
 
 import '../constants.dart';
 
@@ -55,14 +56,14 @@ class _SplashScreenState extends State<SplashScreen> {
               Image.asset(
                 "assets/images/ccc.png",
                 fit: BoxFit.fitWidth,
-                width: 300,
-                height: 300,
+                width: 35.h,
+                height: 35.h,
               ),
               Text(
                 "Poultry Master",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 30,
+                    fontSize: 4.h,
                     color: mTitleTextColor),
               ),
             ]),
