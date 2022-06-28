@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
+import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -19,11 +20,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _key2 = GlobalKey<FormState>();
   String errorMessage = '';
 
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _userNameTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _userNameTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+
+    return Form(
+      key: _key2,
+      child: Scaffold(
+        body: SizedBox(
+          height: double.infinity,
+          width: double.infinity,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                  20,
+                  MediaQuery.of(context).size.height * 0.1,
+                  20,
+                  MediaQuery.of(context).size.height * 0.1),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    "signup".tr,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: mPrimaryColor,
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Form(
@@ -48,6 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         fontSize: 30,
                         color: mPrimaryColor,
                       ),
+
                     ),
                     logoWidget("assets/icons/register.png"),
                     const SizedBox(
@@ -99,6 +124,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               gravity: ToastGravity.CENTER,
                               timeInSecForIosWeb: 1,
                               backgroundColor: mSecondColor,
+
+                              textColor: Colors.white);
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SelectionScreen()));
+                        });
+                        errorMessage = '';
+                      } on FirebaseAuthException catch (error) {
+                        errorMessage = error.message!;
+                        Fluttertoast.showToast(
+                            msg: errorMessage,
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: mSecondColor,
+                            textColor: Colors.black);
+                      }
+                      setState(() {});
+                    }
+                  }),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  signUpOption(),
+                  const SizedBox(
+                    height: 300,
+                  ),
+                ],
+
                               textColor: Colors.black);
                         }
                         setState(() {});
@@ -113,6 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ],
                 ),
+
               ),
             ),
           ),
@@ -130,7 +187,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SignInScreen()));
+                MaterialPageRoute(builder: (context) => const SignInScreen()));
           },
           child: Text(
             "singin".tr,

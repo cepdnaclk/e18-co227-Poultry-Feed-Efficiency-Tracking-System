@@ -3,10 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:firebase_autString id, h/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/services.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/screens/shed_view.dart';
 import 'package:home_login/screens/RegScreens/branchReg_screen.dart';
@@ -106,7 +103,7 @@ class _BranchScreen extends State<BranchScreen> {
                                               document['FarmName']);
                                         },
                                         icon: const Icon(Icons.edit),
-                                        label: Text("Edit"),
+                                        label: const Text("Edit"),
                                         style: ElevatedButton.styleFrom(
                                             primary: mNewColor),
                                       ),
