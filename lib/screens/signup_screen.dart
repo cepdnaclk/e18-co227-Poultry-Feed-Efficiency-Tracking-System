@@ -6,6 +6,7 @@ import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sizer/sizer.dart';
 
 import '../constants.dart';
 
@@ -35,40 +36,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
             width: double.infinity,
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.fromLTRB(
-                    20,
-                    MediaQuery.of(context).size.height * 0.1,
-                    20,
-                    MediaQuery.of(context).size.height * 0.1),
+                padding: EdgeInsets.fromLTRB(4.w, 2.h, 4.w, 2.h),
                 child: Column(
                   children: <Widget>[
+                    language(context, () {}),
                     Text(
                       "signup".tr,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 30,
+                        fontSize: 4.h,
                         color: mPrimaryColor,
                       ),
                     ),
-                    logoWidget("assets/icons/register.png"),
-                    const SizedBox(
-                      height: 0,
+                    Image.asset(
+                      "assets/icons/register.png",
+                      fit: BoxFit.fitWidth,
+                      width: 35.h,
+                      height: 35.h,
+                      color: mPrimaryTextColor,
+                    ),
+                    SizedBox(
+                      height: 1.h,
                     ),
                     reusableTextField("enterUsername".tr, Icons.person_sharp,
                         false, _userNameTextController, null),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 2.h,
                     ),
                     reusableTextField("enteremail".tr, Icons.email, false,
                         _emailTextController, validateEmail),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 2.h,
                     ),
                     reusableTextField("enterPassword".tr, Icons.lock_sharp,
                         true, _passwordTextController, validatePassword),
-                    const SizedBox(
-                      height: 20,
-                    ),
                     firebaseUIButton(context, "signup".tr, () async {
                       if (_key2.currentState!.validate()) {
                         try {
@@ -89,7 +90,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const SelectionScreen()));
+                                    builder: (context) =>
+                                        const SelectionScreen()));
                           });
                           errorMessage = '';
                         } on FirebaseAuthException catch (error) {
@@ -105,13 +107,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         setState(() {});
                       }
                     }),
-                    SizedBox(
-                      height: 5,
-                    ),
                     signUpOption(),
-                    SizedBox(
-                      height: 300,
-                    ),
                   ],
                 ),
               ),

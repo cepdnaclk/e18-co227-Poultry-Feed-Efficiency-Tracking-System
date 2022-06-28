@@ -12,8 +12,10 @@ import 'package:home_login/screens/fcr_screen.dart';
 import 'package:home_login/screens/feed_screen.dart';
 import 'package:home_login/screens/mortality_screen.dart';
 import 'package:home_login/screens/settings_screen.dart';
+import 'package:home_login/screens/signin_screen.dart';
 import 'package:home_login/screens/todo_screen.dart';
 import 'package:home_login/screens/welcome_screen.dart';
+import 'package:sizer/sizer.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,21 +29,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      translations: LocalString(),
-      locale: Locale('en', 'US'),
-      debugShowCheckedModeBanner: false,
-      routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+        return GetMaterialApp(
+          translations: LocalString(),
+          locale: Locale('en', 'US'),
+          debugShowCheckedModeBanner: false,
+          routes: {
+            // When navigating to the "/" route, build the FirstScreen widget.
 
-        '/FCR': (context) => const FCRScreen(),
-        '/feed': (context) => const FeedScreen(),
-        '/farm': (context) => FarmView(),
-        '/mortal': (context) => const MortalityScreen(),
-        '/weight': (context) => const ToDoScreen(),
-        '/view': (context) => const SettingsScreen(),
+            '/FCR': (context) => const FCRScreen(),
+            '/feed': (context) => const FeedScreen(),
+            '/farm': (context) => FarmView(),
+            '/mortal': (context) => const MortalityScreen(),
+            '/weight': (context) => const ToDoScreen(),
+            '/view': (context) => const SettingsScreen(),
+          },
+          // ignore: prefer_const_constructors
+          home: SignInScreen(),
+        );
       },
-      home: SplashScreen(),
     );
   }
 }

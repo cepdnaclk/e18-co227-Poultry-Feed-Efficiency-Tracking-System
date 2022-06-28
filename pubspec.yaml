@@ -53,6 +53,12 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   flutter_launcher_icons: ^0.9.3
+  flutter_native_splash: ^2.2.3+1
+
+flutter_native_splash:
+  background_image: "assets/images/chicken.png"
+  android: true
+  ios: true
 
 flutter_icons:
   android: true
