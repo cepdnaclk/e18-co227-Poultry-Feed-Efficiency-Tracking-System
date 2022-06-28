@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    var d = const Duration(seconds: 3);
+    var d = Duration(seconds: 3);
     // delayed 3 seconds to next page
     Future.delayed(d, () {
       // to next page and close this page
@@ -26,12 +26,8 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(
           builder: (context) {
-
-            return const SignInScreen();
-
             //return SignInScreen();
             return currentPage;
-
           },
         ),
         (route) => false,
@@ -47,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/chickenbg.jpeg'),
               fit: BoxFit.cover),

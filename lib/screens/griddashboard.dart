@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
 
@@ -83,7 +84,7 @@ class _GridDashboardState extends State<GridDashboard> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(
+                    Container(
                       height: 100,
                       width: 100,
                       child: Image.asset(
@@ -134,29 +135,6 @@ class _GridDashboardState extends State<GridDashboard> {
 
   void popupDialog(BuildContext context, String routename) {
     showDialog(
-
-        context: context,
-        builder: (builder) {
-          return AlertDialog(
-            title: const Text("Checking for Update"),
-            content: const Text("Do you have updated the Mortality?"),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text("No")),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, routename);
-                  },
-                  child: const Text("Yes"))
-            ],
-            //child: ListView.separated(
-            //shrinkWrap: true,
-          );
-        });
-
       context: context,
       builder: (builder) {
         return AlertDialog(
@@ -179,7 +157,6 @@ class _GridDashboardState extends State<GridDashboard> {
         );
       },
     );
-
   }
 }
 
