@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:home_login/net/auth.dart';
 import 'package:home_login/screens/home_screen.dart';
+import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
 
 import '../constants.dart';
@@ -74,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // print("Shamod : " + token.toString());
     if (token != null) {
       // print("Shamod : login checking...");
-      currentPage = HomeScreen();
+      currentPage = SelectionScreen();
       setState(() {});
     } else {
       currentPage = SignInScreen();
