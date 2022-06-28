@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/net/flutter_fire.dart';
+import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
+import 'package:home_login/screens/signup_screen.dart';
 
 class ShedRegScreen extends StatefulWidget {
   late String branchName;
@@ -24,7 +27,7 @@ class _BranchRegScreenState extends State<ShedRegScreen> {
     return Form(
       child: Scaffold(
         //key: formKey,
-        body: SizedBox(
+        body: Container(
           height: double.infinity,
           width: double.infinity,
           child: SingleChildScrollView(
@@ -70,6 +73,13 @@ class _BranchRegScreenState extends State<ShedRegScreen> {
                         await addShed(_branchNameController.text, branchName);
                         Navigator.of(context).pop();
                       },
+                      child: const Text(
+                        "Submit",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      ),
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.resolveWith((states) {
@@ -83,13 +93,6 @@ class _BranchRegScreenState extends State<ShedRegScreen> {
                                   RoundedRectangleBorder(
                                       borderRadius:
                                           BorderRadius.circular(30)))),
-                      child: const Text(
-                        "Submit",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
                     ),
                   ),
                   const SizedBox(
