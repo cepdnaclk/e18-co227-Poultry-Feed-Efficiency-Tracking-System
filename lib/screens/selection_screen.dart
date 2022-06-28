@@ -254,7 +254,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                               ),
                             );
 
-                            Scaffold.of(context).showSnackBar(snackBar);
+                            //Scaffold.of(context).showSnackBar(snackBar);
                             setState(() {
                               selectedShed = shedValue;
                             });

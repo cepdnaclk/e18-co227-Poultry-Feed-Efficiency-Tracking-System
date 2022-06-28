@@ -3,11 +3,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
 import 'package:home_login/constants.dart';
 import 'package:home_login/screens/branch_view.dart';
 import 'package:home_login/screens/RegScreens/farmReg_screen.dart';
@@ -16,14 +14,14 @@ import 'package:home_login/screens/signin_screen.dart';
 import '../net/flutter_fire.dart';
 
 class FarmView extends StatefulWidget {
-  const FarmView({Key? key}) : super(key: key);
+  FarmView({Key? key}) : super(key: key);
 
   @override
   _FarmViewState createState() => _FarmViewState();
 }
 
 class _FarmViewState extends State<FarmView> {
-  final TextEditingController _controller = TextEditingController();
+  TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +39,7 @@ class _FarmViewState extends State<FarmView> {
             ),
           ]),
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: Colors.white,
         ),
         height: MediaQuery.of(context).size.height,
@@ -56,12 +54,9 @@ class _FarmViewState extends State<FarmView> {
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {
-
-                  return const Center(
+                  return Center(
                     child: CircularProgressIndicator(),
                   );
-
-
                 }
 
                 return ListView(
@@ -76,74 +71,6 @@ class _FarmViewState extends State<FarmView> {
                           );
                         },
                         child: Padding(
-
-                            padding: const EdgeInsets.only(
-                                top: 20.0, left: 25.0, right: 25),
-                            child: Container(
-                                height: MediaQuery.of(context).size.height / 12,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(14.5),
-                                  color: mSecondColor,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const SizedBox(),
-                                    Text(
-                                      " ${"${document.id} - " + document['Location']}",
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    PopupMenuButton<int>(
-                                        itemBuilder: (context) => [
-                                              // popupmenu item 1
-                                              PopupMenuItem(
-                                                value: 1,
-                                                // row has two child icon and text.
-                                                child: Row(
-                                                  children: const [
-                                                    Icon(Icons.edit),
-                                                    SizedBox(
-                                                      // sized box with width 10
-                                                      width: 10,
-                                                    ),
-                                                    Text("Edit")
-                                                  ],
-                                                ),
-                                              ),
-                                              // popupmenu item 2
-                                              PopupMenuItem(
-                                                value: 2,
-                                                // row has two child icon and text
-                                                child: Row(
-                                                  children: const [
-                                                    Icon(Icons.delete),
-                                                    SizedBox(
-                                                      // sized box with width 10
-                                                      width: 10,
-                                                    ),
-                                                    Text("Delete")
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                        offset: const Offset(-20, 15),
-                                        color: mNewColor,
-                                        elevation: 2,
-                                        onSelected: (value) async {
-                                          if (value == 1) {
-                                            openDialog(document.id,
-                                                document["Location"]);
-                                          } else if (value == 2) {
-                                            openDialogDelete(document.id);
-                                          }
-                                        }),
-                                  ],
-                                ))));
-
                           padding: const EdgeInsets.only(
                               top: 20.0, left: 25.0, right: 25),
                           child: Container(
@@ -228,7 +155,6 @@ class _FarmViewState extends State<FarmView> {
                                     ))),
                           ),
                         ));
-
                   }).toList(),
                 );
               }),
@@ -239,12 +165,12 @@ class _FarmViewState extends State<FarmView> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const FarmRegScreen(),
+              builder: (context) => FarmRegScreen(),
             ),
           );
         },
         backgroundColor: mNewColor,
-        child: const Icon(
+        child: Icon(
           Icons.add,
           color: Colors.white,
         ),
@@ -255,11 +181,7 @@ class _FarmViewState extends State<FarmView> {
   Future openDialog(String id, String location) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-
-          title: const Text("Edit Farm Details"),
-
           title: Text("Edit Farm Reg. No.".tr),
-
           content: TextField(
             controller: _controller,
             autofocus: true,
@@ -273,11 +195,7 @@ class _FarmViewState extends State<FarmView> {
                   _controller.clear();
                   Navigator.of(context).pop();
                 },
-
-                child: const Text("Change"))
-
                 child: Text("Change".tr))
-
           ],
         ),
       );
@@ -293,26 +211,16 @@ class _FarmViewState extends State<FarmView> {
                   removeFarm(id);
                   Navigator.of(context).pop();
                 },
-
-                child: const Text(
-                  "Yes",
-
                 child: Text(
                   "Yes".tr,
-
                   style: TextStyle(color: Colors.red),
                 )),
             TextButton(
               onPressed: () async {
                 Navigator.of(context).pop();
               },
-
-              child: const Text(
-                "No",
-
               child: Text(
                 "No".tr,
-
                 style: TextStyle(color: Colors.green),
               ),
             )

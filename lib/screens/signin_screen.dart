@@ -1,15 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:home_login/net/auth.dart';
 import 'package:home_login/screens/home_screen.dart';
-
 import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signup_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:home_login/screens/mortality_screen.dart';
 
 import '../constants.dart';
 
@@ -29,31 +26,6 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-
-    return Form(
-      key: _key,
-      child: Scaffold(
-        //key: formKey,
-        body: SizedBox(
-          height: double.infinity,
-          width: double.infinity,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(
-                  20,
-                  MediaQuery.of(context).size.height * 0.05,
-                  20,
-                  MediaQuery.of(context).size.height * 0.5),
-              child: Column(
-                children: <Widget>[
-                  language(context, () {}),
-                  Text(
-                    "singin".tr,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: mPrimaryColor,
-
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Form(
@@ -80,7 +52,6 @@ class _SignInScreenState extends State<SignInScreen> {
                         fontSize: 30,
                         color: mPrimaryColor,
                       ),
-
                     ),
                     const SizedBox(height: 40),
                     Image.asset(
@@ -124,7 +95,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const HomeScreen()));
+                                    builder: (context) => const SelectionScreen()));
                           });
                           errorMessage = '';
                         } on FirebaseAuthException catch (error) {
@@ -136,28 +107,8 @@ class _SignInScreenState extends State<SignInScreen> {
                               timeInSecForIosWeb: 1,
                               backgroundColor: mSecondColor,
                               textColor: Colors.black);
-
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  //builder: (context) => const HomeScreen()));
-                                  builder: (context) =>  SelectionScreen()));
-                        });
-                        errorMessage = '';
-                      } on FirebaseAuthException catch (error) {
-                        errorMessage = error.message!;
-                        Fluttertoast.showToast(
-                            msg: errorMessage,
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: mSecondColor,
-                            textColor: Colors.black);
-
                         }
                         setState(() {});
-
                       }
                     }),
                     const SizedBox(
@@ -215,9 +166,9 @@ Container language(BuildContext context, Function onTap) {
 }
 
 final List locale = [
-  {'name': 'ENGLISH', 'locale': const Locale('en', 'US')},
-  {'name': 'தமிழ்', 'locale': const Locale('ta', 'IN')},
-  {'name': 'සිංහල', 'locale': const Locale('si', 'SL')}
+  {'name': 'ENGLISH', 'locale': Locale('en', 'US')},
+  {'name': 'தமிழ்', 'locale': Locale('ta', 'IN')},
+  {'name': 'සිංහල', 'locale': Locale('si', 'SL')}
 ];
 
 void builddialog(BuildContext context) {
@@ -226,7 +177,7 @@ void builddialog(BuildContext context) {
       builder: (builder) {
         return AlertDialog(
           title: const Text("Choose a Language"),
-          content: SizedBox(
+          content: Container(
             width: double.maxFinite,
             child: ListView.separated(
                 shrinkWrap: true,
@@ -277,12 +228,11 @@ String? validatePassword(String? formPassword) {
   String pattern =
       r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
   RegExp regex = RegExp(pattern);
-  if (!regex.hasMatch(formPassword)) {
+  if (!regex.hasMatch(formPassword))
     return '''
       Password must be at least 8 characters,
       include an uppercase letter, number and symbol.
       ''';
-  }
 
   return null;
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:home_login/net/auth.dart';
 import 'package:home_login/screens/home_screen.dart';
+import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
 
 import '../constants.dart';
@@ -18,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    var d = const Duration(seconds: 3);
+    var d = Duration(seconds: 3);
     // delayed 3 seconds to next page
     Future.delayed(d, () {
       // to next page and close this page
@@ -26,12 +27,8 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(
           builder: (context) {
-
-            return const SignInScreen();
-
             //return SignInScreen();
             return currentPage;
-
           },
         ),
         (route) => false,
@@ -47,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/chickenbg.jpeg'),
               fit: BoxFit.cover),
@@ -78,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // print("Shamod : " + token.toString());
     if (token != null) {
       // print("Shamod : login checking...");
-      currentPage = HomeScreen();
+      currentPage = SelectionScreen();
       setState(() {});
     } else {
       currentPage = SignInScreen();
