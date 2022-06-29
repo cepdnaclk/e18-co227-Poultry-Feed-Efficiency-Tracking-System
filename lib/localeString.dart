@@ -1,3 +1,5 @@
+// ignore_for_file: equal_keys_in_map
+
 import 'package:get/get.dart';
 
 class LocalString extends Translations {
@@ -33,6 +35,40 @@ class LocalString extends Translations {
           'Enter Farm Name': 'Enter Farm Name',
           'Enter Farm Registration Number': 'Enter Farm Registration Number',
           'Submit': 'Submit',
+
+          // branch_view
+          ' branches': ' branches',
+          'Edit Branch Name': 'Edit Branch Name',
+          'want to delete': 'Want to delete ',
+          'branch details?': ' branch details?',
+
+          // branch_reg_view
+          'Add Branch': 'Add Branch',
+          'Enter Branch Name': 'Enter Branch Name',
+
+          // shed_view
+          ' sheds': ' sheds',
+          'Edit Shed Details': 'Edit Shed Details',
+          'Want to delete ': 'Want to delete ',
+          ' shed details?': ' shed details?',
+
+          // shed_reg_view
+          'Add Shed': 'Add Shed',
+          'Enter Shed Name': 'Enter Farm Name',
+
+          // flock_view
+          ' flock': ' flocks',
+          'Edit Flock Details': 'Edit Flock Details',
+          'Want to delete ': 'Want to delete ',
+          ' flock details?': ' flock details?',
+
+          // flock_reg_view
+          'Add Flock': 'Add Flock',
+          'Enter Flock Name': 'Enter Flock Name',
+          'Enter Start Date': 'Enter Start Date',
+          'Enter the type': 'Enter the type',
+          'Enter the strain': 'Enter the strain',
+          'Enter the number of chickens': 'Enter the number of chickens',
         },
         'ta_IN': {
           'welcomeTitle': 'வணக்கம் விவசாயிகளே!',
@@ -64,6 +100,52 @@ class LocalString extends Translations {
           'Enter Farm Name': 'பண்ணை பெயரை உள்ளிடவும்',
           'Enter Farm Registration Number': 'பண்ணை பதிவு எண்ணை உள்ளிடவும்',
           'Submit': 'சமர்ப்பிக்க',
+
+          //branch_view
+          'branches': 'கிளைகள்',
+          'Edit': 'தொகு',
+          'Delete': 'அழி',
+          'Change': 'மாற்றம்',
+          'Edit Branch Name': 'கிளை பெயரை திருத்தவும்',
+          'Want to delete': 'நீக்க வேண்டும் ',
+          'branch details?': ' கிளை விவரங்கள்?',
+          'Yes': 'ஆம்',
+          'No': 'இல்லை',
+
+          // branch_reg_view
+          'Add Branch': 'பண்ணை சேர்க்க',
+          'Enter Branch Name': 'பண்ணை பெயரை உள்ளிடவும்',
+          'Submit': 'சமர்ப்பிக்க',
+
+          // shed_view
+          'sheds': ' கொட்டகைகள்',
+          'Edit': 'தொகு',
+          'Delete': 'அழி',
+          'Change': 'மாற்றம்',
+          'Edit Shed Details': 'ஷெட் விவரங்களைத் திருத்தவும்',
+          'Want to delete ': 'கொட்டகையை நீக்க வேண்டும் ',
+          ' shed details?': ' விவரங்கள்?',
+          'Yes': 'ஆம்',
+          'No': 'இல்லை',
+
+          // shed_reg_view
+          'Add Shed': 'பண்ணை சேர்க்க',
+          'Enter Shed Name': 'பண்ணை பெயரை உள்ளிடவும்',
+          'Submit': 'சமர்ப்பிக்க',
+
+          // flock_view
+          ' flock': ' கொட்டகைகள்',
+          'Edit Flock Details': 'ஷெட் விவரங்களைத் திருத்தவும்',
+          'Want to delete ': 'கொட்டகையை நீக்க வேண்டும்',
+          ' flock details?': ' விவரங்கள்?',
+
+          // flock_reg_view
+          'Add Flock': 'பண்ணை சேர்க்க',
+          'Enter Flock Name': 'பண்ணை பெயரை உள்ளிடவும்',
+          'Enter Start Date': 'பண்ணை பெயரை உள்ளிடவும்',
+          'Enter the type': 'பண்ணை பெயரை உள்ளிடவும்',
+          'Enter the strain': 'பண்ணை பெயரை உள்ளிடவும்',
+          'Enter the number of chickens': 'பண்ணை பெயரை உள்ளிடவும்',
         },
         'si_SL': {
           'welcomeTitle': 'ආයුබෝවන් ගොවියන්!',
@@ -96,6 +178,52 @@ class LocalString extends Translations {
           'Enter Farm Registration Number':
               'ගොවිපලේ ලියාපදිංචි අංකය ඇතුලත් කරන්න',
           'Submit': 'සුරකින්න',
+
+          // branch_view
+          ' branches': ' ශාඛා',
+          'Edit': 'වෙනස් කිරීම',
+          'Delete': 'මකා දමන්න',
+          'Change': 'වෙනස් කරන්න',
+          'Edit Branch Name': 'ශාඛාවේ නම වෙනස් කරන්න',
+          'want to delete': '',
+          'branch details?': ' ශාඛාවේ දත්ත මකාදැමීමට අවශ්‍යද?',
+          'Yes': 'ඔව්',
+          'No': 'නැත',
+
+          // branch_reg_view
+          'Add Branch': 'නව ශාඛාවක් එකතු කිර්‍රීම',
+          'Enter Branch Name': 'ශාඛාවේ නම ඇතුළත් කරන්න',
+          'Submit': 'සුරකින්න',
+
+          // shed_view
+          ' sheds': ' මඩු',
+          'Edit': 'වෙනස් කිරීම',
+          'Delete': 'මකා දමන්න',
+          'Change': 'වෙනස් කරන්න',
+          'Edit Shed Details': 'මඩු විස්තර වෙනස් කරන්න',
+          'Want to delete ': '',
+          ' shed details?': ' මඩු විස්තර මැකීමට අවශ්‍යද?',
+          'Yes': 'ඔව්',
+          'No': 'නැත',
+
+          // shed_reg_view
+          'Add Shed': 'නව මඩුවක් එකතු කරන්න',
+          'Enter Shed Name': 'මඩුවේ නම ඇතුල් කරන්න',
+          'Submit': 'සුරකින්න',
+
+          // flock_view
+          ' flocks': ' රැළ',
+          'Edit Flock Details': 'රැළේ විස්තර වෙනස් කරන්න',
+          'Want to delete ': '',
+          ' flock details?': ' රැළේ විස්තර මකා දැමීමට අවශ්‍යද?',
+
+          // flock_reg_view
+          'Add Flock': 'රැළේ විස්තර එකතු කරන්න',
+          'Enter Flock Name': 'රැළේ නම ඇතුළත් කරන්න',
+          'Enter Start Date': 'ආරම්භක දිනය ඇතුළත් කරන්න',
+          'Enter the type': 'වර්ගය ඇතුලත් කරන්න',
+          'Enter the strain': 'ප්රභේද්ය ඇතුලත් කරන්න',
+          'Enter the number of chickens': 'කුකුළන් සංඛ්යාව ඇතුළත් කරන්න',
         }
       };
 }
