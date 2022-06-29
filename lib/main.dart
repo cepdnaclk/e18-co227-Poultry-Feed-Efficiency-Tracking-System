@@ -13,7 +13,7 @@ import 'package:home_login/screens/feed_screen.dart';
 import 'package:home_login/screens/mortality_screen.dart';
 import 'package:home_login/screens/settings_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
-import 'package:home_login/screens/todo_screen.dart';
+import 'package:home_login/screens/body_weight.dart';
 import 'package:home_login/screens/welcome_screen.dart';
 import 'package:sizer/sizer.dart';
 
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
             '/feed': (context) => const FeedScreen(),
             '/farm': (context) => FarmView(),
             '/mortal': (context) => const MortalityScreen(),
-            '/weight': (context) => const ToDoScreen(),
+            '/weight': (context) => const BodyWeight(),
             '/view': (context) => const SettingsScreen(),
           },
           // ignore: prefer_const_constructors
