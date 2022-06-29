@@ -5,6 +5,7 @@ import 'package:home_login/net/flutter_fire.dart';
 import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/signup_screen.dart';
+import 'package:get/get.dart';
 
 class ShedRegScreen extends StatefulWidget {
   late String branchName;
@@ -40,7 +41,7 @@ class _BranchRegScreenState extends State<ShedRegScreen> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    "Add Shed",
+                    "Add Shed".tr,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
@@ -57,7 +58,7 @@ class _BranchRegScreenState extends State<ShedRegScreen> {
                   const SizedBox(
                     height: 50,
                   ),
-                  reusableTextField("Enter Shed Name", Icons.house, false,
+                  reusableTextField("Enter Shed Name".tr, Icons.house, false,
                       _branchNameController, null),
                   const SizedBox(
                     height: 20,
@@ -73,8 +74,8 @@ class _BranchRegScreenState extends State<ShedRegScreen> {
                         await addShed(_branchNameController.text, branchName);
                         Navigator.of(context).pop();
                       },
-                      child: const Text(
-                        "Submit",
+                      child: Text(
+                        "Submit".tr,
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

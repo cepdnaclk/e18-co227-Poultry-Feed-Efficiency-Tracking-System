@@ -7,22 +7,29 @@ import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/signup_screen.dart';
 import 'package:get/get.dart';
 
-class BranchRegScreen extends StatefulWidget {
-  late String farmName;
-  BranchRegScreen(this.farmName);
+class FlockRegScreen extends StatefulWidget {
+  late String shedName;
+  FlockRegScreen(this.shedName);
   //const BrachRegScreen({Key? key}) : super(key: key);
 
   @override
-  State<BranchRegScreen> createState() => _BranchRegScreenState(farmName);
+  State<FlockRegScreen> createState() => _BranchRegScreenState(shedName);
 }
 
-class _BranchRegScreenState extends State<BranchRegScreen> {
+class _BranchRegScreenState extends State<FlockRegScreen> {
   //GlobalKey<FormState> formKey = GlobalKey<FormState>();
   //late String _username,_password;
-  late String farmName;
-  _BranchRegScreenState(this.farmName);
+  late String shedName;
+  _BranchRegScreenState(this.shedName);
+
   //final TextEditingController _locationController = TextEditingController();
   final TextEditingController _branchNameController = TextEditingController();
+  final TextEditingController _birthDateController = TextEditingController();
+  final TextEditingController _startDateController = TextEditingController();
+  final TextEditingController _typeController = TextEditingController();
+  final TextEditingController _strainController = TextEditingController();
+  final TextEditingController _numberController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -41,21 +48,45 @@ class _BranchRegScreenState extends State<BranchRegScreen> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    "Add Branch".tr,
+                    "Add Flock".tr,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
                         color: mPrimaryColor),
                   ),
+                  const SizedBox(height: 40),
                   Image.asset(
-                    "assets/icons/branchNew.jpg",
+                    "assets/icons/shedNew.jpg",
                     fit: BoxFit.fitWidth,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.width * 0.9,
+                    width: 300,
+                    height: 300,
                     //color: Colors.purple,
                   ),
-                  reusableTextField("Enter Branch Name".tr, Icons.house, false,
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  reusableTextField("Enter Flock Name".tr, Icons.house, false,
                       _branchNameController, null),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextField("Enter Start Date".tr, Icons.date_range,
+                      false, _startDateController, null),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextField("Enter the type".tr, Icons.type_specimen,
+                      false, _typeController, null),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextField("Enter the strain".tr, Icons.egg, false,
+                      _strainController, null),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextField("Enter the number of chickens".tr,
+                      Icons.numbers, false, _numberController, null),
                   const SizedBox(
                     height: 20,
                   ),
@@ -67,12 +98,18 @@ class _BranchRegScreenState extends State<BranchRegScreen> {
                         BoxDecoration(borderRadius: BorderRadius.circular(90)),
                     child: ElevatedButton(
                       onPressed: () async {
-                        await addBranch(_branchNameController.text, farmName);
+                        await addFlock(
+                            _branchNameController.text,
+                            shedName,
+                            _startDateController.text,
+                            _typeController.text,
+                            _strainController.text,
+                            _numberController.text);
                         Navigator.of(context).pop();
                       },
                       child: Text(
                         "Submit".tr,
-                        style: const TextStyle(
+                        style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
