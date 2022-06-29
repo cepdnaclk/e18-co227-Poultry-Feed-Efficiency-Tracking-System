@@ -7,6 +7,7 @@ import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signup_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sizer/sizer.dart';
 
 import '../constants.dart';
 
@@ -37,11 +38,7 @@ class _SignInScreenState extends State<SignInScreen> {
             width: double.infinity,
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.fromLTRB(
-                    20,
-                    MediaQuery.of(context).size.height * 0.05,
-                    20,
-                    MediaQuery.of(context).size.height * 0.5),
+                padding: EdgeInsets.fromLTRB(4.w, 2.h, 4.w, 2.h),
                 child: Column(
                   children: <Widget>[
                     language(context, () {}),
@@ -49,31 +46,30 @@ class _SignInScreenState extends State<SignInScreen> {
                       "singin".tr,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 30,
+                        fontSize: 4.h,
                         color: mPrimaryColor,
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    SizedBox(
+                      height: 2.h,
+                    ),
                     Image.asset(
                       "assets/icons/loginFarmer.png",
                       fit: BoxFit.fitWidth,
-                      width: 300,
-                      height: 300,
+                      width: 35.h,
+                      height: 35.h,
                       color: mPrimaryTextColor,
                     ),
-                    const SizedBox(
-                      height: 50,
+                    SizedBox(
+                      height: 2.h,
                     ),
                     reusableTextField("enteremail".tr, Icons.person_sharp,
                         false, _emailTextController, validateEmail),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 2.h,
                     ),
                     reusableTextField("enterPassword".tr, Icons.lock_sharp,
                         true, _passwordTextController, validatePasswordSignIn),
-                    const SizedBox(
-                      height: 20,
-                    ),
                     firebaseUIButton(context, "singin".tr, () async {
                       if (_key.currentState!.validate()) {
                         try {
@@ -95,7 +91,8 @@ class _SignInScreenState extends State<SignInScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const SelectionScreen()));
+                                    builder: (context) =>
+                                        const SelectionScreen()));
                           });
                           errorMessage = '';
                         } on FirebaseAuthException catch (error) {
@@ -111,13 +108,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         setState(() {});
                       }
                     }),
-                    const SizedBox(
-                      height: 5,
-                    ),
                     signUpOption(),
-                    const SizedBox(
-                      height: 300,
-                    ),
                   ],
                 ),
               ),
@@ -152,7 +143,7 @@ class _SignInScreenState extends State<SignInScreen> {
 Container language(BuildContext context, Function onTap) {
   return Container(
     width: MediaQuery.of(context).size.width,
-    height: 40,
+    height: 4.h,
     margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
     child: IconButton(
       icon: const Icon(Icons.language),

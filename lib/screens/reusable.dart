@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import '../constants.dart';
 
 hexStringColor(String hexColor) {
@@ -7,15 +8,6 @@ hexStringColor(String hexColor) {
     hexColor = "FF" + hexColor;
   }
   return Color(int.parse(hexColor, radix: 16));
-}
-
-Image logoWidget(String imageName) {
-  return Image.asset(
-    imageName,
-    fit: BoxFit.fitWidth,
-    width: 300,
-    height: 300,
-  );
 }
 
 TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
@@ -27,39 +19,39 @@ TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
     cursorColor: Colors.brown,
-    style: TextStyle(color: Colors.black38),
+    style: TextStyle(color: Colors.black38, fontSize: 3.h),
     decoration: InputDecoration(
       prefixIcon: Icon(
         icon,
         color: mPrimaryColor,
       ),
       labelText: text,
-      labelStyle: TextStyle(color: Colors.black38),
+      labelStyle: TextStyle(color: Colors.black38, fontSize: 2.5.h),
       filled: true,
       floatingLabelBehavior: FloatingLabelBehavior.auto,
       fillColor: Colors.white,
       focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(5.h),
           borderSide: BorderSide(
             width: 2,
             color: mPrimaryColor,
           )),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30.0),
+        borderRadius: BorderRadius.circular(5.h),
         borderSide: BorderSide(
           color: mPrimaryColor,
           width: 2.0,
         ),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30.0),
+        borderRadius: BorderRadius.circular(5.h),
         borderSide: BorderSide(
           color: mPrimaryColor,
           width: 2.0,
         ),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30.0),
+        borderRadius: BorderRadius.circular(5.h),
         borderSide: BorderSide(
           color: mPrimaryColor,
           width: 2.0,
@@ -75,17 +67,17 @@ TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
 Container firebaseUIButton(BuildContext context, String title, Function onTap) {
   return Container(
     width: MediaQuery.of(context).size.width,
-    height: 50,
-    margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
-    decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
+    height: 7.h,
+    margin: EdgeInsets.fromLTRB(0, 4.h, 0, 4.h),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.h)),
     child: ElevatedButton(
       onPressed: () {
         onTap();
       },
       child: Text(
         title,
-        style: const TextStyle(
-            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+        style: TextStyle(
+            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 3.h),
       ),
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith((states) {
@@ -95,7 +87,8 @@ Container firebaseUIButton(BuildContext context, String title, Function onTap) {
             return mPrimaryColor;
           }),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.h)))),
     ),
   );
 }
@@ -105,9 +98,9 @@ Container firebaseUIButtonAsync(
     BuildContext context, String title, Future<bool> onTap) {
   return Container(
     width: MediaQuery.of(context).size.width,
-    height: 50,
-    margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
-    decoration: BoxDecoration(borderRadius: BorderRadius.circular(90)),
+    height: 8.h,
+    margin: EdgeInsets.fromLTRB(0, 4.h, 0, 4.h),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.h)),
     child: ElevatedButton(
       onPressed: () async {
         await onTap;
@@ -116,8 +109,8 @@ Container firebaseUIButtonAsync(
       // ignore: sort_child_properties_last
       child: Text(
         title,
-        style: const TextStyle(
-            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+        style: TextStyle(
+            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 5.h),
       ),
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith((states) {
@@ -127,7 +120,8 @@ Container firebaseUIButtonAsync(
             return mPrimaryColor;
           }),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.h)))),
     ),
   );
 }

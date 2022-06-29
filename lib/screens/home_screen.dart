@@ -7,24 +7,16 @@ import 'griddashboard.dart';
 import 'package:home_login/constants.dart';
 
 class HomeScreen extends StatefulWidget {
-
-   final String farmNavi,branchNavi,shedNavi;
+  final String farmNavi, branchNavi, shedNavi;
 
   //const HomeScreen({Key? key}) : super(key: key);
 
-    const HomeScreen({
+  const HomeScreen({
     Key? key,
     required this.farmNavi,
     required this.branchNavi,
     required this.shedNavi,
-
   }) : super(key: key);
-
-
-
-
-
-
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -77,57 +69,41 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600),
                           ),
-
-                    const SizedBox(
-                            height: 2,
-                          ),
-                          Text(
-                            "Farm - " + widget.farmNavi,
-                            style: TextStyle(
-                              color: mTitleTextColor,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-
                           const SizedBox(
                             height: 2,
                           ),
-
                           Text(
-                            "Branch - " + widget.branchNavi,
+                            "Farm : " + widget.farmNavi,
                             style: TextStyle(
                               color: mTitleTextColor,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-
                           const SizedBox(
                             height: 2,
                           ),
-
                           Text(
-                             "Shed - " + widget.shedNavi,
+                            "Branch : " + widget.branchNavi,
                             style: TextStyle(
                               color: mTitleTextColor,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-
-
-
-
-
-
-
-
-
-
+                          const SizedBox(
+                            height: 2,
+                          ),
+                          Text(
+                            "Shed : " + widget.shedNavi,
+                            style: TextStyle(
+                              color: mTitleTextColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
                       ),
-
                       IconButton(
                           onPressed: () async {
                             await auth.logout();

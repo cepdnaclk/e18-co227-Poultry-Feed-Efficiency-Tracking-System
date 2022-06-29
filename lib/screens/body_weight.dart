@@ -4,14 +4,14 @@ import 'package:home_login/constants.dart';
 import 'drawerMenu.dart';
 import 'mortality_screen.dart';
 
-class FeedScreen extends StatefulWidget {
-  const FeedScreen({Key? key}) : super(key: key);
+class BodyWeight extends StatefulWidget {
+  const BodyWeight({Key? key}) : super(key: key);
 
   @override
-  State<FeedScreen> createState() => _FCRScreenState();
+  State<BodyWeight> createState() => _FCRScreenState();
 }
 
-class _FCRScreenState extends State<FeedScreen> with TickerProviderStateMixin {
+class _FCRScreenState extends State<BodyWeight> with TickerProviderStateMixin {
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
@@ -72,7 +72,7 @@ class _FCRScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("FEED INTAKE"),
+                  title: Text("BODY WEIGHT"),
                   backgroundColor: mPrimaryColor,
                 ),
                 body: Column(
@@ -86,12 +86,12 @@ class _FCRScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 6.0, vertical: 10.0),
-                      child: reuseTextField("Number of Feed Bags"),
+                      child: reuseTextField("Average Weight of a chick"),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 6.0, vertical: 10.0),
-                      child: reuseTextField("Weight of a Bag"),
+                      child: reuseTextField("Total Number of Chicks"),
                     ),
                     SizedBox(
                       height: 10,
