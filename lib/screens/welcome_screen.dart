@@ -14,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  Widget currentPage = SignInScreen();
+  Widget currentPage = SelectionScreen();
   final storage = new FlutterSecureStorage();
   AuthClass auth = AuthClass();
 
