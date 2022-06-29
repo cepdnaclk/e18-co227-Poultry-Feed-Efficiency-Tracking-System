@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
-//database functions for farms registration 
+//database functions for farms registration
 Future<bool> addFarmer(String name, String location) async {
   try {
     String uid = FirebaseAuth.instance.currentUser!.uid;
@@ -74,9 +73,7 @@ Future<bool> removeFarm(String id) async {
   }
 }
 
-
-
-//database functions for farm branch registration 
+//database functions for farm branch registration
 Future<bool> addBranch(String branchName, String farmName) async {
   try {
     String uid = FirebaseAuth.instance.currentUser!.uid;
@@ -100,7 +97,6 @@ Future<bool> addBranch(String branchName, String farmName) async {
     return false;
   }
 }
-
 
 Future<bool> updateBranch(String id, String farmName) async {
   try {
@@ -149,8 +145,6 @@ Future<bool> removeBranch(String id) async {
   }
 }
 
-
-
 //database functions for sheds
 Future<bool> addShed(String shedName, String branchName) async {
   try {
@@ -175,7 +169,6 @@ Future<bool> addShed(String shedName, String branchName) async {
     return false;
   }
 }
-
 
 Future<bool> updateShed(String id, String branchName) async {
   try {
@@ -213,6 +206,95 @@ Future<bool> removeShed(String id) async {
           .collection('Farmers')
           .doc(uid)
           .collection('Shed')
+          .doc(id)
+          .delete();
+      return true;
+    } else {
+      throw ("This is my first general exception");
+    }
+  } catch (e) {
+    rethrow;
+  }
+}
+
+//database functions for sheds
+Future<bool> addFlock(String flockName, String shedName, String sDay,
+    String type, String strain, String numberChicken) async {
+  try {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentReference<Map<String, dynamic>> documentReference =
+        FirebaseFirestore.instance
+            .collection('Farmers')
+            .doc(uid)
+            .collection('flock')
+            .doc(flockName)
+        /*.collection('startdays')
+            .doc(sDay)
+            .collection('types')
+            .doc(type)
+            .collection('strains')
+            .doc(strain)
+            .collection('counts')
+            .doc(numberChicken)*/
+        ;
+
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await transaction.get(documentReference);
+      if (!snapshot.exists) {
+        documentReference.set({
+          'ShedName': shedName,
+          'startdays': sDay,
+          'type': type,
+          'strain': strain,
+          'count': numberChicken
+        });
+        return true;
+      }
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+Future<bool> updateFlock(String id, String shedName) async {
+  try {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentReference<Map<String, dynamic>> documentReference =
+        FirebaseFirestore.instance
+            .collection('Farmers')
+            .doc(uid)
+            .collection('flock')
+            .doc(id);
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await transaction.get(documentReference);
+
+      try {
+        //double newAmount = value;
+        transaction.update(documentReference, {'ShedName': shedName});
+        return true;
+      } catch (e) {
+        rethrow;
+      }
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+Future<bool> removeFlock(String id) async {
+  try {
+    if (FirebaseAuth.instance.currentUser != null) {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      FirebaseFirestore.instance
+          .collection('Farmers')
+          .doc(uid)
+          .collection('flock')
           .doc(id)
           .delete();
       return true;
