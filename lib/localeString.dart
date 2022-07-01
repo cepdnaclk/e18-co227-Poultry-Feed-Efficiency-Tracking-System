@@ -103,49 +103,43 @@ class LocalString extends Translations {
 
           //branch_view
           'branches': 'கிளைகள்',
-          'Edit': 'தொகு',
-          'Delete': 'அழி',
+          'Edit': 'திருத்து',
+          'Delete': 'நீக்கு',
           'Change': 'மாற்றம்',
-          'Edit Branch Name': 'கிளை பெயரை திருத்தவும்',
+          'Edit Branch Name': 'கிளை பெயரை திருத்து',
           'Want to delete': 'நீக்க வேண்டும் ',
           'branch details?': ' கிளை விவரங்கள்?',
           'Yes': 'ஆம்',
           'No': 'இல்லை',
 
           // branch_reg_view
-          'Add Branch': 'பண்ணை சேர்க்க',
-          'Enter Branch Name': 'பண்ணை பெயரை உள்ளிடவும்',
-          'Submit': 'சமர்ப்பிக்க',
+          'Add Branch': 'கிளையைச் சேர்',
+          'Enter Branch Name': 'கிளை பெயரை உள்ளிடவும்',
+          'Submit': 'சமர்ப்பி',
 
           // shed_view
           'sheds': ' கொட்டகைகள்',
-          'Edit': 'தொகு',
-          'Delete': 'அழி',
-          'Change': 'மாற்றம்',
-          'Edit Shed Details': 'ஷெட் விவரங்களைத் திருத்தவும்',
-          'Want to delete ': 'கொட்டகையை நீக்க வேண்டும் ',
+          'Edit Shed Details': 'ஷெட் விவரங்களைத் திருத்து',
+          'Want to delete ': 'நீக்க வேண்டும் ',
           ' shed details?': ' விவரங்கள்?',
-          'Yes': 'ஆம்',
-          'No': 'இல்லை',
 
           // shed_reg_view
-          'Add Shed': 'பண்ணை சேர்க்க',
-          'Enter Shed Name': 'பண்ணை பெயரை உள்ளிடவும்',
-          'Submit': 'சமர்ப்பிக்க',
+          'Add Shed': 'சேர் கொட்டகை',
+          'Enter Shed Name': 'ஷெட் பெயரை உள்ளிடவும்',
 
           // flock_view
-          ' flock': ' கொட்டகைகள்',
-          'Edit Flock Details': 'ஷெட் விவரங்களைத் திருத்தவும்',
-          'Want to delete ': 'கொட்டகையை நீக்க வேண்டும்',
-          ' flock details?': ' விவரங்கள்?',
+          ' flock': ' மந்தை',
+          'Edit Flock Details': 'மந்தை விவரங்களைத் திருத்து',
+          'Want to delete ': 'நீக்க வேண்டும்',
+          ' flock details?': ' மந்தை விவரங்கள்?',
 
           // flock_reg_view
-          'Add Flock': 'பண்ணை சேர்க்க',
-          'Enter Flock Name': 'பண்ணை பெயரை உள்ளிடவும்',
-          'Enter Start Date': 'பண்ணை பெயரை உள்ளிடவும்',
-          'Enter the type': 'பண்ணை பெயரை உள்ளிடவும்',
-          'Enter the strain': 'பண்ணை பெயரை உள்ளிடவும்',
-          'Enter the number of chickens': 'பண்ணை பெயரை உள்ளிடவும்',
+          'Add Flock': 'மந்தையைச் சேர்',
+          'Enter Flock Name': 'மந்தையின் பெயரை உள்ளிடவும்',
+          'Enter Start Date': 'தொடக்கத்தை உள்ளிடவும் தேதி',
+          'Enter the type': 'வகையை உள்ளிடவும்',
+          'Enter the strain': 'எண்டர் தி ஸ்ட்ரெய்ன்',
+          'Enter the number of chickens': 'கோழிகளின் எண்ணிக்கையை உள்ளிடவும்',
         },
         'si_SL': {
           'welcomeTitle': 'ආයුබෝවන් ගොවියන්!',
