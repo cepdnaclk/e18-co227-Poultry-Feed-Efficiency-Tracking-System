@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
+import 'drawerMenu.dart';
 
 class MortalityScreen extends StatefulWidget {
   const MortalityScreen({Key? key}) : super(key: key);
@@ -10,128 +11,204 @@ class MortalityScreen extends StatefulWidget {
   State<MortalityScreen> createState() => _MortalityScreenState();
 }
 
-class _MortalityScreenState extends State<MortalityScreen> {
+class _MortalityScreenState extends State<MortalityScreen>
+    with TickerProviderStateMixin {
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   final TextEditingController _datecontroller = TextEditingController();
   final TextEditingController _numcontroller = TextEditingController();
+
+  double translateX = 0.0;
+  double translateY = 0.0;
+  double scale = 1;
+  bool toggle = false;
+  late AnimationController _animationController;
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Update Mortality"),
-          backgroundColor: mPrimaryColor,
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //reuseTextField("Mortality"),
-            SizedBox(
-              height: 30.0,
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
-              //child: reuseTextField1("Number of chicks"),
-
-              child: reusableTextField("Enter Number of chicks".tr,
-                  Icons.numbers, false, _numcontroller, null),
-            ),
-            Row(
-              //mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 6.0, vertical: 15.0),
-                    child: reusableTextField3(date.toString().substring(0, 10),
-                        Icons.date_range, false, _datecontroller, null, false),
+    return Stack(
+      children: [
+        DrawerMenu(),
+        AnimatedContainer(
+          duration: Duration(milliseconds: 500),
+          transform: Matrix4.translationValues(translateX, translateY, 0)
+            ..scale(scale),
+          child: GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: Scaffold(
+              appBar: AppBar(
+                leading: IconButton(
+                  icon: AnimatedIcon(
+                    icon: AnimatedIcons.menu_arrow,
+                    progress: _animationController,
                   ),
+                  onPressed: () {
+                    toggle = !toggle;
+                    if (toggle) {
+                      translateX = 200.0;
+                      translateY = 80.0;
+                      scale = 0.8;
+                      _animationController.forward();
+                    } else {
+                      translateX = 0.0;
+                      translateY = 0.0;
+                      scale = 1;
+                      _animationController.reverse();
+                    }
+                    setState(() {});
+                  },
+                  //icon: Icon(Icons.menu),
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 6.0, vertical: 15.0),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        DateTime? ndate = await showDatePicker(
-                          context: context,
-                          initialDate: date,
-                          firstDate: DateTime(2022),
-                          lastDate: DateTime.now(),
-                          builder: (context, child) {
-                            return Theme(
-                              data: Theme.of(context).copyWith(
-                                colorScheme: ColorScheme.light(
-                                  primary: mNewColor, // <-- SEE HERE
-                                  onPrimary: Colors.white, // <-- SEE HERE
-                                  onSurface: mSecondColor, // <-- SEE HERE
-                                ),
-                                textButtonTheme: TextButtonThemeData(
-                                  style: TextButton.styleFrom(
-                                    primary: mPrimaryColor, // button text color
-                                  ),
+                title: Text("UPDATE MORTALITY".tr),
+                backgroundColor: mPrimaryColor,
+              ),
+              body: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //reuseTextField("Mortality"),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6.0, vertical: 10.0),
+                      //child: reuseTextField1("Number of chicks"),
+
+                      child: reusableTextField("Enter Number of chicks".tr,
+                          Icons.numbers, false, _numcontroller, null),
+                    ),
+                    Row(
+                      //mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6.0, vertical: 15.0),
+                            child: reusableTextField3(
+                                date.toString().substring(0, 10),
+                                Icons.date_range,
+                                false,
+                                _datecontroller,
+                                null,
+                                false),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 6.0, vertical: 15.0),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                DateTime? ndate = await showDatePicker(
+                                  context: context,
+                                  initialDate: date,
+                                  firstDate: DateTime(2022),
+                                  lastDate: DateTime.now(),
+                                  builder: (context, child) {
+                                    return Theme(
+                                      data: Theme.of(context).copyWith(
+                                        colorScheme: ColorScheme.light(
+                                          primary: mNewColor,
+                                          onPrimary:
+                                              Colors.white, // <-- SEE HERE
+                                          onSurface:
+                                              mSecondColor, // <-- SEE HERE
+                                        ),
+                                        textButtonTheme: TextButtonThemeData(
+                                          style: TextButton.styleFrom(
+                                            primary:
+                                                mPrimaryColor, // button text color
+                                          ),
+                                        ),
+                                      ),
+                                      child: child!,
+                                    );
+                                  },
+                                );
+                                if (ndate == null) return;
+                                setState(() => date = ndate);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                fixedSize: const Size(180, 50),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                    side: BorderSide(
+                                      width: 2.0,
+                                      color: mPrimaryColor,
+                                    )),
+                                primary: mBackgroundColor,
+                                elevation: 20,
+                                shadowColor: Colors.transparent,
+                                textStyle: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              child: child!,
-                            );
-                          },
-                        );
-                        if (ndate == null) return;
-                        setState(() => date = ndate);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(180, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
+                              child: Text(
+                                "Touch to Pick Date",
+                                style: TextStyle(color: Colors.black38),
+                              ),
+                            ),
+                          ),
                         ),
-                        primary: mPrimaryColor,
-                        elevation: 20,
-                        shadowColor: mSecondColor,
-                        textStyle: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      child: Text("Pick Date"),
+                      ],
                     ),
-                  ),
-                ),
-              ],
-            ),
 
-            SizedBox(
-              height: 30,
-            ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  ///displayFCRdialog();
-                },
-                style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(180, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  primary: mPrimaryColor,
-                  elevation: 20,
-                  shadowColor: mSecondColor,
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Center(
+                      child: Image.asset(
+                        "assets/images/dead.png",
+                        fit: BoxFit.fitWidth,
+                        width: context.width * 0.6,
+                        // height: 420,
+                        //color: Colors.purple,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          ///displayFCRdialog();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(180, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                          primary: mPrimaryColor,
+                          elevation: 20,
+                          shadowColor: mSecondColor,
+                          textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        child: Text("Update"),
+                      ),
+                    ),
+                  ],
                 ),
-                child: Text("Update"),
               ),
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 
@@ -208,6 +285,9 @@ TextFormField reusableTextField3(
     validator,
     bool val) {
   return TextFormField(
+    onTap: () {
+      print("shamod");
+    },
     enabled: val,
     controller: controller,
     validator: validator,
@@ -225,7 +305,7 @@ TextFormField reusableTextField3(
       labelStyle: TextStyle(color: Colors.black38),
       filled: true,
       floatingLabelBehavior: FloatingLabelBehavior.auto,
-      fillColor: Colors.white,
+      fillColor: Colors.grey[50],
       focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30.0),
           borderSide: BorderSide(
