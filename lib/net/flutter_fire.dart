@@ -88,7 +88,8 @@ Future<bool> addBranch(String branchName, String farmName) async {
       DocumentSnapshot<Map<String, dynamic>> snapshot =
           await transaction.get(documentReference);
       if (!snapshot.exists) {
-        documentReference.set({'FarmName': farmName});
+        documentReference.set({'FarmName': farmName, 'BranchName': branchName});
+        //documentReference.set({'BranchName': branchName});
         return true;
       }
     });
@@ -98,7 +99,7 @@ Future<bool> addBranch(String branchName, String farmName) async {
   }
 }
 
-Future<bool> updateBranch(String id, String farmName) async {
+Future<bool> updateBranch(String id, String branchName) async {
   try {
     String uid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -114,7 +115,8 @@ Future<bool> updateBranch(String id, String farmName) async {
 
       try {
         //double newAmount = value;
-        transaction.update(documentReference, {'FarmName': farmName});
+        //transaction.update(documentReference, {'FarmName': farmName});
+        transaction.update(documentReference, {'BranchName': branchName});
         return true;
       } catch (e) {
         rethrow;
@@ -160,7 +162,7 @@ Future<bool> addShed(String shedName, String branchName) async {
       DocumentSnapshot<Map<String, dynamic>> snapshot =
           await transaction.get(documentReference);
       if (!snapshot.exists) {
-        documentReference.set({'BranchName': branchName});
+        documentReference.set({'BranchName': branchName, 'ShedName': shedName});
         return true;
       }
     });
@@ -170,7 +172,7 @@ Future<bool> addShed(String shedName, String branchName) async {
   }
 }
 
-Future<bool> updateShed(String id, String branchName) async {
+Future<bool> updateShed(String id, String shedName) async {
   try {
     String uid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -186,7 +188,7 @@ Future<bool> updateShed(String id, String branchName) async {
 
       try {
         //double newAmount = value;
-        transaction.update(documentReference, {'BranchName': branchName});
+        transaction.update(documentReference, {'ShedName': shedName});
         return true;
       } catch (e) {
         rethrow;
@@ -248,7 +250,8 @@ Future<bool> addFlock(String flockName, String shedName, String sDay,
           'startdays': sDay,
           'type': type,
           'strain': strain,
-          'count': numberChicken
+          'count': numberChicken,
+          'FlockName': flockName
         });
         return true;
       }
@@ -259,7 +262,10 @@ Future<bool> addFlock(String flockName, String shedName, String sDay,
   }
 }
 
-Future<bool> updateFlock(String id, String shedName) async {
+Future<bool> updateFlockName(
+  String id,
+  String flockName,
+) async {
   try {
     String uid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -275,7 +281,119 @@ Future<bool> updateFlock(String id, String shedName) async {
 
       try {
         //double newAmount = value;
-        transaction.update(documentReference, {'ShedName': shedName});
+        transaction.update(documentReference, {'FlockName': flockName});
+        return true;
+      } catch (e) {
+        rethrow;
+      }
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+Future<bool> updatesDay(String id, String sDay) async {
+  try {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentReference<Map<String, dynamic>> documentReference =
+        FirebaseFirestore.instance
+            .collection('Farmers')
+            .doc(uid)
+            .collection('flock')
+            .doc(id);
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await transaction.get(documentReference);
+
+      try {
+        //double newAmount = value;
+        transaction.update(documentReference, {'startdays': sDay});
+        return true;
+      } catch (e) {
+        rethrow;
+      }
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+Future<bool> updateType(String id, String type) async {
+  try {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentReference<Map<String, dynamic>> documentReference =
+        FirebaseFirestore.instance
+            .collection('Farmers')
+            .doc(uid)
+            .collection('flock')
+            .doc(id);
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await transaction.get(documentReference);
+
+      try {
+        //double newAmount = value;
+        transaction.update(documentReference, {'type': type});
+        return true;
+      } catch (e) {
+        rethrow;
+      }
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+Future<bool> updateStrain(String id, String strain) async {
+  try {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentReference<Map<String, dynamic>> documentReference =
+        FirebaseFirestore.instance
+            .collection('Farmers')
+            .doc(uid)
+            .collection('flock')
+            .doc(id);
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await transaction.get(documentReference);
+
+      try {
+        //double newAmount = value;
+        transaction.update(documentReference, {'strain': strain});
+        return true;
+      } catch (e) {
+        rethrow;
+      }
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+Future<bool> updateCount(String id, String count) async {
+  try {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentReference<Map<String, dynamic>> documentReference =
+        FirebaseFirestore.instance
+            .collection('Farmers')
+            .doc(uid)
+            .collection('flock')
+            .doc(id);
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await transaction.get(documentReference);
+
+      try {
+        //double newAmount = value;
+        transaction.update(documentReference, {'count': count});
         return true;
       } catch (e) {
         rethrow;
