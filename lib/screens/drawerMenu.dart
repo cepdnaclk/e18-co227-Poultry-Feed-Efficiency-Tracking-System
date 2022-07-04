@@ -1,13 +1,23 @@
 import 'dart:ui';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:home_login/constants.dart';
+import 'package:home_login/net/auth.dart';
+import 'package:home_login/screens/body_weight.dart';
+import 'package:home_login/screens/farm_view.dart';
+import 'package:home_login/screens/fcr_screen.dart';
+import 'package:home_login/screens/feed_screen.dart';
+import 'package:home_login/screens/mortality_screen.dart';
+import 'package:home_login/screens/selection_screen.dart';
+import 'package:home_login/screens/settings_screen.dart';
+import 'package:home_login/screens/signin_screen.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    AuthClass auth = AuthClass();
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
@@ -24,31 +34,126 @@ class DrawerMenu extends StatelessWidget {
           children: [
             UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
-                backgroundImage:
-                    NetworkImage("https://picsum.photos/250?image=9"),
-                backgroundColor: Colors.brown,
-              ),
+                  backgroundColor: Colors.brown,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image.asset("assets/images/cccc.png"),
+                  )),
               decoration: BoxDecoration(
                 color: Colors.transparent,
               ),
-              accountName: Text(
-                "Your Name",
-                style: TextStyle(color: mPrimaryTextColor),
-              ),
-              accountEmail: Text(
-                "email@gmail.com",
-                style: TextStyle(color: mPrimaryTextColor),
-              ),
+              accountName: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection("User Data")
+                      .where("uid",
+                          isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return Text(
+                      snapshot.data?.docs[0]['userName'],
+                      style: TextStyle(
+                          color: mTitleTextColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    );
+                  }),
+              accountEmail: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection("User Data")
+                      .where("uid",
+                          isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return Text(
+                      snapshot.data?.docs[0]['email'],
+                      style: TextStyle(
+                        color: mTitleTextColor,
+                        fontSize: 15,
+                      ),
+                    );
+                  }),
             ),
-            MenuList(title: "FCR", iconName: Icons.dangerous),
-            MenuList(title: "Feed Intake", iconName: Icons.dangerous),
             MenuList(
-                title: "Farm Registration", iconName: Icons.app_registration),
-            MenuList(title: "Mortality", iconName: Icons.dangerous),
-            MenuList(title: "Body Weight", iconName: Icons.dangerous),
-            MenuList(title: "View Page", iconName: Icons.view_module),
-            MenuList(title: "Language", iconName: Icons.language),
-            MenuList(title: "Logout", iconName: Icons.logout),
+                title: "FCR",
+                iconName: Icons.egg,
+                press: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FCRScreen()));
+                }),
+            MenuList(
+                title: "Feed Intake",
+                iconName: Icons.food_bank,
+                press: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FeedScreen()));
+                }),
+            MenuList(
+                title: "Farm Registration",
+                iconName: Icons.app_registration,
+                press: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => FarmView()));
+                }),
+            MenuList(
+                title: "Mortality",
+                iconName: Icons.dangerous,
+                press: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MortalityScreen()));
+                }),
+            MenuList(
+                title: "Body Weight",
+                iconName: Icons.line_weight,
+                press: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BodyWeight()));
+                }),
+            MenuList(
+                title: "View Page",
+                iconName: Icons.view_module,
+                press: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SettingsScreen()));
+                }),
+            MenuList(
+                title: "Language",
+                iconName: Icons.language,
+                press: () {
+                  builddialog(context);
+                }),
+            MenuList(
+              title: "Logout",
+              iconName: Icons.logout,
+              press: () async {
+                await auth.logout();
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (builder) => SignInScreen()),
+                    (route) => false);
+              },
+            ),
           ],
         ),
       ),
@@ -59,13 +164,17 @@ class DrawerMenu extends StatelessWidget {
 class MenuList extends StatelessWidget {
   final String title;
   final IconData iconName;
+  final Function press;
 
-  const MenuList({required this.title, required this.iconName});
+  const MenuList(
+      {required this.title, required this.iconName, required this.press});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {},
+      onTap: () {
+        press();
+      },
       leading: Container(
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
