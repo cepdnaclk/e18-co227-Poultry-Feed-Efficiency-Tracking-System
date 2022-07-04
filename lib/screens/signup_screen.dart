@@ -7,6 +7,7 @@ import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../constants.dart';
 
@@ -79,6 +80,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             password: _passwordTextController.text,
                           )
                               .then((value) {
+                            FirebaseFirestore.instance
+                                .collection('User Data')
+                                .add({
+                              "email": _emailTextController.text,
+                              "userName": _userNameTextController.text,
+                              "uid": FirebaseAuth.instance.currentUser!.uid,
+                            });
                             Fluttertoast.showToast(
                                 msg: 'User Account Created!',
                                 toastLength: Toast.LENGTH_SHORT,
