@@ -7,6 +7,7 @@ import 'package:home_login/screens/flock_view.dart';
 import 'package:home_login/screens/RegScreens/shedReg_screen.dart';
 import 'package:home_login/screens/branch_view.dart';
 import 'package:get/get.dart';
+import 'package:home_login/screens/selection_screen.dart';
 import '../constants.dart';
 import '../net/flutter_fire.dart';
 import 'package:home_login/screens/signin_screen.dart';
@@ -40,6 +41,13 @@ class _ShedScreen extends State<ShedScreen> {
               icon: Icon(Icons.language),
               onPressed: () {
                 builddialog(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SelectionScreen()));
               },
             ),
           ]),

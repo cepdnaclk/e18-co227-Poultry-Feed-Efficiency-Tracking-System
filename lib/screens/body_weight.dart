@@ -151,17 +151,23 @@ class _FCRScreenState extends State<BodyWeight> with TickerProviderStateMixin {
                               style: ElevatedButton.styleFrom(
                                 fixedSize: const Size(180, 50),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                                primary: mPrimaryColor,
+                                    borderRadius: BorderRadius.circular(30.0),
+                                    side: BorderSide(
+                                      width: 2.0,
+                                      color: mPrimaryColor,
+                                    )),
+                                primary: mBackgroundColor,
                                 elevation: 20,
-                                shadowColor: mSecondColor,
+                                shadowColor: Colors.transparent,
                                 textStyle: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              child: Text("Pick Date"),
+                              child: Text(
+                                "Touch to Pick Date",
+                                style: TextStyle(color: Colors.black38),
+                              ),
                             ),
                           ),
                         ),

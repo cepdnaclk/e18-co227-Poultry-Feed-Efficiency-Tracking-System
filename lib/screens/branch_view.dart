@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:home_login/constants.dart';
+import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/shed_view.dart';
 import 'package:home_login/screens/RegScreens/branchReg_screen.dart';
 import 'package:get/get.dart';
@@ -56,6 +57,13 @@ class _BranchScreen extends State<BranchScreen> {
               icon: Icon(Icons.language),
               onPressed: () {
                 builddialog(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SelectionScreen()));
               },
             ),
           ]),

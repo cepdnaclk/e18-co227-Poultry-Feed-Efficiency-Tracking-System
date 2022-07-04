@@ -9,7 +9,10 @@ import 'package:get/get.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/screens/branch_view.dart';
 import 'package:home_login/screens/RegScreens/farmReg_screen.dart';
+import 'package:home_login/screens/home_screen.dart';
+import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
+import 'package:home_login/screens/welcome_screen.dart';
 
 import '../net/flutter_fire.dart';
 
@@ -35,6 +38,13 @@ class _FarmViewState extends State<FarmView> {
               icon: Icon(Icons.language),
               onPressed: () {
                 builddialog(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SelectionScreen()));
               },
             ),
           ]),

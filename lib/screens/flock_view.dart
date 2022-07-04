@@ -8,6 +8,7 @@ import 'package:home_login/screens/flock_view.dart';
 import 'package:home_login/screens/RegScreens/flockReg_screen.dart';
 import 'package:home_login/screens/branch_view.dart';
 import 'package:get/get.dart';
+import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
 import '../constants.dart';
 import '../net/flutter_fire.dart';
@@ -65,6 +66,13 @@ class _FlockScreen extends State<FlockScreen> {
                 builddialog(context);
               },
             ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SelectionScreen()));
+              },
+            ),
           ]),
       body: Container(
         decoration: const BoxDecoration(
@@ -92,6 +100,7 @@ class _FlockScreen extends State<FlockScreen> {
                   children: snapshot.data!.docs.map((document) {
                     return GestureDetector(
                         onTap: () {
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -100,6 +109,7 @@ class _FlockScreen extends State<FlockScreen> {
                                     branchNavi: branchName,
                                     shedNavi: shedName),
                               ));
+
                         },
                         child: Padding(
                             padding: const EdgeInsets.only(
