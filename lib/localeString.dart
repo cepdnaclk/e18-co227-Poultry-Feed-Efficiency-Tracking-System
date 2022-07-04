@@ -166,7 +166,7 @@ class LocalString extends Translations {
           'Edit': 'සංස්කරණය කරන්න',
           'Delete': 'මකා දමන්න',
           'Change': 'වෙනස් කිරීම',
-          'Edit Farm Reg. No.': 'ගොවිපල ලියාපදිංචි අංකය සංස්කරණය කරන්න',
+          'Edit Farm Reg. No.': 'ගොවිපල ලියාපදිංචි අංකය වෙනස් කරන්න',
           'Want to delete': '',
           'farm details?': ' ගොවිපළ දත්ත මකාදැමීමට අවශ්‍යද?',
           'Yes': 'ඔව්',

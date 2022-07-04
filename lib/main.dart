@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
             '/view': (context) => const SettingsScreen(),
           },
           // ignore: prefer_const_constructors
-          home: SignInScreen(),
+          home: SplashScreen(),
         );
       },
     );
