@@ -12,18 +12,21 @@ import '../net/flutter_fire.dart';
 import 'package:home_login/screens/signin_screen.dart';
 
 class ShedScreen extends StatefulWidget {
+  final String farmName;
   final String branchName;
-  const ShedScreen(this.branchName, {Key? key}) : super(key: key);
+  const ShedScreen(this.branchName, this.farmName, {Key? key})
+      : super(key: key);
   //const ShedScreen({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api, no_logic_in_create_state
-  _ShedScreen createState() => _ShedScreen(branchName);
+  _ShedScreen createState() => _ShedScreen(branchName, farmName);
 }
 
 class _ShedScreen extends State<ShedScreen> {
   String branchName;
-  _ShedScreen(this.branchName);
+  String farmName;
+  _ShedScreen(this.branchName, this.farmName);
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -69,7 +72,10 @@ class _ShedScreen extends State<ShedScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => FlockScreen(document.id)),
+                                builder: (context) => FlockScreen(
+                                    document['ShedName'],
+                                    branchName,
+                                    farmName)),
                           );
                         },
                         child: Padding(
@@ -122,7 +128,7 @@ class _ShedScreen extends State<ShedScreen> {
                                             ),
                                           ),*/
                                           Text(
-                                            " ${document.id}",
+                                            " ${document['ShedName']}",
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 18,
@@ -167,10 +173,10 @@ class _ShedScreen extends State<ShedScreen> {
                                               onSelected: (value) async {
                                                 if (value == 1) {
                                                   openDialog(document.id,
-                                                      document['BranchName']);
+                                                      document['ShedName']);
                                                 } else if (value == 2) {
                                                   openDialogDelete(document.id,
-                                                      document['BranchName']);
+                                                      document['ShedName']);
                                                 }
                                               }),
                                           /*IconButton(
@@ -217,7 +223,7 @@ class _ShedScreen extends State<ShedScreen> {
         builder: (context) => AlertDialog(
           title: Text("Edit Shed Details".tr),
           content: TextField(
-            //controller: _controller,
+            controller: _controller,
             autofocus: true,
             decoration: InputDecoration(hintText: shedName),
           ),
@@ -225,7 +231,7 @@ class _ShedScreen extends State<ShedScreen> {
             TextButton(
                 onPressed: () async {
                   //_controller.text = location;
-                  await updateFarm(id, _controller.text);
+                  await updateShed(id, _controller.text);
                   _controller.clear();
                   // ignore: use_build_context_synchronously
                   Navigator.of(context).pop();
@@ -235,15 +241,15 @@ class _ShedScreen extends State<ShedScreen> {
         ),
       );
 
-  Future openDialogDelete(String id, String branchName) => showDialog(
+  Future openDialogDelete(String id, String shedName) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Want to delete ".tr + id + " shed details?".tr),
+          title: Text("Want to delete ".tr + shedName + " shed details?".tr),
           actions: [
             TextButton(
                 onPressed: () async {
                   // delete function here
-                  removeFarm(id);
+                  removeShed(id);
                   Navigator.of(context).pop();
                 },
                 child: Text(

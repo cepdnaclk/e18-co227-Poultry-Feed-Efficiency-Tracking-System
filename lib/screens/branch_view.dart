@@ -88,7 +88,8 @@ class _BranchScreen extends State<BranchScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ShedScreen(document.id)),
+                                builder: (context) =>
+                                    ShedScreen(document['BranchName'],farmName)),
                             // builder: (context) => ShedScreen(document.id)),
                           );
                         },
@@ -142,7 +143,8 @@ class _BranchScreen extends State<BranchScreen> {
                                             ),
                                           ),*/
                                           Text(
-                                            " ${document.id}",
+                                            //" ${document.id}"
+                                            " ${document['BranchName']}",
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 18,
@@ -187,10 +189,10 @@ class _BranchScreen extends State<BranchScreen> {
                                               onSelected: (value) async {
                                                 if (value == 1) {
                                                   openDialog(document.id,
-                                                      document['FarmName']);
+                                                      document['BranchName']);
                                                 } else if (value == 2) {
                                                   openDialogDelete(document.id,
-                                                      document['FarmName']);
+                                                      document['BranchName']);
                                                 }
                                               }),
                                           /*IconButton(
@@ -237,7 +239,7 @@ class _BranchScreen extends State<BranchScreen> {
         builder: (context) => AlertDialog(
           title: Text("Edit Branch Name".tr),
           content: TextField(
-            //controller: _controller,
+            controller: _controller,
             autofocus: true,
             decoration: InputDecoration(hintText: branchName),
           ),
@@ -245,7 +247,7 @@ class _BranchScreen extends State<BranchScreen> {
             TextButton(
                 onPressed: () async {
                   //_controller.text = location;
-                  await updateFarm(id, _controller.text);
+                  await updateBranch(id, _controller.text);
                   _controller.clear();
                   // ignore: use_build_context_synchronously
                   Navigator.of(context).pop();
@@ -255,15 +257,15 @@ class _BranchScreen extends State<BranchScreen> {
         ),
       );
 
-  Future openDialogDelete(String id, String location) => showDialog(
+  Future openDialogDelete(String id, String branchName) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Want to delete".tr + id + " branch details?".tr),
+          title: Text("Want to delete".tr + branchName + " branch details?".tr),
           actions: [
             TextButton(
                 onPressed: () async {
                   // delete function here
-                  removeFarm(id);
+                  removeBranch(id);
                   Navigator.of(context).pop();
                 },
                 child: Text(

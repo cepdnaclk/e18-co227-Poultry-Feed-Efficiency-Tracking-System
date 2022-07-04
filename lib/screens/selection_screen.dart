@@ -6,8 +6,6 @@ import 'package:home_login/constants.dart';
 import 'package:home_login/screens/farm_view.dart';
 import 'package:home_login/screens/home_screen.dart';
 
-
-
 class SelectionScreen extends StatefulWidget {
   const SelectionScreen({Key? key}) : super(key: key);
 
@@ -16,29 +14,18 @@ class SelectionScreen extends StatefulWidget {
 }
 
 class _SelectionScreenState extends State<SelectionScreen> {
-
-  var selectedFarm, selectedBranch,selectedFlock,selectedShed;
-
-
+  var selectedFarm, selectedBranch, selectedFlock, selectedShed;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         appBar: AppBar(
-
           backgroundColor: mPrimaryColor,
-
           title: const Text("BATCH SELECTION"),
-         
         ),
-
-
         body: new ListView(
-
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           children: <Widget>[
-
             SizedBox(height: 40.0),
 
             //For Farm
@@ -48,21 +35,13 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     .doc(FirebaseAuth.instance.currentUser!.uid)
                     .collection('Farms')
                     .snapshots(),
-                
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
-
-                  if (!snapshot.hasData){
-
+                  if (!snapshot.hasData) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
-
-                  }
-                    
-
-                  else {
-
+                  } else {
                     List<DropdownMenuItem<String>> farmItems = [];
                     for (int i = 0; i < snapshot.data!.docs.length; i++) {
                       DocumentSnapshot snap = snapshot.data!.docs[i];
@@ -70,8 +49,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                         DropdownMenuItem(
                           child: Text(
                             snap.id,
-                            
-                              style: TextStyle(color: mPrimaryColor),
+                            style: TextStyle(color: mPrimaryColor),
                           ),
                           value: "${snap.id}",
                         ),
@@ -81,9 +59,9 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         //Icon(FontAwesomeIcons.coins,
-                            //size: 25.0, color: Color(0xff11b719)),
+                        //size: 25.0, color: Color(0xff11b719)),
                         //SizedBox(width: 10.0),
-                        DropdownButton <String>(
+                        DropdownButton<String>(
                           items: farmItems,
                           onChanged: (farmValue) {
                             final snackBar = SnackBar(
@@ -94,22 +72,18 @@ class _SelectionScreenState extends State<SelectionScreen> {
                               ),
                             );
 
-
                             //Scaffold.of(context).showSnackBar(snackBar);
                             setState(() {
                               selectedFarm = farmValue;
                             });
-
-
-
                           },
                           value: selectedFarm,
                           isExpanded: false,
                           hint: new Text(
                             "Choose your Farm",
                             style: TextStyle(
-                                color: mPrimaryColor,
-                                fontSize: 17 ,
+                              color: mPrimaryColor,
+                              fontSize: 17,
                             ),
                           ),
                         ),
@@ -129,21 +103,13 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     .collection('Branch')
                     //.where('FarmName', isEqualTo: farmName)
                     .snapshots(),
-
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
-
-                  if (!snapshot.hasData){
-
+                  if (!snapshot.hasData) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
-
-                  }
-
-
-                  else {
-
+                  } else {
                     List<DropdownMenuItem<String>> branchItems = [];
 
                     for (int i = 0; i < snapshot.data!.docs.length; i++) {
@@ -152,7 +118,6 @@ class _SelectionScreenState extends State<SelectionScreen> {
                         DropdownMenuItem(
                           child: Text(
                             snap.id,
-
                             style: TextStyle(color: mPrimaryColor),
                           ),
                           value: "${snap.id}",
@@ -162,15 +127,13 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-
                         //SizedBox(width: 10.0),
-                        DropdownButton <String>(
+                        DropdownButton<String>(
                           items: branchItems,
                           onChanged: (branchValue) {
                             final snackBar = SnackBar(
                               content: Text(
                                 'Selected branch is $branchValue',
-
                                 style: TextStyle(color: mTitleTextColor),
                               ),
                             );
@@ -179,15 +142,14 @@ class _SelectionScreenState extends State<SelectionScreen> {
                             setState(() {
                               selectedBranch = branchValue;
                             });
-
                           },
                           value: selectedBranch,
                           isExpanded: false,
                           hint: new Text(
                             "Choose your Branch",
                             style: TextStyle(
-                                color: mPrimaryColor,
-                                fontSize: 17 ,
+                              color: mPrimaryColor,
+                              fontSize: 17,
                             ),
                           ),
                         ),
@@ -201,28 +163,19 @@ class _SelectionScreenState extends State<SelectionScreen> {
             ),
             //For Shed
             StreamBuilder<QuerySnapshot>(
-
                 stream: FirebaseFirestore.instance
                     .collection("Farmers")
                     .doc(FirebaseAuth.instance.currentUser!.uid)
                     .collection('Shed')
                     //.where('BranchName', isEqualTo: branchName)
                     .snapshots(),
-
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
-
-                  if (!snapshot.hasData){
-
+                  if (!snapshot.hasData) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
-
-                  }
-
-
-                  else {
-
+                  } else {
                     List<DropdownMenuItem<String>> shedItems = [];
 
                     for (int i = 0; i < snapshot.data!.docs.length; i++) {
@@ -231,7 +184,6 @@ class _SelectionScreenState extends State<SelectionScreen> {
                         DropdownMenuItem(
                           child: Text(
                             snap.id,
-
                             style: TextStyle(color: mPrimaryColor),
                           ),
                           value: "${snap.id}",
@@ -241,15 +193,13 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-
                         //SizedBox(width: 10.0),
-                        DropdownButton <String>(
+                        DropdownButton<String>(
                           items: shedItems,
                           onChanged: (shedValue) {
                             final snackBar = SnackBar(
                               content: Text(
                                 'Selected Shed is $shedValue',
-
                                 style: TextStyle(color: mTitleTextColor),
                               ),
                             );
@@ -258,16 +208,14 @@ class _SelectionScreenState extends State<SelectionScreen> {
                             setState(() {
                               selectedShed = shedValue;
                             });
-
-
                           },
                           value: selectedShed,
                           isExpanded: false,
                           hint: new Text(
                             "Choose your Shed",
                             style: TextStyle(
-                                color: mPrimaryColor,
-                                fontSize: 17 ,
+                              color: mPrimaryColor,
+                              fontSize: 17,
                             ),
                           ),
                         ),
@@ -356,69 +304,53 @@ class _SelectionScreenState extends State<SelectionScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-
-               ElevatedButton(
-
-              style: ElevatedButton.styleFrom(
-                
-              
-              primary:  mPrimaryColor,
-              shape: new RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(36.0),
-              ),
-             
-          ),
-
-
-        onPressed: () {
-
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return HomeScreen(farmNavi: selectedFarm,branchNavi: selectedBranch,shedNavi: selectedShed);
-              },
-            ),
-          );
-
-        },
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          alignment: Alignment.center,
-          child: Text(
-            'Proceed',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 17,
-
-            ),
-          ),
-        ),
-      ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: mPrimaryColor,
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(36.0),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return HomeScreen(
+                              farmNavi: selectedFarm,
+                              branchNavi: selectedBranch,
+                              shedNavi: selectedShed);
+                        },
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Proceed',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 20.0,
                 ),
-
-                 ElevatedButton(
-
-
+                ElevatedButton(
                   style: ElevatedButton.styleFrom(
-
                     //foregroundColor: mPrimaryColor,
                     //backgroundColor: ,
-                    primary:  mBackgroundColor,
+                    primary: mBackgroundColor,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(36.0),
                     ),
 
                     side: BorderSide(color: mPrimaryColor),
-
                   ),
-
-
-
-
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -442,19 +374,9 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     ),
                   ),
                 ),
-                
-                
-
-
-
-
               ],
             ),
           ],
-        )
-
-    );
+        ));
   }
 }
-
-

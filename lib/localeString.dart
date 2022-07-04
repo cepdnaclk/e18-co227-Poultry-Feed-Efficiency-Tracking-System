@@ -102,7 +102,7 @@ class LocalString extends Translations {
           'Submit': 'சமர்ப்பிக்க',
 
           //branch_view
-          'branches': 'கிளைகள்',
+          ' branches': ' கிளைகள்',
           'Edit': 'திருத்து',
           'Delete': 'நீக்கு',
           'Change': 'மாற்றம்',
@@ -118,7 +118,7 @@ class LocalString extends Translations {
           'Submit': 'சமர்ப்பி',
 
           // shed_view
-          'sheds': ' கொட்டகைகள்',
+          ' sheds': ' கொட்டகைகள்',
           'Edit Shed Details': 'ஷெட் விவரங்களைத் திருத்து',
           'Want to delete ': 'நீக்க வேண்டும் ',
           ' shed details?': ' விவரங்கள்?',
@@ -128,10 +128,16 @@ class LocalString extends Translations {
           'Enter Shed Name': 'ஷெட் பெயரை உள்ளிடவும்',
 
           // flock_view
-          ' flock': ' மந்தை',
+          ' flocks': ' மந்தை',
           'Edit Flock Details': 'மந்தை விவரங்களைத் திருத்து',
           'Want to delete ': 'நீக்க வேண்டும்',
           ' flock details?': ' மந்தை விவரங்கள்?',
+          'Edit Name': 'பெயரைத் திருத்தவும்',
+          'Edit Starting Date': 'தேதியைத் திருத்தவும்',
+          'Edit Type': 'திருத்த வகை',
+          'Edit Strain Type': 'திரிபு திருத்தவும்',
+          'Edit Count': 'திருத்த எண்ணிக்கை',
+          'Edit The Number Of Chickens': 'திருத்த எண்ணிக்கை',
 
           // flock_reg_view
           'Add Flock': 'மந்தையைச் சேர்',
@@ -210,6 +216,11 @@ class LocalString extends Translations {
           'Edit Flock Details': 'රැළේ විස්තර වෙනස් කරන්න',
           'Want to delete ': '',
           ' flock details?': ' රැළේ විස්තර මකා දැමීමට අවශ්‍යද?',
+          'Edit Name': 'නම වෙනස් කරන්න',
+          'Edit Starting Date': 'දිනය වෙනස් කරන්න',
+          'Edit Type': 'වර්ගය වෙනස් කරන්න',
+          'Edit Strain Type': 'ප්රභේද්ය වෙනස් කරන්න',
+          'Edit The Number Of Chickens': 'ප්රමාණය වෙනස් කරන්න',
 
           // flock_reg_view
           'Add Flock': 'රැළේ විස්තර එකතු කරන්න',

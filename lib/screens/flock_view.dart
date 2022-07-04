@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 import 'package:home_login/screens/signin_screen.dart';
 import '../constants.dart';
 import '../net/flutter_fire.dart';
-import 'package:home_login/screens/feed_screen.dart';
+import 'package:home_login/screens/home_screen.dart';
 
 /* class FlockScreen extends StatelessWidget{//StatefulWidget {
   //const BranchScreen({Key? key}) : super(key: key);
@@ -30,18 +30,27 @@ import 'package:home_login/screens/feed_screen.dart';
 
 class FlockScreen extends StatefulWidget {
   final String shedName;
-  const FlockScreen(this.shedName, {Key? key}) : super(key: key);
+  final String branchName;
+  final String farmName;
+  const FlockScreen(this.shedName, this.branchName, this.farmName, {Key? key})
+      : super(key: key);
   //const ShedScreen({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api, no_logic_in_create_state
-  _FlockScreen createState() => _FlockScreen(shedName);
+  _FlockScreen createState() => _FlockScreen(shedName, branchName, farmName);
 }
 
 class _FlockScreen extends State<FlockScreen> {
   String shedName;
-  _FlockScreen(this.shedName);
+  String branchName;
+  String farmName;
+  _FlockScreen(this.shedName, this.branchName, this.farmName);
   final TextEditingController _controller = TextEditingController();
+  final TextEditingController _startDateController = TextEditingController();
+  final TextEditingController _typeController = TextEditingController();
+  final TextEditingController _strainController = TextEditingController();
+  final TextEditingController _numberController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,10 +93,13 @@ class _FlockScreen extends State<FlockScreen> {
                     return GestureDetector(
                         onTap: () {
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => FeedScreen()),
-                          );
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomeScreen(
+                                    farmNavi: farmName,
+                                    branchNavi: branchName,
+                                    shedNavi: shedName),
+                              ));
                         },
                         child: Padding(
                             padding: const EdgeInsets.only(
@@ -138,7 +150,7 @@ class _FlockScreen extends State<FlockScreen> {
                                             ),
                                           ),*/
                                           Text(
-                                            " ${document.id}",
+                                            " ${document['FlockName']}",
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 18,
@@ -157,13 +169,75 @@ class _FlockScreen extends State<FlockScreen> {
                                                             // sized box with width 10
                                                             width: 10,
                                                           ),
-                                                          Text("Edit".tr)
+                                                          Text("Edit Name".tr)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    PopupMenuItem(
+                                                      value: 2,
+                                                      // row has two child icon and text.
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(Icons.edit),
+                                                          SizedBox(
+                                                            // sized box with width 10
+                                                            width: 10,
+                                                          ),
+                                                          Text(
+                                                              "Edit Starting Date"
+                                                                  .tr)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    PopupMenuItem(
+                                                      value: 3,
+                                                      // row has two child icon and text.
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(Icons.edit),
+                                                          SizedBox(
+                                                            // sized box with width 10
+                                                            width: 10,
+                                                          ),
+                                                          Text("Edit Type".tr)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    PopupMenuItem(
+                                                      value: 4,
+                                                      // row has two child icon and text.
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(Icons.edit),
+                                                          SizedBox(
+                                                            // sized box with width 10
+                                                            width: 10,
+                                                          ),
+                                                          Text(
+                                                              "Edit Strain Type"
+                                                                  .tr)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    PopupMenuItem(
+                                                      value: 5,
+                                                      // row has two child icon and text.
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(Icons.edit),
+                                                          SizedBox(
+                                                            // sized box with width 10
+                                                            width: 10,
+                                                          ),
+                                                          Text(
+                                                              "Edit The Number Of Chickens"
+                                                                  .tr)
                                                         ],
                                                       ),
                                                     ),
                                                     // popupmenu item 2
                                                     PopupMenuItem(
-                                                      value: 2,
+                                                      value: 6,
                                                       // row has two child icon and text
                                                       child: Row(
                                                         children: [
@@ -183,10 +257,22 @@ class _FlockScreen extends State<FlockScreen> {
                                               onSelected: (value) async {
                                                 if (value == 1) {
                                                   openDialog(document.id,
-                                                      document['BranchName']);
+                                                      document['FlockName']);
                                                 } else if (value == 2) {
+                                                  sdayUpdate(document.id,
+                                                      document['startdays']);
+                                                } else if (value == 3) {
+                                                  typeUpdate(document.id,
+                                                      document['type']);
+                                                } else if (value == 4) {
+                                                  strainUpdate(document.id,
+                                                      document['strain']);
+                                                } else if (value == 5) {
+                                                  countUpdate(document.id,
+                                                      document['count']);
+                                                } else if (value == 6) {
                                                   openDialogDelete(document.id,
-                                                      document['BranchName']);
+                                                      document['FlockName']);
                                                 }
                                               }),
                                           /*IconButton(
@@ -231,9 +317,9 @@ class _FlockScreen extends State<FlockScreen> {
   Future openDialog(String id, String flockName) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Edit Flock Details".tr),
+          title: Text("Edit Flock Name".tr),
           content: TextField(
-            //controller: _controller,
+            controller: _controller,
             autofocus: true,
             decoration: InputDecoration(hintText: flockName),
           ),
@@ -241,7 +327,7 @@ class _FlockScreen extends State<FlockScreen> {
             TextButton(
                 onPressed: () async {
                   //_controller.text = location;
-                  await updateShed(id, _controller.text);
+                  await updateFlockName(id, _controller.text);
                   _controller.clear();
                   // ignore: use_build_context_synchronously
                   Navigator.of(context).pop();
@@ -251,15 +337,107 @@ class _FlockScreen extends State<FlockScreen> {
         ),
       );
 
-  Future openDialogDelete(String id, String branchName) => showDialog(
+  Future sdayUpdate(String id, String sDay) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Want to delete".tr + id + " flock details?".tr),
+          title: Text("Edit Starting Date".tr),
+          content: TextField(
+            controller: _controller,
+            autofocus: true,
+            decoration: InputDecoration(hintText: sDay),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () async {
+                  //_controller.text = location;
+                  await updatesDay(id, _controller.text);
+                  _controller.clear();
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pop();
+                },
+                child: Text("Change".tr))
+          ],
+        ),
+      );
+
+  Future typeUpdate(String id, String type) => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Edit Type".tr),
+          content: TextField(
+            controller: _controller,
+            autofocus: true,
+            decoration: InputDecoration(hintText: type),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () async {
+                  //_controller.text = location;
+                  await updateType(id, _controller.text);
+                  _controller.clear();
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pop();
+                },
+                child: Text("Change".tr))
+          ],
+        ),
+      );
+
+  Future strainUpdate(String id, String strain) => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Edit Strain Type".tr),
+          content: TextField(
+            controller: _controller,
+            autofocus: true,
+            decoration: InputDecoration(hintText: strain),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () async {
+                  //_controller.text = location;
+                  await updateType(id, _controller.text);
+                  _controller.clear();
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pop();
+                },
+                child: Text("Change".tr))
+          ],
+        ),
+      );
+
+  Future countUpdate(String id, String count) => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Edit The Number Of Chickens".tr),
+          content: TextField(
+            controller: _controller,
+            autofocus: true,
+            decoration: InputDecoration(hintText: count),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () async {
+                  //_controller.text = location;
+                  await updateType(id, _controller.text);
+                  _controller.clear();
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pop();
+                },
+                child: Text("Change".tr))
+          ],
+        ),
+      );
+
+  Future openDialogDelete(String id, String flockName) => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Want to delete".tr + flockName + " flock details?".tr),
           actions: [
             TextButton(
                 onPressed: () async {
                   // delete function here
-                  removeShed(id);
+                  removeFlock(id);
                   Navigator.of(context).pop();
                 },
                 child: Text(
