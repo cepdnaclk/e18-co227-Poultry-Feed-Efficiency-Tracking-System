@@ -10,7 +10,7 @@ import 'griddashboard.dart';
 import 'package:home_login/constants.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String farmNavi, branchNavi, shedNavi;
+  final String farmNavi, branchNavi, shedNavi, flockNavi;
 
   //const HomeScreen({Key? key}) : super(key: key);
 
@@ -19,6 +19,7 @@ class HomeScreen extends StatefulWidget {
     required this.farmNavi,
     required this.branchNavi,
     required this.shedNavi,
+    required this.flockNavi,
   }) : super(key: key);
 
   // FirebaseAuth.instance;
@@ -177,6 +178,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     ),
                                     Text(
                                       "Shed : " + widget.shedNavi,
+                                      style: TextStyle(
+                                        color: mTitleTextColor,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 2,
+                                    ),
+                                    Text(
+                                      "Flock : " + widget.flockNavi,
                                       style: TextStyle(
                                         color: mTitleTextColor,
                                         fontSize: 18,

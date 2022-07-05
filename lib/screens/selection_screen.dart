@@ -48,7 +48,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       farmItems.add(
                         DropdownMenuItem(
                           child: Text(
-                            snap.id,
+                            snap['Name'],
                             style: TextStyle(color: mPrimaryColor),
                           ),
                           value: "${snap.id}",
@@ -226,30 +226,21 @@ class _SelectionScreenState extends State<SelectionScreen> {
                 }),
 
             //For Flock
-            /*
-            StreamBuilder<QuerySnapshot>(
 
+            StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection("Farmers")
                     .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .collection('Shed')
-                //.where('BranchName', isEqualTo: branchName)
+                    .collection('Flock')
+                    .where('ShedID', isEqualTo: selectedShed)
                     .snapshots(),
-
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
-
-                  if (!snapshot.hasData){
-
+                  if (!snapshot.hasData) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
-
-                  }
-
-
-                  else {
-
+                  } else {
                     List<DropdownMenuItem<String>> shedItems = [];
 
                     for (int i = 0; i < snapshot.data!.docs.length; i++) {
@@ -257,8 +248,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       shedItems.add(
                         DropdownMenuItem(
                           child: Text(
-                            snap.id,
-
+                            snap['FlockName'],
                             style: TextStyle(color: mPrimaryColor),
                           ),
                           value: "${snap.id}",
@@ -268,15 +258,13 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-
                         //SizedBox(width: 10.0),
-                        DropdownButton <String>(
+                        DropdownButton<String>(
                           items: shedItems,
                           onChanged: (shedValue) {
                             final snackBar = SnackBar(
                               content: Text(
-                                'Selected Shed is $shedValue',
-
+                                'Selected flock is $shedValue',
                                 style: TextStyle(color: mTitleTextColor),
                               ),
                             );
@@ -288,16 +276,17 @@ class _SelectionScreenState extends State<SelectionScreen> {
                           value: selectedShed,
                           isExpanded: false,
                           hint: new Text(
-                            "Choose your Shed",
-                            style: TextStyle(color: mPrimaryColor),
+                            "Choose your Flock",
+                            style: TextStyle(
+                              color: mPrimaryColor,
+                              fontSize: 17,
+                            ),
                           ),
                         ),
                       ],
                     );
                   }
                 }),
-
-             */
 
             SizedBox(
               height: 150.0,
@@ -318,9 +307,11 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       MaterialPageRoute(
                         builder: (context) {
                           return HomeScreen(
-                              farmNavi: selectedFarm,
-                              branchNavi: selectedBranch,
-                              shedNavi: selectedShed);
+                            farmNavi: selectedFarm,
+                            branchNavi: selectedBranch,
+                            shedNavi: selectedShed,
+                            flockNavi: selectedFlock,
+                          );
                         },
                       ),
                     );

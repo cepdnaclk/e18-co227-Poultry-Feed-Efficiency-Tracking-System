@@ -8,19 +8,20 @@ import 'package:home_login/screens/signup_screen.dart';
 import 'package:get/get.dart';
 
 class FlockRegScreen extends StatefulWidget {
-  late String shedName;
-  FlockRegScreen(this.shedName);
+  late String shedID, branchID, farmID;
+  FlockRegScreen(this.shedID, this.branchID, this.farmID);
   //const BrachRegScreen({Key? key}) : super(key: key);
 
   @override
-  State<FlockRegScreen> createState() => _BranchRegScreenState(shedName);
+  State<FlockRegScreen> createState() =>
+      _BranchRegScreenState(shedID, branchID, farmID);
 }
 
 class _BranchRegScreenState extends State<FlockRegScreen> {
   //GlobalKey<FormState> formKey = GlobalKey<FormState>();
   //late String _username,_password;
-  late String shedName;
-  _BranchRegScreenState(this.shedName);
+  late String shedID, branchID, farmID;
+  _BranchRegScreenState(this.shedID, this.branchID, this.farmID);
 
   //final TextEditingController _locationController = TextEditingController();
   final TextEditingController _branchNameController = TextEditingController();
@@ -105,7 +106,9 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                       onPressed: () async {
                         await addFlock(
                             _branchNameController.text,
-                            shedName,
+                            shedID,
+                            branchID,
+                            farmID,
                             _startDateController.text,
                             _typeController.text,
                             _strainController.text,

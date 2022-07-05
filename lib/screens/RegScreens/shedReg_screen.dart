@@ -8,19 +8,19 @@ import 'package:home_login/screens/signup_screen.dart';
 import 'package:get/get.dart';
 
 class ShedRegScreen extends StatefulWidget {
-  late String branchName;
-  ShedRegScreen(this.branchName);
+  late String branchID, farmID;
+  ShedRegScreen(this.branchID, this.farmID);
   //const BrachRegScreen({Key? key}) : super(key: key);
 
   @override
-  State<ShedRegScreen> createState() => _BranchRegScreenState(branchName);
+  State<ShedRegScreen> createState() => _BranchRegScreenState(branchID, farmID);
 }
 
 class _BranchRegScreenState extends State<ShedRegScreen> {
   //GlobalKey<FormState> formKey = GlobalKey<FormState>();
   //late String _username,_password;
-  late String branchName;
-  _BranchRegScreenState(this.branchName);
+  late String branchID, farmID;
+  _BranchRegScreenState(this.branchID, this.farmID);
   //final TextEditingController _locationController = TextEditingController();
   final TextEditingController _branchNameController = TextEditingController();
   @override
@@ -71,7 +71,8 @@ class _BranchRegScreenState extends State<ShedRegScreen> {
                         BoxDecoration(borderRadius: BorderRadius.circular(90)),
                     child: ElevatedButton(
                       onPressed: () async {
-                        await addShed(_branchNameController.text, branchName);
+                        await addShed(
+                            _branchNameController.text, branchID, farmID);
                         Navigator.of(context).pop();
                       },
                       child: Text(
