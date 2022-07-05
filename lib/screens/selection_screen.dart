@@ -101,7 +101,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     .collection("Farmers")
                     .doc(FirebaseAuth.instance.currentUser!.uid)
                     .collection('Branch')
-                    //.where('FarmName', isEqualTo: farmName)
+                    .where('FarmName', isEqualTo: selectedFarm)
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -117,10 +117,11 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       branchItems.add(
                         DropdownMenuItem(
                           child: Text(
-                            snap.id,
+                            snap['BranchName'],
+                            //snap.id,
                             style: TextStyle(color: mPrimaryColor),
                           ),
-                          value: "${snap.id}",
+                          value: "${snap['BranchName']}",
                         ),
                       );
                     }
@@ -167,7 +168,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     .collection("Farmers")
                     .doc(FirebaseAuth.instance.currentUser!.uid)
                     .collection('Shed')
-                    //.where('BranchName', isEqualTo: branchName)
+                    .where('BranchName', isEqualTo: selectedBranch)
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -183,10 +184,10 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       shedItems.add(
                         DropdownMenuItem(
                           child: Text(
-                            snap.id,
+                            snap['ShedName'],
                             style: TextStyle(color: mPrimaryColor),
                           ),
-                          value: "${snap.id}",
+                          value: "${snap['ShedName']}",
                         ),
                       );
                     }
@@ -224,7 +225,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                   }
                 }),
 
-            //For Flock to be done after group 17 updated the flock
+            //For Flock
             /*
             StreamBuilder<QuerySnapshot>(
 

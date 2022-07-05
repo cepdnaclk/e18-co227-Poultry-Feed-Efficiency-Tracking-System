@@ -33,25 +33,30 @@ class FlockScreen extends StatefulWidget {
   final String shedName;
   final String branchName;
   final String farmName;
-  const FlockScreen(this.shedName, this.branchName, this.farmName, {Key? key})
+  final String shedID;
+  const FlockScreen(this.shedName, this.branchName, this.farmName, this.shedID,
+      {Key? key})
       : super(key: key);
   //const ShedScreen({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api, no_logic_in_create_state
-  _FlockScreen createState() => _FlockScreen(shedName, branchName, farmName);
+  _FlockScreen createState() =>
+      _FlockScreen(shedName, branchName, farmName, shedID);
 }
 
 class _FlockScreen extends State<FlockScreen> {
   String shedName;
   String branchName;
   String farmName;
-  _FlockScreen(this.shedName, this.branchName, this.farmName);
+  String shedID;
+  _FlockScreen(this.shedName, this.branchName, this.farmName, this.shedID);
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _startDateController = TextEditingController();
   final TextEditingController _typeController = TextEditingController();
   final TextEditingController _strainController = TextEditingController();
   final TextEditingController _numberController = TextEditingController();
+  final TextEditingController _birthDateController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +91,7 @@ class _FlockScreen extends State<FlockScreen> {
                   .collection('Farmers')
                   .doc(FirebaseAuth.instance.currentUser!.uid)
                   .collection('flock')
-                  .where('ShedName', isEqualTo: shedName)
+                  .where('ShedName', isEqualTo: shedID)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -100,7 +105,6 @@ class _FlockScreen extends State<FlockScreen> {
                   children: snapshot.data!.docs.map((document) {
                     return GestureDetector(
                         onTap: () {
-
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -109,7 +113,6 @@ class _FlockScreen extends State<FlockScreen> {
                                     branchNavi: branchName,
                                     shedNavi: shedName),
                               ));
-
                         },
                         child: Padding(
                             padding: const EdgeInsets.only(
@@ -209,12 +212,27 @@ class _FlockScreen extends State<FlockScreen> {
                                                             // sized box with width 10
                                                             width: 10,
                                                           ),
-                                                          Text("Edit Type".tr)
+                                                          Text("Edit Birth Date"
+                                                              .tr)
                                                         ],
                                                       ),
                                                     ),
                                                     PopupMenuItem(
                                                       value: 4,
+                                                      // row has two child icon and text.
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(Icons.edit),
+                                                          SizedBox(
+                                                            // sized box with width 10
+                                                            width: 10,
+                                                          ),
+                                                          Text("Edit Type".tr)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    PopupMenuItem(
+                                                      value: 5,
                                                       // row has two child icon and text.
                                                       child: Row(
                                                         children: [
@@ -230,7 +248,7 @@ class _FlockScreen extends State<FlockScreen> {
                                                       ),
                                                     ),
                                                     PopupMenuItem(
-                                                      value: 5,
+                                                      value: 6,
                                                       // row has two child icon and text.
                                                       child: Row(
                                                         children: [
@@ -247,7 +265,7 @@ class _FlockScreen extends State<FlockScreen> {
                                                     ),
                                                     // popupmenu item 2
                                                     PopupMenuItem(
-                                                      value: 6,
+                                                      value: 7,
                                                       // row has two child icon and text
                                                       child: Row(
                                                         children: [
@@ -272,15 +290,18 @@ class _FlockScreen extends State<FlockScreen> {
                                                   sdayUpdate(document.id,
                                                       document['startdays']);
                                                 } else if (value == 3) {
+                                                  bdayUpdate(document.id,
+                                                      document['birthDate']);
+                                                } else if (value == 4) {
                                                   typeUpdate(document.id,
                                                       document['type']);
-                                                } else if (value == 4) {
+                                                } else if (value == 5) {
                                                   strainUpdate(document.id,
                                                       document['strain']);
-                                                } else if (value == 5) {
+                                                } else if (value == 6) {
                                                   countUpdate(document.id,
                                                       document['count']);
-                                                } else if (value == 6) {
+                                                } else if (value == 7) {
                                                   openDialogDelete(document.id,
                                                       document['FlockName']);
                                                 }
@@ -361,6 +382,29 @@ class _FlockScreen extends State<FlockScreen> {
                 onPressed: () async {
                   //_controller.text = location;
                   await updatesDay(id, _controller.text);
+                  _controller.clear();
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pop();
+                },
+                child: Text("Change".tr))
+          ],
+        ),
+      );
+
+  Future bdayUpdate(String id, String bDay) => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Edit Birth Date".tr),
+          content: TextField(
+            controller: _controller,
+            autofocus: true,
+            decoration: InputDecoration(hintText: bDay),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () async {
+                  //_controller.text = location;
+                  await updatebDay(id, _controller.text);
                   _controller.clear();
                   // ignore: use_build_context_synchronously
                   Navigator.of(context).pop();
