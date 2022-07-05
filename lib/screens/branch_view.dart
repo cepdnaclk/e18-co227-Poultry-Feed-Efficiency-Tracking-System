@@ -96,8 +96,10 @@ class _BranchScreen extends State<BranchScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    ShedScreen(document['BranchName'],farmName)),
+                                builder: (context) => ShedScreen(
+                                    document['BranchName'],
+                                    farmName,
+                                    document.id)),
                             // builder: (context) => ShedScreen(document.id)),
                           );
                         },

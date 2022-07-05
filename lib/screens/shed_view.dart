@@ -15,19 +15,21 @@ import 'package:home_login/screens/signin_screen.dart';
 class ShedScreen extends StatefulWidget {
   final String farmName;
   final String branchName;
-  const ShedScreen(this.branchName, this.farmName, {Key? key})
+  final String branchID;
+  const ShedScreen(this.branchName, this.farmName, this.branchID, {Key? key})
       : super(key: key);
   //const ShedScreen({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api, no_logic_in_create_state
-  _ShedScreen createState() => _ShedScreen(branchName, farmName);
+  _ShedScreen createState() => _ShedScreen(branchName, farmName, branchID);
 }
 
 class _ShedScreen extends State<ShedScreen> {
   String branchName;
   String farmName;
-  _ShedScreen(this.branchName, this.farmName);
+  String branchID;
+  _ShedScreen(this.branchName, this.farmName, this.branchID);
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -63,7 +65,7 @@ class _ShedScreen extends State<ShedScreen> {
                   .collection('Farmers')
                   .doc(FirebaseAuth.instance.currentUser!.uid)
                   .collection('Shed')
-                  .where('BranchName', isEqualTo: branchName)
+                  .where('BranchName', isEqualTo: branchID)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -83,7 +85,8 @@ class _ShedScreen extends State<ShedScreen> {
                                 builder: (context) => FlockScreen(
                                     document['ShedName'],
                                     branchName,
-                                    farmName)),
+                                    farmName,
+                                    document.id)),
                           );
                         },
                         child: Padding(

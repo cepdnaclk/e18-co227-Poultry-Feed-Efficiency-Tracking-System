@@ -221,7 +221,7 @@ Future<bool> removeShed(String id) async {
 
 //database functions for sheds
 Future<bool> addFlock(String flockName, String shedName, String sDay,
-    String type, String strain, String numberChicken) async {
+    String type, String strain, String numberChicken, String bDay) async {
   try {
     String uid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -251,7 +251,8 @@ Future<bool> addFlock(String flockName, String shedName, String sDay,
           'type': type,
           'strain': strain,
           'count': numberChicken,
-          'FlockName': flockName
+          'FlockName': flockName,
+          'birthDate': bDay
         });
         return true;
       }
@@ -394,6 +395,34 @@ Future<bool> updateCount(String id, String count) async {
       try {
         //double newAmount = value;
         transaction.update(documentReference, {'count': count});
+        return true;
+      } catch (e) {
+        rethrow;
+      }
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+Future<bool> updatebDay(String id, String bDay) async {
+  try {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentReference<Map<String, dynamic>> documentReference =
+        FirebaseFirestore.instance
+            .collection('Farmers')
+            .doc(uid)
+            .collection('flock')
+            .doc(id);
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await transaction.get(documentReference);
+
+      try {
+        //double newAmount = value;
+        transaction.update(documentReference, {'birthDate': bDay});
         return true;
       } catch (e) {
         rethrow;

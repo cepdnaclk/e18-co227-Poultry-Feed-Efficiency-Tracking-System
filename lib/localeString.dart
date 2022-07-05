@@ -54,7 +54,7 @@ class LocalString extends Translations {
 
           // shed_reg_view
           'Add Shed': 'Add Shed',
-          'Enter Shed Name': 'Enter Farm Name',
+          'Enter Shed Name': 'Enter Shed Name',
 
           // flock_view
           ' flock': ' flocks',
