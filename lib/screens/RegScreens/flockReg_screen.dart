@@ -75,6 +75,11 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                   const SizedBox(
                     height: 20,
                   ),
+                  reusableTextField("Enter Birth Date".tr, Icons.date_range,
+                      false, _birthDateController, null),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   reusableTextField("Enter the type".tr, Icons.type_specimen,
                       false, _typeController, null),
                   const SizedBox(
@@ -104,7 +109,8 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                             _startDateController.text,
                             _typeController.text,
                             _strainController.text,
-                            _numberController.text);
+                            _numberController.text,
+                            _birthDateController.text);
                         Navigator.of(context).pop();
                       },
                       child: Text(
