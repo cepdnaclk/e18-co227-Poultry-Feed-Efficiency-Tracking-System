@@ -113,10 +113,10 @@ class _FlockScreen extends State<FlockScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => HomeScreen(
-                                    farmNavi: farmName,
-                                    branchNavi: branchName,
-                                    shedNavi: shedName,
-                                    flockNavi: document['FlockName']),
+                                    farmNavi: farmID,
+                                    branchNavi: branchID,
+                                    shedNavi: shedID,
+                                    flockNavi: document.id),
                               ));
                         },
                         child: Padding(
