@@ -13,29 +13,31 @@ import '../net/flutter_fire.dart';
 import 'package:home_login/screens/signin_screen.dart';
 
 class ShedScreen extends StatefulWidget {
-  final String farmName;
-  final String branchName;
+  final String farmID;
+  final String branchName, farmName;
   final String branchID;
-  const ShedScreen(this.branchName, this.farmName, this.branchID, {Key? key})
+  const ShedScreen(this.branchName, this.farmName, this.farmID, this.branchID,
+      {Key? key})
       : super(key: key);
   //const ShedScreen({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api, no_logic_in_create_state
-  _ShedScreen createState() => _ShedScreen(branchName, farmName, branchID);
+  _ShedScreen createState() =>
+      _ShedScreen(branchName, farmName, farmID, branchID);
 }
 
 class _ShedScreen extends State<ShedScreen> {
-  String branchName;
-  String farmName;
+  String branchName, farmName;
+  String farmID;
   String branchID;
-  _ShedScreen(this.branchName, this.farmName, this.branchID);
+  _ShedScreen(this.branchName, this.farmName, this.farmID, this.branchID);
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(branchName + " sheds".tr),
+          title: Text(branchName + " branch sheds".tr),
           backgroundColor: mPrimaryColor,
           //foregroundColor: Colors.amber,
           actions: <Widget>[
@@ -65,7 +67,8 @@ class _ShedScreen extends State<ShedScreen> {
                   .collection('Farmers')
                   .doc(FirebaseAuth.instance.currentUser!.uid)
                   .collection('Shed')
-                  .where('BranchName', isEqualTo: branchID)
+                  .where('BranchID', isEqualTo: branchID)
+                  .where('FarmID', isEqualTo: farmID)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -86,6 +89,8 @@ class _ShedScreen extends State<ShedScreen> {
                                     document['ShedName'],
                                     branchName,
                                     farmName,
+                                    farmID,
+                                    branchID,
                                     document.id)),
                           );
                         },
@@ -216,7 +221,7 @@ class _ShedScreen extends State<ShedScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ShedRegScreen(branchName),
+              builder: (context) => ShedRegScreen(branchID, farmID),
             ),
           );
         },

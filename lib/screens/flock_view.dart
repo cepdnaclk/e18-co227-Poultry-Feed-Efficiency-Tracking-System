@@ -30,11 +30,12 @@ import 'package:home_login/screens/home_screen.dart';
 } */
 
 class FlockScreen extends StatefulWidget {
-  final String shedName;
-  final String branchName;
-  final String farmName;
+  final String shedName, branchName, farmName;
+  final String branchID;
+  final String farmID;
   final String shedID;
-  const FlockScreen(this.shedName, this.branchName, this.farmName, this.shedID,
+  const FlockScreen(this.shedName, this.branchName, this.farmName,
+      this.branchID, this.farmID, this.shedID,
       {Key? key})
       : super(key: key);
   //const ShedScreen({Key? key}) : super(key: key);
@@ -42,15 +43,16 @@ class FlockScreen extends StatefulWidget {
   @override
   // ignore: library_private_types_in_public_api, no_logic_in_create_state
   _FlockScreen createState() =>
-      _FlockScreen(shedName, branchName, farmName, shedID);
+      _FlockScreen(shedName, branchName, farmName, farmID, branchID, shedID);
 }
 
 class _FlockScreen extends State<FlockScreen> {
-  String shedName;
-  String branchName;
-  String farmName;
+  String shedName, branchName, farmName;
+  String branchID;
+  String farmID;
   String shedID;
-  _FlockScreen(this.shedName, this.branchName, this.farmName, this.shedID);
+  _FlockScreen(this.shedName, this.branchName, this.farmName, this.branchID,
+      this.farmID, this.shedID);
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _startDateController = TextEditingController();
   final TextEditingController _typeController = TextEditingController();
@@ -91,7 +93,9 @@ class _FlockScreen extends State<FlockScreen> {
                   .collection('Farmers')
                   .doc(FirebaseAuth.instance.currentUser!.uid)
                   .collection('flock')
-                  .where('ShedName', isEqualTo: shedID)
+                  .where('ShedID', isEqualTo: shedID)
+                  .where('BranchID', isEqualTo: branchID)
+                  .where('FarmID', isEqualTo: farmID)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -111,7 +115,8 @@ class _FlockScreen extends State<FlockScreen> {
                                 builder: (context) => HomeScreen(
                                     farmNavi: farmName,
                                     branchNavi: branchName,
-                                    shedNavi: shedName),
+                                    shedNavi: shedName,
+                                    flockNavi: document['FlockName']),
                               ));
                         },
                         child: Padding(
@@ -332,7 +337,7 @@ class _FlockScreen extends State<FlockScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => FlockRegScreen(shedName),
+              builder: (context) => FlockRegScreen(shedID, branchID, farmID),
             ),
           );
         },

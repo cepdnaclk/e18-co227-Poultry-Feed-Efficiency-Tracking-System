@@ -33,23 +33,26 @@ import '../net/flutter_fire.dart';
 
 class BranchScreen extends StatefulWidget {
   final String farmName;
-  const BranchScreen(this.farmName, {Key? key}) : super(key: key);
+  final String farmID;
+  const BranchScreen(this.farmName, this.farmID, {Key? key}) : super(key: key);
   //const BranchScreen({Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api, no_logic_in_create_state
-  _BranchScreen createState() => _BranchScreen(farmName);
+  _BranchScreen createState() => _BranchScreen(farmName, farmID);
 }
 
 class _BranchScreen extends State<BranchScreen> {
   String farmName;
-  _BranchScreen(this.farmName);
+  String farmID;
+  _BranchScreen(this.farmName, this.farmID);
+  // _BranchScreen(this.farmID);
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(farmName + " branches".tr),
+          title: Text(farmName + " farm branches".tr),
           backgroundColor: mPrimaryColor,
           //foregroundColor: Colors.amber,
           actions: <Widget>[
@@ -79,7 +82,7 @@ class _BranchScreen extends State<BranchScreen> {
                   .collection('Farmers')
                   .doc(FirebaseAuth.instance.currentUser!.uid)
                   .collection('Branch')
-                  .where('FarmName', isEqualTo: farmName)
+                  .where('FarmID', isEqualTo: farmID)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -99,6 +102,7 @@ class _BranchScreen extends State<BranchScreen> {
                                 builder: (context) => ShedScreen(
                                     document['BranchName'],
                                     farmName,
+                                    farmID,
                                     document.id)),
                             // builder: (context) => ShedScreen(document.id)),
                           );
@@ -231,7 +235,7 @@ class _BranchScreen extends State<BranchScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => BranchRegScreen(farmName),
+              builder: (context) => BranchRegScreen(farmID),
             ),
           );
         },

@@ -11,12 +11,12 @@ Future<bool> addFarmer(String name, String location) async {
             .collection('Farmers')
             .doc(uid)
             .collection('Farms')
-            .doc(name);
+            .doc();
     FirebaseFirestore.instance.runTransaction((transaction) async {
       DocumentSnapshot<Map<String, dynamic>> snapshot =
           await transaction.get(documentReference);
       if (!snapshot.exists) {
-        documentReference.set({'Location': location});
+        documentReference.set({'Location': location, 'Name': name});
         return true;
       }
     });
@@ -74,7 +74,7 @@ Future<bool> removeFarm(String id) async {
 }
 
 //database functions for farm branch registration
-Future<bool> addBranch(String branchName, String farmName) async {
+Future<bool> addBranch(String branchName, String farmID) async {
   try {
     String uid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -83,12 +83,12 @@ Future<bool> addBranch(String branchName, String farmName) async {
             .collection('Farmers')
             .doc(uid)
             .collection('Branch')
-            .doc(branchName);
+            .doc();
     FirebaseFirestore.instance.runTransaction((transaction) async {
       DocumentSnapshot<Map<String, dynamic>> snapshot =
           await transaction.get(documentReference);
       if (!snapshot.exists) {
-        documentReference.set({'FarmName': farmName, 'BranchName': branchName});
+        documentReference.set({'FarmID': farmID, 'BranchName': branchName});
         //documentReference.set({'BranchName': branchName});
         return true;
       }
@@ -148,7 +148,7 @@ Future<bool> removeBranch(String id) async {
 }
 
 //database functions for sheds
-Future<bool> addShed(String shedName, String branchName) async {
+Future<bool> addShed(String shedName, String branchID, String farmID) async {
   try {
     String uid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -157,12 +157,13 @@ Future<bool> addShed(String shedName, String branchName) async {
             .collection('Farmers')
             .doc(uid)
             .collection('Shed')
-            .doc(shedName);
+            .doc();
     FirebaseFirestore.instance.runTransaction((transaction) async {
       DocumentSnapshot<Map<String, dynamic>> snapshot =
           await transaction.get(documentReference);
       if (!snapshot.exists) {
-        documentReference.set({'BranchName': branchName, 'ShedName': shedName});
+        documentReference.set(
+            {'BranchID': branchID, 'ShedName': shedName, 'FarmID': farmID});
         return true;
       }
     });
@@ -220,8 +221,16 @@ Future<bool> removeShed(String id) async {
 }
 
 //database functions for sheds
-Future<bool> addFlock(String flockName, String shedName, String sDay,
-    String type, String strain, String numberChicken, String bDay) async {
+Future<bool> addFlock(
+    String flockName,
+    String shedID,
+    String branchID,
+    String farmID,
+    String sDay,
+    String type,
+    String strain,
+    String numberChicken,
+    String bDay) async {
   try {
     String uid = FirebaseAuth.instance.currentUser!.uid;
 
@@ -230,7 +239,7 @@ Future<bool> addFlock(String flockName, String shedName, String sDay,
             .collection('Farmers')
             .doc(uid)
             .collection('flock')
-            .doc(flockName)
+            .doc()
         /*.collection('startdays')
             .doc(sDay)
             .collection('types')
@@ -246,13 +255,16 @@ Future<bool> addFlock(String flockName, String shedName, String sDay,
           await transaction.get(documentReference);
       if (!snapshot.exists) {
         documentReference.set({
-          'ShedName': shedName,
+          'ShedID': shedID,
+          'BranchID': branchID,
+          'FarmID': farmID,
           'startdays': sDay,
           'type': type,
           'strain': strain,
           'count': numberChicken,
           'FlockName': flockName,
-          'birthDate': bDay
+          'birthDate': bDay,
+          'Active': "yes"
         });
         return true;
       }

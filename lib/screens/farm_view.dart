@@ -76,8 +76,8 @@ class _FarmViewState extends State<FarmView> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    BranchScreen(document.id)),
+                                builder: (context) => BranchScreen(
+                                    document['Name'], document.id)),
                           );
                         },
                         child: Padding(
@@ -111,7 +111,7 @@ class _FarmViewState extends State<FarmView> {
                                       children: [
                                         SizedBox(),
                                         Text(
-                                          " ${document.id + " - " + document['Location']}",
+                                          " ${document['Name']}",
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 18,
