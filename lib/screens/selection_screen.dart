@@ -14,7 +14,14 @@ class SelectionScreen extends StatefulWidget {
 }
 
 class _SelectionScreenState extends State<SelectionScreen> {
-  var selectedFarm, selectedBranch, selectedFlock, selectedShed;
+  var selectedFarm,
+      selectedBranch,
+      selectedFlock,
+      selectedShed,
+      farmName,
+      branchName,
+      shedName,
+      flockName;
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +82,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                             //Scaffold.of(context).showSnackBar(snackBar);
                             setState(() {
                               selectedFarm = farmValue;
+                              //farmName = ;
                             });
                           },
                           value: selectedFarm,
@@ -101,7 +109,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     .collection("Farmers")
                     .doc(FirebaseAuth.instance.currentUser!.uid)
                     .collection('Branch')
-                    .where('FarmName', isEqualTo: selectedFarm)
+                    .where('FarmID', isEqualTo: selectedFarm)
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -121,7 +129,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                             //snap.id,
                             style: TextStyle(color: mPrimaryColor),
                           ),
-                          value: "${snap['BranchName']}",
+                          value: "${snap.id}",
                         ),
                       );
                     }
@@ -168,7 +176,8 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     .collection("Farmers")
                     .doc(FirebaseAuth.instance.currentUser!.uid)
                     .collection('Shed')
-                    .where('BranchName', isEqualTo: selectedBranch)
+                    .where('BranchID', isEqualTo: selectedBranch)
+                    .where('FarmID', isEqualTo: selectedFarm)
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -187,7 +196,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                             snap['ShedName'],
                             style: TextStyle(color: mPrimaryColor),
                           ),
-                          value: "${snap['ShedName']}",
+                          value: "${snap.id}",
                         ),
                       );
                     }
@@ -231,8 +240,10 @@ class _SelectionScreenState extends State<SelectionScreen> {
                 stream: FirebaseFirestore.instance
                     .collection("Farmers")
                     .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .collection('Flock')
+                    .collection('flock')
                     .where('ShedID', isEqualTo: selectedShed)
+                    .where('BranchID', isEqualTo: selectedBranch)
+                    .where('FarmID', isEqualTo: selectedFarm)
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -241,11 +252,11 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       child: CircularProgressIndicator(),
                     );
                   } else {
-                    List<DropdownMenuItem<String>> shedItems = [];
+                    List<DropdownMenuItem<String>> flockItems = [];
 
                     for (int i = 0; i < snapshot.data!.docs.length; i++) {
                       DocumentSnapshot snap = snapshot.data!.docs[i];
-                      shedItems.add(
+                      flockItems.add(
                         DropdownMenuItem(
                           child: Text(
                             snap['FlockName'],
@@ -260,20 +271,20 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       children: <Widget>[
                         //SizedBox(width: 10.0),
                         DropdownButton<String>(
-                          items: shedItems,
-                          onChanged: (shedValue) {
+                          items: flockItems,
+                          onChanged: (flockValue) {
                             final snackBar = SnackBar(
                               content: Text(
-                                'Selected flock is $shedValue',
+                                'Selected flock is $flockValue',
                                 style: TextStyle(color: mTitleTextColor),
                               ),
                             );
                             Scaffold.of(context).showSnackBar(snackBar);
                             setState(() {
-                              selectedShed = shedValue;
+                              selectedFlock = flockValue;
                             });
                           },
-                          value: selectedShed,
+                          value: selectedFlock,
                           isExpanded: false,
                           hint: new Text(
                             "Choose your Flock",
