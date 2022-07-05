@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                           const SizedBox(
                             height: 5,
                           ),
-                          const GridDashboard()
+                          GridDashboard(widget.flockNavi)
                         ],
                       ),
                     ),

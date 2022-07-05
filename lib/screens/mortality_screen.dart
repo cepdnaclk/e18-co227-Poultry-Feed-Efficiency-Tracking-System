@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:home_login/constants.dart';
+import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'drawerMenu.dart';
@@ -35,6 +38,7 @@ class _MortalityScreenState extends State<MortalityScreen>
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return Stack(
       children: [
         DrawerMenu(),
@@ -183,7 +187,14 @@ class _MortalityScreenState extends State<MortalityScreen>
                     ),
                     Center(
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          // print(args.flockID);
+                          // print(_numcontroller.text);
+                          // print(date);
+                          await addMortality(args.flockID, _numcontroller.text,
+                              date.toString().substring(0, 10));
+                          Navigator.of(context).pop();
+
                           ///displayFCRdialog();
                         },
                         style: ElevatedButton.styleFrom(
@@ -212,6 +223,39 @@ class _MortalityScreenState extends State<MortalityScreen>
     );
   }
 
+  Future<bool> addMortality(String id, String amount, String date) async {
+    try {
+      num value = int.parse(amount);
+      DocumentReference<Map<String, dynamic>> documentReference =
+          FirebaseFirestore.instance
+              .collection('Farmers')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection('flock')
+              .doc(id)
+              .collection('Mortality')
+              .doc();
+      FirebaseFirestore.instance.runTransaction((transaction) async {
+        DocumentSnapshot<Map<String, dynamic>> snapshot =
+            await transaction.get(documentReference);
+        if (!snapshot.exists) {
+          documentReference.set({'Date': date, 'Amount': amount});
+          return true;
+        }
+
+        // try {
+        //   num newAmount = int.parse(snapshot.data()!['Amount']) + value;
+        //   transaction
+        //       .update(documentReference, {'Amount': newAmount.toString()});
+        //   return true;
+        // } catch (e) {
+        //   rethrow;
+        // }
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
   // void displayFCRdialog() {
   //   showDialog(
   //       context: context,

@@ -4,13 +4,17 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class GridDashboard extends StatefulWidget {
-  const GridDashboard({Key? key}) : super(key: key);
+  final String flockID;
+  static const route1 = '/mortal';
+  const GridDashboard(this.flockID, {Key? key}) : super(key: key);
 
   @override
-  State<GridDashboard> createState() => _GridDashboardState();
+  State<GridDashboard> createState() => _GridDashboardState(flockID);
 }
 
 class _GridDashboardState extends State<GridDashboard> {
+  String flockID;
+  _GridDashboardState(this.flockID);
   Items item1 = Items(
     title: "FCR",
     img: "assets/images/feeding.png",
@@ -64,7 +68,8 @@ class _GridDashboardState extends State<GridDashboard> {
             return InkWell(
               onTap: () {
                 if (data.routeName != '/FCR') {
-                  Navigator.pushNamed(context, data.routeName);
+                  Navigator.pushNamed(context, data.routeName,
+                      arguments: ScreenArguments(flockID));
                 } else {
                   popupDialog(context, data.routeName);
                 }
@@ -165,5 +170,15 @@ class Items {
   late String img;
   late String routeName;
 
-  Items({required this.title, required this.img, required this.routeName});
+  Items({
+    required this.title,
+    required this.img,
+    required this.routeName,
+  });
+}
+
+class ScreenArguments {
+  final String flockID;
+
+  ScreenArguments(this.flockID);
 }
