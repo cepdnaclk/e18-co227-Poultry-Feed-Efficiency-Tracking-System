@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/net/auth.dart';
 import 'package:home_login/screens/body_weight.dart';
@@ -95,7 +96,7 @@ class DrawerMenu extends StatelessWidget {
                           builder: (context) => const FCRScreen()));
                 }),
             MenuList(
-                title: "Feed Intake",
+                title: "feedintake".tr,
                 iconName: Icons.food_bank,
                 press: () {
                   Navigator.push(
@@ -104,14 +105,14 @@ class DrawerMenu extends StatelessWidget {
                           builder: (context) => const FeedScreen()));
                 }),
             MenuList(
-                title: "Farm Registration",
+                title: "farmreg".tr,
                 iconName: Icons.app_registration,
                 press: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => FarmView()));
                 }),
             MenuList(
-                title: "Mortality",
+                title: "mortality".tr,
                 iconName: Icons.dangerous,
                 press: () {
                   Navigator.push(
@@ -120,7 +121,7 @@ class DrawerMenu extends StatelessWidget {
                           builder: (context) => const MortalityScreen()));
                 }),
             MenuList(
-                title: "Body Weight",
+                title: "body_weight".tr,
                 iconName: Icons.line_weight,
                 press: () {
                   Navigator.push(
@@ -129,7 +130,7 @@ class DrawerMenu extends StatelessWidget {
                           builder: (context) => const BodyWeight()));
                 }),
             MenuList(
-                title: "View Page",
+                title: "view".tr,
                 iconName: Icons.view_module,
                 press: () {
                   Navigator.push(
@@ -138,13 +139,13 @@ class DrawerMenu extends StatelessWidget {
                           builder: (context) => const SettingsScreen()));
                 }),
             MenuList(
-                title: "Language",
+                title: "language".tr,
                 iconName: Icons.language,
                 press: () {
                   builddialog(context);
                 }),
             MenuList(
-              title: "Logout",
+              title: "logout".tr,
               iconName: Icons.logout,
               press: () async {
                 await auth.logout();

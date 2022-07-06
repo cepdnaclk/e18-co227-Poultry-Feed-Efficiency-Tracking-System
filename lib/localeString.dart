@@ -18,6 +18,23 @@ class LocalString extends Translations {
           'feedintake': 'Feed intake',
           'farmreg': 'Farm Registration',
           'mortality': 'Mortality',
+          'body_weight': 'Body Weight',
+          'view': 'View',
+          'language': 'Language',
+          'logout': 'Logout',
+
+          //selection page
+          'batch_Selection': "BATCH SELECTION",
+          'Choose your Farm': 'Choose your farm',
+          'Choose your Branch': 'Choose your Branch',
+          'Choose your Shed': 'Choose your shed',
+          'Choose your Flock': 'Choose your flock',
+          'Proceed': 'Proceed',
+
+          //gridboard
+          'Checking for Update': 'Checking for Update',
+          'Do you have updated the Mortality':
+              'Do you have updated the Mortality?',
 
           // farm_view
           'farm_view_yourFarms': 'Your Farms',
@@ -84,6 +101,23 @@ class LocalString extends Translations {
           'feedintake': 'உணவு உட்கொள்ளல்',
           'farmreg': 'பண்ணை பதிவு',
           'mortality': 'இறப்பு',
+          'body_weight': 'உடல் எடை',
+          'view': 'பார்க்க',
+          'language': 'மொழி',
+          'logout': 'வெளியேறு',
+
+          //selection page
+          'batch_Selection': "தொகுதி தேர்வு",
+          'Choose your Farm': 'பண்ணையைத் தேர்ந்தெடுங்கள்',
+          'Choose your Branch': 'கிளையைத் தேர்ந்தெடுக்கவும்',
+          'Choose your Shed': 'கொட்டகையைத் தேர்ந்தெடுங்கள்',
+          'Choose your Flock': 'மந்தையைத் தேர்ந்தெடுங்கள்',
+          'Proceed': 'தொடரவும்',
+
+          //gridboard
+          'Checking for Update': 'புதுப்பிப்பைச் சரிபார்க்கிறது',
+          'Do you have updated the Mortality':
+              'நீங்கள் இறப்பைப் புதுப்பித்துள்ளீர்களா?',
 
           // farm_view
           'farm_view_yourFarms': 'உங்கள் பண்ணைகள்',
@@ -162,6 +196,23 @@ class LocalString extends Translations {
           'feedintake': 'ආහාර ගැනීම',
           'farmreg': 'ගොවිපල ලියාපදිංචි කිරීම',
           'mortality': 'මරණය',
+          'body_weight': 'ශරීර බර',
+          'view': 'නැරඹීමට',
+          'language': 'භාෂාව',
+          'logout': 'පිටවීම',
+
+          //selection page
+          'batch_Selection': "කණ්ඩායම් තේරීම",
+          'Choose your Farm': 'ඔබේ ගොවිපල තෝරන්න',
+          'Choose your Branch': 'ඔබේ ශාඛාව තෝරන්න',
+          'Choose your Shed': 'ඔබේ මඩුව තෝරන්න',
+          'Choose your Flock': 'ඔබේ රැළ තෝරන්න',
+          'Proceed': 'ඉදිරියට යන්න',
+
+          //gridboard
+          'Checking for Update': 'යාවත්කාලීන කිරීම සඳහා පරීක්ෂා කිරීම',
+          'Do you have updated the Mortality':
+              'ඔබ මරණ අනුපාතය යාවත්කාලීන කර තිබේද?',
 
           // farm_view
           'farm_view_yourFarms': 'ඔබේ ගොවිපලවල්',
