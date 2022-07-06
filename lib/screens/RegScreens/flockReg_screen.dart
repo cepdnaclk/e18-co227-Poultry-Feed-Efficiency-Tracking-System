@@ -93,7 +93,7 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  reusableTextField("Enter the number of chickens".tr,
+                  reusableTextField2("Enter the number of chickens".tr,
                       Icons.numbers, false, _numberController, null),
                   const SizedBox(
                     height: 20,
