@@ -508,6 +508,7 @@ class _FlockScreen extends State<FlockScreen> {
             controller: _controller,
             autofocus: true,
             decoration: InputDecoration(hintText: count),
+            keyboardType: TextInputType.number,
           ),
           actions: [
             TextButton(

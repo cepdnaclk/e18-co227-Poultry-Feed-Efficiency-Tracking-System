@@ -188,3 +188,55 @@ TextFormField reusableTextField3(
         : TextInputType.emailAddress,
   );
 }
+
+TextFormField reusableTextField2(String text, IconData icon,
+    bool isPasswordType, TextEditingController controller, validator) {
+  return TextFormField(
+    controller: controller,
+    validator: validator,
+    obscureText: isPasswordType,
+    enableSuggestions: !isPasswordType,
+    autocorrect: !isPasswordType,
+    cursorColor: Colors.brown,
+    style: TextStyle(color: Colors.black38, fontSize: 3.h),
+    decoration: InputDecoration(
+      prefixIcon: Icon(
+        icon,
+        color: mPrimaryColor,
+      ),
+      labelText: text,
+      labelStyle: TextStyle(color: Colors.black38, fontSize: 2.5.h),
+      filled: true,
+      floatingLabelBehavior: FloatingLabelBehavior.auto,
+      fillColor: Colors.white,
+      focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(5.h),
+          borderSide: BorderSide(
+            width: 2,
+            color: mPrimaryColor,
+          )),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5.h),
+        borderSide: BorderSide(
+          color: mPrimaryColor,
+          width: 2.0,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5.h),
+        borderSide: BorderSide(
+          color: mPrimaryColor,
+          width: 2.0,
+        ),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5.h),
+        borderSide: BorderSide(
+          color: mPrimaryColor,
+          width: 2.0,
+        ),
+      ),
+    ),
+    keyboardType: TextInputType.number,
+  );
+}
