@@ -125,3 +125,66 @@ Container firebaseUIButtonAsync(
     ),
   );
 }
+
+TextFormField reusableTextField3(
+    String text,
+    IconData icon,
+    bool isPasswordType,
+    TextEditingController controller,
+    validator,
+    bool val) {
+  return TextFormField(
+    onTap: () {
+      print("shamod");
+    },
+    enabled: val,
+    controller: controller,
+    validator: validator,
+    obscureText: isPasswordType,
+    enableSuggestions: !isPasswordType,
+    autocorrect: !isPasswordType,
+    cursorColor: Colors.brown,
+    style: TextStyle(color: Colors.black38),
+    decoration: InputDecoration(
+      prefixIcon: Icon(
+        icon,
+        color: mPrimaryColor,
+      ),
+      labelText: text,
+      labelStyle: TextStyle(color: Colors.black38),
+      filled: true,
+      floatingLabelBehavior: FloatingLabelBehavior.auto,
+      fillColor: Colors.grey[50],
+      focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30.0),
+          borderSide: BorderSide(
+            width: 2,
+            color: mPrimaryColor,
+          )),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30.0),
+        borderSide: BorderSide(
+          color: mPrimaryColor,
+          width: 2.0,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30.0),
+        borderSide: BorderSide(
+          color: mPrimaryColor,
+          width: 2.0,
+        ),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30.0),
+        borderSide: BorderSide(
+          color: mPrimaryColor,
+          width: 2.0,
+        ),
+      ),
+    ),
+    keyboardType: isPasswordType
+        ? TextInputType.visiblePassword
+        : TextInputType.emailAddress,
+  );
+}
