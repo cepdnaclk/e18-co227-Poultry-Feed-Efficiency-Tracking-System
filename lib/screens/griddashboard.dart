@@ -143,19 +143,19 @@ class _GridDashboardState extends State<GridDashboard> {
       context: context,
       builder: (builder) {
         return AlertDialog(
-          title: const Text("Checking for Update"),
-          content: const Text("Do you have updated the Mortality?"),
+          title: Text("Checking for Update".tr),
+          content: Text("Do you have updated the Mortality".tr),
           actions: [
             TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text("No")),
+                child: Text("No".tr)),
             TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, routename);
                 },
-                child: Text("Yes"))
+                child: Text("Yes".tr))
           ],
           //child: ListView.separated(
           //shrinkWrap: true,

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/screens/farm_view.dart';
 import 'package:home_login/screens/home_screen.dart';
@@ -28,7 +29,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: mPrimaryColor,
-          title: const Text("BATCH SELECTION"),
+          title: Text('batch_Selection'.tr),
         ),
         body: new ListView(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -88,7 +89,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                           value: selectedFarm,
                           isExpanded: false,
                           hint: new Text(
-                            "Choose your Farm",
+                            'Choose your Farm'.tr,
                             style: TextStyle(
                               color: mPrimaryColor,
                               fontSize: 17,
@@ -155,7 +156,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                           value: selectedBranch,
                           isExpanded: false,
                           hint: new Text(
-                            "Choose your Branch",
+                            "Choose your Branch".tr,
                             style: TextStyle(
                               color: mPrimaryColor,
                               fontSize: 17,
@@ -222,7 +223,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                           value: selectedShed,
                           isExpanded: false,
                           hint: new Text(
-                            "Choose your Shed",
+                            "Choose your Shed".tr,
                             style: TextStyle(
                               color: mPrimaryColor,
                               fontSize: 17,
@@ -287,7 +288,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                           value: selectedFlock,
                           isExpanded: false,
                           hint: new Text(
-                            "Choose your Flock",
+                            "Choose your Flock".tr,
                             style: TextStyle(
                               color: mPrimaryColor,
                               fontSize: 17,
@@ -332,7 +333,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     alignment: Alignment.center,
                     child: Text(
-                      'Proceed',
+                      'Proceed'.tr,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 17,
@@ -369,7 +370,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     alignment: Alignment.center,
                     width: double.infinity,
                     child: Text(
-                      'Farm Registration',
+                      'farmreg'.tr,
                       style: TextStyle(
                         color: mPrimaryColor,
                         fontSize: 17,
