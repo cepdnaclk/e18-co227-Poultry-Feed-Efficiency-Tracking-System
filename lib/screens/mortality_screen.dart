@@ -80,6 +80,9 @@ class _MortalityScreenState extends State<MortalityScreen>
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      height: 20.0,
+                    ),
                     StreamBuilder<QuerySnapshot>(
                         stream: FirebaseFirestore.instance
                             .collection("Farmers")
@@ -99,18 +102,30 @@ class _MortalityScreenState extends State<MortalityScreen>
                             amount = -1;
                           }
                           if (amount == -1) {
-                            return Text(
+                            return Center(
+                              child: Text(
                                 "You haven't recorded mortalities for " +
-                                    date.toString().substring(0, 10));
+                                    date.toString().substring(0, 10),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, color: mPrimaryTextColor),
+                              ),
+                            );
                           } else {
-                            return Text(
-                                "You have already recorded ${snapshot.data?.docs[0]['Amount']} mortalities for ${date.toString().substring(0, 10)}");
+                            return Center(
+                              child: Text(
+                                "You have already recorded ${snapshot.data?.docs[0]['Amount']} mortalities for ${date.toString().substring(0, 10)}",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, color: mPrimaryTextColor),
+                              ),
+                            );
                           }
                         }),
 
                     //reuseTextField("Mortality"),
                     SizedBox(
-                      height: 30.0,
+                      height: 20.0,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -221,6 +236,8 @@ class _MortalityScreenState extends State<MortalityScreen>
                           // print(date);
                           await addMortality(args.flockID, _numcontroller.text,
                               date.toString().substring(0, 10));
+                          _numcontroller.clear();
+                          setState(() {});
                           Navigator.of(context).pop();
 
                           ///displayFCRdialog();
@@ -267,15 +284,16 @@ class _MortalityScreenState extends State<MortalityScreen>
             await transaction.get(documentReference);
         if (!snapshot.exists) {
           documentReference.set({'Amount': value});
-          return true;
-        }
 
-        try {
-          num newAmount = snapshot.data()!['Amount'] + value;
-          transaction.update(documentReference, {'Amount': newAmount});
           return true;
-        } catch (e) {
-          rethrow;
+        } else {
+          try {
+            num newAmount = snapshot.data()!['Amount'] + value;
+            transaction.update(documentReference, {'Amount': newAmount});
+            return true;
+          } catch (e) {
+            rethrow;
+          }
         }
       });
       return true;
