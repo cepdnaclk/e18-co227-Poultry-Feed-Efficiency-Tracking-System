@@ -80,9 +80,52 @@ class _MortalityScreenState extends State<MortalityScreen>
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection("Farmers")
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .collection('flock')
+                            .doc(args.flockID)
+                            .collection('Mortality')
+                            .where(FieldPath.documentId,
+                                isEqualTo: date.toString().substring(0, 10))
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          num amount = -1;
+                          try {
+                            amount = snapshot.data?.docs[0]['Amount'];
+                          } catch (e) {
+                            amount = -1;
+                          }
+                          if (amount == -1) {
+                            return Center(
+                              child: Text(
+                                "You haven't recorded mortalities for " +
+                                    date.toString().substring(0, 10),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, color: mPrimaryTextColor),
+                              ),
+                            );
+                          } else {
+                            return Center(
+                              child: Text(
+                                "You have already recorded ${snapshot.data?.docs[0]['Amount']} mortalities for ${date.toString().substring(0, 10)}",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, color: mPrimaryTextColor),
+                              ),
+                            );
+                          }
+                        }),
+
                     //reuseTextField("Mortality"),
                     SizedBox(
-                      height: 30.0,
+                      height: 20.0,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -193,6 +236,8 @@ class _MortalityScreenState extends State<MortalityScreen>
                           // print(date);
                           await addMortality(args.flockID, _numcontroller.text,
                               date.toString().substring(0, 10));
+                          _numcontroller.clear();
+                          setState(() {});
                           Navigator.of(context).pop();
 
                           ///displayFCRdialog();
@@ -233,23 +278,23 @@ class _MortalityScreenState extends State<MortalityScreen>
               .collection('flock')
               .doc(id)
               .collection('Mortality')
-              .doc();
+              .doc(date);
       FirebaseFirestore.instance.runTransaction((transaction) async {
         DocumentSnapshot<Map<String, dynamic>> snapshot =
             await transaction.get(documentReference);
         if (!snapshot.exists) {
-          documentReference.set({'Date': date, 'Amount': amount});
-          return true;
-        }
+          documentReference.set({'Amount': value});
 
-        // try {
-        //   num newAmount = int.parse(snapshot.data()!['Amount']) + value;
-        //   transaction
-        //       .update(documentReference, {'Amount': newAmount.toString()});
-        //   return true;
-        // } catch (e) {
-        //   rethrow;
-        // }
+          return true;
+        } else {
+          try {
+            num newAmount = snapshot.data()!['Amount'] + value;
+            transaction.update(documentReference, {'Amount': newAmount});
+            return true;
+          } catch (e) {
+            rethrow;
+          }
+        }
       });
       return true;
     } catch (e) {
