@@ -80,6 +80,34 @@ class _MortalityScreenState extends State<MortalityScreen>
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection("Farmers")
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .collection('flock')
+                            .doc(args.flockID)
+                            .collection('Mortality')
+                            .where(FieldPath.documentId,
+                                isEqualTo: date.toString().substring(0, 10))
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          num amount = -1;
+                          try {
+                            amount = snapshot.data?.docs[0]['Amount'];
+                          } catch (e) {
+                            amount = -1;
+                          }
+                          if (amount == -1) {
+                            return Text(
+                                "You haven't recorded mortalities for " +
+                                    date.toString().substring(0, 10));
+                          } else {
+                            return Text(
+                                "You have already recorded ${snapshot.data?.docs[0]['Amount']} mortalities for ${date.toString().substring(0, 10)}");
+                          }
+                        }),
+
                     //reuseTextField("Mortality"),
                     SizedBox(
                       height: 30.0,
@@ -233,23 +261,22 @@ class _MortalityScreenState extends State<MortalityScreen>
               .collection('flock')
               .doc(id)
               .collection('Mortality')
-              .doc();
+              .doc(date);
       FirebaseFirestore.instance.runTransaction((transaction) async {
         DocumentSnapshot<Map<String, dynamic>> snapshot =
             await transaction.get(documentReference);
         if (!snapshot.exists) {
-          documentReference.set({'Date': date, 'Amount': amount});
+          documentReference.set({'Amount': value});
           return true;
         }
 
-        // try {
-        //   num newAmount = int.parse(snapshot.data()!['Amount']) + value;
-        //   transaction
-        //       .update(documentReference, {'Amount': newAmount.toString()});
-        //   return true;
-        // } catch (e) {
-        //   rethrow;
-        // }
+        try {
+          num newAmount = snapshot.data()!['Amount'] + value;
+          transaction.update(documentReference, {'Amount': newAmount});
+          return true;
+        } catch (e) {
+          rethrow;
+        }
       });
       return true;
     } catch (e) {
