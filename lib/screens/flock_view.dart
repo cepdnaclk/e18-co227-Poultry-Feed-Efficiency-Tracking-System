@@ -47,6 +47,8 @@ class FlockScreen extends StatefulWidget {
 }
 
 class _FlockScreen extends State<FlockScreen> {
+  DateTime date =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   String shedName, branchName, farmName;
   String branchID;
   String farmID;
@@ -207,6 +209,7 @@ class _FlockScreen extends State<FlockScreen> {
                                                         ],
                                                       ),
                                                     ),
+
                                                     PopupMenuItem(
                                                       value: 3,
                                                       // row has two child icon and text.
@@ -292,11 +295,43 @@ class _FlockScreen extends State<FlockScreen> {
                                                   openDialog(document.id,
                                                       document['FlockName']);
                                                 } else if (value == 2) {
-                                                  sdayUpdate(document.id,
-                                                      document['startdays']);
+                                                  /*sdayUpdate(document.id,
+                                                      document['startdays']);*/
+                                                  var dateTime =
+                                                      await showDatePicker(
+                                                    context: context,
+                                                    initialDate: date,
+                                                    firstDate: DateTime(2022),
+                                                    lastDate: DateTime.now(),
+                                                  );
+                                                  DateTime? newDate = dateTime;
+                                                  if (newDate == null) return;
+                                                  setState(
+                                                      () => date = newDate);
+                                                  updatesDay(
+                                                      document.id,
+                                                      date
+                                                          .toString()
+                                                          .substring(0, 10));
                                                 } else if (value == 3) {
-                                                  bdayUpdate(document.id,
-                                                      document['birthDate']);
+                                                  /*bdayUpdate(document.id,
+                                                      document['birthDate']);*/
+                                                  var dateTime =
+                                                      await showDatePicker(
+                                                    context: context,
+                                                    initialDate: date,
+                                                    firstDate: DateTime(2022),
+                                                    lastDate: DateTime.now(),
+                                                  );
+                                                  DateTime? newDate = dateTime;
+                                                  if (newDate == null) return;
+                                                  setState(
+                                                      () => date = newDate);
+                                                  updatebDay(
+                                                      document.id,
+                                                      date
+                                                          .toString()
+                                                          .substring(0, 10));
                                                 } else if (value == 4) {
                                                   typeUpdate(document.id,
                                                       document['type']);
@@ -473,6 +508,7 @@ class _FlockScreen extends State<FlockScreen> {
             controller: _controller,
             autofocus: true,
             decoration: InputDecoration(hintText: count),
+            keyboardType: TextInputType.number,
           ),
           actions: [
             TextButton(

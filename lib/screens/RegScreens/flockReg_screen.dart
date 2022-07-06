@@ -18,6 +18,8 @@ class FlockRegScreen extends StatefulWidget {
 }
 
 class _BranchRegScreenState extends State<FlockRegScreen> {
+  DateTime date =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   //GlobalKey<FormState> formKey = GlobalKey<FormState>();
   //late String _username,_password;
   late String shedID, branchID, farmID;
@@ -71,7 +73,7 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  reusableTextField("Enter Start Date".tr, Icons.date_range,
+                  /*reusableTextField("Enter Start Date".tr, Icons.date_range,
                       false, _startDateController, null),
                   const SizedBox(
                     height: 20,
@@ -80,7 +82,7 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                       false, _birthDateController, null),
                   const SizedBox(
                     height: 20,
-                  ),
+                  ),*/
                   reusableTextField("Enter the type".tr, Icons.type_specimen,
                       false, _typeController, null),
                   const SizedBox(
@@ -91,10 +93,160 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  reusableTextField("Enter the number of chickens".tr,
+                  reusableTextField2("Enter the number of chickens".tr,
                       Icons.numbers, false, _numberController, null),
                   const SizedBox(
                     height: 20,
+                  ),
+                  Row(
+                    //mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6.0, vertical: 15.0),
+                          child: reusableTextField3(
+                              date.toString().substring(0, 10),
+                              Icons.date_range,
+                              false,
+                              _startDateController,
+                              null,
+                              false),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6.0, vertical: 15.0),
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              DateTime? ndate = await showDatePicker(
+                                context: context,
+                                initialDate: date,
+                                firstDate: DateTime(2022),
+                                lastDate: DateTime.now(),
+                                builder: (context, child) {
+                                  return Theme(
+                                    data: Theme.of(context).copyWith(
+                                      colorScheme: ColorScheme.light(
+                                        primary: mNewColor,
+                                        onPrimary: Colors.white, // <-- SEE HERE
+                                        onSurface: mSecondColor, // <-- SEE HERE
+                                      ),
+                                      textButtonTheme: TextButtonThemeData(
+                                        style: TextButton.styleFrom(
+                                          primary:
+                                              mPrimaryColor, // button text color
+                                        ),
+                                      ),
+                                    ),
+                                    child: child!,
+                                  );
+                                },
+                              );
+                              if (ndate == null) return;
+                              setState(() => date = ndate);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: const Size(180, 50),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  side: BorderSide(
+                                    width: 2.0,
+                                    color: mPrimaryColor,
+                                  )),
+                              primary: mBackgroundColor,
+                              elevation: 20,
+                              shadowColor: Colors.transparent,
+                              textStyle: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            child: Text(
+                              "Set The Start Date".tr,
+                              style: TextStyle(color: Colors.black38),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    //mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6.0, vertical: 15.0),
+                          child: reusableTextField3(
+                              date.toString().substring(0, 10),
+                              Icons.date_range,
+                              false,
+                              _birthDateController,
+                              null,
+                              false),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6.0, vertical: 15.0),
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              DateTime? ndate = await showDatePicker(
+                                context: context,
+                                initialDate: date,
+                                firstDate: DateTime(2022),
+                                lastDate: DateTime.now(),
+                                builder: (context, child) {
+                                  return Theme(
+                                    data: Theme.of(context).copyWith(
+                                      colorScheme: ColorScheme.light(
+                                        primary: mNewColor,
+                                        onPrimary: Colors.white, // <-- SEE HERE
+                                        onSurface: mSecondColor, // <-- SEE HERE
+                                      ),
+                                      textButtonTheme: TextButtonThemeData(
+                                        style: TextButton.styleFrom(
+                                          primary:
+                                              mPrimaryColor, // button text color
+                                        ),
+                                      ),
+                                    ),
+                                    child: child!,
+                                  );
+                                },
+                              );
+                              if (ndate == null) return;
+                              setState(() => date = ndate);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: const Size(180, 50),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  side: BorderSide(
+                                    width: 2.0,
+                                    color: mPrimaryColor,
+                                  )),
+                              primary: mBackgroundColor,
+                              elevation: 20,
+                              shadowColor: Colors.transparent,
+                              textStyle: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            child: Text(
+                              "Set The Birth Date".tr,
+                              style: TextStyle(color: Colors.black38),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
