@@ -65,7 +65,8 @@ class LocalString extends Translations {
           // flock_reg_view
           'Add Flock': 'Add Flock',
           'Enter Flock Name': 'Enter Flock Name',
-          'Enter Start Date': 'Enter Start Date',
+          'Set The Start Date': 'Set The Start Date',
+          'Set The Birth Date': 'Set The Birth Date',
           'Enter the type': 'Enter the type',
           'Enter the strain': 'Enter the strain',
           'Enter the number of chickens': 'Enter the number of chickens',
@@ -142,7 +143,8 @@ class LocalString extends Translations {
           // flock_reg_view
           'Add Flock': 'மந்தையைச் சேர்',
           'Enter Flock Name': 'மந்தையின் பெயரை உள்ளிடவும்',
-          'Enter Start Date': 'தொடக்கத்தை உள்ளிடவும் தேதி',
+          'Set The Start Date': 'தொடக்க தேதி',
+          'Set The Birth Date': 'பிறந்த தேதி',
           'Enter the type': 'வகையை உள்ளிடவும்',
           'Enter the strain': 'எண்டர் தி ஸ்ட்ரெய்ன்',
           'Enter the number of chickens': 'கோழிகளின் எண்ணிக்கையை உள்ளிடவும்',
@@ -225,7 +227,8 @@ class LocalString extends Translations {
           // flock_reg_view
           'Add Flock': 'රැළේ විස්තර එකතු කරන්න',
           'Enter Flock Name': 'රැළේ නම ඇතුළත් කරන්න',
-          'Enter Start Date': 'ආරම්භක දිනය ඇතුළත් කරන්න',
+          'Set The Start Date': 'ආරම්භක දිනය සකසන්න',
+          'Set The Birth Date': 'උපන් දිනය සකසන්න',
           'Enter the type': 'වර්ගය ඇතුලත් කරන්න',
           'Enter the strain': 'ප්රභේද්ය ඇතුලත් කරන්න',
           'Enter the number of chickens': 'කුකුළන් සංඛ්යාව ඇතුළත් කරන්න',
