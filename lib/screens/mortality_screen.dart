@@ -101,7 +101,7 @@ class _MortalityScreenState extends State<MortalityScreen>
                           } catch (e) {
                             amount = -1;
                           }
-                          if (amount == -1) {
+                          if (amount == -1 || amount == 0) {
                             return Center(
                               child: Text(
                                 "You haven't recorded mortalities for " +
@@ -132,7 +132,7 @@ class _MortalityScreenState extends State<MortalityScreen>
                           horizontal: 6.0, vertical: 10.0),
                       //child: reuseTextField1("Number of chicks"),
 
-                      child: reusableTextField("Enter Number of chicks".tr,
+                      child: reusableTextField2("Enter Number of chicks".tr,
                           Icons.numbers, false, _numcontroller, null),
                     ),
                     Row(
@@ -238,7 +238,7 @@ class _MortalityScreenState extends State<MortalityScreen>
                               date.toString().substring(0, 10));
                           _numcontroller.clear();
                           setState(() {});
-                          Navigator.of(context).pop();
+                          //Navigator.of(context).pop();
 
                           ///displayFCRdialog();
                         },
@@ -268,9 +268,11 @@ class _MortalityScreenState extends State<MortalityScreen>
     );
   }
 
-  Future<bool> addMortality(String id, String amount, String date) async {
+  Future<void> addMortality(String id, String amount, String date) async {
+    num current = 0;
+    num value = int.parse(amount);
     try {
-      num value = int.parse(amount);
+      print("try 1");
       DocumentReference<Map<String, dynamic>> documentReference =
           FirebaseFirestore.instance
               .collection('Farmers')
@@ -279,52 +281,71 @@ class _MortalityScreenState extends State<MortalityScreen>
               .doc(id)
               .collection('Mortality')
               .doc(date);
+
       FirebaseFirestore.instance.runTransaction((transaction) async {
         DocumentSnapshot<Map<String, dynamic>> snapshot =
             await transaction.get(documentReference);
-        if (!snapshot.exists) {
-          documentReference.set({'Amount': value});
 
-          return true;
+        if (!snapshot.exists) {
+          print("done 1 befre");
+          documentReference.set({'Amount': value});
+          print("done 1");
+
+          //return true;
         } else {
           try {
-            num newAmount = snapshot.data()!['Amount'] + value;
-            transaction.update(documentReference, {'Amount': newAmount});
-            return true;
+            //num newAmount = snapshot.data()!['Amount'] + value;
+            current = snapshot.data()!['Amount'];
+            transaction.update(documentReference, {'Amount': value});
+            print("done 1.2");
+            print(current);
+            //return true;
           } catch (e) {
-            rethrow;
+            //rethrow;
           }
         }
       });
-      return true;
+      //return true;
     } catch (e) {
-      return false;
+      // return false;
+    }
+    try {
+      print("try 2");
+      DocumentReference<Map<String, dynamic>> documentReference2 =
+          FirebaseFirestore.instance
+              .collection('Farmers')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection('flock')
+              .doc(id);
+
+      FirebaseFirestore.instance.runTransaction((transaction2) async {
+        DocumentSnapshot<Map<String, dynamic>> snapshot2 =
+            await transaction2.get(documentReference2);
+        print(documentReference2);
+        if (!snapshot2.exists) {
+          print("snap 2 noy exist");
+          documentReference2.update({'Mortal': value});
+          print("done 2");
+          print(value);
+          //return true;
+        } else {
+          try {
+            print("done 2.2 before");
+            num n = snapshot2.data()!['Mortal'];
+            num newAmount = n - current + value;
+            print("done 2.2 before 2");
+            transaction2.update(documentReference2, {'Mortal': newAmount});
+            print("done 2.2");
+            //return true;
+          } catch (e) {
+            //rethrow;
+          }
+        }
+      });
+    } catch (e) {
+      //
     }
   }
-  // void displayFCRdialog() {
-  //   showDialog(
-  //       context: context,
-  //       builder: (builder) {
-  //         return AlertDialog(
-  //           backgroundColor: mBackgroundColor,
-  //           title: const Text(
-  //             "Output",
-  //             textAlign: TextAlign.center,
-  //           ),
-  //           content: const Text("-----Details-----\n-----Details-----"),
-  //           actions: [
-  //             TextButton(
-  //               onPressed: () {
-  //                 Navigator.pop(context);
-  //               },
-  //               child: Text("Close"),
-  //             ),
-  //           ],
-  //           //child: ListView.separated(
-  //           //shrinkWrap: true,
-  //         );
-  //       });
-  // }
 }
 
 // TextField reuseTextField1(String text) {
