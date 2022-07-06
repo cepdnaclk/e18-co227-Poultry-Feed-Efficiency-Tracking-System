@@ -264,7 +264,8 @@ Future<bool> addFlock(
           'count': numberChicken,
           'FlockName': flockName,
           'birthDate': bDay,
-          'Active': "yes"
+          'Active': "yes",
+          'Mortal': 0
         });
         return true;
       }
