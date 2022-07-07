@@ -5,6 +5,7 @@ import 'drawerMenu.dart';
 import 'mortality_screen.dart';
 
 class BodyWeight extends StatefulWidget {
+  //final String flockID;
   const BodyWeight({Key? key}) : super(key: key);
 
   @override
@@ -37,7 +38,7 @@ class _FCRScreenState extends State<BodyWeight> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        DrawerMenu(),
+        //DrawerMenu(),
         AnimatedContainer(
           duration: Duration(milliseconds: 500),
           transform: Matrix4.translationValues(translateX, translateY, 0)

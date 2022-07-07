@@ -9,13 +9,15 @@ import 'package:home_login/screens/body_weight.dart';
 import 'package:home_login/screens/farm_view.dart';
 import 'package:home_login/screens/fcr_screen.dart';
 import 'package:home_login/screens/feed_screen.dart';
+import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/mortality_screen.dart';
 import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/settings_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
 
 class DrawerMenu extends StatelessWidget {
-  const DrawerMenu({Key? key}) : super(key: key);
+  final String flockID;
+  const DrawerMenu(this.flockID, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     AuthClass auth = AuthClass();
@@ -115,10 +117,8 @@ class DrawerMenu extends StatelessWidget {
                 title: "mortality".tr,
                 iconName: Icons.dangerous,
                 press: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MortalityScreen()));
+                  Navigator.pushNamed(context, GridDashboard.route1,
+                      arguments: ScreenArguments(flockID));
                 }),
             MenuList(
                 title: "body_weight".tr,

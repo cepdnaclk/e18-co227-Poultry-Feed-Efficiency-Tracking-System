@@ -30,7 +30,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        DrawerMenu(),
+        //DrawerMenu(),
         AnimatedContainer(
           duration: Duration(milliseconds: 500),
           transform: Matrix4.translationValues(translateX, translateY, 0)
