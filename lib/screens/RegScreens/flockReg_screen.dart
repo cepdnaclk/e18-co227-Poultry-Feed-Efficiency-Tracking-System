@@ -6,6 +6,7 @@ import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/signup_screen.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 class FlockRegScreen extends StatefulWidget {
   late String shedID, branchID, farmID;
@@ -18,7 +19,16 @@ class FlockRegScreen extends StatefulWidget {
 }
 
 class _BranchRegScreenState extends State<FlockRegScreen> {
-  DateTime date =
+  List<String> items = [
+    'Cobb 500 - Broiler',
+    'Ross 308 - Broiler',
+    'Dekalb White - Layer',
+    'Shaver Brown - Layer'
+  ];
+  String? selectedItem;
+  DateTime sdate =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime bdate =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   //GlobalKey<FormState> formKey = GlobalKey<FormState>();
   //late String _username,_password;
@@ -82,21 +92,56 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                       false, _birthDateController, null),
                   const SizedBox(
                     height: 20,
-                  ),*/
+                  ),
                   reusableTextField("Enter the type".tr, Icons.type_specimen,
                       false, _typeController, null),
                   const SizedBox(
                     height: 20,
                   ),
+                  
                   reusableTextField("Enter the strain".tr, Icons.egg, false,
                       _strainController, null),
                   const SizedBox(
                     height: 20,
-                  ),
+                  ),*/
                   reusableTextField2("Enter the number of chickens".tr,
                       Icons.numbers, false, _numberController, null),
                   const SizedBox(
                     height: 20,
+                  ),
+                  DropdownButtonFormField<String>(
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.egg,
+                          color: mPrimaryColor,
+                        ),
+                        labelText: 'Select The Strain',
+                        labelStyle:
+                            TextStyle(color: Colors.black38, fontSize: 2.5.h),
+                        filled: true,
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        fillColor: Colors.white,
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.h),
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: mPrimaryColor,
+                            )),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.h),
+                          borderSide:
+                              BorderSide(width: 2.0, color: mPrimaryColor),
+                        )),
+                    value: selectedItem,
+                    items: items
+                        .map((item) => DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(item,
+                                  style: TextStyle(
+                                      color: Colors.black38, fontSize: 2.5.h)),
+                            ))
+                        .toList(),
+                    onChanged: (item) => setState(() => selectedItem = item),
                   ),
                   Row(
                     //mainAxisAlignment: MainAxisAlignment.start,
@@ -107,7 +152,7 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 6.0, vertical: 15.0),
                           child: reusableTextField3(
-                              date.toString().substring(0, 10),
+                              sdate.toString().substring(0, 10),
                               Icons.date_range,
                               false,
                               _startDateController,
@@ -123,7 +168,7 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                             onPressed: () async {
                               DateTime? ndate = await showDatePicker(
                                 context: context,
-                                initialDate: date,
+                                initialDate: sdate,
                                 firstDate: DateTime(2022),
                                 lastDate: DateTime.now(),
                                 builder: (context, child) {
@@ -146,7 +191,7 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                                 },
                               );
                               if (ndate == null) return;
-                              setState(() => date = ndate);
+                              setState(() => sdate = ndate);
                             },
                             style: ElevatedButton.styleFrom(
                               fixedSize: const Size(180, 50),
@@ -182,7 +227,7 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 6.0, vertical: 15.0),
                           child: reusableTextField3(
-                              date.toString().substring(0, 10),
+                              bdate.toString().substring(0, 10),
                               Icons.date_range,
                               false,
                               _birthDateController,
@@ -198,7 +243,7 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                             onPressed: () async {
                               DateTime? ndate = await showDatePicker(
                                 context: context,
-                                initialDate: date,
+                                initialDate: bdate,
                                 firstDate: DateTime(2022),
                                 lastDate: DateTime.now(),
                                 builder: (context, child) {
@@ -221,7 +266,7 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                                 },
                               );
                               if (ndate == null) return;
-                              setState(() => date = ndate);
+                              setState(() => bdate = ndate);
                             },
                             style: ElevatedButton.styleFrom(
                               fixedSize: const Size(180, 50),
@@ -261,11 +306,10 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                             shedID,
                             branchID,
                             farmID,
-                            _startDateController.text,
-                            _typeController.text,
-                            _strainController.text,
+                            sdate.toString().substring(0, 10),
+                            selectedItem.toString(),
                             _numberController.text,
-                            _birthDateController.text);
+                            bdate.toString().substring(0, 10));
                         Navigator.of(context).pop();
                       },
                       child: Text(

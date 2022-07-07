@@ -227,7 +227,7 @@ Future<bool> addFlock(
     String branchID,
     String farmID,
     String sDay,
-    String type,
+    //String type,
     String strain,
     String numberChicken,
     String bDay) async {
@@ -259,7 +259,7 @@ Future<bool> addFlock(
           'BranchID': branchID,
           'FarmID': farmID,
           'startdays': sDay,
-          'type': type,
+          //'type': type,
           'strain': strain,
           'count': numberChicken,
           'FlockName': flockName,
