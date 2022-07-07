@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       //backgroundColor: const Color(0xff392850),
       //backgroundColor: Colors.white,
       children: [
-        DrawerMenu(),
+        DrawerMenu(widget.flockNavi),
         AnimatedContainer(
           duration: Duration(milliseconds: 500),
           transform: Matrix4.translationValues(translateX, translateY, 0)

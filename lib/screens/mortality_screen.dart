@@ -41,7 +41,7 @@ class _MortalityScreenState extends State<MortalityScreen>
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return Stack(
       children: [
-        DrawerMenu(),
+        DrawerMenu(args.flockID),
         AnimatedContainer(
           duration: Duration(milliseconds: 500),
           transform: Matrix4.translationValues(translateX, translateY, 0)
