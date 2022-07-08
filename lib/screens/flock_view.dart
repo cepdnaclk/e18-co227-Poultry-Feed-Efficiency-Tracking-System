@@ -10,6 +10,7 @@ import 'package:home_login/screens/branch_view.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
+import 'package:sizer/sizer.dart';
 import '../constants.dart';
 import '../net/flutter_fire.dart';
 import 'package:home_login/screens/home_screen.dart';
@@ -47,6 +48,13 @@ class FlockScreen extends StatefulWidget {
 }
 
 class _FlockScreen extends State<FlockScreen> {
+  List<String> items = [
+    'Cobb 500 - Broiler',
+    'Ross 308 - Broiler',
+    'Dekalb White - Layer',
+    'Shaver Brown - Layer'
+  ];
+  String? selectedItem;
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   String shedName, branchName, farmName;
@@ -225,7 +233,7 @@ class _FlockScreen extends State<FlockScreen> {
                                                         ],
                                                       ),
                                                     ),
-                                                    PopupMenuItem(
+                                                    /*PopupMenuItem(
                                                       value: 4,
                                                       // row has two child icon and text.
                                                       child: Row(
@@ -238,9 +246,9 @@ class _FlockScreen extends State<FlockScreen> {
                                                           Text("Edit Type".tr)
                                                         ],
                                                       ),
-                                                    ),
+                                                    ),*/
                                                     PopupMenuItem(
-                                                      value: 5,
+                                                      value: 4,
                                                       // row has two child icon and text.
                                                       child: Row(
                                                         children: [
@@ -256,7 +264,7 @@ class _FlockScreen extends State<FlockScreen> {
                                                       ),
                                                     ),
                                                     PopupMenuItem(
-                                                      value: 6,
+                                                      value: 5,
                                                       // row has two child icon and text.
                                                       child: Row(
                                                         children: [
@@ -273,7 +281,7 @@ class _FlockScreen extends State<FlockScreen> {
                                                     ),
                                                     // popupmenu item 2
                                                     PopupMenuItem(
-                                                      value: 7,
+                                                      value: 6,
                                                       // row has two child icon and text
                                                       child: Row(
                                                         children: [
@@ -332,16 +340,17 @@ class _FlockScreen extends State<FlockScreen> {
                                                       date
                                                           .toString()
                                                           .substring(0, 10));
-                                                } else if (value == 4) {
+                                                } /*else if (value == 4) {
                                                   typeUpdate(document.id,
                                                       document['type']);
-                                                } else if (value == 5) {
+                                                } */
+                                                else if (value == 4) {
                                                   strainUpdate(document.id,
                                                       document['strain']);
-                                                } else if (value == 6) {
+                                                } else if (value == 5) {
                                                   countUpdate(document.id,
                                                       document['count']);
-                                                } else if (value == 7) {
+                                                } else if (value == 6) {
                                                   openDialogDelete(document.id,
                                                       document['FlockName']);
                                                 }
@@ -477,7 +486,7 @@ class _FlockScreen extends State<FlockScreen> {
         ),
       );
 
-  Future strainUpdate(String id, String strain) => showDialog(
+  /*Future strainUpdate(String id, String strain) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: Text("Edit Strain Type".tr),
@@ -491,6 +500,36 @@ class _FlockScreen extends State<FlockScreen> {
                 onPressed: () async {
                   //_controller.text = location;
                   await updateType(id, _controller.text);
+                  _controller.clear();
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pop();
+                },
+                child: Text("Change".tr))
+          ],
+        ),
+      );*/
+
+  Future strainUpdate(String id, String strain) => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Edit Strain Type".tr),
+          content: DropdownButtonFormField<String>(
+            value: selectedItem,
+            items: items
+                .map((item) => DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(item,
+                          style: TextStyle(
+                              color: Colors.black38, fontSize: 2.5.h)),
+                    ))
+                .toList(),
+            onChanged: (item) => setState(() => selectedItem = item),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () async {
+                  //_controller.text = location;
+                  await updateStrain(id, selectedItem.toString());
                   _controller.clear();
                   // ignore: use_build_context_synchronously
                   Navigator.of(context).pop();
