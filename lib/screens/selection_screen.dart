@@ -1,3 +1,5 @@
+//import 'dart:js_util';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,6 +8,8 @@ import 'package:get/get.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/screens/farm_view.dart';
 import 'package:home_login/screens/home_screen.dart';
+
+import '../net/flutter_fire.dart';
 
 class SelectionScreen extends StatefulWidget {
   const SelectionScreen({Key? key}) : super(key: key);
@@ -19,8 +23,8 @@ class _SelectionScreenState extends State<SelectionScreen> {
       selectedBranch,
       selectedFlock,
       selectedShed,
-      farmName,
       branchName,
+      farmName,
       shedName,
       flockName;
 
@@ -31,6 +35,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
           backgroundColor: mPrimaryColor,
           title: Text('batch_Selection'.tr),
         ),
+        // ignore: unnecessary_new
         body: new ListView(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           children: <Widget>[
@@ -59,6 +64,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                             snap['Name'],
                             style: TextStyle(color: mPrimaryColor),
                           ),
+                          //value: "${snap.id}",
                           value: "${snap.id}",
                         ),
                       );
@@ -83,6 +89,19 @@ class _SelectionScreenState extends State<SelectionScreen> {
                             //Scaffold.of(context).showSnackBar(snackBar);
                             setState(() {
                               selectedFarm = farmValue;
+                              //farmName = getFarm(selectedFarm.toString());
+                              void getFarm() async {
+                                final doc = await FirebaseFirestore.instance
+                                    .collection('Farmers')
+                                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                                    .collection('Farms')
+                                    .doc(selectedFarm)
+                                    .get();
+
+                                farmName = doc['Name'];
+                              }
+
+                              getFarm();
                               //farmName = ;
                             });
                           },
@@ -104,6 +123,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
             SizedBox(
               height: 15.0,
             ),
+
             //For Branch
             StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
@@ -151,6 +171,18 @@ class _SelectionScreenState extends State<SelectionScreen> {
                             //Scaffold.of(context).showSnackBar(snackBar);
                             setState(() {
                               selectedBranch = branchValue;
+                              void getBranch() async {
+                                final doc = await FirebaseFirestore.instance
+                                    .collection('Farmers')
+                                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                                    .collection('Branch')
+                                    .doc(selectedBranch)
+                                    .get();
+
+                                branchName = doc['BranchName'];
+                              }
+
+                              getBranch();
                             });
                           },
                           value: selectedBranch,
@@ -218,6 +250,18 @@ class _SelectionScreenState extends State<SelectionScreen> {
                             //Scaffold.of(context).showSnackBar(snackBar);
                             setState(() {
                               selectedShed = shedValue;
+                              void getShed() async {
+                                final doc = await FirebaseFirestore.instance
+                                    .collection('Farmers')
+                                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                                    .collection('Shed')
+                                    .doc(selectedShed)
+                                    .get();
+
+                                shedName = doc['ShedName'];
+                              }
+
+                              getShed();
                             });
                           },
                           value: selectedShed,
@@ -283,6 +327,18 @@ class _SelectionScreenState extends State<SelectionScreen> {
                             Scaffold.of(context).showSnackBar(snackBar);
                             setState(() {
                               selectedFlock = flockValue;
+                              void getFlock() async {
+                                final doc = await FirebaseFirestore.instance
+                                    .collection('Farmers')
+                                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                                    .collection('flock')
+                                    .doc(selectedFlock)
+                                    .get();
+
+                                flockName = doc['FlockName'];
+                              }
+
+                              getFlock();
                             });
                           },
                           value: selectedFlock,
@@ -303,6 +359,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
             SizedBox(
               height: 150.0,
             ),
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -319,10 +376,10 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       MaterialPageRoute(
                         builder: (context) {
                           return HomeScreen(
-                            farmNavi: selectedFarm,
-                            branchNavi: selectedBranch,
-                            shedNavi: selectedShed,
-                            flockNavi: selectedFlock,
+                            farmNavi: farmName,
+                            branchNavi: branchName,
+                            shedNavi: shedName,
+                            flockNavi: flockName,
                           );
                         },
                       ),
