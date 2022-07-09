@@ -126,7 +126,11 @@ class _FlockScreen extends State<FlockScreen> {
                                     farmNavi: farmID,
                                     branchNavi: branchID,
                                     shedNavi: shedID,
-                                    flockNavi: document.id),
+                                    flockNavi: document.id,
+                                    farmName: farmName,
+                                    branchName: branchName,
+                                    shedName: shedName,
+                                    flockName: document['FlockName']),
                               ));
                         },
                         child: Padding(
