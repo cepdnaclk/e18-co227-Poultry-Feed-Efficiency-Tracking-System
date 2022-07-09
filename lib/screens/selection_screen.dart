@@ -376,11 +376,14 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       MaterialPageRoute(
                         builder: (context) {
                           return HomeScreen(
-                            farmNavi: farmName,
-                            branchNavi: branchName,
-                            shedNavi: shedName,
-                            flockNavi: flockName,
-                          );
+                              farmNavi: selectedFarm,
+                              branchNavi: selectedBranch,
+                              shedNavi: selectedShed,
+                              flockNavi: selectedFlock,
+                              farmName: farmName,
+                              branchName: branchName,
+                              shedName: shedName,
+                              flockName: flockName);
                         },
                       ),
                     );
