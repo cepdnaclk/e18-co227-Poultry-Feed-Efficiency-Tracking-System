@@ -101,10 +101,12 @@ class DrawerMenu extends StatelessWidget {
                 title: "feedintake".tr,
                 iconName: Icons.food_bank,
                 press: () {
-                  Navigator.push(
+                  Navigator.pushNamed(context, GridDashboard.routeFeed,
+                      arguments: ScreenArguments(flockID));
+                  /*Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const FeedScreen()));
+                          builder: (context) => const FeedScreen()));*/
                 }),
             MenuList(
                 title: "farmreg".tr,
@@ -117,17 +119,19 @@ class DrawerMenu extends StatelessWidget {
                 title: "mortality".tr,
                 iconName: Icons.dangerous,
                 press: () {
-                  Navigator.pushNamed(context, GridDashboard.route1,
+                  Navigator.pushNamed(context, GridDashboard.routeMortal,
                       arguments: ScreenArguments(flockID));
                 }),
             MenuList(
                 title: "body_weight".tr,
                 iconName: Icons.line_weight,
                 press: () {
-                  Navigator.push(
+                  Navigator.pushNamed(context, GridDashboard.routeWeight,
+                      arguments: ScreenArguments(flockID));
+                  /*Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const BodyWeight()));
+                          builder: (context) => const BodyWeight()));*/
                 }),
             MenuList(
                 title: "view".tr,

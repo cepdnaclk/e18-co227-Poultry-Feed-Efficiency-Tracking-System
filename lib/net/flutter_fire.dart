@@ -281,7 +281,8 @@ Future<bool> addFlock(
           'FlockName': flockName,
           'birthDate': bDay,
           'Active': "yes",
-          'Mortal': 0
+          'Mortal': 0,
+          'Avg_BodyWeight': 0.0
         });
         return true;
       }
