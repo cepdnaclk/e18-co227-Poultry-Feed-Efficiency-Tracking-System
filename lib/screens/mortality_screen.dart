@@ -48,217 +48,224 @@ class _MortalityScreenState extends State<MortalityScreen>
             ..scale(scale),
           child: GestureDetector(
             onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-            child: Scaffold(
-              appBar: AppBar(
-                leading: IconButton(
-                  icon: AnimatedIcon(
-                    icon: AnimatedIcons.menu_arrow,
-                    progress: _animationController,
+            child: ClipRRect(
+              borderRadius: (toggle)
+                  ? BorderRadius.circular(20)
+                  : BorderRadius.circular(0),
+              child: Scaffold(
+                appBar: AppBar(
+                  leading: IconButton(
+                    icon: AnimatedIcon(
+                      icon: AnimatedIcons.menu_arrow,
+                      progress: _animationController,
+                    ),
+                    onPressed: () {
+                      toggle = !toggle;
+                      if (toggle) {
+                        translateX = 200.0;
+                        translateY = 80.0;
+                        scale = 0.8;
+                        _animationController.forward();
+                      } else {
+                        translateX = 0.0;
+                        translateY = 0.0;
+                        scale = 1;
+                        _animationController.reverse();
+                      }
+                      setState(() {});
+                    },
+                    //icon: Icon(Icons.menu),
                   ),
-                  onPressed: () {
-                    toggle = !toggle;
-                    if (toggle) {
-                      translateX = 200.0;
-                      translateY = 80.0;
-                      scale = 0.8;
-                      _animationController.forward();
-                    } else {
-                      translateX = 0.0;
-                      translateY = 0.0;
-                      scale = 1;
-                      _animationController.reverse();
-                    }
-                    setState(() {});
-                  },
-                  //icon: Icon(Icons.menu),
+                  title: Text("UPDATE MORTALITY".tr),
+                  backgroundColor: mPrimaryColor,
                 ),
-                title: Text("UPDATE MORTALITY".tr),
-                backgroundColor: mPrimaryColor,
-              ),
-              body: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance
-                            .collection("Farmers")
-                            .doc(FirebaseAuth.instance.currentUser!.uid)
-                            .collection('flock')
-                            .doc(args.flockID)
-                            .collection('Mortality')
-                            .where(FieldPath.documentId,
-                                isEqualTo: date.toString().substring(0, 10))
-                            .snapshots(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<QuerySnapshot> snapshot) {
-                          num amount = -1;
-                          try {
-                            amount = snapshot.data?.docs[0]['Amount'];
-                          } catch (e) {
-                            amount = -1;
-                          }
-                          if (amount == -1 || amount == 0) {
-                            return Center(
-                              child: Text(
-                                "You haven't recorded mortalities for " +
-                                    date.toString().substring(0, 10),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20, color: mPrimaryTextColor),
-                              ),
-                            );
-                          } else {
-                            return Center(
-                              child: Text(
-                                "You have already recorded ${snapshot.data?.docs[0]['Amount']} mortalities for ${date.toString().substring(0, 10)}",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 20, color: mPrimaryTextColor),
-                              ),
-                            );
-                          }
-                        }),
+                body: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection("Farmers")
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .collection('flock')
+                              .doc(args.flockID)
+                              .collection('Mortality')
+                              .where(FieldPath.documentId,
+                                  isEqualTo: date.toString().substring(0, 10))
+                              .snapshots(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            num amount = -1;
+                            try {
+                              amount = snapshot.data?.docs[0]['Amount'];
+                            } catch (e) {
+                              amount = -1;
+                            }
+                            if (amount == -1 || amount == 0) {
+                              return Center(
+                                child: Text(
+                                  "You haven't recorded mortalities for " +
+                                      date.toString().substring(0, 10),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20, color: mPrimaryTextColor),
+                                ),
+                              );
+                            } else {
+                              return Center(
+                                child: Text(
+                                  "You have already recorded ${snapshot.data?.docs[0]['Amount']} mortalities for ${date.toString().substring(0, 10)}",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20, color: mPrimaryTextColor),
+                                ),
+                              );
+                            }
+                          }),
 
-                    //reuseTextField("Mortality"),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 6.0, vertical: 10.0),
-                      //child: reuseTextField1("Number of chicks"),
+                      //reuseTextField("Mortality"),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6.0, vertical: 10.0),
+                        //child: reuseTextField1("Number of chicks"),
 
-                      child: reusableTextField2("Enter Number of chicks".tr,
-                          Icons.numbers, false, _numcontroller, null),
-                    ),
-                    Row(
-                      //mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 6.0, vertical: 15.0),
-                            child: reusableTextField3(
-                                date.toString().substring(0, 10),
-                                Icons.date_range,
-                                false,
-                                _datecontroller,
-                                null,
-                                false),
+                        child: reusableTextField2("Enter Number of chicks".tr,
+                            Icons.numbers, false, _numcontroller, null),
+                      ),
+                      Row(
+                        //mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6.0, vertical: 15.0),
+                              child: reusableTextField3(
+                                  date.toString().substring(0, 10),
+                                  Icons.date_range,
+                                  false,
+                                  _datecontroller,
+                                  null,
+                                  false),
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 6.0, vertical: 15.0),
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                DateTime? ndate = await showDatePicker(
-                                  context: context,
-                                  initialDate: date,
-                                  firstDate: DateTime(2022),
-                                  lastDate: DateTime.now(),
-                                  builder: (context, child) {
-                                    return Theme(
-                                      data: Theme.of(context).copyWith(
-                                        colorScheme: ColorScheme.light(
-                                          primary: mNewColor,
-                                          onPrimary:
-                                              Colors.white, // <-- SEE HERE
-                                          onSurface:
-                                              mSecondColor, // <-- SEE HERE
-                                        ),
-                                        textButtonTheme: TextButtonThemeData(
-                                          style: TextButton.styleFrom(
-                                            primary:
-                                                mPrimaryColor, // button text color
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6.0, vertical: 15.0),
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  DateTime? ndate = await showDatePicker(
+                                    context: context,
+                                    initialDate: date,
+                                    firstDate: DateTime(2022),
+                                    lastDate: DateTime.now(),
+                                    builder: (context, child) {
+                                      return Theme(
+                                        data: Theme.of(context).copyWith(
+                                          colorScheme: ColorScheme.light(
+                                            primary: mNewColor,
+                                            onPrimary:
+                                                Colors.white, // <-- SEE HERE
+                                            onSurface:
+                                                mSecondColor, // <-- SEE HERE
+                                          ),
+                                          textButtonTheme: TextButtonThemeData(
+                                            style: TextButton.styleFrom(
+                                              primary:
+                                                  mPrimaryColor, // button text color
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      child: child!,
-                                    );
-                                  },
-                                );
-                                if (ndate == null) return;
-                                setState(() => date = ndate);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: const Size(180, 50),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    side: BorderSide(
-                                      width: 2.0,
-                                      color: mPrimaryColor,
-                                    )),
-                                primary: mBackgroundColor,
-                                elevation: 20,
-                                shadowColor: Colors.transparent,
-                                textStyle: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                                        child: child!,
+                                      );
+                                    },
+                                  );
+                                  if (ndate == null) return;
+                                  setState(() => date = ndate);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  fixedSize: const Size(180, 50),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      side: BorderSide(
+                                        width: 2.0,
+                                        color: mPrimaryColor,
+                                      )),
+                                  primary: mBackgroundColor,
+                                  elevation: 20,
+                                  shadowColor: Colors.transparent,
+                                  textStyle: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              child: Text(
-                                "Touch to Pick Date",
-                                style: TextStyle(color: Colors.black38),
+                                child: Text(
+                                  "Touch to Pick Date",
+                                  style: TextStyle(color: Colors.black38),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Center(
-                      child: Image.asset(
-                        "assets/images/dead.png",
-                        fit: BoxFit.fitWidth,
-                        width: context.width * 0.6,
-                        // height: 420,
-                        //color: Colors.purple,
+                        ],
                       ),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          // print(args.flockID);
-                          // print(_numcontroller.text);
-                          // print(date);
-                          await addMortality(args.flockID, _numcontroller.text,
-                              date.toString().substring(0, 10));
-                          _numcontroller.clear();
-                          setState(() {});
-                          //Navigator.of(context).pop();
 
-                          ///displayFCRdialog();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(180, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          primary: mPrimaryColor,
-                          elevation: 20,
-                          shadowColor: mSecondColor,
-                          textStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        child: Text("Update"),
+                      SizedBox(
+                        height: 40,
                       ),
-                    ),
-                  ],
+                      Center(
+                        child: Image.asset(
+                          "assets/images/dead.png",
+                          fit: BoxFit.fitWidth,
+                          width: context.width * 0.6,
+                          // height: 420,
+                          //color: Colors.purple,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            // print(args.flockID);
+                            // print(_numcontroller.text);
+                            // print(date);
+                            await addMortality(
+                                args.flockID,
+                                _numcontroller.text,
+                                date.toString().substring(0, 10));
+                            _numcontroller.clear();
+                            setState(() {});
+                            //Navigator.of(context).pop();
+
+                            ///displayFCRdialog();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: const Size(180, 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            primary: mPrimaryColor,
+                            elevation: 20,
+                            shadowColor: mSecondColor,
+                            textStyle: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          child: Text("Update"),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
