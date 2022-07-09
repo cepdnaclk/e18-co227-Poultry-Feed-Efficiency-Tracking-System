@@ -123,10 +123,10 @@ class _FlockScreen extends State<FlockScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => HomeScreen(
-                                    farmNavi: farmID,
-                                    branchNavi: branchID,
-                                    shedNavi: shedID,
-                                    flockNavi: document.id),
+                                    farmNavi: farmName,
+                                    branchNavi: branchName,
+                                    shedNavi: shedName,
+                                    flockNavi: document['FlockName']),
                               ));
                         },
                         child: Padding(
@@ -177,6 +177,7 @@ class _FlockScreen extends State<FlockScreen> {
                                                   primary: mNewColor),
                                             ),
                                           ),*/
+
                                           Text(
                                             " ${document['FlockName']}",
                                             style: const TextStyle(
@@ -514,7 +515,7 @@ class _FlockScreen extends State<FlockScreen> {
         builder: (context) => AlertDialog(
           title: Text("Edit Strain Type".tr),
           content: DropdownButtonFormField<String>(
-            value: selectedItem,
+            value: selectedItem = strain,
             items: items
                 .map((item) => DropdownMenuItem<String>(
                       value: item,
