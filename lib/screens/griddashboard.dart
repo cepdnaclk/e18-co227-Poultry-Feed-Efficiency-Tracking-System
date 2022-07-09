@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 
 class GridDashboard extends StatefulWidget {
   final String flockID;
-  static const route1 = '/mortal';
+  static const routeMortal = '/mortal';
+  static const routeWeight = '/weight';
+  static const routeFeed = '/feed';
   const GridDashboard(this.flockID, {Key? key}) : super(key: key);
 
   @override
