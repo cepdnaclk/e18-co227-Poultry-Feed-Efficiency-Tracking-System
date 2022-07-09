@@ -10,7 +10,14 @@ import 'griddashboard.dart';
 import 'package:home_login/constants.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String farmNavi, branchNavi, shedNavi, flockNavi;
+  final String farmNavi,
+      branchNavi,
+      shedNavi,
+      flockNavi,
+      farmName,
+      branchName,
+      shedName,
+      flockName;
 
   //const HomeScreen({Key? key}) : super(key: key);
 
@@ -20,6 +27,10 @@ class HomeScreen extends StatefulWidget {
     required this.branchNavi,
     required this.shedNavi,
     required this.flockNavi,
+    required this.farmName,
+    required this.branchName,
+    required this.shedName,
+    required this.flockName,
   }) : super(key: key);
 
   // FirebaseAuth.instance;
@@ -29,6 +40,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  //var branchName, farmName, shedName, flockName;
   AuthClass auth = AuthClass();
   double translateX = 0.0;
   double translateY = 0.0;
@@ -155,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       height: 2,
                                     ),
                                     Text(
-                                      "Farm : " + widget.farmNavi,
+                                      "Farm : " + widget.farmName,
                                       style: TextStyle(
                                         color: mTitleTextColor,
                                         fontSize: 18,
@@ -166,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       height: 2,
                                     ),
                                     Text(
-                                      "Branch : " + widget.branchNavi,
+                                      "Branch : " + widget.branchName,
                                       style: TextStyle(
                                         color: mTitleTextColor,
                                         fontSize: 18,
@@ -177,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       height: 2,
                                     ),
                                     Text(
-                                      "Shed : " + widget.shedNavi,
+                                      "Shed : " + widget.shedName,
                                       style: TextStyle(
                                         color: mTitleTextColor,
                                         fontSize: 18,
@@ -188,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       height: 2,
                                     ),
                                     Text(
-                                      "Flock : " + widget.flockNavi,
+                                      "Flock : " + widget.flockName,
                                       style: TextStyle(
                                         color: mTitleTextColor,
                                         fontSize: 18,
