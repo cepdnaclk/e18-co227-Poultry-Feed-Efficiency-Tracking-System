@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 //database functions for farms registration
 Future<bool> addFarmer(String name, String location) async {
@@ -126,6 +127,21 @@ Future<bool> updateBranch(String id, String branchName) async {
   } catch (e) {
     return false;
   }
+}
+
+Future<String> getFarm(String selectedFarm) async {
+  //String farmName;
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+
+  final doc = await FirebaseFirestore.instance
+      .collection('Farmers')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection('farm')
+      .doc(selectedFarm)
+      .get();
+
+  return doc['Name'];
+  //eturn farmName;
 }
 
 Future<bool> removeBranch(String id) async {
