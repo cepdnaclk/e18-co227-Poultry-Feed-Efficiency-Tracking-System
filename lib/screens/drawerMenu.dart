@@ -12,7 +12,7 @@ import 'package:home_login/screens/feed_screen.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/mortality_screen.dart';
 import 'package:home_login/screens/selection_screen.dart';
-import 'package:home_login/screens/settings_screen.dart';
+import 'package:home_login/screens/view_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
 
 class DrawerMenu extends StatelessWidget {
@@ -140,7 +140,7 @@ class DrawerMenu extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const SettingsScreen()));
+                          builder: (context) =>  ViewScreen()));
                 }),
             MenuList(
                 title: "language".tr,
