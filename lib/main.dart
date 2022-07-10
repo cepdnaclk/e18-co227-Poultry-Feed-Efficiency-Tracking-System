@@ -13,7 +13,7 @@ import 'package:home_login/screens/fcr_screen.dart';
 import 'package:home_login/screens/feed_screen.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/mortality_screen.dart';
-import 'package:home_login/screens/settings_screen.dart';
+import 'package:home_login/screens/view_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
 import 'package:home_login/screens/body_weight.dart';
 import 'package:home_login/screens/welcome_screen.dart';
@@ -45,7 +45,8 @@ class MyApp extends StatelessWidget {
             '/farm': (context) => FarmView(),
             GridDashboard.routeMortal: (context) => const MortalityScreen(),
             GridDashboard.routeWeight: (context) => const BodyWeight(),
-            '/view': (context) => const SettingsScreen(),
+            GridDashboard.routeView: (context) =>  ViewScreen(),
+            //'/view': (context) => const ViewScreen(),
             '/eggs': (context) => const EggScreen(),
           },
           // ignore: prefer_const_constructors
