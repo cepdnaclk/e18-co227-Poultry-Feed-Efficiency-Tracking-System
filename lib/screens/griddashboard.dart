@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -53,67 +55,98 @@ class _GridDashboardState extends State<GridDashboard> {
     routeName: '/view',
   );
 
+  Items item7 = Items(
+    title: "Monitor Eggs",
+    img: "assets/images/eggs.png",
+    routeName: '/eggs',
+  );
+
   @override
   Widget build(BuildContext context) {
-    List<Items> mylist = [item1, item2, item3, item4, item5, item6];
-    //var color = 0xff453658;
-    var color = 0xffd16fb2;
+    String strain;
+    List<Items> mylist;
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('Farmers')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('flock')
+            .where(FieldPath.documentId, isEqualTo: flockID)
+            .snapshots(), // your stream url,
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          } else {
+            //print(snapshot.toString());
+            strain = snapshot.data?.docs[0]['strain'];
+            // print(strain);
+            if (strain == "Dekalb White - Layer" ||
+                strain == "Shaver Brown - Layer") {
+              mylist = [item1, item2, item3, item4, item5, item7, item6];
+              print("Layer Detected");
+            } else {
+              mylist = [item1, item2, item3, item4, item5, item6];
+              print("Not a layer");
+            }
+          }
 
-    return Flexible(
-      child: GridView.count(
-          crossAxisCount: 2,
-          padding: const EdgeInsets.only(left: 16, right: 16),
-          childAspectRatio: 1.0,
-          crossAxisSpacing: 18,
-          mainAxisSpacing: 30,
-          children: mylist.map((data) {
-            return InkWell(
-              onTap: () {
-                if (data.routeName != '/FCR') {
-                  Navigator.pushNamed(context, data.routeName,
-                      arguments: ScreenArguments(flockID));
-                } else {
-                  popupDialog(context, data.routeName);
-                }
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: const [
-                    BoxShadow(
-                        offset: Offset(5, 10),
-                        color: Colors.grey,
-                        spreadRadius: 2,
-                        blurRadius: 5),
-                  ],
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      height: 100,
-                      width: 100,
-                      child: Image.asset(
-                        data.img,
-                        //width: 130,
+          //var color = 0xff453658;
+          var color = 0xffd16fb2;
+
+          return Flexible(
+            child: GridView.count(
+                crossAxisCount: 2,
+                padding: const EdgeInsets.only(left: 16, right: 16),
+                childAspectRatio: 1.0,
+                crossAxisSpacing: 18,
+                mainAxisSpacing: 30,
+                children: mylist.map((data) {
+                  return InkWell(
+                    onTap: () {
+                      if (data.routeName != '/FCR') {
+                        Navigator.pushNamed(context, data.routeName,
+                            arguments: ScreenArguments(flockID));
+                      } else {
+                        popupDialog(context, data.routeName);
+                      }
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: const [
+                          BoxShadow(
+                              offset: Offset(5, 10),
+                              color: Colors.grey,
+                              spreadRadius: 2,
+                              blurRadius: 5),
+                        ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    Text(
-                      data.title,
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            height: 100,
+                            width: 100,
+                            child: Image.asset(
+                              data.img,
+                              //width: 130,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          Text(
+                            data.title,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
 
-                    /* Text(data.subtitle,
+                          /* Text(data.subtitle,
                   style: const TextStyle(
                     color: Colors.white38,
                     fontSize: 10,
@@ -132,12 +165,13 @@ class _GridDashboardState extends State<GridDashboard> {
                     ),
                   ),
            */
-                  ],
-                ),
-              ),
-            );
-          }).toList()),
-    );
+                        ],
+                      ),
+                    ),
+                  );
+                }).toList()),
+          ); // Your grid code.
+        });
   }
 
   void popupDialog(BuildContext context, String routename) {
