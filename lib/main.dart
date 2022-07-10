@@ -40,10 +40,10 @@ class MyApp extends StatelessWidget {
             // When navigating to the "/" route, build the FirstScreen widget.
 
             '/FCR': (context) => const FCRScreen(),
-            '/feed': (context) => const FeedScreen(),
+            GridDashboard.routeFeed: (context) => const FeedScreen(),
             '/farm': (context) => FarmView(),
-            GridDashboard.route1: (context) => const MortalityScreen(),
-            '/weight': (context) => const BodyWeight(),
+            GridDashboard.routeMortal: (context) => const MortalityScreen(),
+            GridDashboard.routeWeight: (context) => const BodyWeight(),
             '/view': (context) => const SettingsScreen(),
           },
           // ignore: prefer_const_constructors
