@@ -1,12 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class ViewScreen extends StatelessWidget {
+class ViewScreen extends StatefulWidget {
    ViewScreen({Key? key}) : super(key: key);
 
+  @override
+  State<ViewScreen> createState() => _ViewScreenState();
+}
 
+class _ViewScreenState extends State<ViewScreen> {
    //this is for testing
    final List<PoultryData> weightDataCobb500 =[
      PoultryData(0,  42),
@@ -103,9 +110,10 @@ class ViewScreen extends StatelessWidget {
 
    ];
 
-
   @override
   Widget build(BuildContext context) {
+
+
 
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
 
@@ -120,6 +128,13 @@ class ViewScreen extends StatelessWidget {
 
 
           children: [
+
+
+
+
+
+
+
 
             Container(
               height: 400,
@@ -195,4 +210,11 @@ class PoultryData{
 
 
   PoultryData(this.day,this.amount);
+}
+
+// Class for chart data source, this can be modified based on the data in Firestore
+class _ChartData {
+  _ChartData({this.x, this.y});
+  final DateTime? x;
+  final int? y;
 }
