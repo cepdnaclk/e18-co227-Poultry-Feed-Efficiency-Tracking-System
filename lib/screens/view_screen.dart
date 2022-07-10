@@ -140,7 +140,7 @@ class ViewScreen extends StatelessWidget {
                   LineSeries<PoultryData,int>(
                     legendItemText: 'Equivalent ideal strain',
                     color: Colors.blue ,
-                    dataSource: weightDataCobb500,
+                    dataSource: weightDataCobb500.sublist(0,10),
                     xValueMapper: (PoultryData chick, _)=> chick.day,
                     yValueMapper: (PoultryData chick, _)=> chick.amount,
 
