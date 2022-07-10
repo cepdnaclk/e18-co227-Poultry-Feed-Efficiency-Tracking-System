@@ -41,6 +41,7 @@ dependencies:
   sizer: ^2.0.13
   flutter_secure_storage: ^5.0.2
   font_awesome_flutter: ^10.1.0
+  syncfusion_flutter_charts: ^20.2.36
 
 dev_dependencies:
   flutter_test:

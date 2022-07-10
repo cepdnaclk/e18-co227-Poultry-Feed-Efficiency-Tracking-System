@@ -10,6 +10,7 @@ class GridDashboard extends StatefulWidget {
   static const routeMortal = '/mortal';
   static const routeWeight = '/weight';
   static const routeFeed = '/feed';
+  static const routeView = '/view';
   const GridDashboard(this.flockID, {Key? key}) : super(key: key);
 
   @override
