@@ -6,6 +6,58 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 class ViewScreen extends StatelessWidget {
    ViewScreen({Key? key}) : super(key: key);
 
+
+   //this is for testing
+   final List<PoultryData> weightDataCobb500 =[
+     PoultryData(0,  42),
+     PoultryData(1,  63),
+     PoultryData(2,  74),
+     PoultryData(3,  90),
+     PoultryData(4,  109),
+     PoultryData(5,  134),
+     PoultryData(6,  163),
+     PoultryData(7,  193),
+     PoultryData(8,  228),
+     PoultryData(9,  269),
+     PoultryData(10, 313),
+     PoultryData(11,  42),
+     PoultryData(12,  74),
+     PoultryData(13,  90),
+     PoultryData(14,  109),
+     PoultryData(15,  134),
+     PoultryData(16,  163),
+     PoultryData(17,  193),
+     PoultryData(18,  228),
+     PoultryData(19,  269),
+     PoultryData(20, 313),
+     PoultryData(21,  42),
+     PoultryData(22,  74),
+     PoultryData(23,  90),
+     PoultryData(24,  109),
+     PoultryData(25,  134),
+     PoultryData(26,  163),
+     PoultryData(27,  193),
+     PoultryData(28,  228),
+     PoultryData(29,  269),
+     PoultryData(30, 313),
+     PoultryData(31,  42),
+     PoultryData(32,  74),
+     PoultryData(33,  90),
+     PoultryData(34,  109),
+     PoultryData(35,  134),
+     PoultryData(36,  163),
+     PoultryData(37,  193),
+     PoultryData(38,  228),
+     PoultryData(39,  269),
+     PoultryData(40, 313),
+     PoultryData(41,  42),
+     PoultryData(42,  74),
+     PoultryData(43,  90),
+     PoultryData(44,  109),
+     PoultryData(45,  134),
+
+   ];
+
    //this is for testing
   final List<PoultryData> weightDataStrain =[
     PoultryData(0,  42),
