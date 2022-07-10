@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +15,21 @@ class ViewScreen extends StatefulWidget {
   State<ViewScreen> createState() => _ViewScreenState();
 }
 
+
+
 class _ViewScreenState extends State<ViewScreen> {
-   //this is for testing
+
+    List<ChartData> chartData = <ChartData>[];
+
+
+
+
+
+    //List<PoultryData> weightDataCurrent=[PoultryData(0, 0)];
+     List<PoultryData> weightDataCurrent= [];
+
+
+    //this is for testing
    final List<PoultryData> weightDataCobb500 =[
      PoultryData(0,  42),
      PoultryData(1,  63),
@@ -80,6 +95,8 @@ class _ViewScreenState extends State<ViewScreen> {
     PoultryData(10, 313),
   ];
 
+
+/*
    final List<PoultryData> weightDataCurrent =[
      PoultryData(0,  45),
      PoultryData(1,  54),
@@ -93,6 +110,10 @@ class _ViewScreenState extends State<ViewScreen> {
      PoultryData(9,  280),
      PoultryData(10, 330),
    ];
+*/
+
+
+
 
   final List<PoultryData> feedDataStrain =[
 
@@ -114,10 +135,14 @@ class _ViewScreenState extends State<ViewScreen> {
   Widget build(BuildContext context) {
 
 
-
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
 
+
+
+
+
     return Scaffold(
+
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('Poultry Analysis'),
@@ -130,12 +155,85 @@ class _ViewScreenState extends State<ViewScreen> {
           children: [
 
 
+            StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection("Farmers")
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .collection('flock')
+                    .doc(args.flockID)
+                    .collection('BodyWeight')
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+
+
+                    List<String> flockItems;
+                    //late final List <ChartData> weightDataCurrent;
+
+                    //final Map<String, int> someMap = {
+
+                    //};
+                    for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                      DocumentSnapshot snap = snapshot.data!.docs[i];
+
+                      double amount = -1;
+                      String date;
+                      try {
+                        amount = snapshot.data?.docs[i]['Average_Weight'];
+                        date = snapshot.data!.docs[i].id;
+                        print(snapshot.data!.docs[i].id);
+                        print(i);
+                        print(amount);
+                        print('');
+                        weightDataCurrent.add(PoultryData(i, amount));
+
+                        amount=0.0;
+                      } catch (e) {
+                        amount = -1;
+                      }
+
+                    }
+                    //print(flockItems);
+                    return Container(
+                      height: 400,
+                      margin: EdgeInsets.all(10),
+                      child:  SfCartesianChart(
+                        legend: Legend(isVisible: true, position :LegendPosition.bottom ),
+
+                        title: ChartTitle(text: 'Weight performance'),
+                        series: <ChartSeries>[
+                          LineSeries<PoultryData,int>(
+                            legendItemText: 'Active Batch',
+                            color: Colors.deepOrange ,
+                            dataSource: weightDataCurrent,
+
+                            xValueMapper: (PoultryData chick, _)=> chick.day,
+                            yValueMapper: (PoultryData chick, _)=> chick.amount,
+
+                          ),
+                          LineSeries<PoultryData,int>(
+                            legendItemText: 'Equivalent ideal strain',
+                            color: Colors.blue ,
+                            dataSource: weightDataCobb500.sublist(0,10),
+                            xValueMapper: (PoultryData chick, _)=> chick.day,
+                            yValueMapper: (PoultryData chick, _)=> chick.amount,
+
+                          ),
+                        ],
+                      ),
+
+                    );
+                  }
+                }),
 
 
 
-
-
-
+           /*
             Container(
               height: 400,
               margin: EdgeInsets.all(10),
@@ -148,6 +246,7 @@ class _ViewScreenState extends State<ViewScreen> {
                     legendItemText: 'Active Batch',
                     color: Colors.deepOrange ,
                     dataSource: weightDataCurrent,
+
                     xValueMapper: (PoultryData chick, _)=> chick.day,
                     yValueMapper: (PoultryData chick, _)=> chick.amount,
 
@@ -163,6 +262,7 @@ class _ViewScreenState extends State<ViewScreen> {
                 ],
               ),
             ),
+            */
 
 
             Container(
@@ -213,8 +313,13 @@ class PoultryData{
 }
 
 // Class for chart data source, this can be modified based on the data in Firestore
-class _ChartData {
-  _ChartData({this.x, this.y});
-  final DateTime? x;
-  final int? y;
+class ChartData {
+  final double amount;
+  final String day;
+
+  ChartData(this.day,this.amount);
+
+
+
 }
+  
