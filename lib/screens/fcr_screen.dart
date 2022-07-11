@@ -61,7 +61,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
 
               return Container(); // Your grid code.
             }),
-        //DrawerMenu(),
+        DrawerMenu(args.flockID),
         AnimatedContainer(
           duration: Duration(milliseconds: 500),
           transform: Matrix4.translationValues(translateX, translateY, 0)
