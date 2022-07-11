@@ -92,10 +92,12 @@ class DrawerMenu extends StatelessWidget {
                 title: "FCR",
                 iconName: Icons.egg,
                 press: () {
-                  Navigator.push(
+                  Navigator.pushNamed(context, GridDashboard.routeFCR,
+                      arguments: ScreenArguments(flockID));
+                  /*Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const FCRScreen()));
+                          builder: (context) => const FCRScreen()));*/
                 }),
             MenuList(
                 title: "feedintake".tr,
@@ -137,10 +139,8 @@ class DrawerMenu extends StatelessWidget {
                 title: "view".tr,
                 iconName: Icons.view_module,
                 press: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>  ViewScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ViewScreen()));
                 }),
             MenuList(
                 title: "language".tr,
