@@ -19,6 +19,7 @@ class GridDashboard extends StatefulWidget {
 
 class _GridDashboardState extends State<GridDashboard> {
   String flockID;
+
   _GridDashboardState(this.flockID);
   Items item1 = Items(
     title: "FCR",
@@ -104,9 +105,13 @@ class _GridDashboardState extends State<GridDashboard> {
                   return InkWell(
                     onTap: () {
                       if (data.routeName != '/FCR') {
-                        Navigator.pushNamed(context, data.routeName,
-                            arguments: ScreenArguments(flockID));
-                      } else {
+
+                          Navigator.pushNamed(context, data.routeName,
+                              arguments: ScreenArguments(flockID));
+
+                      }
+
+                      else {
                         popupDialog(context, data.routeName);
                       }
                     },
@@ -216,6 +221,7 @@ class Items {
 
 class ScreenArguments {
   final String flockID;
+
 
   ScreenArguments(this.flockID);
 }
