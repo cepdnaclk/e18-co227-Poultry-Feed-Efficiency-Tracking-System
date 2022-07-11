@@ -365,7 +365,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                                       style: TextStyle(color: mTitleTextColor),
                                     ),
                                   );
-                                  Scaffold.of(context).showSnackBar(snackBar);
+                                  //Scaffold.of(context).showSnackBar(snackBar);
                                   setState(() {
                                     selectedFlock = flockValue!;
                                     void getFlock() async {
