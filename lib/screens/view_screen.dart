@@ -19,7 +19,7 @@ class ViewScreen extends StatefulWidget {
 
 class _ViewScreenState extends State<ViewScreen> {
 
-    List<ChartData> chartData = <ChartData>[];
+    List<BarChart> chartData = <BarChart>[];
 
 
 
@@ -299,7 +299,7 @@ class _ViewScreenState extends State<ViewScreen> {
 
                             legendItemText: 'Equivalent ideal strain',
                             color: Colors.blue ,
-                            dataSource: feedDataStrain,
+                            dataSource: feedDataStrain.sublist(0,j),
                             xValueMapper: (PoultryData chick, _)=> chick.day,
                             yValueMapper: (PoultryData chick, _)=> chick.amount,
 
@@ -313,36 +313,7 @@ class _ViewScreenState extends State<ViewScreen> {
 
 
 
-          /*
-            Container(
-              height: 400,
-              margin: EdgeInsets.all(10),
-              child:  SfCartesianChart(
-                legend: Legend(isVisible: true, position :LegendPosition.bottom ),
 
-                title: ChartTitle(text: 'Feed Performance'),
-                series: <ChartSeries>[
-                  LineSeries<PoultryData,int>(
-                    legendItemText: 'Active Batch',
-                    color: Colors.deepOrange ,
-                    dataSource: feedDataCurrent,
-                    xValueMapper: (PoultryData chick, _)=> chick.day,
-                    yValueMapper: (PoultryData chick, _)=> chick.amount,
-
-                  ),
-                  LineSeries<PoultryData,int>(
-
-                    legendItemText: 'Equivalent ideal strain',
-                    color: Colors.blue ,
-                    dataSource: feedDataStrain,
-                    xValueMapper: (PoultryData chick, _)=> chick.day,
-                    yValueMapper: (PoultryData chick, _)=> chick.amount,
-
-                  ),
-                ],
-              ),
-            ),
-        */
 
 
           ],
@@ -362,11 +333,11 @@ class PoultryData{
 }
 
 // Class for chart data source, this can be modified based on the data in Firestore
-class ChartData {
-  final double amount;
+class BarChart {
+  final int amount;
   final String day;
 
-  ChartData(this.day,this.amount);
+  BarChart(this.day,this.amount);
 
 
 
