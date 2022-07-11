@@ -101,7 +101,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                               AsyncSnapshot<QuerySnapshot> snapshot) {
                             num amount = -1;
                             try {
-                              amount = snapshot.data?.docs[0]['Amount'];
+                              amount = snapshot.data?.docs[0]['Number_of_bags'];
                             } catch (e) {
                               amount = -1;
                             }
@@ -118,7 +118,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                             } else {
                               return Center(
                                 child: Text(
-                                  "You have already recorded ${snapshot.data?.docs[0]['Amount']} amount of feed for ${date.toString().substring(0, 10)}",
+                                  "You have already recorded ${snapshot.data?.docs[0]['Number_of_bags']} amount of feed for ${date.toString().substring(0, 10)}",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 20, color: mPrimaryTextColor),
@@ -328,8 +328,8 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
             //num newAmount = snapshot.data()!['Amount'] + value;
             //  current = snapshot.data()!['Amount'];
             transaction.update(documentReference, {
-              'Number_of_bags': _numcontrollerBags,
-              'Weight_of_a_bag': _numcontrollerBagWeight
+              'Number_of_bags': valueBags,
+              'Weight_of_a_bag': valueBagWeight,
             });
             //print("done 1.2");
             //print(current);
