@@ -77,34 +77,91 @@ class _ViewScreenState extends State<ViewScreen> {
      PoultryData(43, 3049),
      PoultryData(44, 3145),
      PoultryData(45, 3240),
+     PoultryData(46, 3335),
+     PoultryData(47, 3430),
+     PoultryData(48, 3524),
+     PoultryData(49, 3617),
+     PoultryData(50, 3707),
+     PoultryData(51, 3797),
+     PoultryData(52, 3885),
+     PoultryData(53, 3973),
+     PoultryData(54, 4059),
+     PoultryData(55, 4144),
+     PoultryData(56, 4227),
+     PoultryData(57, 4309),
+     PoultryData(58, 4389),
+     PoultryData(59, 4466),
+     PoultryData(60, 4542),
+     PoultryData(61, 4616),
+     PoultryData(62, 4688),
+     PoultryData(63, 4759),
 
    ];
 
-   /*
-   //this is for testing
-  final List<PoultryData> weightDataStrain =[
-    PoultryData(0,  42),
-    PoultryData(1,  63),
-    PoultryData(2,  74),
-    PoultryData(3,  90),
-    PoultryData(4,  109),
-    PoultryData(5,  134),
-    PoultryData(6,  163),
-    PoultryData(7,  193),
-    PoultryData(8,  228),
-    PoultryData(9,  269),
-    PoultryData(10, 313),
-  ];
-*/
 
 
 
 
-  final List<PoultryData> feedDataStrain =[
+
+  final List<PoultryData> feedDataCobb500 =[
 
     PoultryData(8,  37),
     PoultryData(9,  43),
     PoultryData(10, 50),
+    PoultryData(11, 57),
+    PoultryData(12, 64),
+    PoultryData(13, 72),
+    PoultryData(14, 74),
+    PoultryData(15, 78),
+    PoultryData(16, 85),
+    PoultryData(17, 91),
+    PoultryData(18, 103),
+    PoultryData(19, 110),
+    PoultryData(20, 114),
+    PoultryData(21, 118),
+    PoultryData(22, 123),
+    PoultryData(23, 128),
+    PoultryData(24, 133),
+    PoultryData(25, 137),
+    PoultryData(26, 144),
+    PoultryData(27, 150),
+    PoultryData(28, 156),
+    PoultryData(29, 160),
+    PoultryData(30, 164),
+    PoultryData(31, 167),
+    PoultryData(32, 170),
+    PoultryData(33, 174),
+    PoultryData(34, 177),
+    PoultryData(35, 179),
+    PoultryData(36, 182),
+    PoultryData(37, 186),
+    PoultryData(38, 190),
+    PoultryData(39, 193),
+    PoultryData(40, 197),
+    PoultryData(41, 203),
+    PoultryData(42, 208),
+    PoultryData(43, 213),
+    PoultryData(44, 218),
+    PoultryData(45, 224),
+    PoultryData(46, 228),
+    PoultryData(47, 231),
+    PoultryData(48, 236),
+    PoultryData(49, 241),
+    PoultryData(50, 243),
+    PoultryData(51, 244),
+    PoultryData(52, 245),
+    PoultryData(53, 247),
+    PoultryData(54, 247),
+    PoultryData(55, 246),
+    PoultryData(56, 245),
+    PoultryData(57, 243),
+    PoultryData(58, 241),
+    PoultryData(59, 239),
+    PoultryData(60, 237),
+    PoultryData(61, 234),
+    PoultryData(62, 232),
+    PoultryData(63, 228),
+
 
   ];
 
@@ -333,7 +390,7 @@ class _ViewScreenState extends State<ViewScreen> {
 
                             legendItemText: 'Equivalent ideal strain',
                             color: Colors.orange,
-                            dataSource: feedDataStrain.sublist(0,j),
+                            dataSource: feedDataCobb500.sublist(0,j),
                             xValueMapper: (PoultryData chick, _)=> chick.day,
                             yValueMapper: (PoultryData chick, _)=> chick.amount,
 
