@@ -19,17 +19,12 @@ class ViewScreen extends StatefulWidget {
 
 class _ViewScreenState extends State<ViewScreen> {
 
-    List<BarChart> chartData = <BarChart>[];
-
-
-
-
-
+    List<BarChart> mortalityData = <BarChart>[];
     //List<PoultryData> weightDataCurrent=[PoultryData(0, 0)];
      List<PoultryData> weightDataCurrent= [];
     List<PoultryData> feedDataCurrent= [];
 
-    int i=0,j=0;
+    int i=0,j=0,n=0;
 
 
     //this is for testing
@@ -311,6 +306,84 @@ class _ViewScreenState extends State<ViewScreen> {
                 }),
 
 
+            StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection("Farmers")
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .collection('flock')
+                    .doc(args.flockID)
+                    .collection('Mortality')
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+
+
+                    //List<String> flockItems;
+                    //late final List <ChartData> weightDataCurrent;
+
+                    //final Map<String, int> someMap = {
+
+                    //};
+                    for ( n = 0; n < snapshot.data!.docs.length; n++) {
+                      DocumentSnapshot snap = snapshot.data!.docs[n];
+
+                      int mortalamnt = -1;
+                      int mortalDate = -1;
+                      //String Strdouble;
+                      try {
+
+                        //print(snapshot.data!.docs[j].id);
+                        mortalamnt = snapshot.data?.docs[n]['Amount'];
+
+                       // mortalDate = snapshot.data!.docs[n];
+                        //print(snapshot.data!.docs[j].id);
+                        //print(j);
+                        //print(amntbags);
+                        //print(amntKilo);
+
+                        mortalityData.add(BarChart( n , mortalamnt));
+
+
+
+
+                      } catch (e) {
+
+                        mortalamnt = -1;
+
+                      }
+
+                    }
+                    //print(flockItems);
+                    return Container(
+                      height: 400,
+                      margin: EdgeInsets.all(10),
+                        child: SfCartesianChart(
+
+                            legend: Legend(isVisible: true, position :LegendPosition.bottom ),
+                            series: <ChartSeries>[
+                              BarSeries<BarChart, int>(
+                                  legendItemText: 'Death Count',
+                                  dataSource: mortalityData,
+                                  xValueMapper: (BarChart data, _) => data.date,
+                                  yValueMapper: (BarChart data, _) => data.amount,
+                                  // Width of the bars
+                                  width: 1,
+                                  // Spacing between the bars
+                                  spacing: 0.5,
+                                   borderRadius: BorderRadius.all(Radius.circular(15)),
+                                   color: mPrimaryColor,
+                              )
+                            ]
+                        )
+                    );
+                  }
+                }),
+
 
 
 
@@ -335,9 +408,9 @@ class PoultryData{
 // Class for chart data source, this can be modified based on the data in Firestore
 class BarChart {
   final int amount;
-  final String day;
+  final int date;
 
-  BarChart(this.day,this.amount);
+  BarChart(this.date,this.amount);
 
 
 
