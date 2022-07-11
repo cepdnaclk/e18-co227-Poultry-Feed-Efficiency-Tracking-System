@@ -23,6 +23,8 @@ class _ViewScreenState extends State<ViewScreen> {
     //List<PoultryData> weightDataCurrent=[PoultryData(0, 0)];
      List<PoultryData> weightDataCurrent= [];
     List<PoultryData> feedDataCurrent= [];
+    List<PoultryData> weightDataStrain= [];
+
 
     int i=0,j=0,n=0;
 
@@ -78,6 +80,7 @@ class _ViewScreenState extends State<ViewScreen> {
 
    ];
 
+   /*
    //this is for testing
   final List<PoultryData> weightDataStrain =[
     PoultryData(0,  42),
@@ -92,7 +95,7 @@ class _ViewScreenState extends State<ViewScreen> {
     PoultryData(9,  269),
     PoultryData(10, 313),
   ];
-
+*/
 
 
 
@@ -104,6 +107,8 @@ class _ViewScreenState extends State<ViewScreen> {
     PoultryData(10, 50),
 
   ];
+
+
 /*
    final List<PoultryData> feedDataCurrent =[
 
@@ -120,7 +125,7 @@ class _ViewScreenState extends State<ViewScreen> {
 
 
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-
+    String strain;
 
 
 
@@ -137,6 +142,38 @@ class _ViewScreenState extends State<ViewScreen> {
 
 
           children: [
+
+
+        //to compare the strain
+        StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('Farmers')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('flock')
+            .where(FieldPath.documentId, isEqualTo: args.flockID)
+            .snapshots(), // your stream url,
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          } else {
+            //print(snapshot.toString());
+            strain = snapshot.data?.docs[0]['strain'].trim();
+            //print(strain);
+            // print(strain);
+            if(strain == 'Cobb 500 - Broiler'){
+              weightDataStrain = weightDataCobb500;
+            }
+
+          }
+
+          //var color = 0xff453658;
+          var color = 0xffd16fb2;
+
+          return Container(
+            height: 0,
+          ); // Your grid code.
+        }
+        ),
 
 
             StreamBuilder<QuerySnapshot>(
@@ -193,7 +230,8 @@ class _ViewScreenState extends State<ViewScreen> {
                         series: <ChartSeries>[
                           LineSeries<PoultryData,int>(
                             legendItemText: 'Active Batch',
-                            color: Colors.deepOrange ,
+                            //color: Colors.deepOrange ,
+                            color: mPrimaryColor,
                             dataSource: weightDataCurrent,
 
                             xValueMapper: (PoultryData chick, _)=> chick.day,
@@ -202,8 +240,8 @@ class _ViewScreenState extends State<ViewScreen> {
                           ),
                           LineSeries<PoultryData,int>(
                             legendItemText: 'Equivalent ideal strain',
-                            color: Colors.blue ,
-                            dataSource: weightDataCobb500.sublist(0,i),
+                            color: Colors.orange ,
+                            dataSource: weightDataStrain.sublist(0,i),
                             xValueMapper: (PoultryData chick, _)=> chick.day,
                             yValueMapper: (PoultryData chick, _)=> chick.amount,
 
@@ -284,7 +322,8 @@ class _ViewScreenState extends State<ViewScreen> {
                         series: <ChartSeries>[
                           LineSeries<PoultryData,int>(
                             legendItemText: 'Active Batch',
-                            color: Colors.deepOrange ,
+                            //color: Colors.deepOrange ,
+                            color: mPrimaryColor,
                             dataSource: feedDataCurrent,
                             xValueMapper: (PoultryData chick, _)=> chick.day,
                             yValueMapper: (PoultryData chick, _)=> chick.amount,
@@ -293,7 +332,7 @@ class _ViewScreenState extends State<ViewScreen> {
                           LineSeries<PoultryData,int>(
 
                             legendItemText: 'Equivalent ideal strain',
-                            color: Colors.blue ,
+                            color: Colors.orange,
                             dataSource: feedDataStrain.sublist(0,j),
                             xValueMapper: (PoultryData chick, _)=> chick.day,
                             yValueMapper: (PoultryData chick, _)=> chick.amount,
