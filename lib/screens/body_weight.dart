@@ -100,7 +100,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                               AsyncSnapshot<QuerySnapshot> snapshot) {
                             num amount = -1;
                             try {
-                              amount = snapshot.data?.docs[0]['Amount'];
+                              amount = snapshot.data?.docs[0]['Average_Weight'];
                             } catch (e) {
                               amount = -1;
                             }
@@ -117,7 +117,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                             } else {
                               return Center(
                                 child: Text(
-                                  "You have already recorded ${snapshot.data?.docs[0]['Amount']} average weight for ${date.toString().substring(0, 10)}",
+                                  "You have already recorded ${snapshot.data?.docs[0]['Average_Weight']} average weight for ${date.toString().substring(0, 10)}",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 20, color: mPrimaryTextColor),
@@ -125,7 +125,6 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                               );
                             }
                           }),
-
 
                       //reuseTextField("Mortality"),
                       SizedBox(

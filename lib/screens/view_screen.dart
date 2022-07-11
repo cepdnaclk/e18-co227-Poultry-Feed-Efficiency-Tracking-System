@@ -27,6 +27,9 @@ class _ViewScreenState extends State<ViewScreen> {
 
     //List<PoultryData> weightDataCurrent=[PoultryData(0, 0)];
      List<PoultryData> weightDataCurrent= [];
+    List<PoultryData> feedDataCurrent= [];
+
+    int i=0,j=0;
 
 
     //this is for testing
@@ -96,22 +99,6 @@ class _ViewScreenState extends State<ViewScreen> {
   ];
 
 
-/*
-   final List<PoultryData> weightDataCurrent =[
-     PoultryData(0,  45),
-     PoultryData(1,  54),
-     PoultryData(2,  66),
-     PoultryData(3,  70),
-     PoultryData(4,  86),
-     PoultryData(5,  115),
-     PoultryData(6,  146),
-     PoultryData(7,  180),
-     PoultryData(8,  220),
-     PoultryData(9,  280),
-     PoultryData(10, 330),
-   ];
-*/
-
 
 
 
@@ -122,7 +109,7 @@ class _ViewScreenState extends State<ViewScreen> {
     PoultryData(10, 50),
 
   ];
-
+/*
    final List<PoultryData> feedDataCurrent =[
 
      PoultryData(8,  44),
@@ -130,6 +117,8 @@ class _ViewScreenState extends State<ViewScreen> {
      PoultryData(10, 70),
 
    ];
+
+ */
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +167,7 @@ class _ViewScreenState extends State<ViewScreen> {
                     //final Map<String, int> someMap = {
 
                     //};
-                    for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                    for (i = 0; i < snapshot.data!.docs.length; i++) {
                       DocumentSnapshot snap = snapshot.data!.docs[i];
 
                       double amount = -1;
@@ -186,10 +175,10 @@ class _ViewScreenState extends State<ViewScreen> {
                       try {
                         amount = snapshot.data?.docs[i]['Average_Weight'];
                         date = snapshot.data!.docs[i].id;
-                        print(snapshot.data!.docs[i].id);
-                        print(i);
-                        print(amount);
-                        print('');
+                        //print(snapshot.data!.docs[i].id);
+                        //print(i);
+                        //print(amount);
+                        //print('');
                         weightDataCurrent.add(PoultryData(i, amount));
 
                         amount=0.0;
@@ -219,7 +208,7 @@ class _ViewScreenState extends State<ViewScreen> {
                           LineSeries<PoultryData,int>(
                             legendItemText: 'Equivalent ideal strain',
                             color: Colors.blue ,
-                            dataSource: weightDataCobb500.sublist(0,10),
+                            dataSource: weightDataCobb500.sublist(0,i),
                             xValueMapper: (PoultryData chick, _)=> chick.day,
                             yValueMapper: (PoultryData chick, _)=> chick.amount,
 
@@ -232,39 +221,99 @@ class _ViewScreenState extends State<ViewScreen> {
                 }),
 
 
-
-           /*
-            Container(
-              height: 400,
-              margin: EdgeInsets.all(10),
-              child:  SfCartesianChart(
-                legend: Legend(isVisible: true, position :LegendPosition.bottom ),
-
-                title: ChartTitle(text: 'Weight performance'),
-                series: <ChartSeries>[
-                  LineSeries<PoultryData,int>(
-                    legendItemText: 'Active Batch',
-                    color: Colors.deepOrange ,
-                    dataSource: weightDataCurrent,
-
-                    xValueMapper: (PoultryData chick, _)=> chick.day,
-                    yValueMapper: (PoultryData chick, _)=> chick.amount,
-
-                  ),
-                  LineSeries<PoultryData,int>(
-                    legendItemText: 'Equivalent ideal strain',
-                    color: Colors.blue ,
-                    dataSource: weightDataCobb500.sublist(0,10),
-                    xValueMapper: (PoultryData chick, _)=> chick.day,
-                    yValueMapper: (PoultryData chick, _)=> chick.amount,
-
-                  ),
-                ],
-              ),
-            ),
-            */
+            StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection("Farmers")
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .collection('flock')
+                    .doc(args.flockID)
+                    .collection('FeedIntake')
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
 
 
+                    //List<String> flockItems;
+                    //late final List <ChartData> weightDataCurrent;
+
+                    //final Map<String, int> someMap = {
+
+                    //};
+                    for ( j = 0; j < snapshot.data!.docs.length; j++) {
+                      DocumentSnapshot snap = snapshot.data!.docs[j];
+
+                      double amntbags= -1.0;
+                      double amntKilo= -1.0;
+                      String date;
+                      //String Strdouble;
+                      try {
+
+                        print(snapshot.data!.docs[j].id);
+                        amntbags = snapshot.data?.docs[j]['Number_of_bags'];
+                        amntKilo = snapshot.data?.docs[j]['Weight_of_a_bag'] ;
+                        date = snapshot.data!.docs[j].id;
+                        //print(snapshot.data!.docs[j].id);
+                        //print(j);
+                        //print(amntbags);
+                        //print(amntKilo);
+                        print('');
+                        double product= amntKilo * amntbags;
+                        print(product);
+                        int k=j+8;
+                        feedDataCurrent.add(PoultryData(k , product));
+
+
+                        amntbags=0.0;
+                        amntKilo=0.0;
+
+                      } catch (e) {
+                        amntKilo = -1.0;
+                        amntbags = -1.0;
+
+                      }
+
+                    }
+                    //print(flockItems);
+                    return Container(
+                      height: 400,
+                      margin: EdgeInsets.all(10),
+                      child:  SfCartesianChart(
+                        legend: Legend(isVisible: true, position :LegendPosition.bottom ),
+
+                        title: ChartTitle(text: 'Feed Performance'),
+                        series: <ChartSeries>[
+                          LineSeries<PoultryData,int>(
+                            legendItemText: 'Active Batch',
+                            color: Colors.deepOrange ,
+                            dataSource: feedDataCurrent,
+                            xValueMapper: (PoultryData chick, _)=> chick.day,
+                            yValueMapper: (PoultryData chick, _)=> chick.amount,
+
+                          ),
+                          LineSeries<PoultryData,int>(
+
+                            legendItemText: 'Equivalent ideal strain',
+                            color: Colors.blue ,
+                            dataSource: feedDataStrain,
+                            xValueMapper: (PoultryData chick, _)=> chick.day,
+                            yValueMapper: (PoultryData chick, _)=> chick.amount,
+
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                }),
+
+
+
+
+          /*
             Container(
               height: 400,
               margin: EdgeInsets.all(10),
@@ -293,7 +342,7 @@ class _ViewScreenState extends State<ViewScreen> {
                 ],
               ),
             ),
-
+        */
 
 
           ],
