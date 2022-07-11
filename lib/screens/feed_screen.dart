@@ -316,10 +316,8 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
 
         if (!snapshot.exists) {
           //print("done 1 befre");
-          documentReference.set({
-            'Number_of_bags': _numcontrollerBags,
-            'Weight_of_a_bag': _numcontrollerBagWeight
-          });
+          documentReference.set(
+              {'Number_of_bags': valueBags, 'Weight_of_a_bag': valueBagWeight});
           //print("done 1");
 
           //return true;
@@ -329,7 +327,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
             //  current = snapshot.data()!['Amount'];
             transaction.update(documentReference, {
               'Number_of_bags': valueBags,
-              'Weight_of_a_bag': valueBagWeight,
+              'Weight_of_a_bag': valueBagWeight
             });
             //print("done 1.2");
             //print(current);
