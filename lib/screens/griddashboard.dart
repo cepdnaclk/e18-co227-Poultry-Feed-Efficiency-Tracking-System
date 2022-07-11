@@ -11,6 +11,7 @@ class GridDashboard extends StatefulWidget {
   static const routeWeight = '/weight';
   static const routeFeed = '/feed';
   static const routeView = '/view';
+  static const routeFCR = '/FCR';
   const GridDashboard(this.flockID, {Key? key}) : super(key: key);
 
   @override
@@ -103,12 +104,12 @@ class _GridDashboardState extends State<GridDashboard> {
                 children: mylist.map((data) {
                   return InkWell(
                     onTap: () {
-                      if (data.routeName != '/FCR') {
-                        Navigator.pushNamed(context, data.routeName,
-                            arguments: ScreenArguments(flockID));
-                      } else {
-                        popupDialog(context, data.routeName);
-                      }
+                      //if (data.routeName != '/FCR') {
+                      Navigator.pushNamed(context, data.routeName,
+                          arguments: ScreenArguments(flockID));
+                      // } else {
+                      //   popupDialog(context, data.routeName);
+                      // }
                     },
                     child: Container(
                       decoration: BoxDecoration(
