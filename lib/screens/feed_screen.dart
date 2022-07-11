@@ -316,10 +316,8 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
 
         if (!snapshot.exists) {
           //print("done 1 befre");
-          documentReference.set({
-            'Number_of_bags': valueBags,
-            'Weight_of_a_bag': valueBagWeight
-          });
+          documentReference.set(
+              {'Number_of_bags': valueBags, 'Weight_of_a_bag': valueBagWeight});
           //print("done 1");
 
           //return true;
