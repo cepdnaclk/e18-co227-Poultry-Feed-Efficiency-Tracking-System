@@ -24,8 +24,9 @@ class _ViewScreenState extends State<ViewScreen> {
      List<PoultryData> weightDataCurrent= [];
     List<PoultryData> feedDataCurrent= [];
     List<PoultryData> weightDataStrain= [];
+    List<PoultryData> feedtDataStrain= [];
 
-
+    String strain='';
     int i=0,j=0,n=0;
 
 
@@ -166,6 +167,159 @@ class _ViewScreenState extends State<ViewScreen> {
   ];
 
 
+    final List<PoultryData> weightDataRoss308 =[
+      PoultryData(0,  43),
+      PoultryData(1,  61),
+      PoultryData(2,  79),
+      PoultryData(3,  99),
+      PoultryData(4,  122),
+      PoultryData(5,  148),
+      PoultryData(6,  176),
+      PoultryData(7,  208),
+      PoultryData(8,  242),
+      PoultryData(9,  280),
+      PoultryData(10, 321),
+      PoultryData(11, 366),
+      PoultryData(12, 414),
+      PoultryData(13, 465),
+      PoultryData(14, 519),
+      PoultryData(15, 576),
+      PoultryData(16, 637),
+      PoultryData(17, 701),
+      PoultryData(18, 768),
+      PoultryData(19, 837),
+      PoultryData(20, 910),
+      PoultryData(21, 985),
+      PoultryData(22, 1062),
+      PoultryData(23, 1142),
+      PoultryData(24, 1225),
+      PoultryData(25, 1309),
+      PoultryData(26, 1395),
+      PoultryData(27, 1483),
+      PoultryData(28, 1573),
+      PoultryData(29, 1664),
+      PoultryData(30, 1757),
+      PoultryData(31, 1851),
+      PoultryData(32, 1946),
+      PoultryData(33, 2041),
+      PoultryData(34, 2138),
+      PoultryData(35, 2235),
+      PoultryData(36, 2332),
+      PoultryData(37, 2430),
+      PoultryData(38, 2527),
+      PoultryData(39, 2625),
+      PoultryData(40, 2723),
+      PoultryData(41, 2821),
+      PoultryData(42, 2918),
+      PoultryData(43, 3015),
+      PoultryData(44, 3112),
+      PoultryData(45, 3207),
+      PoultryData(46, 3303),
+      PoultryData(47, 3397),
+      PoultryData(48, 3491),
+      PoultryData(49, 3583),
+      PoultryData(50, 3675),
+      PoultryData(51, 3766),
+      PoultryData(52, 3856),
+      PoultryData(53, 3944),
+      PoultryData(54, 4032),
+      PoultryData(55, 4118),
+      PoultryData(56, 4203),
+      PoultryData(57, 4286),
+      PoultryData(58, 4369),
+      PoultryData(59, 4450),
+      PoultryData(60, 4530),
+      PoultryData(61, 4608),
+      PoultryData(62, 4685),
+      PoultryData(63, 4760),
+      PoultryData(64, 4835),
+      PoultryData(65, 4907),
+      PoultryData(66, 4979),
+      PoultryData(67, 5049),
+      PoultryData(68, 5117),
+      PoultryData(69, 5184),
+      PoultryData(70, 5250),
+
+    ];
+
+
+    final List<PoultryData> feedDataRoss308 =[
+      PoultryData(0,  43),
+      PoultryData(1,  61),
+      PoultryData(2,  79),
+      PoultryData(3,  99),
+      PoultryData(4,  122),
+      PoultryData(5,  148),
+      PoultryData(6,  176),
+      PoultryData(7,  208),
+      PoultryData(8,  242),
+      PoultryData(9,  280),
+      PoultryData(10, 321),
+      PoultryData(11, 366),
+      PoultryData(12, 414),
+      PoultryData(13, 465),
+      PoultryData(14, 519),
+      PoultryData(15, 576),
+      PoultryData(16, 637),
+      PoultryData(17, 701),
+      PoultryData(18, 768),
+      PoultryData(19, 837),
+      PoultryData(20, 910),
+      PoultryData(21, 985),
+      PoultryData(22, 1062),
+      PoultryData(23, 1142),
+      PoultryData(24, 1225),
+      PoultryData(25, 1309),
+      PoultryData(26, 1395),
+      PoultryData(27, 1483),
+      PoultryData(28, 1573),
+      PoultryData(29, 1664),
+      PoultryData(30, 1757),
+      PoultryData(31, 1851),
+      PoultryData(32, 1946),
+      PoultryData(33, 2041),
+      PoultryData(34, 2138),
+      PoultryData(35, 2235),
+      PoultryData(36, 2332),
+      PoultryData(37, 2430),
+      PoultryData(38, 2527),
+      PoultryData(39, 2625),
+      PoultryData(40, 2723),
+      PoultryData(41, 2821),
+      PoultryData(42, 2918),
+      PoultryData(43, 3015),
+      PoultryData(44, 3112),
+      PoultryData(45, 3207),
+      PoultryData(46, 3303),
+      PoultryData(47, 3397),
+      PoultryData(48, 3491),
+      PoultryData(49, 3583),
+      PoultryData(50, 3675),
+      PoultryData(51, 3766),
+      PoultryData(52, 3856),
+      PoultryData(53, 3944),
+      PoultryData(54, 4032),
+      PoultryData(55, 4118),
+      PoultryData(56, 4203),
+      PoultryData(57, 4286),
+      PoultryData(58, 4369),
+      PoultryData(59, 4450),
+      PoultryData(60, 4530),
+      PoultryData(61, 4608),
+      PoultryData(62, 4685),
+      PoultryData(63, 4760),
+      PoultryData(64, 4835),
+      PoultryData(65, 4907),
+      PoultryData(66, 4979),
+      PoultryData(67, 5049),
+      PoultryData(68, 5117),
+      PoultryData(69, 5184),
+      PoultryData(70, 5250),
+
+    ];
+
+
+
 /*
    final List<PoultryData> feedDataCurrent =[
 
@@ -182,7 +336,7 @@ class _ViewScreenState extends State<ViewScreen> {
 
 
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    String strain;
+
 
 
 
@@ -219,6 +373,7 @@ class _ViewScreenState extends State<ViewScreen> {
             // print(strain);
             if(strain == 'Cobb 500 - Broiler'){
               weightDataStrain = weightDataCobb500;
+              feedtDataStrain = feedDataCobb500;
             }
 
           }
@@ -296,7 +451,7 @@ class _ViewScreenState extends State<ViewScreen> {
 
                           ),
                           LineSeries<PoultryData,int>(
-                            legendItemText: 'Equivalent ideal strain',
+                            legendItemText: 'Ideal $strain',
                             color: Colors.orange ,
                             dataSource: weightDataStrain.sublist(0,i),
                             xValueMapper: (PoultryData chick, _)=> chick.day,
@@ -388,9 +543,9 @@ class _ViewScreenState extends State<ViewScreen> {
                           ),
                           LineSeries<PoultryData,int>(
 
-                            legendItemText: 'Equivalent ideal strain',
+                            legendItemText: 'Ideal $strain',
                             color: Colors.orange,
-                            dataSource: feedDataCobb500.sublist(0,j),
+                            dataSource: feedtDataStrain.sublist(0,j),
                             xValueMapper: (PoultryData chick, _)=> chick.day,
                             yValueMapper: (PoultryData chick, _)=> chick.amount,
 
