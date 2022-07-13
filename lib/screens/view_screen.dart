@@ -14,6 +14,8 @@ class ViewScreen extends StatefulWidget {
 
   @override
   State<ViewScreen> createState() => _ViewScreenState();
+
+
 }
 
 
@@ -24,8 +26,8 @@ class _ViewScreenState extends State<ViewScreen> {
     
 
     List<BarChart> mortalityData = <BarChart>[];
-    //List<PoultryData> weightDataCurrent=[PoultryData(0, 0)];
-     List<PoultryData> weightDataCurrent= [];
+
+    List<PoultryData> weightDataCurrent= [];
     List<PoultryData> feedDataCurrent= [];
     List<PoultryData> weightDataStrain= [];
     List<PoultryData> feedtDataStrain= [];
@@ -46,8 +48,9 @@ class _ViewScreenState extends State<ViewScreen> {
     ];
 
 
+
     //this is for testing
-   final List<PoultryData> weightDataCobb500 =[
+   static List<PoultryData> weightDataCobb500 =[
      PoultryData(0,  42),
      PoultryData(1,  63),
      PoultryData(2,  74),
@@ -120,7 +123,9 @@ class _ViewScreenState extends State<ViewScreen> {
 
 
 
-  final List<PoultryData> feedDataCobb500 =[
+
+
+    static List<PoultryData> feedDataCobb500 =[
 
     PoultryData(8,  37),
     PoultryData(9,  43),
@@ -183,7 +188,7 @@ class _ViewScreenState extends State<ViewScreen> {
   ];
 
 
-    final List<PoultryData> weightDataRoss308 =[
+    static List<PoultryData> weightDataRoss308 =[
       PoultryData(0,  43),
       PoultryData(1,  61),
       PoultryData(2,  79),
@@ -259,7 +264,7 @@ class _ViewScreenState extends State<ViewScreen> {
     ];
 
 
-    final List<PoultryData> feedDataRoss308 =[
+    static List<PoultryData> feedDataRoss308 =[
 
       PoultryData(2,  17),
       PoultryData(3,  21),
@@ -336,7 +341,7 @@ class _ViewScreenState extends State<ViewScreen> {
     ];
 
 
-    final List<PoultryData> weightDataDekalbWhite =[
+    static List<PoultryData> weightDataDekalbWhite =[
 
       PoultryData(1,  59),
       PoultryData(2,  117),
@@ -442,7 +447,7 @@ class _ViewScreenState extends State<ViewScreen> {
 
     ];
 
-    final List<PoultryData> feedDataDekalbWhite =[
+    static List<PoultryData> feedDataDekalbWhite =[
 
       PoultryData(1,  56),
       PoultryData(2,  147),
@@ -548,7 +553,7 @@ class _ViewScreenState extends State<ViewScreen> {
 
     ];
 
-    final List<PoultryData> feedDataShavorBrown =[
+    static List<PoultryData> feedDataShavorBrown =[
 
 
       PoultryData(1,  11),
@@ -646,7 +651,7 @@ class _ViewScreenState extends State<ViewScreen> {
 
     ];
 
-    final List<PoultryData> weightDataShaverBrown =[
+    static List<PoultryData> weightDataShaverBrown =[
 
       PoultryData(1,  60),
       PoultryData(2,  120),
@@ -1209,7 +1214,6 @@ class BarChart {
 
   BarChart(this.date,this.amount);
 
-
-
 }
-  
+
+
