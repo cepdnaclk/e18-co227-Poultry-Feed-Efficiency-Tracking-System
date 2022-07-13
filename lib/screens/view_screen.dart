@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/screens/griddashboard.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:pie_chart/pie_chart.dart';
+import 'package:syncfusion_flutter_charts/charts.dart' as sfchart;
 
 class ViewScreen extends StatefulWidget {
    ViewScreen({Key? key}) : super(key: key);
@@ -27,7 +28,18 @@ class _ViewScreenState extends State<ViewScreen> {
     List<PoultryData> feedtDataStrain= [];
 
     String strain='';
+    int mortal=0;
+    String totalChick='';
     int i=0,j=0,n=0;
+
+    Map<String, double> dataMap = {
+
+    };
+
+    final colorList = <Color>[
+      //Colors.greenAccent,
+      Colors.orange,
+    ];
 
 
     //this is for testing
@@ -670,12 +682,12 @@ class _ViewScreenState extends State<ViewScreen> {
                     return Container(
                       height: 400,
                       margin: EdgeInsets.all(10),
-                      child:  SfCartesianChart(
-                        legend: Legend(isVisible: true, position :LegendPosition.bottom ),
+                      child:  sfchart.SfCartesianChart(
+                        legend: sfchart.Legend(isVisible: true, position :sfchart.LegendPosition.bottom ),
 
-                        title: ChartTitle(text: 'Weight performance'),
-                        series: <ChartSeries>[
-                          LineSeries<PoultryData,int>(
+                        title: sfchart.ChartTitle(text: 'Weight performance'),
+                        series: <sfchart.ChartSeries>[
+                          sfchart.LineSeries<PoultryData,int>(
                             legendItemText: 'Active Batch',
                             //color: Colors.deepOrange ,
                             color: mPrimaryColor,
@@ -685,7 +697,7 @@ class _ViewScreenState extends State<ViewScreen> {
                             yValueMapper: (PoultryData chick, _)=> chick.amount,
 
                           ),
-                          LineSeries<PoultryData,int>(
+                          sfchart.LineSeries<PoultryData,int>(
                             legendItemText: 'Ideal $strain',
                             color: Colors.orange ,
                             dataSource: weightDataStrain.sublist(0,i),
@@ -762,12 +774,12 @@ class _ViewScreenState extends State<ViewScreen> {
                     return Container(
                       height: 400,
                       margin: EdgeInsets.all(10),
-                      child:  SfCartesianChart(
-                        legend: Legend(isVisible: true, position :LegendPosition.bottom ),
+                      child:  sfchart.SfCartesianChart(
+                        legend: sfchart.Legend(isVisible: true, position :sfchart.LegendPosition.bottom ),
 
-                        title: ChartTitle(text: 'Feed Performance'),
-                        series: <ChartSeries>[
-                          LineSeries<PoultryData,int>(
+                        title: sfchart.ChartTitle(text: 'Feed Performance'),
+                        series: <sfchart.ChartSeries>[
+                          sfchart.LineSeries<PoultryData,int>(
                             legendItemText: 'Active Batch',
                             //color: Colors.deepOrange ,
                             color: mPrimaryColor,
@@ -776,7 +788,7 @@ class _ViewScreenState extends State<ViewScreen> {
                             yValueMapper: (PoultryData chick, _)=> chick.amount,
 
                           ),
-                          LineSeries<PoultryData,int>(
+                          sfchart.LineSeries<PoultryData,int>(
 
                             legendItemText: 'Ideal $strain',
                             color: Colors.orange,
@@ -848,11 +860,11 @@ class _ViewScreenState extends State<ViewScreen> {
                     return Container(
                       height: 400,
                       margin: EdgeInsets.all(10),
-                        child: SfCartesianChart(
+                        child: sfchart.SfCartesianChart(
 
-                            legend: Legend(isVisible: true, position :LegendPosition.bottom ),
-                            series: <ChartSeries>[
-                              BarSeries<BarChart, int>(
+                            legend:sfchart. Legend(isVisible: true, position :sfchart.LegendPosition.bottom ),
+                            series: <sfchart.ChartSeries>[
+                              sfchart.BarSeries<BarChart, int>(
                                   legendItemText: 'Death Count',
                                   dataSource: mortalityData,
                                   xValueMapper: (BarChart data, _) => data.date,
@@ -871,6 +883,59 @@ class _ViewScreenState extends State<ViewScreen> {
                 }),
 
 
+            StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Farmers')
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .collection('flock')
+                    .where(FieldPath.documentId, isEqualTo: args.flockID)
+                    .snapshots(), // your stream url,
+                builder:
+                    (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return CircularProgressIndicator();
+                  } else {
+                    //print(snapshot.toString());
+                    mortal = snapshot.data?.docs[0]['Mortal'];
+                    totalChick = snapshot.data?.docs[0]['count'];
+                    print(mortal);
+                    print(totalChick);
+
+                    dataMap['Mortality']=mortal.toDouble();
+                  }
+
+                  return Container(
+
+
+                    //padding: const EdgeInsets.symmetric(horizontal: 16),
+                    margin: EdgeInsets.all(10),
+                    child: PieChart(
+                      dataMap: dataMap,
+                      chartType: ChartType.ring,
+                      legendOptions: LegendOptions(legendPosition: LegendPosition.right, legendTextStyle: TextStyle(color: mPrimaryTextColor)),
+                      baseChartColor: mPrimaryColor.withOpacity(0.7),
+                      chartRadius: 180,
+                      ringStrokeWidth: 20,
+                      chartLegendSpacing: 30,
+                      centerTextStyle: TextStyle(color: mPrimaryTextColor),
+                      centerText: "Population",
+
+
+                      //baseChartColor: mPrimaryColor,
+                      colorList: colorList,
+
+                      chartValuesOptions: const ChartValuesOptions(
+                        showChartValuesInPercentage: true,
+                      ),
+                      totalValue: double.parse(totalChick),
+                    ),
+
+
+
+
+                  );
+                }
+                ),
 
 
 
