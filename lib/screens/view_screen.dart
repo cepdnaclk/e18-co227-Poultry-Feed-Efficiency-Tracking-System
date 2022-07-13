@@ -20,6 +20,9 @@ class ViewScreen extends StatefulWidget {
 
 class _ViewScreenState extends State<ViewScreen> {
 
+
+    
+
     List<BarChart> mortalityData = <BarChart>[];
     //List<PoultryData> weightDataCurrent=[PoultryData(0, 0)];
      List<PoultryData> weightDataCurrent= [];
@@ -31,6 +34,7 @@ class _ViewScreenState extends State<ViewScreen> {
     int mortal=0;
     String totalChick='';
     int i=0,j=0,n=0;
+    int state=0;
 
     Map<String, double> dataMap = {
 
@@ -38,7 +42,7 @@ class _ViewScreenState extends State<ViewScreen> {
 
     final colorList = <Color>[
       //Colors.greenAccent,
-      Colors.orange,
+      mPrimaryColor,
     ];
 
 
@@ -574,373 +578,416 @@ class _ViewScreenState extends State<ViewScreen> {
 
     return Scaffold(
 
+
+
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text('Poultry Analysis'),
             backgroundColor: mPrimaryColor,
 
           ),
-        body: ListView(
+        body: SingleChildScrollView(
+          child: Column(
 
 
-          children: [
 
 
-        //to compare the strain
-        StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('Farmers')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .collection('flock')
-            .where(FieldPath.documentId, isEqualTo: args.flockID)
-            .snapshots(), // your stream url,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return CircularProgressIndicator();
-          } else {
-            //print(snapshot.toString());
-            strain = snapshot.data?.docs[0]['strain'].trim();
-            //print(strain);
-            // print(strain);
-            if(strain == 'Cobb 500 - Broiler'){
-              weightDataStrain = weightDataCobb500;
-              feedtDataStrain = feedDataCobb500;
+            children: [
+
+
+          //to compare the strain
+          StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('Farmers')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection('flock')
+              .where(FieldPath.documentId, isEqualTo: args.flockID)
+              .snapshots(), // your stream url,
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return CircularProgressIndicator();
+            } else {
+              //print(snapshot.toString());
+              strain = snapshot.data?.docs[0]['strain'].trim();
+              //print(strain);
+              // print(strain);
+              if(strain == 'Cobb 500 - Broiler'){
+                weightDataStrain = weightDataCobb500;
+                feedtDataStrain = feedDataCobb500;
+              }
+              else if(strain == 'Ross 308 - Broiler'){
+                weightDataStrain = weightDataRoss308;
+                feedtDataStrain = feedDataRoss308;
+
+              }
+              else if(strain == 'Dekalb White - Layer'){
+                weightDataStrain = weightDataDekalbWhite;
+                feedtDataStrain = feedDataDekalbWhite;
+
+              }
+              else if(strain == 'Shaver Brown - Layer'){
+                //weightDataStrain = weightDataShaverBrown;
+                //feedtDataStrain = feedDataShaverBrown;
+
+              }
+
+
             }
-            else if(strain == 'Ross 308 - Broiler'){
-              weightDataStrain = weightDataRoss308;
-              feedtDataStrain = feedDataRoss308;
 
-            }
-            else if(strain == 'Dekalb White - Layer'){
-              weightDataStrain = weightDataDekalbWhite;
-              feedtDataStrain = feedDataDekalbWhite;
+            //var color = 0xff453658;
+            var color = 0xffd16fb2;
 
-            }
-            else if(strain == 'Shaver Brown - Layer'){
-              //weightDataStrain = weightDataShaverBrown;
-              //feedtDataStrain = feedDataShaverBrown;
-
-            }
-
-
+            return Container(
+              height: 0,
+            ); // Your grid code.
           }
-
-          //var color = 0xff453658;
-          var color = 0xffd16fb2;
-
-          return Container(
-            height: 0,
-          ); // Your grid code.
-        }
-        ),
+          ),
 
 
-            StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection("Farmers")
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .collection('flock')
-                    .doc(args.flockID)
-                    .collection('BodyWeight')
-                    .snapshots(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
+              StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection("Farmers")
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .collection('flock')
+                      .doc(args.flockID)
+                      .collection('BodyWeight')
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
 
 
-                    List<String> flockItems;
-                    //late final List <ChartData> weightDataCurrent;
+                      List<String> flockItems;
+                      //late final List <ChartData> weightDataCurrent;
 
-                    //final Map<String, int> someMap = {
+                      //final Map<String, int> someMap = {
 
-                    //};
-                    for (i = 0; i < snapshot.data!.docs.length; i++) {
-                      DocumentSnapshot snap = snapshot.data!.docs[i];
+                      //};
+                      for (i = 0; i < snapshot.data!.docs.length; i++) {
+                        DocumentSnapshot snap = snapshot.data!.docs[i];
 
-                      double amount = -1;
-                      String date;
-                      try {
-                        amount = snapshot.data?.docs[i]['Average_Weight'];
-                        date = snapshot.data!.docs[i].id;
-                        //print(snapshot.data!.docs[i].id);
-                        //print(i);
-                        //print(amount);
-                        //print('');
-                        weightDataCurrent.add(PoultryData(i, amount));
+                        double amount = -1;
+                        String date;
+                        try {
+                          amount = snapshot.data?.docs[i]['Average_Weight'];
+                          date = snapshot.data!.docs[i].id;
+                          //print(snapshot.data!.docs[i].id);
+                          //print(i);
+                          //print(amount);
+                          //print('');
+                          weightDataCurrent.add(PoultryData(i, amount));
 
-                        amount=0.0;
-                      } catch (e) {
-                        amount = -1;
-                      }
-
-                    }
-                    //print(flockItems);
-                    return Container(
-                      height: 400,
-                      margin: EdgeInsets.all(10),
-                      child:  sfchart.SfCartesianChart(
-                        legend: sfchart.Legend(isVisible: true, position :sfchart.LegendPosition.bottom ),
-
-                        title: sfchart.ChartTitle(text: 'Weight performance'),
-                        series: <sfchart.ChartSeries>[
-                          sfchart.LineSeries<PoultryData,int>(
-                            legendItemText: 'Active Batch',
-                            //color: Colors.deepOrange ,
-                            color: mPrimaryColor,
-                            dataSource: weightDataCurrent,
-
-                            xValueMapper: (PoultryData chick, _)=> chick.day,
-                            yValueMapper: (PoultryData chick, _)=> chick.amount,
-
-                          ),
-                          sfchart.LineSeries<PoultryData,int>(
-                            legendItemText: 'Ideal $strain',
-                            color: Colors.orange ,
-                            dataSource: weightDataStrain.sublist(0,i),
-                            xValueMapper: (PoultryData chick, _)=> chick.day,
-                            yValueMapper: (PoultryData chick, _)=> chick.amount,
-
-                          ),
-                        ],
-                      ),
-
-                    );
-                  }
-                }),
-
-
-            StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection("Farmers")
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .collection('flock')
-                    .doc(args.flockID)
-                    .collection('FeedIntake')
-                    .snapshots(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
-
-
-                    //List<String> flockItems;
-                    //late final List <ChartData> weightDataCurrent;
-
-                    //final Map<String, int> someMap = {
-
-                    //};
-                    for ( j = 0; j < snapshot.data!.docs.length; j++) {
-                      DocumentSnapshot snap = snapshot.data!.docs[j];
-
-                      double amntbags= -1.0;
-                      double amntKilo= -1.0;
-                      String date;
-                      //String Strdouble;
-                      try {
-
-                        print(snapshot.data!.docs[j].id);
-                        amntbags = snapshot.data?.docs[j]['Number_of_bags'];
-                        amntKilo = snapshot.data?.docs[j]['Weight_of_a_bag'] ;
-                        date = snapshot.data!.docs[j].id;
-                        //print(snapshot.data!.docs[j].id);
-                        //print(j);
-                        //print(amntbags);
-                        //print(amntKilo);
-                        print('');
-                        double product= amntKilo * amntbags;
-                        print(product);
-                        int k=j+8;
-                        feedDataCurrent.add(PoultryData(k , product));
-
-
-                        amntbags=0.0;
-                        amntKilo=0.0;
-
-                      } catch (e) {
-                        amntKilo = -1.0;
-                        amntbags = -1.0;
+                          amount=0.0;
+                        } catch (e) {
+                          amount = -1;
+                        }
 
                       }
+                      //print(flockItems);
+                      return Container(
+                        height: 400,
+                        margin: EdgeInsets.all(10),
+                        child:  sfchart.SfCartesianChart(
+                          legend: sfchart.Legend(isVisible: true, position :sfchart.LegendPosition.bottom ),
 
+                          title: sfchart.ChartTitle(text: 'Weight performance'),
+                          series: <sfchart.ChartSeries>[
+                            sfchart.LineSeries<PoultryData,int>(
+                              legendItemText: 'Active Batch',
+                              //color: Colors.deepOrange ,
+                              color: mPrimaryColor,
+                              dataSource: weightDataCurrent,
+
+                              xValueMapper: (PoultryData chick, _)=> chick.day,
+                              yValueMapper: (PoultryData chick, _)=> chick.amount,
+
+                            ),
+                            sfchart.LineSeries<PoultryData,int>(
+                              legendItemText: 'Ideal $strain',
+                              color: Colors.orange ,
+                              dataSource: weightDataStrain.sublist(0,i),
+                              xValueMapper: (PoultryData chick, _)=> chick.day,
+                              yValueMapper: (PoultryData chick, _)=> chick.amount,
+
+                            ),
+                          ],
+                        ),
+
+                      );
                     }
-                    //print(flockItems);
-                    return Container(
-                      height: 400,
-                      margin: EdgeInsets.all(10),
-                      child:  sfchart.SfCartesianChart(
-                        legend: sfchart.Legend(isVisible: true, position :sfchart.LegendPosition.bottom ),
-
-                        title: sfchart.ChartTitle(text: 'Feed Performance'),
-                        series: <sfchart.ChartSeries>[
-                          sfchart.LineSeries<PoultryData,int>(
-                            legendItemText: 'Active Batch',
-                            //color: Colors.deepOrange ,
-                            color: mPrimaryColor,
-                            dataSource: feedDataCurrent,
-                            xValueMapper: (PoultryData chick, _)=> chick.day,
-                            yValueMapper: (PoultryData chick, _)=> chick.amount,
-
-                          ),
-                          sfchart.LineSeries<PoultryData,int>(
-
-                            legendItemText: 'Ideal $strain',
-                            color: Colors.orange,
-                            dataSource: feedtDataStrain.sublist(0,j),
-                            xValueMapper: (PoultryData chick, _)=> chick.day,
-                            yValueMapper: (PoultryData chick, _)=> chick.amount,
-
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                }),
+                  }),
 
 
-            StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection("Farmers")
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .collection('flock')
-                    .doc(args.flockID)
-                    .collection('Mortality')
-                    .snapshots(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
+              StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection("Farmers")
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .collection('flock')
+                      .doc(args.flockID)
+                      .collection('FeedIntake')
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
 
 
-                    //List<String> flockItems;
-                    //late final List <ChartData> weightDataCurrent;
+                      //List<String> flockItems;
+                      //late final List <ChartData> weightDataCurrent;
 
-                    //final Map<String, int> someMap = {
+                      //final Map<String, int> someMap = {
 
-                    //};
-                    for ( n = 0; n < snapshot.data!.docs.length; n++) {
-                      DocumentSnapshot snap = snapshot.data!.docs[n];
+                      //};
+                      for ( j = 0; j < snapshot.data!.docs.length; j++) {
+                        DocumentSnapshot snap = snapshot.data!.docs[j];
 
-                      int mortalamnt = -1;
-                      int mortalDate = -1;
-                      //String Strdouble;
-                      try {
+                        double amntbags= -1.0;
+                        double amntKilo= -1.0;
+                        String date;
+                        //String Strdouble;
+                        try {
 
-                        //print(snapshot.data!.docs[j].id);
-                        mortalamnt = snapshot.data?.docs[n]['Amount'];
+                          print(snapshot.data!.docs[j].id);
+                          amntbags = snapshot.data?.docs[j]['Number_of_bags'];
+                          amntKilo = snapshot.data?.docs[j]['Weight_of_a_bag'] ;
+                          date = snapshot.data!.docs[j].id;
+                          //print(snapshot.data!.docs[j].id);
+                          //print(j);
+                          //print(amntbags);
+                          //print(amntKilo);
+                          print('');
+                          double product= amntKilo * amntbags;
+                          print(product);
+                          int k=j+8;
+                          feedDataCurrent.add(PoultryData(k , product));
 
-                       // mortalDate = snapshot.data!.docs[n];
-                        //print(snapshot.data!.docs[j].id);
-                        //print(j);
-                        //print(amntbags);
-                        //print(amntKilo);
 
-                        mortalityData.add(BarChart( n , mortalamnt));
+                          amntbags=0.0;
+                          amntKilo=0.0;
 
+                        } catch (e) {
+                          amntKilo = -1.0;
+                          amntbags = -1.0;
 
-
-
-                      } catch (e) {
-
-                        mortalamnt = -1;
+                        }
 
                       }
+                      //print(flockItems);
+                      return Container(
+                        height: 400,
+                        margin: EdgeInsets.all(10),
+                        child:  sfchart.SfCartesianChart(
+                          legend: sfchart.Legend(isVisible: true, position :sfchart.LegendPosition.bottom ),
 
+                          title: sfchart.ChartTitle(text: 'Feed Performance'),
+                          series: <sfchart.ChartSeries>[
+                            sfchart.LineSeries<PoultryData,int>(
+                              legendItemText: 'Active Batch',
+                              //color: Colors.deepOrange ,
+                              color: mPrimaryColor,
+                              dataSource: feedDataCurrent,
+                              xValueMapper: (PoultryData chick, _)=> chick.day,
+                              yValueMapper: (PoultryData chick, _)=> chick.amount,
+
+                            ),
+                            sfchart.LineSeries<PoultryData,int>(
+
+                              legendItemText: 'Ideal $strain',
+                              color: Colors.orange,
+                              dataSource: feedtDataStrain.sublist(0,j),
+                              xValueMapper: (PoultryData chick, _)=> chick.day,
+                              yValueMapper: (PoultryData chick, _)=> chick.amount,
+
+                            ),
+                          ],
+                        ),
+                      );
                     }
-                    //print(flockItems);
-                    return Container(
-                      height: 400,
-                      margin: EdgeInsets.all(10),
-                        child: sfchart.SfCartesianChart(
+                  }),
 
-                            legend:sfchart. Legend(isVisible: true, position :sfchart.LegendPosition.bottom ),
-                            series: <sfchart.ChartSeries>[
-                              sfchart.BarSeries<BarChart, int>(
-                                  legendItemText: 'Death Count',
-                                  dataSource: mortalityData,
-                                  xValueMapper: (BarChart data, _) => data.date,
-                                  yValueMapper: (BarChart data, _) => data.amount,
-                                  // Width of the bars
-                                  width: 1,
-                                  // Spacing between the bars
-                                  spacing: 0.5,
-                                   borderRadius: BorderRadius.all(Radius.circular(15)),
-                                   color: mPrimaryColor,
-                              )
-                            ]
-                        )
+
+              StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection("Farmers")
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .collection('flock')
+                      .doc(args.flockID)
+                      .collection('Mortality')
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+
+
+                      //List<String> flockItems;
+                      //late final List <ChartData> weightDataCurrent;
+
+                      //final Map<String, int> someMap = {
+
+                      //};
+                      for ( n = 0; n < snapshot.data!.docs.length; n++) {
+                        DocumentSnapshot snap = snapshot.data!.docs[n];
+
+                        int mortalamnt = -1;
+                        int mortalDate = -1;
+                        //String Strdouble;
+                        try {
+
+                          //print(snapshot.data!.docs[j].id);
+                          mortalamnt = snapshot.data?.docs[n]['Amount'];
+
+                         // mortalDate = snapshot.data!.docs[n];
+                          //print(snapshot.data!.docs[j].id);
+                          //print(j);
+                          //print(amntbags);
+                          //print(amntKilo);
+
+                          mortalityData.add(BarChart( n , mortalamnt));
+
+
+
+
+                        } catch (e) {
+
+                          mortalamnt = -1;
+
+                        }
+
+                      }
+                      //print(flockItems);
+                      return Container(
+
+
+                        height: 400,
+                        margin: EdgeInsets.all(10),
+                          child: sfchart.SfCartesianChart(
+
+                              title: sfchart.ChartTitle(text: 'Mortility On Daily basis'),
+
+                              legend:sfchart. Legend(isVisible: true, position :sfchart.LegendPosition.bottom ),
+                              series: <sfchart.ChartSeries>[
+                                sfchart.BarSeries<BarChart, int>(
+                                    legendItemText: 'Death Count',
+                                    dataSource: mortalityData,
+                                    xValueMapper: (BarChart data, _) => data.date,
+                                    yValueMapper: (BarChart data, _) => data.amount,
+                                    // Width of the bars
+                                    width: 1,
+                                    // Spacing between the bars
+                                    spacing: 0.5,
+                                     borderRadius: BorderRadius.all(Radius.circular(15)),
+                                     color: mPrimaryColor,
+                                )
+                              ]
+                          )
+                      );
+                    }
+                  }),
+
+
+              StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('Farmers')
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .collection('flock')
+                      .where(FieldPath.documentId, isEqualTo: args.flockID)
+                      .snapshots(), // your stream url,
+                  builder:
+                      (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return CircularProgressIndicator();
+                    } else {
+                      //print(snapshot.toString());
+                      mortal = snapshot.data?.docs[0]['Mortal'];
+                      totalChick = snapshot.data?.docs[0]['count'];
+                      print(mortal);
+                      print(totalChick);
+
+                      dataMap['Mortality']=mortal.toDouble();
+                    }
+
+                    return Container(
+
+
+                      //padding: const EdgeInsets.symmetric(horizontal: 16),
+                      margin: EdgeInsets.only(top: 20),
+
+                      child: Column(
+                       children: [
+                         Text("Mortality as a Percantage of Population",textAlign: TextAlign.center,style: TextStyle(fontSize: 18),),
+                         Container(
+                           margin: EdgeInsets.only(top: 20),
+                           child: PieChart(
+                             dataMap: dataMap,
+                             chartType: ChartType.ring,
+                             legendOptions: LegendOptions(legendPosition: LegendPosition.right, legendTextStyle: TextStyle(color: mPrimaryTextColor)),
+                             baseChartColor: mPrimaryColor.withOpacity(0.7),
+                             chartRadius: 180,
+                             ringStrokeWidth: 20,
+                             chartLegendSpacing: 30,
+                             centerTextStyle: TextStyle(color: mPrimaryTextColor),
+                             centerText: "Population",
+
+
+                             //baseChartColor: mPrimaryColor,
+                             colorList: colorList,
+
+                             chartValuesOptions: const ChartValuesOptions(
+                               showChartValuesInPercentage: true,
+                             ),
+                             totalValue: double.parse(totalChick),
+                           ),
+
+                         )
+                       ],
+
+                      ),
+                     /*
+                      child: PieChart(
+                        dataMap: dataMap,
+                        chartType: ChartType.ring,
+                        legendOptions: LegendOptions(legendPosition: LegendPosition.right, legendTextStyle: TextStyle(color: mPrimaryTextColor)),
+                        baseChartColor: mPrimaryColor.withOpacity(0.7),
+                        chartRadius: 180,
+                        ringStrokeWidth: 20,
+                        chartLegendSpacing: 30,
+                        centerTextStyle: TextStyle(color: mPrimaryTextColor),
+                        centerText: "Population",
+
+
+                        //baseChartColor: mPrimaryColor,
+                        colorList: colorList,
+
+                        chartValuesOptions: const ChartValuesOptions(
+                          showChartValuesInPercentage: true,
+                        ),
+                        totalValue: double.parse(totalChick),
+                      ),
+                      */
+
+
+
+
                     );
                   }
-                }),
-
-
-            StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('Farmers')
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .collection('flock')
-                    .where(FieldPath.documentId, isEqualTo: args.flockID)
-                    .snapshots(), // your stream url,
-                builder:
-                    (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return CircularProgressIndicator();
-                  } else {
-                    //print(snapshot.toString());
-                    mortal = snapshot.data?.docs[0]['Mortal'];
-                    totalChick = snapshot.data?.docs[0]['count'];
-                    print(mortal);
-                    print(totalChick);
-
-                    dataMap['Mortality']=mortal.toDouble();
-                  }
-
-                  return Container(
-
-
-                    //padding: const EdgeInsets.symmetric(horizontal: 16),
-                    margin: EdgeInsets.all(10),
-                    child: PieChart(
-                      dataMap: dataMap,
-                      chartType: ChartType.ring,
-                      legendOptions: LegendOptions(legendPosition: LegendPosition.right, legendTextStyle: TextStyle(color: mPrimaryTextColor)),
-                      baseChartColor: mPrimaryColor.withOpacity(0.7),
-                      chartRadius: 180,
-                      ringStrokeWidth: 20,
-                      chartLegendSpacing: 30,
-                      centerTextStyle: TextStyle(color: mPrimaryTextColor),
-                      centerText: "Population",
-
-
-                      //baseChartColor: mPrimaryColor,
-                      colorList: colorList,
-
-                      chartValuesOptions: const ChartValuesOptions(
-                        showChartValuesInPercentage: true,
-                      ),
-                      totalValue: double.parse(totalChick),
-                    ),
+                  ),
 
 
 
 
-                  );
-                }
-                ),
-
-
-
-
-          ],
+            ],
+          ),
         )
     );
 
