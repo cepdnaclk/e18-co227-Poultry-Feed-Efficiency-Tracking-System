@@ -5,6 +5,7 @@ import 'package:home_login/constants.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
+import 'package:home_login/screens/view_screen.dart';
 import 'drawerMenu.dart';
 
 class BodyWeight extends StatefulWidget {
@@ -15,6 +16,14 @@ class BodyWeight extends StatefulWidget {
 }
 
 class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
+
+
+
+  List weightDataCobb500=[];
+
+
+
+
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
@@ -37,6 +46,8 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
+
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return Stack(
       children: [
