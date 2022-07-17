@@ -29,8 +29,8 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
   late AnimationController _animationController;
   int mortal = 0, s_count = 0;
   String totalChick = '';
-  num feedbag = 0, bagWeight = 0;
-  num avgWeight = 0;
+  // num feedbag = 0, bagWeight = 0;
+  // num avgWeight = 0;
 
   @override
   void initState() {
@@ -69,61 +69,61 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
               return Container(); // Your grid code.
             }),
         //Feed intake
-        StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection("Farmers")
-                .doc(FirebaseAuth.instance.currentUser!.uid)
-                .collection('flock')
-                .doc(args.flockID)
-                .collection('FeedIntake')
-                .where(FieldPath.documentId,
-                    isEqualTo: date.toString().substring(0, 10))
-                .snapshots(), // your stream url,
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (!snapshot.hasData) {
-                return CircularProgressIndicator();
-              } else if (snapshot.data!.docs.isEmpty ||
-                  snapshot.data!.docs.isEmpty) {
-                return CircularProgressIndicator();
-                //return "Please update the Feed Page";
-              } else {
-                //print(snapshot.toString());
-                feedbag = snapshot.data?.docs[0]['Number_of_bags'];
-                bagWeight = snapshot.data?.docs[0]['Weight_of_a_bag'];
-                print(date.toString().substring(0, 10) + feedbag.toString());
-                print(date.toString().substring(0, 10) + bagWeight.toString());
-              }
+        // StreamBuilder(
+        //     stream: FirebaseFirestore.instance
+        //         .collection("Farmers")
+        //         .doc(FirebaseAuth.instance.currentUser!.uid)
+        //         .collection('flock')
+        //         .doc(args.flockID)
+        //         .collection('FeedIntake')
+        //         .where(FieldPath.documentId,
+        //             isEqualTo: date.toString().substring(0, 10))
+        //         .snapshots(), // your stream url,
+        //     builder:
+        //         (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        //       if (!snapshot.hasData) {
+        //         return CircularProgressIndicator();
+        //       } else if (snapshot.data!.docs.isEmpty ||
+        //           snapshot.data!.docs.isEmpty) {
+        //         return CircularProgressIndicator();
+        //         //return "Please update the Feed Page";
+        //       } else {
+        //         //print(snapshot.toString());
+        //         feedbag = snapshot.data?.docs[0]['Number_of_bags'];
+        //         bagWeight = snapshot.data?.docs[0]['Weight_of_a_bag'];
+        //         print(date.toString().substring(0, 10) + feedbag.toString());
+        //         print(date.toString().substring(0, 10) + bagWeight.toString());
+        //       }
 
-              return Container(); // Your grid code.
-            }),
-        //Body Weight
-        StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection("Farmers")
-                .doc(FirebaseAuth.instance.currentUser!.uid)
-                .collection('flock')
-                .doc(args.flockID)
-                .collection('BodyWeight')
-                .where(FieldPath.documentId,
-                    isEqualTo: date.toString().substring(0, 10))
-                .snapshots(), // your stream url,
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (!snapshot.hasData) {
-                return CircularProgressIndicator();
-              } else if (snapshot.data!.docs.isEmpty ||
-                  snapshot.data!.docs.isEmpty) {
-                return CircularProgressIndicator();
-                //return "Please update the Feed Page";
-              } else {
-                //print(snapshot.toString());
-                avgWeight = snapshot.data?.docs[0]['Average_Weight'];
-                print(date.toString().substring(0, 10) + avgWeight.toString());
-              }
+        //       return Container(); // Your grid code.
+        //     }),
+        // //Body Weight
+        // StreamBuilder(
+        //     stream: FirebaseFirestore.instance
+        //         .collection("Farmers")
+        //         .doc(FirebaseAuth.instance.currentUser!.uid)
+        //         .collection('flock')
+        //         .doc(args.flockID)
+        //         .collection('BodyWeight')
+        //         .where(FieldPath.documentId,
+        //             isEqualTo: date.toString().substring(0, 10))
+        //         .snapshots(), // your stream url,
+        //     builder:
+        //         (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        //       if (!snapshot.hasData) {
+        //         return CircularProgressIndicator();
+        //       } else if (snapshot.data!.docs.isEmpty ||
+        //           snapshot.data!.docs.isEmpty) {
+        //         return CircularProgressIndicator();
+        //         //return "Please update the Feed Page";
+        //       } else {
+        //         //print(snapshot.toString());
+        //         avgWeight = snapshot.data?.docs[0]['Average_Weight'];
+        //         print(date.toString().substring(0, 10) + avgWeight.toString());
+        //       }
 
-              return Container(); // Your grid code.
-            }),
+        //       return Container(); // Your grid code.
+        //     }),
 
         DrawerMenu(args.flockID),
         AnimatedContainer(
@@ -204,89 +204,88 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                     SizedBox(
                       height: 30.0,
                     ),
-                    Row(
-                      //mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 6.0, vertical: 15.0),
-                            child: reusableTextField3(
-                                date.toString().substring(0, 10),
-                                Icons.date_range,
-                                false,
-                                _datecontroller,
-                                null,
-                                false),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 6.0, vertical: 15.0),
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                DateTime? ndate = await showDatePicker(
-                                  context: context,
-                                  initialDate: date,
-                                  firstDate: DateTime(2022),
-                                  lastDate: DateTime.now(),
-                                  builder: (context, child) {
-                                    return Theme(
-                                      data: Theme.of(context).copyWith(
-                                        colorScheme: ColorScheme.light(
-                                          primary: mNewColor,
-                                          onPrimary:
-                                              Colors.white, // <-- SEE HERE
-                                          onSurface:
-                                              mSecondColor, // <-- SEE HERE
-                                        ),
-                                        textButtonTheme: TextButtonThemeData(
-                                          style: TextButton.styleFrom(
-                                            primary:
-                                                mPrimaryColor, // button text color
-                                          ),
-                                        ),
-                                      ),
-                                      child: child!,
-                                    );
-                                  },
-                                );
-                                if (ndate == null) return;
-                                setState(() => date = ndate);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: const Size(180, 50),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    side: BorderSide(
-                                      width: 2.0,
-                                      color: mPrimaryColor,
-                                    )),
-                                primary: mBackgroundColor,
-                                elevation: 20,
-                                shadowColor: Colors.transparent,
-                                textStyle: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              child: Text(
-                                "Touch to Pick Date",
-                                style: TextStyle(color: Colors.black38),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   //mainAxisAlignment: MainAxisAlignment.start,
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     Expanded(
+                    //       child: Padding(
+                    //         padding: const EdgeInsets.symmetric(
+                    //             horizontal: 6.0, vertical: 15.0),
+                    //         child: reusableTextField3(
+                    //             date.toString().substring(0, 10),
+                    //             Icons.date_range,
+                    //             false,
+                    //             _datecontroller,
+                    //             null,
+                    //             false),
+                    //       ),
+                    //     ),
+                    //     Expanded(
+                    //       child: Padding(
+                    //         padding: const EdgeInsets.symmetric(
+                    //             horizontal: 6.0, vertical: 15.0),
+                    //         child: ElevatedButton(
+                    //           onPressed: () async {
+                    //             DateTime? ndate = await showDatePicker(
+                    //               context: context,
+                    //               initialDate: date,
+                    //               firstDate: DateTime(2022),
+                    //               lastDate: DateTime.now(),
+                    //               builder: (context, child) {
+                    //                 return Theme(
+                    //                   data: Theme.of(context).copyWith(
+                    //                     colorScheme: ColorScheme.light(
+                    //                       primary: mNewColor,
+                    //                       onPrimary:
+                    //                           Colors.white, // <-- SEE HERE
+                    //                       onSurface:
+                    //                           mSecondColor, // <-- SEE HERE
+                    //                     ),
+                    //                     textButtonTheme: TextButtonThemeData(
+                    //                       style: TextButton.styleFrom(
+                    //                         primary:
+                    //                             mPrimaryColor, // button text color
+                    //                       ),
+                    //                     ),
+                    //                   ),
+                    //                   child: child!,
+                    //                 );
+                    //               },
+                    //             );
+                    //             if (ndate == null) return;
+                    //             setState(() => date = ndate);
+                    //           },
+                    //           style: ElevatedButton.styleFrom(
+                    //             fixedSize: const Size(180, 50),
+                    //             shape: RoundedRectangleBorder(
+                    //                 borderRadius: BorderRadius.circular(30.0),
+                    //                 side: BorderSide(
+                    //                   width: 2.0,
+                    //                   color: mPrimaryColor,
+                    //                 )),
+                    //             primary: mBackgroundColor,
+                    //             elevation: 20,
+                    //             shadowColor: Colors.transparent,
+                    //             textStyle: TextStyle(
+                    //               fontSize: 16,
+                    //               fontWeight: FontWeight.bold,
+                    //             ),
+                    //           ),
+                    //           child: Text(
+                    //             "Touch to Pick Date",
+                    //             style: TextStyle(color: Colors.black38),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
                           print(date);
-                          popupDialog(
-                              s_count, mortal, avgWeight, feedbag, bagWeight);
+                          popupDialog(s_count, mortal, args.flockID);
                           // Navigator.push(
                           //   context,
                           //   MaterialPageRoute(
@@ -320,33 +319,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
     );
   }
 
-  // void displayFCRdialog() {
-  //   showDialog(
-  //       context: context,
-  //       builder: (builder) {
-  //         return AlertDialog(
-  //           backgroundColor: mBackgroundColor,
-  //           title: const Text(
-  //             "Output",
-  //             textAlign: TextAlign.center,
-  //           ),
-  //           content: const Text("-----Details-----\n-----Details-----"),
-  //           actions: [
-  //             TextButton(
-  //               onPressed: () {
-  //                 Navigator.pop(context);
-  //               },
-  //               child: Text("Close"),
-  //             ),
-  //           ],
-  //           //child: ListView.separated(
-  //           //shrinkWrap: true,
-  //         );
-  //       });
-  // }
-
-  void popupDialog(
-      int startCount, int mortal, num avgWeight, num noBag, num avgBagWeight) {
+  void popupDialog(int startCount, int mortal, String FlockID) {
     showDialog(
       context: context,
       builder: (builder) {
@@ -361,16 +334,17 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                 child: Text("No".tr)),
             TextButton(
                 onPressed: () {
-                  displayFCRdialog(
-                      startCount, mortal, avgWeight, noBag, avgBagWeight);
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => FCRAutoScreen(
-                  //       date: date,
-                  //     ),
-                  //   ),
-                  // );
+                  //displayFCRdialog(
+                  //startCount, mortal, avgWeight, noBag, avgBagWeight);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FCRAutoScreen(
+                        date: date,
+                        id: FlockID,
+                      ),
+                    ),
+                  );
                 },
                 child: Text("Yes".tr))
           ],
