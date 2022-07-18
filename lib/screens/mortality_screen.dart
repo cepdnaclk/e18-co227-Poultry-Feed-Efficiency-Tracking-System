@@ -294,7 +294,7 @@ class _MortalityScreenState extends State<MortalityScreen>
             await transaction.get(documentReference);
 
         if (!snapshot.exists) {
-          print("done 1 befre");
+          print("done 1 before");
           documentReference.set({'Amount': value});
           print("done 1");
 
