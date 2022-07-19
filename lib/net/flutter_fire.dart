@@ -282,6 +282,7 @@ Future<bool> addFlock(
           'birthDate': bDay,
           'Active': "yes",
           'Mortal': 0,
+          'Egg': 0,
           'Avg_BodyWeight': 0.0
         });
         return true;
@@ -480,5 +481,79 @@ Future<bool> removeFlock(String id) async {
     }
   } catch (e) {
     rethrow;
+  }
+}
+
+Future<void> addEggs(String id, String amount, String date) async {
+  num current = 0;
+  num value = int.parse(amount);
+  try {
+    print("try 1");
+    DocumentReference<Map<String, dynamic>> documentReference =
+        FirebaseFirestore.instance
+            .collection('Farmers')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('flock')
+            .doc(id)
+            .collection('NumberofEggs')
+            .doc(date);
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await transaction.get(documentReference);
+      if (!snapshot.exists) {
+        print("done 1 before");
+        documentReference.set({'Amount': value});
+        print("done 1");
+      } else {
+        try {
+          //num newAmount = snapshot.data()!['Amount'] + value;
+          current = snapshot.data()!['Amount'];
+          transaction.update(documentReference, {'Amount': value});
+          print("done 1.2");
+          print(current);
+          //return true;
+        } catch (e) {
+          //rethrow;
+        }
+      }
+    });
+  } catch (e) {
+    // return false;
+  }
+  try {
+    print("try 2");
+    DocumentReference<Map<String, dynamic>> documentReference2 =
+        FirebaseFirestore.instance
+            .collection('Farmers')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('flock')
+            .doc(id);
+
+    FirebaseFirestore.instance.runTransaction((transaction2) async {
+      DocumentSnapshot<Map<String, dynamic>> snapshot2 =
+          await transaction2.get(documentReference2);
+      print(documentReference2);
+      if (!snapshot2.exists) {
+        print("snap 2 noy exist");
+        documentReference2.update({'Egg': value});
+        print("done 2");
+        print(value);
+        //return true;
+      } else {
+        try {
+          print("done 2.2 before");
+          num n = snapshot2.data()!['Egg'];
+          num newAmount = n - current + value;
+          print("done 2.2 before 2");
+          transaction2.update(documentReference2, {'Egg': newAmount});
+          print("done 2.2");
+          //return true;
+        } catch (e) {
+          //rethrow;
+        }
+      }
+    });
+  } catch (e) {
+    //
   }
 }
