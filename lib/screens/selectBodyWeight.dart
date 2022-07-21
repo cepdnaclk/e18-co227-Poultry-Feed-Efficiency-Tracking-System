@@ -191,7 +191,10 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DeleteBodyWeight(),
+                              builder: (context) => DeleteBodyWeight(
+                                id_flock: args.flockID,
+                                startDateNavi: startDate,
+                              ),
                             ),
                           );
                         },
