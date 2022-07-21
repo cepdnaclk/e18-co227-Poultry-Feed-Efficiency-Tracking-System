@@ -19,7 +19,10 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
 
 
 
-  List weightDataCobb500=[];
+  List<DropdownMenuItem<String>> dateItems = [];
+  String selectedDate="";
+
+
 
 
 
@@ -29,6 +32,8 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
 
   final TextEditingController _datecontroller = TextEditingController();
   final TextEditingController _numcontroller = TextEditingController();
+
+  ///weightDataCobb500 = ViewScreen;
 
   double translateX = 0.0;
   double translateY = 0.0;
@@ -47,7 +52,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
-
+     var selectedDate;
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return Stack(
       children: [
@@ -94,6 +99,169 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+
+                      StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection("Farmers")
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .collection('flock')
+                              .doc(args.flockID)
+                              .collection('BodyWeight')
+                              .snapshots(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else {
+
+
+                              //List<String> flockItems;
+
+                              //late final List <ChartData> weightDataCurrent;
+
+                              //final Map<String, int> someMap = {
+
+                              //};
+                              for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                                DocumentSnapshot snap = snapshot.data!.docs[i];
+
+                                double amount = -1;
+                                String date;
+                                try {
+                                  amount = snapshot.data?.docs[i]['Average_Weight'];
+                                  date = snapshot.data!.docs[i].id;
+
+
+                                  //print(snapshot.data!.docs[i].id);
+
+                                  //print(amount);
+                                  //print("----------------------");
+                                  //print('');
+                                  //weightDataCurrent.add(PoultryData(i, amount));
+                                  //dateItems.add(date);
+                                  dateItems.add(
+                                    DropdownMenuItem(
+
+                                      child: Text(
+                                        date,
+                                        style: TextStyle(color: mPrimaryColor),
+                                      ),
+
+                                      //value: "${snap.id}",
+                                      value: "$date",
+                                    ),
+                                  );
+
+                                 // print(date);
+
+                                  //print(dateItems);
+                                  amount=0.0;
+                                  //print(dateItems);
+                                } catch (e) {
+                                  amount = -1;
+                                }
+
+                              }
+                              //print(dateItems);
+                             return Container(
+
+                               child: Column(
+                                 children: [
+
+                                   SizedBox(height: 50,),
+
+                                   Center(
+                                     child: DropdownButton(
+                                       alignment: Alignment.center,
+                                         hint: new Text(
+                                           'Select a date'.tr,
+                                           style: TextStyle(
+                                             color: mPrimaryColor,
+                                             fontSize: 17,
+                                           ),
+                                         ),
+                                         items: dateItems.toSet().toList() ,
+                                         onChanged:(newValue){
+                                                 setState(() {
+                                                   selectedDate = newValue;
+                                                   print(selectedDate);
+                                         });
+
+
+                                         }
+
+                                     ),
+
+                                   ),
+                                   SizedBox(height: 20),
+
+                                   Row(
+
+                                     children: [
+
+                                       SizedBox(width: 20,),
+                                       Text("Selected Date",
+                                       style: TextStyle(
+                                      fontSize: 20, color: mPrimaryColor),
+
+                                        ),
+                                       SizedBox(width: 10,),
+
+                                       Text("$selectedDate",
+                                         style: TextStyle(
+                                             fontSize: 20, color: mPrimaryColor),
+
+                                       ),
+
+                                       /*TextField(
+                                         decoration: InputDecoration(
+                                           enabledBorder: OutlineInputBorder(
+                                             borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
+
+                                           ),
+                                           hintText: "$selectedDate" ,
+                                         ),
+                                       )
+
+                                        */
+
+
+                                     ],
+                                   )
+                                   /*
+
+                                   Row(
+                                     children: [
+                                       Text("Selected Date"),
+                                       TextField(
+                                         decoration: InputDecoration(
+                                           border: OutlineInputBorder(),
+                                           hintText: "$selectedDate" ,
+                                         ),
+                                       ),
+
+                                     ],
+
+                                   )
+                                   */
+
+                                 ],
+                               ),
+
+
+
+
+                             );
+                              print(dateItems);
+                            }
+                          }),
+
+
+
+
+
                       SizedBox(
                         height: 20.0,
                       ),
@@ -135,7 +303,8 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                                 ),
                               );
                             }
-                          }),
+                          }
+                          ),
 
                       //reuseTextField("Mortality"),
                       SizedBox(
@@ -470,4 +639,16 @@ TextFormField reusableTextField3(
         ? TextInputType.visiblePassword
         : TextInputType.emailAddress,
   );
+}
+
+class PoultryData{
+  final double amount;
+  final int day;
+
+
+  PoultryData(this.day,this.amount);
+
+
+
+
 }
