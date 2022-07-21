@@ -1242,6 +1242,10 @@ class PoultryData{
 
 
   PoultryData(this.day,this.amount);
+
+
+
+
 }
 
 // Class for chart data source, this can be modified based on the data in Firestore
@@ -1250,6 +1254,8 @@ class BarChart {
   final int date;
 
   BarChart(this.date,this.amount);
+
+
 
 }
 
