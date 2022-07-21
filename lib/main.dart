@@ -15,7 +15,7 @@ import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/mortality_screen.dart';
 import 'package:home_login/screens/view_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
-import 'package:home_login/screens/body_weight.dart';
+import 'package:home_login/screens/selectBodyWeight.dart';
 import 'package:home_login/screens/welcome_screen.dart';
 import 'package:sizer/sizer.dart';
 

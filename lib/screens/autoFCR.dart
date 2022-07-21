@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:home_login/constants.dart';
-import 'package:home_login/screens/body_weight.dart';
+import 'package:home_login/screens/selectBodyWeight.dart';
 import 'package:home_login/screens/griddashboard.dart';
 
 class FCRAutoScreen extends StatefulWidget {

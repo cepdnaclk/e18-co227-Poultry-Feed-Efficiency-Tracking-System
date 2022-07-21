@@ -10,10 +10,12 @@ import 'package:home_login/screens/view_screen.dart';
 
 class UpdateBodyWeight extends StatefulWidget {
   final String id_flock;
+  String startDateNavi;
   // const AddBodyWeight({Key? key}) : super(key: key);
   UpdateBodyWeight({
     Key? key,
     required this.id_flock,
+    required this.startDateNavi,
   }) : super(key: key);
 
   @override
@@ -33,7 +35,6 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
   final TextEditingController _numcontroller = TextEditingController();
 
   ///weightDataCobb500 = ViewScreen;
-
   double translateX = 0.0;
   double translateY = 0.0;
   double scale = 1;
@@ -41,6 +42,7 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
   late AnimationController _animationController;
   @override
   void initState() {
+    selectedDate = widget.startDateNavi;
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 500),
@@ -50,7 +52,6 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
 
   @override
   Widget build(BuildContext context) {
-    //var selectedDate;
     //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return Stack(
       children: [
@@ -127,9 +128,10 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                                 double amount = -1;
                                 String date;
                                 try {
-                                  amount =
-                                      snapshot.data?.docs[i]['Average_Weight'];
+                                  // amount =
+                                  //     snapshot.data?.docs[i]['Average_Weight'];
                                   date = snapshot.data!.docs[i].id;
+                                  //print(date);
 
                                   //print(snapshot.data!.docs[i].id);
 
@@ -153,16 +155,75 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                                   // print(date);
 
                                   //print(dateItems);
-                                  amount = 0.0;
+                                  //amount = 0.0;
                                   //print(dateItems);
                                 } catch (e) {
-                                  amount = -1;
+                                  //amount = -1;
                                 }
                               }
                               //print(dateItems);
                               return Container(
                                 child: Column(
                                   children: [
+                                    SizedBox(
+                                      height: 50,
+                                    ),
+                                    Center(
+                                      child: DropdownButton(
+                                          alignment: Alignment.center,
+                                          hint: new Text(
+                                            'Select a date'.tr,
+                                            style: TextStyle(
+                                              color: mPrimaryColor,
+                                              fontSize: 17,
+                                            ),
+                                          ),
+                                          items: dateItems.toSet().toList(),
+                                          onChanged: (newValue) {
+                                            setState(() {
+                                              selectedDate = newValue
+                                                  .toString()
+                                                  .substring(0, 10);
+                                              //Text(selectedDate);
+                                              print(selectedDate);
+                                            });
+                                          }),
+                                    ),
+                                    SizedBox(height: 20),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Text(
+                                          "Selected Date: ",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: mPrimaryColor),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            "${selectedDate}",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: mPrimaryColor),
+                                          ),
+                                        ),
+
+                                        /*TextField(
+                                         decoration: InputDecoration(
+                                           enabledBorder: OutlineInputBorder(
+                                             borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
+                                           ),
+                                           hintText: "$selectedDate" ,
+                                         ),
+                                       )
+                                        */
+                                      ],
+                                    ),
                                     StreamBuilder<QuerySnapshot>(
                                         stream: FirebaseFirestore.instance
                                             .collection("Farmers")
@@ -184,7 +245,7 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                                             amount = snapshot.data?.docs[0]
                                                 ['Average_Weight'];
                                             recordedWeight = amount;
-                                            print(amount);
+                                            //print(amount);
                                           } catch (e) {
                                             amount = -1;
                                           }
@@ -205,73 +266,6 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                                             return Container(
                                               child: Column(
                                                 children: [
-                                                  SizedBox(
-                                                    height: 50,
-                                                  ),
-                                                  Center(
-                                                    child: DropdownButton(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        hint: new Text(
-                                                          'Select a date'.tr,
-                                                          style: TextStyle(
-                                                            color:
-                                                                mPrimaryColor,
-                                                            fontSize: 17,
-                                                          ),
-                                                        ),
-                                                        items: dateItems
-                                                            .toSet()
-                                                            .toList(),
-                                                        onChanged: (newValue) {
-                                                          setState(() {
-                                                            selectedDate =
-                                                                newValue
-                                                                    .toString();
-                                                            //Text(selectedDate);
-                                                            print(selectedDate);
-                                                          });
-                                                        }),
-                                                  ),
-                                                  SizedBox(height: 20),
-                                                  Row(
-                                                    children: [
-                                                      SizedBox(
-                                                        width: 20,
-                                                      ),
-                                                      Text(
-                                                        "Selected Date: ",
-                                                        style: TextStyle(
-                                                            fontSize: 20,
-                                                            color:
-                                                                mPrimaryColor),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      Container(
-                                                        child: Text(
-                                                          "${selectedDate}",
-                                                          style: TextStyle(
-                                                              fontSize: 20,
-                                                              color:
-                                                                  mPrimaryColor),
-                                                        ),
-                                                      ),
-
-                                                      /*TextField(
-                                         decoration: InputDecoration(
-                                           enabledBorder: OutlineInputBorder(
-                                             borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
-
-                                           ),
-                                           hintText: "$selectedDate" ,
-                                         ),
-                                       )
-
-                                        */
-                                                    ],
-                                                  ),
                                                   SizedBox(height: 20),
                                                   Row(
                                                     children: [
@@ -302,12 +296,10 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                                          decoration: InputDecoration(
                                            enabledBorder: OutlineInputBorder(
                                              borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
-
                                            ),
                                            hintText: "$selectedDate" ,
                                          ),
                                        )
-
                                         */
                                                     ],
                                                   )
@@ -326,7 +318,6 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                                         }),
 
                                     /*
-
                                    Row(
                                      children: [
                                        Text("Selected Date"),
@@ -336,9 +327,7 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                                            hintText: "$selectedDate" ,
                                          ),
                                        ),
-
                                      ],
-
                                    )
                                    */
                                   ],

@@ -20,6 +20,7 @@ class BodyWeight extends StatefulWidget {
 
 class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
   List weightDataCobb500 = [];
+  String startDate = '';
 
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
@@ -86,6 +87,31 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                 ),
                 body: Column(
                   children: [
+                    StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('Farmers')
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .collection('flock')
+                            .where(FieldPath.documentId,
+                                isEqualTo: args.flockID)
+                            .snapshots(), // your stream url,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (!snapshot.hasData) {
+                            return CircularProgressIndicator();
+                          } else {
+                            //print(snapshot.toString());
+                            startDate = snapshot.data?.docs[0]['startdays'];
+                            //print(startDate);
+                            addBodyWeight(
+                                args.flockID, 40.toString(), startDate);
+
+                            //print(mortal);
+                            //print(totalChick);
+                          }
+
+                          return Container(); // Your grid code.
+                        }),
                     SizedBox(
                       height: 20,
                     ),
@@ -97,6 +123,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                             MaterialPageRoute(
                               builder: (context) => UpdateBodyWeight(
                                 id_flock: args.flockID,
+                                startDateNavi: startDate,
                               ),
                             ),
                           );
