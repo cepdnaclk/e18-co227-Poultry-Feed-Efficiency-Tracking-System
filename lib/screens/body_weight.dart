@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:home_login/constants.dart';
+import 'package:home_login/screens/BodyWeightScreen/addBody.dart';
+import 'package:home_login/screens/BodyWeightScreen/deleteBody.dart';
+import 'package:home_login/screens/BodyWeightScreen/updateBody.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
@@ -16,24 +19,13 @@ class BodyWeight extends StatefulWidget {
 }
 
 class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
-
-
-
-  List<DropdownMenuItem<String>> dateItems = [];
-  String selectedDate="";
-
-
-
-
-
+  List weightDataCobb500 = [];
 
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   final TextEditingController _datecontroller = TextEditingController();
   final TextEditingController _numcontroller = TextEditingController();
-
-  ///weightDataCobb500 = ViewScreen;
 
   double translateX = 0.0;
   double translateY = 0.0;
@@ -51,8 +43,6 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
-     var selectedDate;
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return Stack(
       children: [
@@ -94,361 +84,107 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                   title: Text("BODY WEIGHT".tr),
                   backgroundColor: mPrimaryColor,
                 ),
-                body: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-
-                      StreamBuilder<QuerySnapshot>(
-                          stream: FirebaseFirestore.instance
-                              .collection("Farmers")
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .collection('flock')
-                              .doc(args.flockID)
-                              .collection('BodyWeight')
-                              .snapshots(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            if (!snapshot.hasData) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else {
-
-
-                              //List<String> flockItems;
-
-                              //late final List <ChartData> weightDataCurrent;
-
-                              //final Map<String, int> someMap = {
-
-                              //};
-                              for (int i = 0; i < snapshot.data!.docs.length; i++) {
-                                DocumentSnapshot snap = snapshot.data!.docs[i];
-
-                                double amount = -1;
-                                String date;
-                                try {
-                                  amount = snapshot.data?.docs[i]['Average_Weight'];
-                                  date = snapshot.data!.docs[i].id;
-
-
-                                  //print(snapshot.data!.docs[i].id);
-
-                                  //print(amount);
-                                  //print("----------------------");
-                                  //print('');
-                                  //weightDataCurrent.add(PoultryData(i, amount));
-                                  //dateItems.add(date);
-                                  dateItems.add(
-                                    DropdownMenuItem(
-
-                                      child: Text(
-                                        date,
-                                        style: TextStyle(color: mPrimaryColor),
-                                      ),
-
-                                      //value: "${snap.id}",
-                                      value: "$date",
-                                    ),
-                                  );
-
-                                 // print(date);
-
-                                  //print(dateItems);
-                                  amount=0.0;
-                                  //print(dateItems);
-                                } catch (e) {
-                                  amount = -1;
-                                }
-
-                              }
-                              //print(dateItems);
-                             return Container(
-
-                               child: Column(
-                                 children: [
-
-                                   SizedBox(height: 50,),
-
-                                   Center(
-                                     child: DropdownButton(
-                                       alignment: Alignment.center,
-                                         hint: new Text(
-                                           'Select a date'.tr,
-                                           style: TextStyle(
-                                             color: mPrimaryColor,
-                                             fontSize: 17,
-                                           ),
-                                         ),
-                                         items: dateItems.toSet().toList() ,
-                                         onChanged:(newValue){
-                                                 setState(() {
-                                                   selectedDate = newValue;
-                                                   print(selectedDate);
-                                         });
-
-
-                                         }
-
-                                     ),
-
-                                   ),
-                                   SizedBox(height: 20),
-
-                                   Row(
-
-                                     children: [
-
-                                       SizedBox(width: 20,),
-                                       Text("Selected Date",
-                                       style: TextStyle(
-                                      fontSize: 20, color: mPrimaryColor),
-
-                                        ),
-                                       SizedBox(width: 10,),
-
-                                       Text("$selectedDate",
-                                         style: TextStyle(
-                                             fontSize: 20, color: mPrimaryColor),
-
-                                       ),
-
-                                       /*TextField(
-                                         decoration: InputDecoration(
-                                           enabledBorder: OutlineInputBorder(
-                                             borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
-
-                                           ),
-                                           hintText: "$selectedDate" ,
-                                         ),
-                                       )
-
-                                        */
-
-
-                                     ],
-                                   )
-                                   /*
-
-                                   Row(
-                                     children: [
-                                       Text("Selected Date"),
-                                       TextField(
-                                         decoration: InputDecoration(
-                                           border: OutlineInputBorder(),
-                                           hintText: "$selectedDate" ,
-                                         ),
-                                       ),
-
-                                     ],
-
-                                   )
-                                   */
-
-                                 ],
-                               ),
-
-
-
-
-                             );
-                              print(dateItems);
-                            }
-                          }),
-
-
-
-
-
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      StreamBuilder<QuerySnapshot>(
-                          stream: FirebaseFirestore.instance
-                              .collection("Farmers")
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .collection('flock')
-                              .doc(args.flockID)
-                              .collection('BodyWeight')
-                              .where(FieldPath.documentId,
-                                  isEqualTo: date.toString().substring(0, 10))
-                              .snapshots(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            num amount = -1;
-                            try {
-                              amount = snapshot.data?.docs[0]['Average_Weight'];
-                            } catch (e) {
-                              amount = -1;
-                            }
-                            if (amount == -1 || amount == 0) {
-                              return Center(
-                                child: Text(
-                                  "You haven't recorded average weight for " +
-                                      date.toString().substring(0, 10),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20, color: mPrimaryTextColor),
-                                ),
-                              );
-                            } else {
-                              return Center(
-                                child: Text(
-                                  "You have already recorded ${snapshot.data?.docs[0]['Average_Weight']} average weight for ${date.toString().substring(0, 10)}",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20, color: mPrimaryTextColor),
-                                ),
-                              );
-                            }
-                          }
-                          ),
-
-                      //reuseTextField("Mortality"),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6.0, vertical: 10.0),
-                        //child: reuseTextField1("Number of chicks"),
-
-                        child: reusableTextField2(
-                            "Avgerage weight of a chick".tr,
-                            Icons.numbers,
-                            false,
-                            _numcontroller,
-                            null),
-                      ),
-                      Row(
-                        //mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6.0, vertical: 15.0),
-                              child: reusableTextField3(
-                                  date.toString().substring(0, 10),
-                                  Icons.date_range,
-                                  false,
-                                  _datecontroller,
-                                  null,
-                                  false),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6.0, vertical: 15.0),
-                              child: ElevatedButton(
-                                onPressed: () async {
-                                  DateTime? ndate = await showDatePicker(
-                                    context: context,
-                                    initialDate: date,
-                                    firstDate: DateTime(2022),
-                                    lastDate: DateTime.now(),
-                                    builder: (context, child) {
-                                      return Theme(
-                                        data: Theme.of(context).copyWith(
-                                          colorScheme: ColorScheme.light(
-                                            primary: mNewColor,
-                                            onPrimary:
-                                                Colors.white, // <-- SEE HERE
-                                            onSurface:
-                                                mSecondColor, // <-- SEE HERE
-                                          ),
-                                          textButtonTheme: TextButtonThemeData(
-                                            style: TextButton.styleFrom(
-                                              primary:
-                                                  mPrimaryColor, // button text color
-                                            ),
-                                          ),
-                                        ),
-                                        child: child!,
-                                      );
-                                    },
-                                  );
-                                  if (ndate == null) return;
-                                  setState(() => date = ndate);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  fixedSize: const Size(180, 50),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      side: BorderSide(
-                                        width: 2.0,
-                                        color: mPrimaryColor,
-                                      )),
-                                  primary: mBackgroundColor,
-                                  elevation: 20,
-                                  shadowColor: Colors.transparent,
-                                  textStyle: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                child: Text(
-                                  "Touch to Pick Date",
-                                  style: TextStyle(color: Colors.black38),
-                                ),
+                body: Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => UpdateBodyWeight(
+                                id_flock: args.flockID,
                               ),
                             ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(180, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
-                        ],
+                          primary: mPrimaryColor,
+                          elevation: 20,
+                          shadowColor: mSecondColor,
+                          textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        child: Text("Update"),
                       ),
-
-                      SizedBox(
-                        height: 40,
-                      ),
-                      Center(
-                        child: Image.asset(
-                          "assets/images/weight.png",
-                          fit: BoxFit.fitWidth,
-                          width: context.width * 0.4,
-                          // height: 420,
-                          //color: Colors.purple,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          print(args.flockID);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  AddBodyWeight(id_flock: args.flockID),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(180, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                          primary: mBackgroundColor,
+                          side: BorderSide(color: mPrimaryColor),
+                          elevation: 20,
+                          shadowColor: mSecondColor,
+                          textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        child: Text(
+                          "Add",
+                          style: TextStyle(
+                            color: mPrimaryColor,
+                            fontSize: 17,
+                          ),
                         ),
                       ),
-                      SizedBox(
-                        height: 50,
-                      ),
-                      Center(
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            // print(args.flockID);
-                            // print(_numcontroller.text);
-                            // print(date);
-                            await addBodyWeight(
-                                args.flockID,
-                                _numcontroller.text,
-                                date.toString().substring(0, 10));
-                            _numcontroller.clear();
-                            setState(() {});
-                            //Navigator.of(context).pop();
-
-                            ///displayFCRdialog();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(180, 50),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DeleteBodyWeight(),
                             ),
-                            primary: mPrimaryColor,
-                            elevation: 20,
-                            shadowColor: mSecondColor,
-                            textStyle: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(180, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
-                          child: Text("Update"),
+                          primary: mPrimaryColor,
+                          elevation: 20,
+                          shadowColor: mSecondColor,
+                          textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
+                        child: Text("Delete"),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -639,16 +375,4 @@ TextFormField reusableTextField3(
         ? TextInputType.visiblePassword
         : TextInputType.emailAddress,
   );
-}
-
-class PoultryData{
-  final double amount;
-  final int day;
-
-
-  PoultryData(this.day,this.amount);
-
-
-
-
 }
