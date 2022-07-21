@@ -2,9 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:home_login/constants.dart';
+import 'package:home_login/screens/BodyWeightScreen/addBody.dart';
+import 'package:home_login/screens/BodyWeightScreen/deleteBody.dart';
+import 'package:home_login/screens/BodyWeightScreen/updateBody.dart';
+import 'package:home_login/screens/FeedIntakeScreens/addFeed.dart';
+import 'package:home_login/screens/FeedIntakeScreens/deleteFeed.dart';
+import 'package:home_login/screens/FeedIntakeScreens/updateFeed.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
+import 'package:home_login/screens/view_screen.dart';
 import 'drawerMenu.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -15,12 +22,11 @@ class FeedScreen extends StatefulWidget {
 }
 
 class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
+  List weightDataCobb500 = [];
+  String startDate = '';
+
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-
-  final TextEditingController _datecontroller = TextEditingController();
-  final TextEditingController _numcontrollerBags = TextEditingController();
-  final TextEditingController _numcontrollerBagWeight = TextEditingController();
 
   double translateX = 0.0;
   double translateY = 0.0;
@@ -76,214 +82,139 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("FEED INTAKE".tr),
+                  title: Text("FEED INTAKE SELECTION".tr),
                   backgroundColor: mPrimaryColor,
                 ),
-                body: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      StreamBuilder<QuerySnapshot>(
-                          stream: FirebaseFirestore.instance
-                              .collection("Farmers")
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .collection('flock')
-                              .doc(args.flockID)
-                              .collection('FeedIntake')
-                              .where(FieldPath.documentId,
-                                  isEqualTo: date.toString().substring(0, 10))
-                              .snapshots(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            num amount = -1;
-                            try {
-                              amount = snapshot.data?.docs[0]['Number_of_bags'];
-                            } catch (e) {
-                              amount = -1;
-                            }
-                            if (amount == -1 || amount == 0) {
-                              return Center(
-                                child: Text(
-                                  "You haven't recorded feed intake for " +
-                                      date.toString().substring(0, 10),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20, color: mPrimaryTextColor),
-                                ),
-                              );
-                            } else {
-                              return Center(
-                                child: Text(
-                                  "You have already recorded ${snapshot.data?.docs[0]['Number_of_bags']} amount of feed for ${date.toString().substring(0, 10)}",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20, color: mPrimaryTextColor),
-                                ),
-                              );
-                            }
-                          }),
+                body: Column(
+                  children: [
+                    StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('Farmers')
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .collection('flock')
+                            .where(FieldPath.documentId,
+                                isEqualTo: args.flockID)
+                            .snapshots(), // your stream url,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (!snapshot.hasData) {
+                            return CircularProgressIndicator();
+                          } else {
+                            //print(snapshot.toString());
+                            startDate = snapshot.data?.docs[0]['startdays'];
+                            //print(startDate);
+                            updateFeedIntake(args.flockID, 0.4.toString(),
+                                50.toString(), startDate);
 
-                      //reuseTextField("Mortality"),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6.0, vertical: 10.0),
-                        //child: reuseTextField1("Number of chicks"),
+                            //print(mortal);
+                            //print(totalChick);
+                          }
 
-                        child: reusableTextField2("Number of Feed Bags".tr,
-                            Icons.numbers, false, _numcontrollerBags, null),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6.0, vertical: 10.0),
-                        //child: reuseTextField1("Number of chicks"),
-
-                        child: reusableTextField2(
-                            "Weight of a Bag".tr,
-                            Icons.numbers,
-                            false,
-                            _numcontrollerBagWeight,
-                            null),
-                      ),
-                      Row(
-                        //mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6.0, vertical: 15.0),
-                              child: reusableTextField3(
-                                  date.toString().substring(0, 10),
-                                  Icons.date_range,
-                                  false,
-                                  _datecontroller,
-                                  null,
-                                  false),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6.0, vertical: 15.0),
-                              child: ElevatedButton(
-                                onPressed: () async {
-                                  DateTime? ndate = await showDatePicker(
-                                    context: context,
-                                    initialDate: date,
-                                    firstDate: DateTime(2022),
-                                    lastDate: DateTime.now(),
-                                    builder: (context, child) {
-                                      return Theme(
-                                        data: Theme.of(context).copyWith(
-                                          colorScheme: ColorScheme.light(
-                                            primary: mNewColor,
-                                            onPrimary:
-                                                Colors.white, // <-- SEE HERE
-                                            onSurface:
-                                                mSecondColor, // <-- SEE HERE
-                                          ),
-                                          textButtonTheme: TextButtonThemeData(
-                                            style: TextButton.styleFrom(
-                                              primary:
-                                                  mPrimaryColor, // button text color
-                                            ),
-                                          ),
-                                        ),
-                                        child: child!,
-                                      );
-                                    },
-                                  );
-                                  if (ndate == null) return;
-                                  setState(() => date = ndate);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  fixedSize: const Size(180, 50),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      side: BorderSide(
-                                        width: 2.0,
-                                        color: mPrimaryColor,
-                                      )),
-                                  primary: mBackgroundColor,
-                                  elevation: 20,
-                                  shadowColor: Colors.transparent,
-                                  textStyle: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                child: Text(
-                                  "Touch to Pick Date",
-                                  style: TextStyle(color: Colors.black38),
-                                ),
+                          return Container(); // Your grid code.
+                        }),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => UpdateFeedScreen(
+                                id_flock: args.flockID,
+                                startDateNavi: startDate,
                               ),
                             ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(180, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
-                        ],
+                          primary: mPrimaryColor,
+                          elevation: 20,
+                          shadowColor: mSecondColor,
+                          textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        child: Text("Update"),
                       ),
-
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Center(
-                        child: Image.asset(
-                          "assets/images/feed.png",
-                          fit: BoxFit.fitWidth,
-                          width: context.width * 0.25,
-                          // height: 420,
-                          //color: Colors.purple,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          print(args.flockID);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  AddFeedScreen(id_flock: args.flockID),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(180, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                          primary: mBackgroundColor,
+                          side: BorderSide(color: mPrimaryColor),
+                          elevation: 20,
+                          shadowColor: mSecondColor,
+                          textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        child: Text(
+                          "Add",
+                          style: TextStyle(
+                            color: mPrimaryColor,
+                            fontSize: 17,
+                          ),
                         ),
                       ),
-                      SizedBox(
-                        height: 50,
-                      ),
-                      Center(
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            // print(args.flockID);
-                            // print(_numcontroller.text);
-                            // print(date);
-                            await addBodyWeight(
-                                args.flockID,
-                                _numcontrollerBags.text,
-                                _numcontrollerBagWeight.text,
-                                date.toString().substring(0, 10));
-                            _numcontrollerBags.clear();
-                            _numcontrollerBagWeight.clear();
-
-                            setState(() {});
-                            //Navigator.of(context).pop();
-
-                            ///displayFCRdialog();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(180, 50),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DeleteFeedScreen(
+                                id_flock: args.flockID,
+                                startDateNavi: startDate,
+                              ),
                             ),
-                            primary: mPrimaryColor,
-                            elevation: 20,
-                            shadowColor: mSecondColor,
-                            textStyle: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(180, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
                           ),
-                          child: Text("Update"),
+                          primary: mPrimaryColor,
+                          elevation: 20,
+                          shadowColor: mSecondColor,
+                          textStyle: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
+                        child: Text("Delete"),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -293,11 +224,11 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
     );
   }
 
-  Future<void> addBodyWeight(String id, String _numcontrollerBags,
-      String _numcontrollerBagWeight, String date) async {
+  Future<void> updateFeedIntake(
+      String id, String noOfBag, String weightBag, String date) async {
     num current = 0;
-    num valueBags = double.parse(_numcontrollerBags);
-    num valueBagWeight = double.parse(_numcontrollerBagWeight);
+    num valueBags = double.parse(noOfBag);
+    num valueBagWeight = double.parse(weightBag);
 
     try {
       //print("try 1");
@@ -429,7 +360,7 @@ TextFormField reusableTextField3(
     bool val) {
   return TextFormField(
     onTap: () {
-      //print("shamod");
+      print("shamod");
     },
     enabled: val,
     controller: controller,
