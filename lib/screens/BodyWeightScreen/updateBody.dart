@@ -90,7 +90,7 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("BODY WEIGHT".tr),
+                  title: Text("UPDATE BODY WEIGHT".tr),
                   backgroundColor: mPrimaryColor,
                 ),
                 body: SingleChildScrollView(
@@ -351,7 +351,7 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                         //child: reuseTextField1("Number of chicks"),
 
                         child: reusableTextField2(
-                            "Avgerage weight of a chick".tr,
+                            "Average weight of a chick".tr,
                             Icons.numbers,
                             false,
                             _numcontroller,
