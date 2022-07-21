@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/net/auth.dart';
-import 'package:home_login/screens/body_weight.dart';
+import 'package:home_login/screens/selectBodyWeight.dart';
 import 'package:home_login/screens/farm_view.dart';
 import 'package:home_login/screens/fcr_screen.dart';
 import 'package:home_login/screens/feed_screen.dart';
