@@ -56,22 +56,26 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       DocumentSnapshot snap = snapshot.data!.docs[i];
                       farmItems.add(
                         DropdownMenuItem(
+
                           child: Text(
                             snap['Name'],
                             style: TextStyle(color: mPrimaryColor),
                           ),
+
                           //value: "${snap.id}",
                           value: "${snap.id}",
                         ),
                       );
                     }
                     return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      //mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
+                        SizedBox(width: 70,),
                         //Icon(FontAwesomeIcons.coins,
                         //size: 25.0, color: Color(0xff11b719)),
                         //SizedBox(width: 10.0),
                         DropdownButton<String>(
+                          alignment: Alignment.centerLeft,
                           items: farmItems,
                           onChanged: (farmValue) {
                             final snackBar = SnackBar(
@@ -105,7 +109,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                           value: selectedFarm,
                           isExpanded: false,
                           hint: new Text(
-                            'Choose your Farm'.tr,
+                            'Choose your Farm   '.tr,
                             style: TextStyle(
                               color: mPrimaryColor,
                               fontSize: 17,
@@ -119,6 +123,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
 
             SizedBox(
               height: 15.0,
+
             ),
 
             //For Branch
@@ -142,6 +147,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       DocumentSnapshot snap = snapshot.data!.docs[i];
                       branchItems.add(
                         DropdownMenuItem(
+                          alignment: Alignment.centerLeft,
                           child: Text(
                             snap['BranchName'],
                             //snap.id,
@@ -152,11 +158,15 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       );
                     }
                     return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      //mainAxisAlignment: MainAxisAlignment.center,
+                      //rcrossAxisAlignment: CrossAxisAlignment.star
                       children: <Widget>[
+                        SizedBox(width: 70,),
                         //SizedBox(width: 10.0),
                         farmName != ""
                             ? DropdownButton<String>(
+
+                          //alignment: AlignmentDirectional.centerEnd,
                                 items: branchItems,
                                 onChanged: (branchValue) {
                                   final snackBar = SnackBar(
@@ -199,6 +209,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                             : IgnorePointer(
                                 ignoring: true,
                                 child: DropdownButton<String>(
+
                                   items: null,
                                   onChanged: null,
                                   value: selectedBranch,
@@ -251,8 +262,9 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       );
                     }
                     return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      //mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
+                        SizedBox(width: 70,),
                         //SizedBox(width: 10.0),
                         branchName != ""
                             ? DropdownButton<String>(
@@ -287,11 +299,13 @@ class _SelectionScreenState extends State<SelectionScreen> {
                                 },
                                 value: selectedShed,
                                 isExpanded: false,
-                                hint: new Text(
-                                  "Choose your Shed".tr,
-                                  style: TextStyle(
-                                    color: mPrimaryColor,
-                                    fontSize: 17,
+                                hint: Center(
+                                  child: new Text(
+                                    "Choose your Shed   ".tr,
+                                    style: TextStyle(
+                                      color: mPrimaryColor,
+                                      fontSize: 17,
+                                    ),
                                   ),
                                 ),
                               )
@@ -303,7 +317,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                                   value: selectedShed,
                                   isExpanded: false,
                                   hint: new Text(
-                                    "Choose your Shed".tr,
+                                    "Choose your Shed   ".tr,
                                     style: TextStyle(
                                       color: mPrimaryColor,
                                       fontSize: 17,
@@ -352,8 +366,9 @@ class _SelectionScreenState extends State<SelectionScreen> {
                       );
                     }
                     return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      //mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
+                        SizedBox(width: 70,),
                         //SizedBox(width: 10.0),
                         shedName != ""
                             ? DropdownButton<String>(
@@ -388,7 +403,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                                 value: selectedFlock,
                                 isExpanded: false,
                                 hint: new Text(
-                                  "Choose your Flock".tr,
+                                  "Choose your Flock   ".tr,
                                   style: TextStyle(
                                     color: mPrimaryColor,
                                     fontSize: 17,
@@ -403,7 +418,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                                   value: selectedFlock,
                                   isExpanded: false,
                                   hint: new Text(
-                                    "Choose your Flock".tr,
+                                    "Choose your Flock  ".tr,
                                     style: TextStyle(
                                       color: mPrimaryColor,
                                       fontSize: 17,
