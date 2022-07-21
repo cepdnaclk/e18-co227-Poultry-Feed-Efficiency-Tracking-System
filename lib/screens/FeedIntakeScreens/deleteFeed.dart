@@ -8,25 +8,26 @@ import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
 //import 'drawerMenu.dart';
 
-class DeleteBodyWeight extends StatefulWidget {
+class DeleteFeedScreen extends StatefulWidget {
   final String id_flock;
   String startDateNavi;
   // const AddBodyWeight({Key? key}) : super(key: key);
-  DeleteBodyWeight({
+  DeleteFeedScreen({
     Key? key,
     required this.id_flock,
     required this.startDateNavi,
   }) : super(key: key);
 
   @override
-  State<DeleteBodyWeight> createState() => _DeleteBodyWeightState();
+  State<DeleteFeedScreen> createState() => _DeleteFeedScreenState();
 }
 
-class _DeleteBodyWeightState extends State<DeleteBodyWeight>
+class _DeleteFeedScreenState extends State<DeleteFeedScreen>
     with TickerProviderStateMixin {
   List<DropdownMenuItem<String>> dateItems = [];
   String selectedDate = "";
-  num recordedWeight = 0;
+  num recordedNo_Bag = 0;
+  num recordedBag_weight = 0;
 
   //DateTime date =
   //DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
@@ -90,7 +91,7 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("DELETE BODY WEIGHT".tr),
+                  title: Text("DELETE FEED INTAKE".tr),
                   backgroundColor: mPrimaryColor,
                 ),
                 body: SingleChildScrollView(
@@ -104,7 +105,7 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
                               .doc(FirebaseAuth.instance.currentUser!.uid)
                               .collection('flock')
                               .doc(widget.id_flock)
-                              .collection('BodyWeight')
+                              .collection('FeedIntake')
                               .snapshots(),
                           builder: (BuildContext context,
                               AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -231,7 +232,7 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
                                                 .instance.currentUser!.uid)
                                             .collection('flock')
                                             .doc(widget.id_flock)
-                                            .collection('BodyWeight')
+                                            .collection('FeedIntake')
                                             .where(FieldPath.documentId,
                                                 isEqualTo: selectedDate
                                                     .toString()
@@ -241,10 +242,14 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
                                             AsyncSnapshot<QuerySnapshot>
                                                 snapshot) {
                                           num amount = -1;
+                                          num amount2 = -1;
                                           try {
                                             amount = snapshot.data?.docs[0]
-                                                ['Average_Weight'];
-                                            recordedWeight = amount;
+                                                ['Number_of_bags'];
+                                            amount2 = snapshot.data?.docs[0]
+                                                ['Weight_of_a_bag'];
+                                            recordedNo_Bag = amount;
+                                            recordedBag_weight = amount2;
                                             //print(amount);
                                           } catch (e) {
                                             amount = -1;
@@ -273,7 +278,7 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
                                                         width: 20,
                                                       ),
                                                       Text(
-                                                        "Recorded Average Weight: ",
+                                                        "Recorded Number of Bags: ",
                                                         style: TextStyle(
                                                             fontSize: 20,
                                                             color:
@@ -284,7 +289,44 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
                                                       ),
                                                       Container(
                                                         child: Text(
-                                                          "${recordedWeight}",
+                                                          "${recordedNo_Bag}",
+                                                          style: TextStyle(
+                                                              fontSize: 20,
+                                                              color:
+                                                                  mPrimaryColor),
+                                                        ),
+                                                      ),
+
+                                                      /*TextField(
+                                         decoration: InputDecoration(
+                                           enabledBorder: OutlineInputBorder(
+                                             borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
+                                           ),
+                                           hintText: "$selectedDate" ,
+                                         ),
+                                       )
+                                        */
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 20),
+                                                  Row(
+                                                    children: [
+                                                      SizedBox(
+                                                        width: 20,
+                                                      ),
+                                                      Text(
+                                                        "Recorded Weight of a Bag: ",
+                                                        style: TextStyle(
+                                                            fontSize: 20,
+                                                            color:
+                                                                mPrimaryColor),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Container(
+                                                        child: Text(
+                                                          "${recordedBag_weight}",
                                                           style: TextStyle(
                                                               fontSize: 20,
                                                               color:
@@ -364,9 +406,9 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
                             // print(args.flockID);
                             // print(_numcontroller.text);
                             // print(date);
-                            await deleteBodyWeight(widget.id_flock,
+                            await deleteFeedIntake(widget.id_flock,
                                 selectedDate.toString().substring(0, 10));
-                            _numcontroller.clear();
+                            // _numcontroller.clear();
                             setState(() {});
                             //Navigator.of(context).pop();
 
@@ -399,7 +441,7 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
     );
   }
 
-  Future<void> deleteBodyWeight(String id, String date) async {
+  Future<void> deleteFeedIntake(String id, String date) async {
     //num current = 0;
     //num value = double.parse(amount);
     try {
@@ -418,7 +460,7 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
               .doc(FirebaseAuth.instance.currentUser!.uid)
               .collection('flock')
               .doc(id)
-              .collection('BodyWeight')
+              .collection('FeedIntake')
               .doc(date);
 
       FirebaseFirestore.instance.runTransaction((transaction) async {
