@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/screens/autoFCR.dart';
-import 'package:home_login/screens/body_weight.dart';
+import 'package:home_login/screens/selectBodyWeight.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/manualFCR.dart';
 

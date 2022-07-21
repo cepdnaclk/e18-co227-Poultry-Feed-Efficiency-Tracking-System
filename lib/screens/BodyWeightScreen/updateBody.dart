@@ -6,35 +6,35 @@ import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
-import 'drawerMenu.dart';
+//import 'drawerMenu.dart';
 
-class BodyWeight extends StatefulWidget {
-  const BodyWeight({Key? key}) : super(key: key);
+class UpdateBodyWeight extends StatefulWidget {
+  final String id_flock;
+  String startDateNavi;
+  // const AddBodyWeight({Key? key}) : super(key: key);
+  UpdateBodyWeight({
+    Key? key,
+    required this.id_flock,
+    required this.startDateNavi,
+  }) : super(key: key);
 
   @override
-  State<BodyWeight> createState() => _BodyWeightState();
+  State<UpdateBodyWeight> createState() => _UpdateBodyWeightState();
 }
 
-class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
-
-
-
+class _UpdateBodyWeightState extends State<UpdateBodyWeight>
+    with TickerProviderStateMixin {
   List<DropdownMenuItem<String>> dateItems = [];
-  String selectedDate="";
+  String selectedDate = "";
+  num recordedWeight = 0;
 
-
-
-
-
-
-  DateTime date =
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  //DateTime date =
+  //DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   final TextEditingController _datecontroller = TextEditingController();
   final TextEditingController _numcontroller = TextEditingController();
 
   ///weightDataCobb500 = ViewScreen;
-
   double translateX = 0.0;
   double translateY = 0.0;
   double scale = 1;
@@ -42,6 +42,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
   late AnimationController _animationController;
   @override
   void initState() {
+    selectedDate = widget.startDateNavi;
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 500),
@@ -51,12 +52,10 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
-     var selectedDate;
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return Stack(
       children: [
-        DrawerMenu(args.flockID),
+        //DrawerMenu(args.flockID),
         AnimatedContainer(
           duration: Duration(milliseconds: 500),
           transform: Matrix4.translationValues(translateX, translateY, 0)
@@ -91,7 +90,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("BODY WEIGHT".tr),
+                  title: Text("UPDATE BODY WEIGHT".tr),
                   backgroundColor: mPrimaryColor,
                 ),
                 body: SingleChildScrollView(
@@ -99,13 +98,12 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       StreamBuilder<QuerySnapshot>(
                           stream: FirebaseFirestore.instance
                               .collection("Farmers")
                               .doc(FirebaseAuth.instance.currentUser!.uid)
                               .collection('flock')
-                              .doc(args.flockID)
+                              .doc(widget.id_flock)
                               .collection('BodyWeight')
                               .snapshots(),
                           builder: (BuildContext context,
@@ -115,8 +113,6 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                                 child: CircularProgressIndicator(),
                               );
                             } else {
-
-
                               //List<String> flockItems;
 
                               //late final List <ChartData> weightDataCurrent;
@@ -124,15 +120,18 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                               //final Map<String, int> someMap = {
 
                               //};
-                              for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                              for (int i = 0;
+                                  i < snapshot.data!.docs.length;
+                                  i++) {
                                 DocumentSnapshot snap = snapshot.data!.docs[i];
 
                                 double amount = -1;
                                 String date;
                                 try {
-                                  amount = snapshot.data?.docs[i]['Average_Weight'];
+                                  // amount =
+                                  //     snapshot.data?.docs[i]['Average_Weight'];
                                   date = snapshot.data!.docs[i].id;
-
+                                  //print(date);
 
                                   //print(snapshot.data!.docs[i].id);
 
@@ -143,7 +142,6 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                                   //dateItems.add(date);
                                   dateItems.add(
                                     DropdownMenuItem(
-
                                       child: Text(
                                         date,
                                         style: TextStyle(color: mPrimaryColor),
@@ -154,84 +152,172 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                                     ),
                                   );
 
-                                 // print(date);
+                                  // print(date);
 
                                   //print(dateItems);
-                                  amount=0.0;
+                                  //amount = 0.0;
                                   //print(dateItems);
                                 } catch (e) {
-                                  amount = -1;
+                                  //amount = -1;
                                 }
-
                               }
                               //print(dateItems);
-                             return Container(
-
-                               child: Column(
-                                 children: [
-
-                                   SizedBox(height: 50,),
-
-                                   Center(
-                                     child: DropdownButton(
-                                       alignment: Alignment.center,
-                                         hint: new Text(
-                                           'Select a date'.tr,
-                                           style: TextStyle(
-                                             color: mPrimaryColor,
-                                             fontSize: 17,
-                                           ),
-                                         ),
-                                         items: dateItems.toSet().toList() ,
-                                         onChanged:(newValue){
-                                                 setState(() {
-                                                   selectedDate = newValue;
-                                                   print(selectedDate);
-                                         });
-
-
-                                         }
-
-                                     ),
-
-                                   ),
-                                   SizedBox(height: 20),
-
-                                   Row(
-
-                                     children: [
-
-                                       SizedBox(width: 20,),
-                                       Text("Selected Date",
-                                       style: TextStyle(
-                                      fontSize: 20, color: mPrimaryColor),
-
+                              return Container(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 50,
+                                    ),
+                                    Center(
+                                      child: DropdownButton(
+                                          alignment: Alignment.center,
+                                          hint: new Text(
+                                            'Select a date'.tr,
+                                            style: TextStyle(
+                                              color: mPrimaryColor,
+                                              fontSize: 17,
+                                            ),
+                                          ),
+                                          items: dateItems.toSet().toList(),
+                                          onChanged: (newValue) {
+                                            setState(() {
+                                              selectedDate = newValue
+                                                  .toString()
+                                                  .substring(0, 10);
+                                              //Text(selectedDate);
+                                              print(selectedDate);
+                                            });
+                                          }),
+                                    ),
+                                    SizedBox(height: 20),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 20,
                                         ),
-                                       SizedBox(width: 10,),
+                                        Text(
+                                          "Selected Date: ",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: mPrimaryColor),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            "${selectedDate}",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: mPrimaryColor),
+                                          ),
+                                        ),
 
-                                       Text("$selectedDate",
-                                         style: TextStyle(
-                                             fontSize: 20, color: mPrimaryColor),
-
-                                       ),
-
-                                       /*TextField(
+                                        /*TextField(
                                          decoration: InputDecoration(
                                            enabledBorder: OutlineInputBorder(
                                              borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
-
                                            ),
                                            hintText: "$selectedDate" ,
                                          ),
                                        )
-
                                         */
+                                      ],
+                                    ),
+                                    StreamBuilder<QuerySnapshot>(
+                                        stream: FirebaseFirestore.instance
+                                            .collection("Farmers")
+                                            .doc(FirebaseAuth
+                                                .instance.currentUser!.uid)
+                                            .collection('flock')
+                                            .doc(widget.id_flock)
+                                            .collection('BodyWeight')
+                                            .where(FieldPath.documentId,
+                                                isEqualTo: selectedDate
+                                                    .toString()
+                                                    .substring(0, 10))
+                                            .snapshots(),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<QuerySnapshot>
+                                                snapshot) {
+                                          num amount = -1;
+                                          try {
+                                            amount = snapshot.data?.docs[0]
+                                                ['Average_Weight'];
+                                            recordedWeight = amount;
+                                            //print(amount);
+                                          } catch (e) {
+                                            amount = -1;
+                                          }
+                                          if (amount == -1 || amount == 0) {
+                                            return Center(
+                                                // child: Text(
+                                                //   "You haven't recorded average weight for " +
+                                                //       date
+                                                //           .toString()
+                                                //           .substring(0, 10),
+                                                //   textAlign: TextAlign.center,
+                                                //   style: TextStyle(
+                                                //       fontSize: 20,
+                                                //       color: mPrimaryTextColor),
+                                                // ),
+                                                );
+                                          } else {
+                                            return Container(
+                                              child: Column(
+                                                children: [
+                                                  SizedBox(height: 20),
+                                                  Row(
+                                                    children: [
+                                                      SizedBox(
+                                                        width: 20,
+                                                      ),
+                                                      Text(
+                                                        "Recorded Average Weight: ",
+                                                        style: TextStyle(
+                                                            fontSize: 20,
+                                                            color:
+                                                                mPrimaryColor),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Container(
+                                                        child: Text(
+                                                          "${recordedWeight}",
+                                                          style: TextStyle(
+                                                              fontSize: 20,
+                                                              color:
+                                                                  mPrimaryColor),
+                                                        ),
+                                                      ),
 
+                                                      /*TextField(
+                                         decoration: InputDecoration(
+                                           enabledBorder: OutlineInputBorder(
+                                             borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
+                                           ),
+                                           hintText: "$selectedDate" ,
+                                         ),
+                                       )
+                                        */
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
 
-                                     ],
-                                   )
-                                   /*
+                                              // child: Text(
+                                              //   "You have already recorded ${snapshot.data?.docs[0]['Average_Weight']} average weight for ${date.toString().substring(0, 10)}",
+                                              //   textAlign: TextAlign.center,
+                                              //   style: TextStyle(
+                                              //       fontSize: 20,
+                                              //       color: mPrimaryTextColor),
+                                              // ),
+                                            );
+                                          }
+                                        }),
 
+                                    /*
                                    Row(
                                      children: [
                                        Text("Selected Date"),
@@ -241,70 +327,19 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                                            hintText: "$selectedDate" ,
                                          ),
                                        ),
-
                                      ],
-
                                    )
                                    */
-
-                                 ],
-                               ),
-
-
-
-
-                             );
+                                  ],
+                                ),
+                              );
                               print(dateItems);
                             }
                           }),
 
-
-
-
-
                       SizedBox(
                         height: 20.0,
                       ),
-                      StreamBuilder<QuerySnapshot>(
-                          stream: FirebaseFirestore.instance
-                              .collection("Farmers")
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .collection('flock')
-                              .doc(args.flockID)
-                              .collection('BodyWeight')
-                              .where(FieldPath.documentId,
-                                  isEqualTo: date.toString().substring(0, 10))
-                              .snapshots(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            num amount = -1;
-                            try {
-                              amount = snapshot.data?.docs[0]['Average_Weight'];
-                            } catch (e) {
-                              amount = -1;
-                            }
-                            if (amount == -1 || amount == 0) {
-                              return Center(
-                                child: Text(
-                                  "You haven't recorded average weight for " +
-                                      date.toString().substring(0, 10),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20, color: mPrimaryTextColor),
-                                ),
-                              );
-                            } else {
-                              return Center(
-                                child: Text(
-                                  "You have already recorded ${snapshot.data?.docs[0]['Average_Weight']} average weight for ${date.toString().substring(0, 10)}",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20, color: mPrimaryTextColor),
-                                ),
-                              );
-                            }
-                          }
-                          ),
 
                       //reuseTextField("Mortality"),
                       SizedBox(
@@ -316,88 +351,11 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                         //child: reuseTextField1("Number of chicks"),
 
                         child: reusableTextField2(
-                            "Avgerage weight of a chick".tr,
+                            "Average weight of a chick".tr,
                             Icons.numbers,
                             false,
                             _numcontroller,
                             null),
-                      ),
-                      Row(
-                        //mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6.0, vertical: 15.0),
-                              child: reusableTextField3(
-                                  date.toString().substring(0, 10),
-                                  Icons.date_range,
-                                  false,
-                                  _datecontroller,
-                                  null,
-                                  false),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6.0, vertical: 15.0),
-                              child: ElevatedButton(
-                                onPressed: () async {
-                                  DateTime? ndate = await showDatePicker(
-                                    context: context,
-                                    initialDate: date,
-                                    firstDate: DateTime(2022),
-                                    lastDate: DateTime.now(),
-                                    builder: (context, child) {
-                                      return Theme(
-                                        data: Theme.of(context).copyWith(
-                                          colorScheme: ColorScheme.light(
-                                            primary: mNewColor,
-                                            onPrimary:
-                                                Colors.white, // <-- SEE HERE
-                                            onSurface:
-                                                mSecondColor, // <-- SEE HERE
-                                          ),
-                                          textButtonTheme: TextButtonThemeData(
-                                            style: TextButton.styleFrom(
-                                              primary:
-                                                  mPrimaryColor, // button text color
-                                            ),
-                                          ),
-                                        ),
-                                        child: child!,
-                                      );
-                                    },
-                                  );
-                                  if (ndate == null) return;
-                                  setState(() => date = ndate);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  fixedSize: const Size(180, 50),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      side: BorderSide(
-                                        width: 2.0,
-                                        color: mPrimaryColor,
-                                      )),
-                                  primary: mBackgroundColor,
-                                  elevation: 20,
-                                  shadowColor: Colors.transparent,
-                                  textStyle: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                child: Text(
-                                  "Touch to Pick Date",
-                                  style: TextStyle(color: Colors.black38),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
                       ),
 
                       SizedBox(
@@ -421,10 +379,10 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                             // print(args.flockID);
                             // print(_numcontroller.text);
                             // print(date);
-                            await addBodyWeight(
-                                args.flockID,
+                            await updateBodyWeight(
+                                widget.id_flock,
                                 _numcontroller.text,
-                                date.toString().substring(0, 10));
+                                selectedDate.toString().substring(0, 10));
                             _numcontroller.clear();
                             setState(() {});
                             //Navigator.of(context).pop();
@@ -458,7 +416,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
     );
   }
 
-  Future<void> addBodyWeight(String id, String amount, String date) async {
+  Future<void> updateBodyWeight(String id, String amount, String date) async {
     //num current = 0;
     num value = double.parse(amount);
     try {
@@ -641,14 +599,9 @@ TextFormField reusableTextField3(
   );
 }
 
-class PoultryData{
+class PoultryData {
   final double amount;
   final int day;
 
-
-  PoultryData(this.day,this.amount);
-
-
-
-
+  PoultryData(this.day, this.amount);
 }
