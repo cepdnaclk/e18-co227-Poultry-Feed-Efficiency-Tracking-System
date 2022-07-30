@@ -128,8 +128,8 @@ class _GridDashboardState extends State<GridDashboard> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Container(
-                            height: 100,
-                            width: 100,
+                            height: 80,
+                            width: 80,
                             child: Image.asset(
                               data.img,
                               //width: 130,
