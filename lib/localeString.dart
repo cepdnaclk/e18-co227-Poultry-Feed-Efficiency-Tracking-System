@@ -23,12 +23,27 @@ class LocalString extends Translations {
           'language': 'Language',
           'logout': 'Logout',
 
+          //bodyWeight
+          'bodyWeightSelect': 'BODY WEIGHT',
+          'add': 'Add',
+          'update': 'Update',
+
+          //feedIntake
+          'feedIntakeSelect': 'FEED INTAKE',
+
+          //home page
+          'home': 'Home',
+          'Farm': 'Farm',
+          'Branch': 'Branch',
+          'Shed': 'Shed',
+          'Flock': 'Flock',
+
           //selection page
           'batch_Selection': "BATCH SELECTION",
-          'Choose your Farm': 'Choose your farm',
-          'Choose your Branch': 'Choose your Branch',
-          'Choose your Shed': 'Choose your shed',
-          'Choose your Flock': 'Choose your flock',
+          'Choose your Farm': 'Choose your Farm    ',
+          'Choose your Branch': 'Choose your Branch ',
+          'Choose your Shed': 'Choose your Shed    ',
+          'Choose your Flock': 'Choose your Flock   ',
           'Proceed': 'Proceed',
 
           //gridboard
@@ -106,12 +121,27 @@ class LocalString extends Translations {
           'language': 'மொழி',
           'logout': 'வெளியேறு',
 
+          //bodyWeight
+          'bodyWeightSelect': 'உடல் எடை',
+          'add': 'கூட்டு',
+          'update': 'மேம்படுத்தல்',
+
+          //feedIntake
+          'feedIntakeSelect': 'உணவு உட்கொள்ளல்',
+
+          //home
+          'home': 'வீடு',
+          'Farm': 'பண்ணை',
+          'Branch': 'கிளை',
+          'Shed': 'கொட்டகை',
+          'Flock': 'மந்தை',
+
           //selection page
           'batch_Selection': "தொகுதி தேர்வு",
-          'Choose your Farm': 'பண்ணையைத் தேர்ந்தெடுங்கள்',
-          'Choose your Branch': 'கிளையைத் தேர்ந்தெடுக்கவும்',
-          'Choose your Shed': 'கொட்டகையைத் தேர்ந்தெடுங்கள்',
-          'Choose your Flock': 'மந்தையைத் தேர்ந்தெடுங்கள்',
+          'Choose your Farm': 'பண்ணை  ',
+          'Choose your Branch': 'கிளை        ',
+          'Choose your Shed': 'கொட்டகை ',
+          'Choose your Flock': 'மந்தை       ',
           'Proceed': 'தொடரவும்',
 
           //gridboard
@@ -201,12 +231,27 @@ class LocalString extends Translations {
           'language': 'භාෂාව',
           'logout': 'පිටවීම',
 
+          //bodyWeight
+          'bodyWeightSelect': 'ශරීර බර',
+          'add': 'එකතු කරන්න',
+          'update': 'යාවත්කාලීන',
+
+          //feedIntake
+          'feedIntakeSelect': 'ආහාර ගැනීම',
+
+          //home
+          'home': 'නිවස',
+          'Farm': 'ගොවිපල',
+          'Branch': 'ශාඛාව',
+          'Shed': 'මඩුව',
+          'Flock': 'රැළ',
+
           //selection page
           'batch_Selection': "කණ්ඩායම් තේරීම",
           'Choose your Farm': 'ඔබේ ගොවිපල තෝරන්න',
-          'Choose your Branch': 'ඔබේ ශාඛාව තෝරන්න',
-          'Choose your Shed': 'ඔබේ මඩුව තෝරන්න',
-          'Choose your Flock': 'ඔබේ රැළ තෝරන්න',
+          'Choose your Branch': 'ඔබේ ශාඛාව තෝරන්න   ',
+          'Choose your Shed': 'ඔබේ මඩුව තෝරන්න      ',
+          'Choose your Flock': 'ඔබේ රැළ තෝරන්න        ',
           'Proceed': 'ඉදිරියට යන්න',
 
           //gridboard
