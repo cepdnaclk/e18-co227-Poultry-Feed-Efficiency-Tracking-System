@@ -27,6 +27,14 @@ class LocalString extends Translations {
           'bodyWeightSelect': 'BODY WEIGHT',
           'add': 'Add',
           'update': 'Update',
+          'updateBodyWeight': 'UPDATE BODY WEIGHT',
+          'selectDate': 'Select Date',
+          'selectedDate': 'Selected Date:',
+          'recordedweight': 'Recorded Average Weight:',
+          'avgWeightofChick': 'Average Weight of a chick',
+          'addBodyWeight': 'ADD BODY WEIGHT',
+          'pickDate': 'Touch to Pick Date',
+          'deleteBodyweight': 'DELETE BODY WEIGHT',
 
           //feedIntake
           'feedIntakeSelect': 'FEED INTAKE',
@@ -125,6 +133,14 @@ class LocalString extends Translations {
           'bodyWeightSelect': 'உடல் எடை',
           'add': 'கூட்டு',
           'update': 'மேம்படுத்தல்',
+          'updateBodyWeight': 'உடல் எடையைப் புதுப்பிக்கவும்',
+          'selectDate': 'திகதி',
+          'selectedDate': 'தேர்ந்தெடுக்கப்பட்ட திகதி:',
+          'recordedweight': 'பதிவு செய்யப்பட்ட சராசரி எடை:',
+          'avgWeightofChick': 'குஞ்சுகளின் சராசரி எடை',
+          'addBodyWeight': 'உடல் எடையைச் சேர்க்கவும்',
+          'pickDate': 'திகதி',
+          'deleteBodyweight': 'உடல் எடையை நீக்கவும்',
 
           //feedIntake
           'feedIntakeSelect': 'உணவு உட்கொள்ளல்',
@@ -235,6 +251,14 @@ class LocalString extends Translations {
           'bodyWeightSelect': 'ශරීර බර',
           'add': 'එකතු කරන්න',
           'update': 'යාවත්කාලීන',
+          'updateBodyWeight': 'ශරීර බර යාවත්කාලීන කරන්න',
+          'selectDate': 'දිනය තෝරන්න',
+          'selectedDate': 'තෝරාගත් දිනය:',
+          'recordedweight': 'වාර්තාගත සාමාන්ය බර:',
+          'avgWeightofChick': 'පැටවෙකුගේ සාමාන්ය බර',
+          'addBodyWeight': 'ශරීර බර එකතු කරන්න',
+          'pickDate': 'දිනය',
+          'deleteBodyweight': 'සිරුරේ බර මකන්න',
 
           //feedIntake
           'feedIntakeSelect': 'ආහාර ගැනීම',
