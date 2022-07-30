@@ -38,6 +38,13 @@ class LocalString extends Translations {
 
           //feedIntake
           'feedIntakeSelect': 'FEED INTAKE',
+          'updatefeedIntake': 'UPDATE FEED INTAKE',
+          'addfeedIntake': 'ADD FEED INTAKE',
+          'deletefeedIntake': 'DELETE FEED INTAKE',
+          'recordedBags': 'Recorded Number of Bags:',
+          'recordedBagWeight': 'Recorded Weight of a Bag:',
+          'noofBags': 'Number of Feed Bags',
+          'bagWeight': 'Weight of a Bag',
 
           //home page
           'home': 'Home',
@@ -144,6 +151,13 @@ class LocalString extends Translations {
 
           //feedIntake
           'feedIntakeSelect': 'உணவு உட்கொள்ளல்',
+          'updatefeedIntake': 'உட்கொள்ளலைப் புதுப்பிக்கவும்',
+          'addfeedIntake': 'உட்கொள்ளலைச் சேர்க்கவும்',
+          'deletefeedIntake': 'உட்கொள்ளலை நீக்கவும்',
+          'recordedBags': 'பதிவு செய்த பைகள்:',
+          'recordedBagWeight': 'ஒரு பையின் பதிவு செய்த எடை:',
+          'noofBags': 'பைகளின் எண்ணிக்கை',
+          'bagWeight': 'ஒரு பையின் எடை',
 
           //home
           'home': 'வீடு',
@@ -262,6 +276,13 @@ class LocalString extends Translations {
 
           //feedIntake
           'feedIntakeSelect': 'ආහාර ගැනීම',
+          'updatefeedIntake': 'ආහාර ගැනීම යාවත්කාලීන කරන්න',
+          'addfeedIntake': 'ආහාර ගැනීම එකතු කරන්න',
+          'deletefeedIntake': 'ආහාර ගැනීම මකන්න',
+          'recordedBags': 'වාර්තාගත බෑග් ගණන:',
+          'recordedBagWeight': 'බෑගයක වාර්තාගත බර:',
+          'noofBags': 'ආහාර මලු ගණන',
+          'bagWeight': 'බෑගයක බර',
 
           //home
           'home': 'නිවස',
