@@ -91,7 +91,10 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("DELETE FEED INTAKE".tr),
+                  title: Text(
+                    "deletefeedIntake".tr,
+                    style: TextStyle(fontSize: 16),
+                  ),
                   backgroundColor: mPrimaryColor,
                 ),
                 body: SingleChildScrollView(
@@ -173,10 +176,10 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                       child: DropdownButton(
                                           alignment: Alignment.center,
                                           hint: new Text(
-                                            'Select a date'.tr,
+                                            'selectDate'.tr,
                                             style: TextStyle(
                                               color: mPrimaryColor,
-                                              fontSize: 17,
+                                              fontSize: 18,
                                             ),
                                           ),
                                           items: dateItems.toSet().toList(),
@@ -197,9 +200,9 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                           width: 20,
                                         ),
                                         Text(
-                                          "Selected Date: ",
+                                          "selectedDate".tr,
                                           style: TextStyle(
-                                              fontSize: 20,
+                                              fontSize: 16,
                                               color: mPrimaryColor),
                                         ),
                                         SizedBox(
@@ -209,7 +212,7 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                           child: Text(
                                             "${selectedDate}",
                                             style: TextStyle(
-                                                fontSize: 20,
+                                                fontSize: 16,
                                                 color: mPrimaryColor),
                                           ),
                                         ),
@@ -278,9 +281,9 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                                         width: 20,
                                                       ),
                                                       Text(
-                                                        "Recorded Number of Bags: ",
+                                                        "recordedBags".tr,
                                                         style: TextStyle(
-                                                            fontSize: 20,
+                                                            fontSize: 16,
                                                             color:
                                                                 mPrimaryColor),
                                                       ),
@@ -291,7 +294,7 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                                         child: Text(
                                                           "${recordedNo_Bag}",
                                                           style: TextStyle(
-                                                              fontSize: 20,
+                                                              fontSize: 16,
                                                               color:
                                                                   mPrimaryColor),
                                                         ),
@@ -315,9 +318,9 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                                         width: 20,
                                                       ),
                                                       Text(
-                                                        "Recorded Weight of a Bag: ",
+                                                        "recordedBagWeight".tr,
                                                         style: TextStyle(
-                                                            fontSize: 20,
+                                                            fontSize: 16,
                                                             color:
                                                                 mPrimaryColor),
                                                       ),
@@ -328,7 +331,7 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                                         child: Text(
                                                           "${recordedBag_weight}",
                                                           style: TextStyle(
-                                                              fontSize: 20,
+                                                              fontSize: 16,
                                                               color:
                                                                   mPrimaryColor),
                                                         ),
@@ -415,7 +418,7 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                             ///displayFCRdialog();
                           },
                           style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(180, 50),
+                            fixedSize: const Size(200, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
@@ -427,7 +430,7 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          child: Text("Delete"),
+                          child: Text("Delete".tr),
                         ),
                       ),
                     ],
