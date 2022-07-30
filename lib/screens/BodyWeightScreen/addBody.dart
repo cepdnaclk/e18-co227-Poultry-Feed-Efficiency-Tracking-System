@@ -84,7 +84,10 @@ class _AddBodyWeightState extends State<AddBodyWeight>
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("BODY WEIGHT".tr),
+                  title: Text(
+                    "addBodyWeight".tr,
+                    style: TextStyle(fontSize: 16),
+                  ),
                   backgroundColor: mPrimaryColor,
                 ),
                 body: SingleChildScrollView(
@@ -114,23 +117,25 @@ class _AddBodyWeightState extends State<AddBodyWeight>
                               amount = -1;
                             }
                             if (amount == -1 || amount == 0) {
-                              return Center(
-                                child: Text(
-                                  "You haven't recorded average weight for " +
-                                      date.toString().substring(0, 10),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20, color: mPrimaryTextColor),
-                                ),
+                              return SizedBox(
+                                height: 30.0,
+                                // child: Text(
+                                //   "You haven't recorded average weight for " +
+                                //       date.toString().substring(0, 10),
+                                //   textAlign: TextAlign.center,
+                                //   style: TextStyle(
+                                //       fontSize: 20, color: mPrimaryTextColor),
+                                // ),
                               );
                             } else {
-                              return Center(
-                                child: Text(
-                                  "You have already recorded ${snapshot.data?.docs[0]['Average_Weight']} average weight for ${date.toString().substring(0, 10)}",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20, color: mPrimaryTextColor),
-                                ),
+                              return SizedBox(
+                                height: 30.0,
+                                // child: Text(
+                                //   "You have already recorded ${snapshot.data?.docs[0]['Average_Weight']} average weight for ${date.toString().substring(0, 10)}",
+                                //   textAlign: TextAlign.center,
+                                //   style: TextStyle(
+                                //       fontSize: 20, color: mPrimaryTextColor),
+                                // ),
                               );
                             }
                           }),
@@ -144,12 +149,8 @@ class _AddBodyWeightState extends State<AddBodyWeight>
                             horizontal: 6.0, vertical: 10.0),
                         //child: reuseTextField1("Number of chicks"),
 
-                        child: reusableTextField2(
-                            "Avgerage weight of a chick".tr,
-                            Icons.numbers,
-                            false,
-                            _numcontroller,
-                            null),
+                        child: reusableTextField2("avgWeightofChick".tr,
+                            Icons.numbers, false, _numcontroller, null),
                       ),
                       Row(
                         //mainAxisAlignment: MainAxisAlignment.start,
@@ -220,7 +221,7 @@ class _AddBodyWeightState extends State<AddBodyWeight>
                                   ),
                                 ),
                                 child: Text(
-                                  "Touch to Pick Date",
+                                  "pickDate".tr,
                                   style: TextStyle(color: Colors.black38),
                                 ),
                               ),
@@ -261,7 +262,7 @@ class _AddBodyWeightState extends State<AddBodyWeight>
                             ///displayFCRdialog();
                           },
                           style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(180, 50),
+                            fixedSize: const Size(200, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
@@ -273,7 +274,7 @@ class _AddBodyWeightState extends State<AddBodyWeight>
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          child: Text("Add"),
+                          child: Text("add".tr),
                         ),
                       ),
                     ],

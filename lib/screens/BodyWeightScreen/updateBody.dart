@@ -90,7 +90,8 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("UPDATE BODY WEIGHT".tr),
+                  title: Text("updateBodyWeight".tr,
+                      style: TextStyle(fontSize: 16)),
                   backgroundColor: mPrimaryColor,
                 ),
                 body: SingleChildScrollView(
@@ -172,10 +173,10 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                                       child: DropdownButton(
                                           alignment: Alignment.center,
                                           hint: new Text(
-                                            'Select a date'.tr,
+                                            'selectDate'.tr,
                                             style: TextStyle(
                                               color: mPrimaryColor,
-                                              fontSize: 17,
+                                              fontSize: 18,
                                             ),
                                           ),
                                           items: dateItems.toSet().toList(),
@@ -196,9 +197,9 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                                           width: 20,
                                         ),
                                         Text(
-                                          "Selected Date: ",
+                                          "selectedDate".tr,
                                           style: TextStyle(
-                                              fontSize: 20,
+                                              fontSize: 16,
                                               color: mPrimaryColor),
                                         ),
                                         SizedBox(
@@ -208,7 +209,7 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                                           child: Text(
                                             "${selectedDate}",
                                             style: TextStyle(
-                                                fontSize: 20,
+                                                fontSize: 16,
                                                 color: mPrimaryColor),
                                           ),
                                         ),
@@ -273,9 +274,9 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                                                         width: 20,
                                                       ),
                                                       Text(
-                                                        "Recorded Average Weight: ",
+                                                        "recordedweight".tr,
                                                         style: TextStyle(
-                                                            fontSize: 20,
+                                                            fontSize: 16,
                                                             color:
                                                                 mPrimaryColor),
                                                       ),
@@ -286,7 +287,7 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                                                         child: Text(
                                                           "${recordedWeight}",
                                                           style: TextStyle(
-                                                              fontSize: 20,
+                                                              fontSize: 16,
                                                               color:
                                                                   mPrimaryColor),
                                                         ),
@@ -350,12 +351,8 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                             horizontal: 6.0, vertical: 10.0),
                         //child: reuseTextField1("Number of chicks"),
 
-                        child: reusableTextField2(
-                            "Average weight of a chick".tr,
-                            Icons.numbers,
-                            false,
-                            _numcontroller,
-                            null),
+                        child: reusableTextField2("avgWeightofChick".tr,
+                            Icons.numbers, false, _numcontroller, null),
                       ),
 
                       SizedBox(
@@ -390,7 +387,7 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                             ///displayFCRdialog();
                           },
                           style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(180, 50),
+                            fixedSize: const Size(200, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
@@ -402,7 +399,7 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          child: Text("Update"),
+                          child: Text("update".tr),
                         ),
                       ),
                     ],

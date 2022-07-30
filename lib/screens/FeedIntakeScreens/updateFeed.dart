@@ -92,7 +92,10 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("UPDATE FEED INTAKE".tr),
+                  title: Text(
+                    "updatefeedIntake".tr,
+                    style: TextStyle(fontSize: 16),
+                  ),
                   backgroundColor: mPrimaryColor,
                 ),
                 body: SingleChildScrollView(
@@ -174,10 +177,10 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                                       child: DropdownButton(
                                           alignment: Alignment.center,
                                           hint: new Text(
-                                            'Select a date'.tr,
+                                            'selectDate'.tr,
                                             style: TextStyle(
                                               color: mPrimaryColor,
-                                              fontSize: 17,
+                                              fontSize: 18,
                                             ),
                                           ),
                                           items: dateItems.toSet().toList(),
@@ -198,9 +201,9 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                                           width: 20,
                                         ),
                                         Text(
-                                          "Selected Date: ",
+                                          "selectedDate".tr,
                                           style: TextStyle(
-                                              fontSize: 20,
+                                              fontSize: 16,
                                               color: mPrimaryColor),
                                         ),
                                         SizedBox(
@@ -210,7 +213,7 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                                           child: Text(
                                             "${selectedDate}",
                                             style: TextStyle(
-                                                fontSize: 20,
+                                                fontSize: 16,
                                                 color: mPrimaryColor),
                                           ),
                                         ),
@@ -279,9 +282,9 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                                                         width: 20,
                                                       ),
                                                       Text(
-                                                        "Recorded Number of Bags: ",
+                                                        "recordedBags".tr,
                                                         style: TextStyle(
-                                                            fontSize: 20,
+                                                            fontSize: 16,
                                                             color:
                                                                 mPrimaryColor),
                                                       ),
@@ -292,7 +295,7 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                                                         child: Text(
                                                           "${recordedNo_Bag}",
                                                           style: TextStyle(
-                                                              fontSize: 20,
+                                                              fontSize: 16,
                                                               color:
                                                                   mPrimaryColor),
                                                         ),
@@ -316,9 +319,9 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                                                         width: 20,
                                                       ),
                                                       Text(
-                                                        "Recorded Weight of a Bag: ",
+                                                        "recordedBagWeight".tr,
                                                         style: TextStyle(
-                                                            fontSize: 20,
+                                                            fontSize: 16,
                                                             color:
                                                                 mPrimaryColor),
                                                       ),
@@ -329,7 +332,7 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                                                         child: Text(
                                                           "${recordedBag_weight}",
                                                           style: TextStyle(
-                                                              fontSize: 20,
+                                                              fontSize: 16,
                                                               color:
                                                                   mPrimaryColor),
                                                         ),
@@ -393,27 +396,23 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                             horizontal: 6.0, vertical: 10.0),
                         //child: reuseTextField1("Number of chicks"),
 
-                        child: reusableTextField2("Number of Feed Bags".tr,
-                            Icons.numbers, false, _numcontrollerBags, null),
+                        child: reusableTextField2("noofBags".tr, Icons.numbers,
+                            false, _numcontrollerBags, null),
                       ),
                       SizedBox(
-                        height: 20.0,
+                        height: 5.0,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 6.0, vertical: 10.0),
                         //child: reuseTextField1("Number of chicks"),
 
-                        child: reusableTextField2(
-                            "Weight of a Bag".tr,
-                            Icons.numbers,
-                            false,
-                            _numcontrollerBagWeight,
-                            null),
+                        child: reusableTextField2("bagWeight".tr, Icons.numbers,
+                            false, _numcontrollerBagWeight, null),
                       ),
 
                       SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                       Center(
                         child: Image.asset(
@@ -425,7 +424,7 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                         ),
                       ),
                       SizedBox(
-                        height: 50,
+                        height: 30,
                       ),
                       Center(
                         child: ElevatedButton(
@@ -446,7 +445,7 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                             ///displayFCRdialog();
                           },
                           style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(180, 50),
+                            fixedSize: const Size(200, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
@@ -458,8 +457,11 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          child: Text("Update"),
+                          child: Text("update".tr),
                         ),
+                      ),
+                      SizedBox(
+                        height: 20.0,
                       ),
                     ],
                   ),

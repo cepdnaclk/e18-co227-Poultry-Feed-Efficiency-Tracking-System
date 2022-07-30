@@ -82,7 +82,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("BODY WEIGHT".tr),
+                  title: Text("bodyWeightSelect".tr),
                   backgroundColor: mPrimaryColor,
                 ),
                 body: Column(
@@ -129,7 +129,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(180, 50),
+                          fixedSize: const Size(200, 50),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0),
                           ),
@@ -141,7 +141,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        child: Text("Update"),
+                        child: Text("update".tr),
                       ),
                     ),
                     SizedBox(
@@ -160,7 +160,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(180, 50),
+                          fixedSize: const Size(200, 50),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0),
                           ),
@@ -174,7 +174,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                           ),
                         ),
                         child: Text(
-                          "Add",
+                          "add".tr,
                           style: TextStyle(
                             color: mPrimaryColor,
                             fontSize: 17,
@@ -199,7 +199,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(180, 50),
+                          fixedSize: const Size(200, 50),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0),
                           ),
@@ -211,7 +211,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        child: Text("Delete"),
+                        child: Text("Delete".tr),
                       ),
                     ),
                   ],

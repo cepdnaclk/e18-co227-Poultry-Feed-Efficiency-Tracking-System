@@ -47,13 +47,13 @@ class _GridDashboardState extends State<GridDashboard> {
   );
 
   Items item5 = Items(
-    title: "weight",
+    title: "body_weight".tr,
     img: "assets/images/weight.png",
     routeName: '/weight',
   );
 
   Items item6 = Items(
-    title: "view",
+    title: "view".tr,
     img: "assets/images/view.png",
     routeName: '/view',
   );

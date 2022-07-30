@@ -90,7 +90,10 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("DELETE BODY WEIGHT".tr),
+                  title: Text(
+                    "deleteBodyweight".tr,
+                    style: TextStyle(fontSize: 16),
+                  ),
                   backgroundColor: mPrimaryColor,
                 ),
                 body: SingleChildScrollView(
@@ -172,10 +175,10 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
                                       child: DropdownButton(
                                           alignment: Alignment.center,
                                           hint: new Text(
-                                            'Select a date'.tr,
+                                            'selectDate'.tr,
                                             style: TextStyle(
                                               color: mPrimaryColor,
-                                              fontSize: 17,
+                                              fontSize: 18,
                                             ),
                                           ),
                                           items: dateItems.toSet().toList(),
@@ -196,9 +199,9 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
                                           width: 20,
                                         ),
                                         Text(
-                                          "Selected Date: ",
+                                          "selectedDate".tr,
                                           style: TextStyle(
-                                              fontSize: 20,
+                                              fontSize: 16,
                                               color: mPrimaryColor),
                                         ),
                                         SizedBox(
@@ -208,7 +211,7 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
                                           child: Text(
                                             "${selectedDate}",
                                             style: TextStyle(
-                                                fontSize: 20,
+                                                fontSize: 16,
                                                 color: mPrimaryColor),
                                           ),
                                         ),
@@ -273,9 +276,9 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
                                                         width: 20,
                                                       ),
                                                       Text(
-                                                        "Recorded Average Weight: ",
+                                                        "recordedweight".tr,
                                                         style: TextStyle(
-                                                            fontSize: 20,
+                                                            fontSize: 16,
                                                             color:
                                                                 mPrimaryColor),
                                                       ),
@@ -286,7 +289,7 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
                                                         child: Text(
                                                           "${recordedWeight}",
                                                           style: TextStyle(
-                                                              fontSize: 20,
+                                                              fontSize: 16,
                                                               color:
                                                                   mPrimaryColor),
                                                         ),
@@ -373,7 +376,7 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
                             ///displayFCRdialog();
                           },
                           style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(180, 50),
+                            fixedSize: const Size(200, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
@@ -385,7 +388,7 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight>
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          child: Text("Delete"),
+                          child: Text("Delete".tr),
                         ),
                       ),
                     ],

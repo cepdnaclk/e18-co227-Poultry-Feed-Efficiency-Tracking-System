@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/screens/selection_screen.dart';
 import 'package:home_login/screens/signin_screen.dart';
@@ -100,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       },
                       //icon: Icon(Icons.menu),
                     ),
-                    title: Text("HOME"),
+                    title: Text('home'.tr),
                     // backgroundColor: mPrimaryColor,
                     actions: <Widget>[
                       IconButton(
@@ -167,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       height: 2,
                                     ),
                                     Text(
-                                      "Farm : " + widget.farmName,
+                                      "Farm".tr + " : " + widget.farmName,
                                       style: TextStyle(
                                         color: mTitleTextColor,
                                         fontSize: 18,
@@ -178,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       height: 2,
                                     ),
                                     Text(
-                                      "Branch : " + widget.branchName,
+                                      "Branch".tr + " : " + widget.branchName,
                                       style: TextStyle(
                                         color: mTitleTextColor,
                                         fontSize: 18,
@@ -189,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       height: 2,
                                     ),
                                     Text(
-                                      "Shed : " + widget.shedName,
+                                      "Shed".tr + " : " + widget.shedName,
                                       style: TextStyle(
                                         color: mTitleTextColor,
                                         fontSize: 18,
@@ -200,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       height: 2,
                                     ),
                                     Text(
-                                      "Flock : " + widget.flockName,
+                                      "Flock".tr + " : " + widget.flockName,
                                       style: TextStyle(
                                         color: mTitleTextColor,
                                         fontSize: 18,
