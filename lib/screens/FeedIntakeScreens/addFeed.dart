@@ -82,7 +82,10 @@ class _AddFeedScreenState extends State<AddFeedScreen>
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("ADD FEED INTAKE".tr),
+                  title: Text(
+                    "addfeedIntake".tr,
+                    style: TextStyle(fontSize: 16),
+                  ),
                   backgroundColor: mPrimaryColor,
                 ),
                 body: SingleChildScrollView(
@@ -112,23 +115,25 @@ class _AddFeedScreenState extends State<AddFeedScreen>
                               amount = -1;
                             }
                             if (amount == -1 || amount == 0) {
-                              return Center(
-                                child: Text(
-                                  "You haven't recorded feed intake for " +
-                                      date.toString().substring(0, 10),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20, color: mPrimaryTextColor),
-                                ),
+                              return SizedBox(
+                                height: 30.0,
+                                // child: Text(
+                                //   "You haven't recorded feed intake for " +
+                                //       date.toString().substring(0, 10),
+                                //   textAlign: TextAlign.center,
+                                //   style: TextStyle(
+                                //       fontSize: 20, color: mPrimaryTextColor),
+                                // ),
                               );
                             } else {
-                              return Center(
-                                child: Text(
-                                  "You have already recorded ${snapshot.data?.docs[0]['Number_of_bags']} amount of feed for ${date.toString().substring(0, 10)}",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20, color: mPrimaryTextColor),
-                                ),
+                              return SizedBox(
+                                height: 30.0,
+                                // child: Text(
+                                //   "You have already recorded ${snapshot.data?.docs[0]['Number_of_bags']} amount of feed for ${date.toString().substring(0, 10)}",
+                                //   textAlign: TextAlign.center,
+                                //   style: TextStyle(
+                                //       fontSize: 20, color: mPrimaryTextColor),
+                                // ),
                               );
                             }
                           }),
@@ -142,8 +147,8 @@ class _AddFeedScreenState extends State<AddFeedScreen>
                             horizontal: 6.0, vertical: 10.0),
                         //child: reuseTextField1("Number of chicks"),
 
-                        child: reusableTextField2("Number of Feed Bags".tr,
-                            Icons.numbers, false, _numcontrollerBags, null),
+                        child: reusableTextField2("noofBags".tr, Icons.numbers,
+                            false, _numcontrollerBags, null),
                       ),
                       SizedBox(
                         height: 10.0,
@@ -153,12 +158,8 @@ class _AddFeedScreenState extends State<AddFeedScreen>
                             horizontal: 6.0, vertical: 10.0),
                         //child: reuseTextField1("Number of chicks"),
 
-                        child: reusableTextField2(
-                            "Weight of a Bag".tr,
-                            Icons.numbers,
-                            false,
-                            _numcontrollerBagWeight,
-                            null),
+                        child: reusableTextField2("bagWeight".tr, Icons.numbers,
+                            false, _numcontrollerBagWeight, null),
                       ),
                       Row(
                         //mainAxisAlignment: MainAxisAlignment.start,
@@ -229,7 +230,7 @@ class _AddFeedScreenState extends State<AddFeedScreen>
                                   ),
                                 ),
                                 child: Text(
-                                  "Touch to Pick Date",
+                                  "pickDate".tr,
                                   style: TextStyle(color: Colors.black38),
                                 ),
                               ),
@@ -273,7 +274,7 @@ class _AddFeedScreenState extends State<AddFeedScreen>
                             ///displayFCRdialog();
                           },
                           style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(180, 50),
+                            fixedSize: const Size(200, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
@@ -285,7 +286,7 @@ class _AddFeedScreenState extends State<AddFeedScreen>
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          child: Text("Update"),
+                          child: Text("add".tr),
                         ),
                       ),
                     ],
