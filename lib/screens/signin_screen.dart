@@ -195,8 +195,8 @@ void builddialog(BuildContext context) {
 }
 
 void updateLanguage(Locale locale) {
-  Get.back();
   Get.updateLocale(locale);
+  Get.back();
 }
 
 String? validateEmail(String? formEmail) {

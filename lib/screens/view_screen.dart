@@ -899,8 +899,20 @@ class _ViewScreenState extends State<ViewScreen> {
                           legend: sfchart.Legend(isVisible: true, position :sfchart.LegendPosition.bottom ),
 
                           title: sfchart.ChartTitle(text: 'Weight performance'),
+                          primaryXAxis: sfchart.CategoryAxis(
+                            title: sfchart.AxisTitle(
+                              text: 'Days'
+                            )
+                          ),
+                          primaryYAxis: sfchart.CategoryAxis(
+                              title: sfchart.AxisTitle(
+                                  text: 'Weight (g)'
+                              )
+                          ),
                           series: <sfchart.ChartSeries>[
                             sfchart.LineSeries<PoultryData,int>(
+
+
                               legendItemText: 'Active Batch',
                               //color: Colors.deepOrange ,
                               color: mPrimaryColor,
@@ -991,6 +1003,22 @@ class _ViewScreenState extends State<ViewScreen> {
                           legend: sfchart.Legend(isVisible: true, position :sfchart.LegendPosition.bottom ),
 
                           title: sfchart.ChartTitle(text: 'Feed Performance'),
+
+                          primaryXAxis: sfchart.CategoryAxis(
+                              //labelPosition: sfchart.ChartDataLabelPosition.inside,
+                              title: sfchart.AxisTitle(
+                                  text: 'Days'
+                              )
+                          ),
+
+                          primaryYAxis: sfchart.CategoryAxis(
+
+
+                              title: sfchart.AxisTitle(
+
+                                  text: 'Feed (g)'
+                              )
+                          ),
                           series: <sfchart.ChartSeries>[
                             sfchart.LineSeries<PoultryData,int>(
                               legendItemText: 'Active Batch',
@@ -1078,6 +1106,15 @@ class _ViewScreenState extends State<ViewScreen> {
                           child: sfchart.SfCartesianChart(
 
                               title: sfchart.ChartTitle(text: 'Mortility On Daily basis'),
+
+                              primaryXAxis: sfchart.CategoryAxis(
+                                //labelPosition: sfchart.ChartDataLabelPosition.inside,
+                                  title: sfchart.AxisTitle(
+                                      text: 'Day'
+                                  )
+                              ),
+
+
 
                               legend:sfchart. Legend(isVisible: true, position :sfchart.LegendPosition.bottom ),
                               series: <sfchart.ChartSeries>[
@@ -1205,6 +1242,10 @@ class PoultryData{
 
 
   PoultryData(this.day,this.amount);
+
+
+
+
 }
 
 // Class for chart data source, this can be modified based on the data in Firestore
@@ -1213,6 +1254,8 @@ class BarChart {
   final int date;
 
   BarChart(this.date,this.amount);
+
+
 
 }
 

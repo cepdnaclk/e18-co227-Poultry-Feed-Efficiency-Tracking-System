@@ -6,23 +6,23 @@ import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
-import 'drawerMenu.dart';
+//import 'drawerMenu.dart';
 
-class BodyWeight extends StatefulWidget {
-  const BodyWeight({Key? key}) : super(key: key);
+class AddBodyWeight extends StatefulWidget {
+  final String id_flock;
+  // const AddBodyWeight({Key? key}) : super(key: key);
+  AddBodyWeight({
+    Key? key,
+    required this.id_flock,
+  }) : super(key: key);
 
   @override
-  State<BodyWeight> createState() => _BodyWeightState();
+  State<AddBodyWeight> createState() => _AddBodyWeightState();
 }
 
-class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
-
-
-
-  List weightDataCobb500=[];
-
-
-
+class _AddBodyWeightState extends State<AddBodyWeight>
+    with TickerProviderStateMixin {
+  List weightDataCobb500 = [];
 
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
@@ -46,12 +46,10 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
-
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return Stack(
       children: [
-        DrawerMenu(args.flockID),
+        //DrawerMenu(args.flockID),
         AnimatedContainer(
           duration: Duration(milliseconds: 500),
           transform: Matrix4.translationValues(translateX, translateY, 0)
@@ -86,7 +84,10 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("BODY WEIGHT".tr),
+                  title: Text(
+                    "addBodyWeight".tr,
+                    style: TextStyle(fontSize: 16),
+                  ),
                   backgroundColor: mPrimaryColor,
                 ),
                 body: SingleChildScrollView(
@@ -102,7 +103,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                               .collection("Farmers")
                               .doc(FirebaseAuth.instance.currentUser!.uid)
                               .collection('flock')
-                              .doc(args.flockID)
+                              .doc(widget.id_flock)
                               .collection('BodyWeight')
                               .where(FieldPath.documentId,
                                   isEqualTo: date.toString().substring(0, 10))
@@ -116,23 +117,25 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                               amount = -1;
                             }
                             if (amount == -1 || amount == 0) {
-                              return Center(
-                                child: Text(
-                                  "You haven't recorded average weight for " +
-                                      date.toString().substring(0, 10),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20, color: mPrimaryTextColor),
-                                ),
+                              return SizedBox(
+                                height: 30.0,
+                                // child: Text(
+                                //   "You haven't recorded average weight for " +
+                                //       date.toString().substring(0, 10),
+                                //   textAlign: TextAlign.center,
+                                //   style: TextStyle(
+                                //       fontSize: 20, color: mPrimaryTextColor),
+                                // ),
                               );
                             } else {
-                              return Center(
-                                child: Text(
-                                  "You have already recorded ${snapshot.data?.docs[0]['Average_Weight']} average weight for ${date.toString().substring(0, 10)}",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20, color: mPrimaryTextColor),
-                                ),
+                              return SizedBox(
+                                height: 30.0,
+                                // child: Text(
+                                //   "You have already recorded ${snapshot.data?.docs[0]['Average_Weight']} average weight for ${date.toString().substring(0, 10)}",
+                                //   textAlign: TextAlign.center,
+                                //   style: TextStyle(
+                                //       fontSize: 20, color: mPrimaryTextColor),
+                                // ),
                               );
                             }
                           }),
@@ -146,12 +149,8 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                             horizontal: 6.0, vertical: 10.0),
                         //child: reuseTextField1("Number of chicks"),
 
-                        child: reusableTextField2(
-                            "Avgerage weight of a chick".tr,
-                            Icons.numbers,
-                            false,
-                            _numcontroller,
-                            null),
+                        child: reusableTextField2("avgWeightofChick".tr,
+                            Icons.numbers, false, _numcontroller, null),
                       ),
                       Row(
                         //mainAxisAlignment: MainAxisAlignment.start,
@@ -222,7 +221,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                                   ),
                                 ),
                                 child: Text(
-                                  "Touch to Pick Date",
+                                  "pickDate".tr,
                                   style: TextStyle(color: Colors.black38),
                                 ),
                               ),
@@ -253,7 +252,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                             // print(_numcontroller.text);
                             // print(date);
                             await addBodyWeight(
-                                args.flockID,
+                                widget.id_flock,
                                 _numcontroller.text,
                                 date.toString().substring(0, 10));
                             _numcontroller.clear();
@@ -263,7 +262,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                             ///displayFCRdialog();
                           },
                           style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(180, 50),
+                            fixedSize: const Size(200, 50),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
@@ -275,7 +274,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          child: Text("Update"),
+                          child: Text("add".tr),
                         ),
                       ),
                     ],

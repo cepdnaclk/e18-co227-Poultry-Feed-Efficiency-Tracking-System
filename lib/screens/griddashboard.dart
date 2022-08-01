@@ -47,13 +47,13 @@ class _GridDashboardState extends State<GridDashboard> {
   );
 
   Items item5 = Items(
-    title: "weight",
+    title: "body_weight".tr,
     img: "assets/images/weight.png",
     routeName: '/weight',
   );
 
   Items item6 = Items(
-    title: "view",
+    title: "view".tr,
     img: "assets/images/view.png",
     routeName: '/view',
   );
@@ -128,8 +128,8 @@ class _GridDashboardState extends State<GridDashboard> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Container(
-                            height: 100,
-                            width: 100,
+                            height: 80,
+                            width: 80,
                             child: Image.asset(
                               data.img,
                               //width: 130,

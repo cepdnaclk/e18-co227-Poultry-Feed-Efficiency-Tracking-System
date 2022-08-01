@@ -5,28 +5,28 @@ import 'package:home_login/constants.dart';
 import 'package:home_login/screens/BodyWeightScreen/addBody.dart';
 import 'package:home_login/screens/BodyWeightScreen/deleteBody.dart';
 import 'package:home_login/screens/BodyWeightScreen/updateBody.dart';
-import 'package:home_login/screens/FeedIntakeScreens/addFeed.dart';
-import 'package:home_login/screens/FeedIntakeScreens/deleteFeed.dart';
-import 'package:home_login/screens/FeedIntakeScreens/updateFeed.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
 import 'drawerMenu.dart';
 
-class FeedScreen extends StatefulWidget {
-  const FeedScreen({Key? key}) : super(key: key);
+class BodyWeight extends StatefulWidget {
+  const BodyWeight({Key? key}) : super(key: key);
 
   @override
-  State<FeedScreen> createState() => _FeedScreenState();
+  State<BodyWeight> createState() => _BodyWeightState();
 }
 
-class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
+class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
   List weightDataCobb500 = [];
   String startDate = '';
 
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
+  final TextEditingController _datecontroller = TextEditingController();
+  final TextEditingController _numcontroller = TextEditingController();
 
   double translateX = 0.0;
   double translateY = 0.0;
@@ -82,7 +82,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("feedIntakeSelect".tr),
+                  title: Text("bodyWeightSelect".tr),
                   backgroundColor: mPrimaryColor,
                 ),
                 body: Column(
@@ -103,8 +103,8 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                             //print(snapshot.toString());
                             startDate = snapshot.data?.docs[0]['startdays'];
                             //print(startDate);
-                            updateFeedIntake(args.flockID, 0.4.toString(),
-                                50.toString(), startDate);
+                            addBodyWeight(
+                                args.flockID, 40.toString(), startDate);
 
                             //print(mortal);
                             //print(totalChick);
@@ -121,7 +121,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => UpdateFeedScreen(
+                              builder: (context) => UpdateBodyWeight(
                                 id_flock: args.flockID,
                                 startDateNavi: startDate,
                               ),
@@ -155,7 +155,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  AddFeedScreen(id_flock: args.flockID),
+                                  AddBodyWeight(id_flock: args.flockID),
                             ),
                           );
                         },
@@ -191,7 +191,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DeleteFeedScreen(
+                              builder: (context) => DeleteBodyWeight(
                                 id_flock: args.flockID,
                                 startDateNavi: startDate,
                               ),
@@ -224,12 +224,9 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
     );
   }
 
-  Future<void> updateFeedIntake(
-      String id, String noOfBag, String weightBag, String date) async {
-    num current = 0;
-    num valueBags = double.parse(noOfBag);
-    num valueBagWeight = double.parse(weightBag);
-
+  Future<void> addBodyWeight(String id, String amount, String date) async {
+    //num current = 0;
+    num value = double.parse(amount);
     try {
       //print("try 1");
       DocumentReference<Map<String, dynamic>> documentReference =
@@ -238,7 +235,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
               .doc(FirebaseAuth.instance.currentUser!.uid)
               .collection('flock')
               .doc(id)
-              .collection('FeedIntake')
+              .collection('BodyWeight')
               .doc(date);
 
       FirebaseFirestore.instance.runTransaction((transaction) async {
@@ -247,19 +244,15 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
 
         if (!snapshot.exists) {
           //print("done 1 befre");
-          documentReference.set(
-              {'Number_of_bags': valueBags, 'Weight_of_a_bag': valueBagWeight});
+          documentReference.set({'Average_Weight': value});
           //print("done 1");
 
           //return true;
         } else {
           try {
             //num newAmount = snapshot.data()!['Amount'] + value;
-            //  current = snapshot.data()!['Amount'];
-            transaction.update(documentReference, {
-              'Number_of_bags': valueBags,
-              'Weight_of_a_bag': valueBagWeight
-            });
+            //current = snapshot.data()!['Average_Weight'];
+            transaction.update(documentReference, {'Average_Weight': value});
             //print("done 1.2");
             //print(current);
             //return true;
@@ -274,7 +267,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
     }
     try {
       //print("try 2");
-      /*  DocumentReference<Map<String, dynamic>> documentReference2 =
+      DocumentReference<Map<String, dynamic>> documentReference2 =
           FirebaseFirestore.instance
               .collection('Farmers')
               .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -294,8 +287,8 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
         } else {
           try {
             print("done 2.2 before");
-            num n = snapshot2.data()!['Avg_BodyWeight'];
-            num newAmount = n - current + value;
+            //num n = snapshot2.data()!['Avg_BodyWeight'];
+            num newAmount = value;
             print("done 2.2 before 2");
             transaction2
                 .update(documentReference2, {'Avg_BodyWeight': newAmount});
@@ -305,7 +298,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
             //rethrow;
           }
         }
-      });*/
+      });
     } catch (e) {
       //
     }

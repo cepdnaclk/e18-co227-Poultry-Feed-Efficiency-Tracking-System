@@ -23,12 +23,42 @@ class LocalString extends Translations {
           'language': 'Language',
           'logout': 'Logout',
 
+          //bodyWeight
+          'bodyWeightSelect': 'BODY WEIGHT',
+          'add': 'Add',
+          'update': 'Update',
+          'updateBodyWeight': 'UPDATE BODY WEIGHT',
+          'selectDate': 'Select Date',
+          'selectedDate': 'Selected Date:',
+          'recordedweight': 'Recorded Average Weight:',
+          'avgWeightofChick': 'Average Weight of a chick',
+          'addBodyWeight': 'ADD BODY WEIGHT',
+          'pickDate': 'Touch to Pick Date',
+          'deleteBodyweight': 'DELETE BODY WEIGHT',
+
+          //feedIntake
+          'feedIntakeSelect': 'FEED INTAKE',
+          'updatefeedIntake': 'UPDATE FEED INTAKE',
+          'addfeedIntake': 'ADD FEED INTAKE',
+          'deletefeedIntake': 'DELETE FEED INTAKE',
+          'recordedBags': 'Recorded Number of Bags:',
+          'recordedBagWeight': 'Recorded Weight of a Bag:',
+          'noofBags': 'Number of Feed Bags',
+          'bagWeight': 'Weight of a Bag',
+
+          //home page
+          'home': 'Home',
+          'Farm': 'Farm',
+          'Branch': 'Branch',
+          'Shed': 'Shed',
+          'Flock': 'Flock',
+
           //selection page
           'batch_Selection': "BATCH SELECTION",
-          'Choose your Farm': 'Choose your farm',
-          'Choose your Branch': 'Choose your Branch',
-          'Choose your Shed': 'Choose your shed',
-          'Choose your Flock': 'Choose your flock',
+          'Choose your Farm': 'Choose your Farm    ',
+          'Choose your Branch': 'Choose your Branch ',
+          'Choose your Shed': 'Choose your Shed    ',
+          'Choose your Flock': 'Choose your Flock   ',
           'Proceed': 'Proceed',
 
           //gridboard
@@ -106,12 +136,42 @@ class LocalString extends Translations {
           'language': 'மொழி',
           'logout': 'வெளியேறு',
 
+          //bodyWeight
+          'bodyWeightSelect': 'உடல் எடை',
+          'add': 'கூட்டு',
+          'update': 'மேம்படுத்தல்',
+          'updateBodyWeight': 'உடல் எடையைப் புதுப்பிக்கவும்',
+          'selectDate': 'திகதி',
+          'selectedDate': 'தேர்ந்தெடுக்கப்பட்ட திகதி:',
+          'recordedweight': 'பதிவு செய்யப்பட்ட சராசரி எடை:',
+          'avgWeightofChick': 'குஞ்சுகளின் சராசரி எடை',
+          'addBodyWeight': 'உடல் எடையைச் சேர்க்கவும்',
+          'pickDate': 'திகதி',
+          'deleteBodyweight': 'உடல் எடையை நீக்கவும்',
+
+          //feedIntake
+          'feedIntakeSelect': 'உணவு உட்கொள்ளல்',
+          'updatefeedIntake': 'உட்கொள்ளலைப் புதுப்பிக்கவும்',
+          'addfeedIntake': 'உட்கொள்ளலைச் சேர்க்கவும்',
+          'deletefeedIntake': 'உட்கொள்ளலை நீக்கவும்',
+          'recordedBags': 'பதிவு செய்த பைகள்:',
+          'recordedBagWeight': 'ஒரு பையின் பதிவு செய்த எடை:',
+          'noofBags': 'பைகளின் எண்ணிக்கை',
+          'bagWeight': 'ஒரு பையின் எடை',
+
+          //home
+          'home': 'வீடு',
+          'Farm': 'பண்ணை',
+          'Branch': 'கிளை',
+          'Shed': 'கொட்டகை',
+          'Flock': 'மந்தை',
+
           //selection page
           'batch_Selection': "தொகுதி தேர்வு",
-          'Choose your Farm': 'பண்ணையைத் தேர்ந்தெடுங்கள்',
-          'Choose your Branch': 'கிளையைத் தேர்ந்தெடுக்கவும்',
-          'Choose your Shed': 'கொட்டகையைத் தேர்ந்தெடுங்கள்',
-          'Choose your Flock': 'மந்தையைத் தேர்ந்தெடுங்கள்',
+          'Choose your Farm': 'பண்ணை  ',
+          'Choose your Branch': 'கிளை        ',
+          'Choose your Shed': 'கொட்டகை ',
+          'Choose your Flock': 'மந்தை       ',
           'Proceed': 'தொடரவும்',
 
           //gridboard
@@ -201,12 +261,42 @@ class LocalString extends Translations {
           'language': 'භාෂාව',
           'logout': 'පිටවීම',
 
+          //bodyWeight
+          'bodyWeightSelect': 'ශරීර බර',
+          'add': 'එකතු කරන්න',
+          'update': 'යාවත්කාලීන',
+          'updateBodyWeight': 'ශරීර බර යාවත්කාලීන කරන්න',
+          'selectDate': 'දිනය තෝරන්න',
+          'selectedDate': 'තෝරාගත් දිනය:',
+          'recordedweight': 'වාර්තාගත සාමාන්ය බර:',
+          'avgWeightofChick': 'පැටවෙකුගේ සාමාන්ය බර',
+          'addBodyWeight': 'ශරීර බර එකතු කරන්න',
+          'pickDate': 'දිනය',
+          'deleteBodyweight': 'සිරුරේ බර මකන්න',
+
+          //feedIntake
+          'feedIntakeSelect': 'ආහාර ගැනීම',
+          'updatefeedIntake': 'ආහාර ගැනීම යාවත්කාලීන කරන්න',
+          'addfeedIntake': 'ආහාර ගැනීම එකතු කරන්න',
+          'deletefeedIntake': 'ආහාර ගැනීම මකන්න',
+          'recordedBags': 'වාර්තාගත බෑග් ගණන:',
+          'recordedBagWeight': 'බෑගයක වාර්තාගත බර:',
+          'noofBags': 'ආහාර මලු ගණන',
+          'bagWeight': 'බෑගයක බර',
+
+          //home
+          'home': 'නිවස',
+          'Farm': 'ගොවිපල',
+          'Branch': 'ශාඛාව',
+          'Shed': 'මඩුව',
+          'Flock': 'රැළ',
+
           //selection page
           'batch_Selection': "කණ්ඩායම් තේරීම",
           'Choose your Farm': 'ඔබේ ගොවිපල තෝරන්න',
-          'Choose your Branch': 'ඔබේ ශාඛාව තෝරන්න',
-          'Choose your Shed': 'ඔබේ මඩුව තෝරන්න',
-          'Choose your Flock': 'ඔබේ රැළ තෝරන්න',
+          'Choose your Branch': 'ඔබේ ශාඛාව තෝරන්න   ',
+          'Choose your Shed': 'ඔබේ මඩුව තෝරන්න      ',
+          'Choose your Flock': 'ඔබේ රැළ තෝරන්න        ',
           'Proceed': 'ඉදිරියට යන්න',
 
           //gridboard
