@@ -244,9 +244,9 @@ class _AddFeedScreenState extends State<AddFeedScreen>
                       ),
                       Center(
                         child: Image.asset(
-                          "assets/images/feed.png",
+                          "assets/images/feed-new.png",
                           fit: BoxFit.fitWidth,
-                          width: context.width * 0.25,
+                          width: context.width * 0.4,
                           // height: 420,
                           //color: Colors.purple,
                         ),

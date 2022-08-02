@@ -173,34 +173,45 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                       height: 50,
                                     ),
                                     Center(
-                                      child: DropdownButton(
-                                          alignment: Alignment.center,
-                                          hint: new Text(
-                                            'selectDate'.tr,
-                                            style: TextStyle(
-                                              color: mPrimaryColor,
-                                              fontSize: 18,
-                                            ),
+                                      child: Container(
+                                        height: 25,
+                                        width: 150,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: mPrimaryColor,
                                           ),
-                                          items: dateItems.toSet().toList(),
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              selectedDate = newValue
-                                                  .toString()
-                                                  .substring(0, 10);
-                                              //Text(selectedDate);
-                                              print(selectedDate);
-                                            });
-                                          }),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        child: DropdownButton(
+                                            alignment: Alignment.center,
+                                            hint: new Text(
+                                              'selectDate'.tr,
+                                              style: TextStyle(
+                                                color: mPrimaryColor,
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                            items: dateItems.toSet().toList(),
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                selectedDate = newValue
+                                                    .toString()
+                                                    .substring(0, 10);
+                                                //Text(selectedDate);
+                                                print(selectedDate);
+                                              });
+                                            }),
+                                      ),
                                     ),
                                     SizedBox(height: 20),
                                     Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        SizedBox(
-                                          width: 20,
-                                        ),
                                         Text(
-                                          "selectedDate".tr,
+                                          "    " + "selectedDate".tr,
                                           style: TextStyle(
                                               fontSize: 16,
                                               color: mPrimaryColor),
@@ -209,6 +220,16 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                           width: 10,
                                         ),
                                         Container(
+                                          alignment: Alignment.center,
+                                          height: 25,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: mPrimaryColor,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
                                           child: Text(
                                             "${selectedDate}",
                                             style: TextStyle(
@@ -276,12 +297,13 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                                 children: [
                                                   SizedBox(height: 20),
                                                   Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     children: [
-                                                      SizedBox(
-                                                        width: 20,
-                                                      ),
                                                       Text(
-                                                        "recordedBags".tr,
+                                                        "    " +
+                                                            "recordedBags".tr,
                                                         style: TextStyle(
                                                             fontSize: 16,
                                                             color:
@@ -291,6 +313,21 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                                         width: 10,
                                                       ),
                                                       Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        height: 25,
+                                                        width: 150,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          border: Border.all(
+                                                            color:
+                                                                mPrimaryColor,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
                                                         child: Text(
                                                           "${recordedNo_Bag}",
                                                           style: TextStyle(
@@ -313,12 +350,14 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                                   ),
                                                   SizedBox(height: 20),
                                                   Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     children: [
-                                                      SizedBox(
-                                                        width: 20,
-                                                      ),
                                                       Text(
-                                                        "recordedBagWeight".tr,
+                                                        "    " +
+                                                            "recordedBagWeight"
+                                                                .tr,
                                                         style: TextStyle(
                                                             fontSize: 16,
                                                             color:
@@ -328,6 +367,21 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                                         width: 10,
                                                       ),
                                                       Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        height: 25,
+                                                        width: 150,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          border: Border.all(
+                                                            color:
+                                                                mPrimaryColor,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
+                                                        ),
                                                         child: Text(
                                                           "${recordedBag_weight}",
                                                           style: TextStyle(
@@ -393,7 +447,7 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                       ),
                       Center(
                         child: Image.asset(
-                          "assets/images/weight.png",
+                          "assets/images/feed-new.png",
                           fit: BoxFit.fitWidth,
                           width: context.width * 0.4,
                           // height: 420,

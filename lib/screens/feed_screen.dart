@@ -12,6 +12,7 @@ import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
+import 'package:sizer/sizer.dart';
 import 'drawerMenu.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -113,7 +114,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                           return Container(); // Your grid code.
                         }),
                     SizedBox(
-                      height: 20,
+                      height: 25.h,
                     ),
                     Center(
                       child: ElevatedButton(
