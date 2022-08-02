@@ -6,6 +6,7 @@ import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
+import 'package:sizer/sizer.dart';
 
 class DeleteBodyWeight extends StatefulWidget {
   final String id_flock;
@@ -140,40 +141,56 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight> {
                               height: 50,
                             ),
                             Center(
-                              child: DropdownButton(
-                                  alignment: Alignment.center,
-                                  hint: new Text(
-                                    'selectDate'.tr,
-                                    style: TextStyle(
-                                      color: mPrimaryColor,
-                                      fontSize: 18,
-                                    ),
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 25,
+                                width: 40.w,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: mPrimaryColor,
                                   ),
-                                  items: dateItems.toSet().toList(),
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      selectedDate =
-                                          newValue.toString().substring(0, 10);
-                                      //Text(selectedDate);
-                                      print(selectedDate);
-                                    });
-                                  }),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: DropdownButton(
+                                    alignment: Alignment.center,
+                                    hint: new Text(
+                                      'selectDate'.tr,
+                                      style: TextStyle(
+                                        color: mPrimaryColor,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    items: dateItems.toSet().toList(),
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        selectedDate = newValue
+                                            .toString()
+                                            .substring(0, 10);
+                                        //Text(selectedDate);
+                                        print(selectedDate);
+                                      });
+                                    }),
+                              ),
                             ),
                             SizedBox(height: 20),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SizedBox(
-                                  width: 20,
-                                ),
                                 Text(
-                                  "selectedDate".tr,
+                                  "     " + "selectedDate".tr,
                                   style: TextStyle(
                                       fontSize: 16, color: mPrimaryColor),
                                 ),
-                                SizedBox(
-                                  width: 10,
-                                ),
                                 Container(
+                                  alignment: Alignment.center,
+                                  height: 25,
+                                  width: 30.w,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: mPrimaryColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
                                   child: Text(
                                     "${selectedDate}",
                                     style: TextStyle(
@@ -234,20 +251,27 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight> {
                                         children: [
                                           SizedBox(height: 20),
                                           Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              SizedBox(
-                                                width: 20,
-                                              ),
                                               Text(
-                                                "recordedweight".tr,
+                                                "     " + "recordedweight".tr,
                                                 style: TextStyle(
                                                     fontSize: 16,
                                                     color: mPrimaryColor),
                                               ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
                                               Container(
+                                                alignment: Alignment.center,
+                                                height: 25,
+                                                width: 30.w,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: mPrimaryColor,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
                                                 child: Text(
                                                   "${recordedWeight}",
                                                   style: TextStyle(

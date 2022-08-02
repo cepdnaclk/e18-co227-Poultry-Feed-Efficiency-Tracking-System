@@ -176,7 +176,7 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                     Center(
                                       child: Container(
                                         height: 25,
-                                        width: 30.w,
+                                        width: 40.w,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
                                           border: Border.all(
@@ -216,9 +216,6 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                           style: TextStyle(
                                               fontSize: 16,
                                               color: mPrimaryColor),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
                                         ),
                                         Container(
                                           alignment: Alignment.center,
@@ -310,9 +307,6 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                                             color:
                                                                 mPrimaryColor),
                                                       ),
-                                                      SizedBox(
-                                                        width: 10,
-                                                      ),
                                                       Container(
                                                         alignment:
                                                             Alignment.center,
@@ -363,9 +357,6 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                                             fontSize: 16,
                                                             color:
                                                                 mPrimaryColor),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 10,
                                                       ),
                                                       Container(
                                                         alignment:
