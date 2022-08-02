@@ -9,3 +9,4 @@ Color mFacebookColor = Color(0xFF4277BC);
 Color mTitleTextColor = Color(0xFF2D140D);
 Color mNewColor = Color(0xFFA05A2C);
 Color mNewColor2 = Color.fromARGB(255, 173, 140, 116);
+Color mNewColor3 = Color(0xFFEEEAE4);
