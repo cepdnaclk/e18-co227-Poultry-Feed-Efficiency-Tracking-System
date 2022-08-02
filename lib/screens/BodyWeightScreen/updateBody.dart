@@ -40,6 +40,7 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
   double scale = 1;
   bool toggle = false;
   late AnimationController _animationController;
+  late StreamBuilder _widget;
   @override
   void initState() {
     selectedDate = widget.startDateNavi;
@@ -47,6 +48,85 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
       vsync: this,
       duration: Duration(milliseconds: 500),
     );
+    _widget = StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection("Farmers")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('flock')
+            .doc(widget.id_flock)
+            .collection('BodyWeight')
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            for (int i = 0; i < snapshot.data!.docs.length; i++) {
+              DocumentSnapshot snap = snapshot.data!.docs[i];
+
+              double amount = -1;
+              String date;
+              try {
+                // amount =
+                //     snapshot.data?.docs[i]['Average_Weight'];
+                date = snapshot.data!.docs[i].id;
+                //print(date);
+
+                //print(snapshot.data!.docs[i].id);
+
+                //print(amount);
+                //print("----------------------");
+                //print('');
+                //weightDataCurrent.add(PoultryData(i, amount));
+                //dateItems.add(date);
+                dateItems.add(
+                  DropdownMenuItem(
+                    child: Text(
+                      date,
+                      style: TextStyle(color: mPrimaryColor),
+                    ),
+
+                    //value: "${snap.id}",
+                    value: "$date",
+                  ),
+                );
+
+                // print(date);
+
+                //print(dateItems);
+                //amount = 0.0;
+                //print(dateItems);
+              } catch (e) {
+                //amount = -1;
+              }
+            }
+            //print(dateItems);
+            return Container(
+                // child: Center(
+                //   child: DropdownButton(
+                //       alignment: Alignment.center,
+                //       hint: new Text(
+                //         'selectDate'.tr,
+                //         style: TextStyle(
+                //           color: mPrimaryColor,
+                //           fontSize: 18,
+                //         ),
+                //       ),
+                //       items: dateItems.toSet().toList(),
+                //       onChanged: (newValue) {
+                //         setState(() {
+                //           selectedDate = newValue.toString().substring(0, 10);
+                //           //Text(selectedDate);
+                //           print(selectedDate);
+                //         });
+                //       }),
+                // ),
+                );
+            print(dateItems);
+          }
+        });
+
     super.initState();
   }
 
@@ -99,6 +179,7 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      _widget,
                       StreamBuilder<QuerySnapshot>(
                           stream: FirebaseFirestore.instance
                               .collection("Farmers")
@@ -114,54 +195,45 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight>
                                 child: CircularProgressIndicator(),
                               );
                             } else {
-                              //List<String> flockItems;
+                              // for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                              //   DocumentSnapshot snap = snapshot.data!.docs[i];
 
-                              //late final List <ChartData> weightDataCurrent;
+                              //   double amount = -1;
+                              //   String date;
+                              //   try {
+                              //     // amount =
+                              //     //     snapshot.data?.docs[i]['Average_Weight'];
+                              //     // date = snapshot.data!.docs[i].id;
+                              //     // //print(date);
 
-                              //final Map<String, int> someMap = {
+                              //     // //print(snapshot.data!.docs[i].id);
 
-                              //};
-                              for (int i = 0;
-                                  i < snapshot.data!.docs.length;
-                                  i++) {
-                                DocumentSnapshot snap = snapshot.data!.docs[i];
+                              //     // //print(amount);
+                              //     // //print("----------------------");
+                              //     // //print('');
+                              //     // //weightDataCurrent.add(PoultryData(i, amount));
+                              //     // //dateItems.add(date);
+                              //     // dateItems.add(
+                              //     //   DropdownMenuItem(
+                              //     //     child: Text(
+                              //     //       date,
+                              //     //       style: TextStyle(color: mPrimaryColor),
+                              //     //     ),
 
-                                double amount = -1;
-                                String date;
-                                try {
-                                  // amount =
-                                  //     snapshot.data?.docs[i]['Average_Weight'];
-                                  date = snapshot.data!.docs[i].id;
-                                  //print(date);
+                              //     //     //value: "${snap.id}",
+                              //     //     value: "$date",
+                              //     //   ),
+                              //     // );
 
-                                  //print(snapshot.data!.docs[i].id);
+                              //     // print(date);
 
-                                  //print(amount);
-                                  //print("----------------------");
-                                  //print('');
-                                  //weightDataCurrent.add(PoultryData(i, amount));
-                                  //dateItems.add(date);
-                                  dateItems.add(
-                                    DropdownMenuItem(
-                                      child: Text(
-                                        date,
-                                        style: TextStyle(color: mPrimaryColor),
-                                      ),
-
-                                      //value: "${snap.id}",
-                                      value: "$date",
-                                    ),
-                                  );
-
-                                  // print(date);
-
-                                  //print(dateItems);
-                                  //amount = 0.0;
-                                  //print(dateItems);
-                                } catch (e) {
-                                  //amount = -1;
-                                }
-                              }
+                              //     //print(dateItems);
+                              //     //amount = 0.0;
+                              //     //print(dateItems);
+                              //   } catch (e) {
+                              //     //amount = -1;
+                              //   }
+                              // }
                               //print(dateItems);
                               return Container(
                                 child: Column(
