@@ -443,8 +443,8 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen> {
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                         timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.grey,
-                        textColor: Colors.white);
+                        backgroundColor: mNewColor3,
+                        textColor: mPrimaryColor);
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(200, 50),
