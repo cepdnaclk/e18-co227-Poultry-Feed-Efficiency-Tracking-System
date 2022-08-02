@@ -168,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       height: 2,
                                     ),
                                     Text(
-                                      "Farm".tr + " : " + widget.farmName,
+                                      "Farm   ".tr + " : " + widget.farmName,
                                       style: TextStyle(
                                         color: mTitleTextColor,
                                         fontSize: 18,
@@ -190,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       height: 2,
                                     ),
                                     Text(
-                                      "Shed".tr + " : " + widget.shedName,
+                                      "Shed   ".tr + " : " + widget.shedName,
                                       style: TextStyle(
                                         color: mTitleTextColor,
                                         fontSize: 18,
@@ -201,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                       height: 2,
                                     ),
                                     Text(
-                                      "Flock".tr + " : " + widget.flockName,
+                                      "Flock  ".tr + " : " + widget.flockName,
                                       style: TextStyle(
                                         color: mTitleTextColor,
                                         fontSize: 18,
