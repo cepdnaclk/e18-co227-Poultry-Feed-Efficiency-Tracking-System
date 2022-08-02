@@ -331,21 +331,16 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight> {
 
               //reuseTextField("Mortality"),
 
-              SizedBox(
-                height: 40,
-              ),
               Center(
                 child: Image.asset(
-                  "assets/images/weight.png",
+                  "assets/images/weight-new.png",
                   fit: BoxFit.fitWidth,
-                  width: context.width * 0.4,
+                  width: context.width * 0.7,
                   // height: 420,
                   //color: Colors.purple,
                 ),
               ),
-              SizedBox(
-                height: 50,
-              ),
+
               Center(
                 child: ElevatedButton(
                   onPressed: () async {
