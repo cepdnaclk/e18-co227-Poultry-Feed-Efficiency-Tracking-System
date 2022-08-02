@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
@@ -347,6 +348,13 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
                     //Navigator.of(context).pop();
 
                     ///displayFCRdialog();
+                    Fluttertoast.showToast(
+                        msg: 'Successfully Updated!',
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.grey,
+                        textColor: Colors.white);
                   },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(200, 50),
