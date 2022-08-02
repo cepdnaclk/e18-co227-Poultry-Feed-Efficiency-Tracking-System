@@ -144,24 +144,36 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
                               height: 50,
                             ),
                             Center(
-                              child: DropdownButton(
-                                  alignment: Alignment.center,
-                                  hint: new Text(
-                                    'selectDate'.tr,
-                                    style: TextStyle(
-                                      color: mPrimaryColor,
-                                      fontSize: 18,
-                                    ),
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 25,
+                                width: 40.w,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: mPrimaryColor,
                                   ),
-                                  items: dateItems.toSet().toList(),
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      selectedDate =
-                                          newValue.toString().substring(0, 10);
-                                      //Text(selectedDate);
-                                      print(selectedDate);
-                                    });
-                                  }),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: DropdownButton(
+                                    alignment: Alignment.center,
+                                    hint: new Text(
+                                      'selectDate'.tr,
+                                      style: TextStyle(
+                                        color: mPrimaryColor,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    items: dateItems.toSet().toList(),
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        selectedDate = newValue
+                                            .toString()
+                                            .substring(0, 10);
+                                        //Text(selectedDate);
+                                        print(selectedDate);
+                                      });
+                                    }),
+                              ),
                             ),
                             SizedBox(height: 20),
                             Row(
@@ -172,13 +184,10 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
                                   style: TextStyle(
                                       fontSize: 16, color: mPrimaryColor),
                                 ),
-                                SizedBox(
-                                  width: 10,
-                                ),
                                 Container(
                                   alignment: Alignment.center,
                                   height: 25,
-                                  width: 35.w,
+                                  width: 30.w,
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       color: mPrimaryColor,
@@ -233,13 +242,10 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
                                                     fontSize: 16,
                                                     color: mPrimaryColor),
                                               ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
                                               Container(
                                                 alignment: Alignment.center,
                                                 height: 25,
-                                                width: 35.w,
+                                                width: 30.w,
                                                 decoration: BoxDecoration(
                                                   border: Border.all(
                                                     color: mPrimaryColor,

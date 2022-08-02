@@ -177,7 +177,7 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                                     Center(
                                       child: Container(
                                         height: 25,
-                                        width: 35.w,
+                                        width: 40.w,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
                                           border: Border.all(
@@ -309,9 +309,6 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                                                             color:
                                                                 mPrimaryColor),
                                                       ),
-                                                      SizedBox(
-                                                        width: 10,
-                                                      ),
                                                       Container(
                                                         alignment:
                                                             Alignment.center,
@@ -362,9 +359,6 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                                                             fontSize: 16,
                                                             color:
                                                                 mPrimaryColor),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 10,
                                                       ),
                                                       Container(
                                                         alignment:
