@@ -6,6 +6,7 @@ import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
+import 'package:sizer/sizer.dart';
 
 class UpdateBodyWeight extends StatefulWidget {
   final String id_flock;
@@ -164,12 +165,10 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
                             ),
                             SizedBox(height: 20),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SizedBox(
-                                  width: 20,
-                                ),
                                 Text(
-                                  "selectedDate".tr,
+                                  "     " + "selectedDate".tr,
                                   style: TextStyle(
                                       fontSize: 16, color: mPrimaryColor),
                                 ),
@@ -177,6 +176,15 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
                                   width: 10,
                                 ),
                                 Container(
+                                  alignment: Alignment.center,
+                                  height: 25,
+                                  width: 35.w,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: mPrimaryColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
                                   child: Text(
                                     "${selectedDate}",
                                     style: TextStyle(
@@ -216,12 +224,11 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
                                         children: [
                                           SizedBox(height: 20),
                                           Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              SizedBox(
-                                                width: 20,
-                                              ),
                                               Text(
-                                                "recordedweight".tr,
+                                                "     " + "recordedweight".tr,
                                                 style: TextStyle(
                                                     fontSize: 16,
                                                     color: mPrimaryColor),
@@ -230,6 +237,17 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
                                                 width: 10,
                                               ),
                                               Container(
+                                                alignment: Alignment.center,
+                                                height: 25,
+                                                width: 35.w,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: mPrimaryColor,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
                                                 child: Text(
                                                   "${recordedWeight}",
                                                   style: TextStyle(

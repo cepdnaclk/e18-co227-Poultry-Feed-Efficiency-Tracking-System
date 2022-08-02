@@ -6,6 +6,7 @@ import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
+import 'package:sizer/sizer.dart';
 //import 'drawerMenu.dart';
 
 class UpdateFeedScreen extends StatefulWidget {
@@ -176,7 +177,7 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                                     Center(
                                       child: Container(
                                         height: 25,
-                                        width: 150,
+                                        width: 35.w,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
                                           border: Border.all(
@@ -220,7 +221,7 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                                         Container(
                                           alignment: Alignment.center,
                                           height: 25,
-                                          width: 150,
+                                          width: 30.w,
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                               color: mPrimaryColor,
@@ -315,7 +316,7 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                                                         alignment:
                                                             Alignment.center,
                                                         height: 25,
-                                                        width: 150,
+                                                        width: 30.w,
                                                         decoration:
                                                             BoxDecoration(
                                                           border: Border.all(
@@ -369,7 +370,7 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen>
                                                         alignment:
                                                             Alignment.center,
                                                         height: 25,
-                                                        width: 150,
+                                                        width: 30.w,
                                                         decoration:
                                                             BoxDecoration(
                                                           border: Border.all(

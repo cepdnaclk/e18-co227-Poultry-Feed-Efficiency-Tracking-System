@@ -6,6 +6,7 @@ import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
+import 'package:sizer/sizer.dart';
 //import 'drawerMenu.dart';
 
 class DeleteFeedScreen extends StatefulWidget {
@@ -175,7 +176,7 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                     Center(
                                       child: Container(
                                         height: 25,
-                                        width: 150,
+                                        width: 30.w,
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
                                           border: Border.all(
@@ -222,7 +223,7 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                         Container(
                                           alignment: Alignment.center,
                                           height: 25,
-                                          width: 150,
+                                          width: 30.w,
                                           decoration: BoxDecoration(
                                             border: Border.all(
                                               color: mPrimaryColor,
@@ -316,7 +317,7 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                                         alignment:
                                                             Alignment.center,
                                                         height: 25,
-                                                        width: 150,
+                                                        width: 30.w,
                                                         decoration:
                                                             BoxDecoration(
                                                           border: Border.all(
@@ -370,7 +371,7 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
                                                         alignment:
                                                             Alignment.center,
                                                         height: 25,
-                                                        width: 150,
+                                                        width: 30.w,
                                                         decoration:
                                                             BoxDecoration(
                                                           border: Border.all(
