@@ -274,7 +274,7 @@ class _DeleteBodyWeightState extends State<DeleteBodyWeight> {
                                                           10.0),
                                                 ),
                                                 child: Text(
-                                                  "${recordedWeight}",
+                                                  "${recordedWeight}" + " g",
                                                   style: TextStyle(
                                                       fontSize: 16,
                                                       color: mPrimaryColor),

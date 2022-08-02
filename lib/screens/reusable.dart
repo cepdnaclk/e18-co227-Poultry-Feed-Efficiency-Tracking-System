@@ -189,8 +189,13 @@ TextFormField reusableTextField3(
   );
 }
 
-TextFormField reusableTextField2(String text, IconData icon,
-    bool isPasswordType, TextEditingController controller, validator) {
+TextFormField reusableTextField2(
+    String text,
+    IconData icon,
+    bool isPasswordType,
+    TextEditingController controller,
+    validator,
+    String unit) {
   return TextFormField(
     controller: controller,
     validator: validator,
@@ -200,6 +205,7 @@ TextFormField reusableTextField2(String text, IconData icon,
     cursorColor: Colors.brown,
     style: TextStyle(color: Colors.black38, fontSize: 3.h),
     decoration: InputDecoration(
+      suffixText: unit,
       prefixIcon: Icon(
         icon,
         color: mPrimaryColor,
