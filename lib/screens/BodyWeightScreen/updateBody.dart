@@ -256,7 +256,7 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
                                                           10.0),
                                                 ),
                                                 child: Text(
-                                                  "${recordedWeight}",
+                                                  "${recordedWeight}" + " g",
                                                   style: TextStyle(
                                                       fontSize: 16,
                                                       color: mPrimaryColor),
@@ -322,7 +322,7 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
                 //child: reuseTextField1("Number of chicks"),
 
                 child: reusableTextField2("avgWeightofChick".tr, Icons.numbers,
-                    false, _numcontroller, null),
+                    false, _numcontroller, null, "g"),
               ),
 
               Center(

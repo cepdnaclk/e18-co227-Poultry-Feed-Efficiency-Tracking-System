@@ -323,7 +323,8 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen> {
                                                           10.0),
                                                 ),
                                                 child: Text(
-                                                  "${recordedBag_weight}",
+                                                  "${recordedBag_weight}" +
+                                                      " kg",
                                                   style: TextStyle(
                                                       fontSize: 16,
                                                       color: mPrimaryColor),
