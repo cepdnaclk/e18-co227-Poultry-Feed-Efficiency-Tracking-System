@@ -7,6 +7,6 @@ Color mSecondTextColor = Color(0xFFB98068);
 Color mSecondColor = Color(0xFFC28E79);
 Color mFacebookColor = Color(0xFF4277BC);
 Color mTitleTextColor = Color(0xFF2D140D);
-Color mNewColor = Color(0xFFA05A2C);
+Color mNewColor = Color.fromARGB(255, 141, 76, 33);
 Color mNewColor2 = Color.fromARGB(255, 173, 140, 116);
 Color mNewColor3 = Color(0xFFEEEAE4);
