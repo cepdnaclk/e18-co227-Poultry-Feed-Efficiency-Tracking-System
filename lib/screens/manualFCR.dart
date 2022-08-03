@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:home_login/constants.dart';
-
-import 'drawerMenu.dart';
+import 'package:sizer/sizer.dart';
 
 class FCRManualScreen extends StatefulWidget {
   final String totalChicksNavi;
@@ -22,13 +22,13 @@ class FCRManualScreen extends StatefulWidget {
   State<FCRManualScreen> createState() => _FCRManualScreenState();
 }
 
-class _FCRManualScreenState extends State<FCRManualScreen>
-    with TickerProviderStateMixin {
+class _FCRManualScreenState extends State<FCRManualScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   int startCount = 0, mortal = 0;
   num avgWeight = 0, noBag = 0, avgBagWeight = 0, avgEggs = 0;
   String text = '', unit = '';
 
+<<<<<<< HEAD
   double translateX = 0.0;
   double translateY = 0.0;
   double scale = 1;
@@ -45,11 +45,15 @@ class _FCRManualScreenState extends State<FCRManualScreen>
   }
 
   final TextEditingController _avgEggWeightController = TextEditingController();
+=======
+  final TextEditingController _avgWeightController = TextEditingController();
+>>>>>>> 2ab7fb82a3aa48aca97b0bbe113771059f0ee0dd
   final TextEditingController _numberofBagController = TextEditingController();
   final TextEditingController _bagWeightController = TextEditingController();
   // final TextEditingController _avgeggController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     if (widget.strainNavi == "Dekalb White - Layer" ||
         widget.strainNavi == "Shaver Brown - Layer") {
       text = "Totla number of eggs per a flock";
@@ -114,29 +118,56 @@ class _FCRManualScreenState extends State<FCRManualScreen>
                             horizontal: 6.0, vertical: 10.0),
                         child:
                             reuseTextField(text, _avgEggWeightController, unit),
+=======
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Form(
+        key: formKey,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text("FCRCalculation".tr),
+            backgroundColor: mPrimaryColor,
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 2.h,
+                ),
+
+                //reuseTextField("Mortality"),
+                SizedBox(
+                  height: 30.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 6.0, vertical: 10.0),
+                  child: reuseTextField(
+                      "avgWeightofChick".tr, _avgWeightController, "g"),
+                ),
+                Row(
+                  //mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6.0, vertical: 15.0),
+                        child: reuseTextField(
+                            "no_bags".tr, _numberofBagController, ""),
+>>>>>>> 2ab7fb82a3aa48aca97b0bbe113771059f0ee0dd
                       ),
-                      Row(
-                        //mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6.0, vertical: 15.0),
-                              child: reuseTextField("No. of Feed Bags",
-                                  _numberofBagController, ""),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6.0, vertical: 15.0),
-                              child: reuseTextField(
-                                  "Weight per bag", _bagWeightController, "kg"),
-                            ),
-                          ),
-                        ],
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6.0, vertical: 15.0),
+                        child: reuseTextField(
+                            "bag_weight".tr, _bagWeightController, "kg"),
                       ),
+<<<<<<< HEAD
                       SizedBox(
                         height: 10,
                       ),
@@ -191,13 +222,222 @@ class _FCRManualScreenState extends State<FCRManualScreen>
                         ),
                       ),
                     ],
+=======
+                    ),
+                  ],
+                ),
+
+                SizedBox(
+                  height: 3.h,
+                ),
+                Center(
+                  child: Image.asset(
+                    "assets/images/1234.png",
+                    fit: BoxFit.fitHeight,
+                    width: 100.w,
+                    // height: 420,
+                    //color: Colors.purple,
+>>>>>>> 2ab7fb82a3aa48aca97b0bbe113771059f0ee0dd
                   ),
                 ),
-              ),
+                SizedBox(
+                  height: 3.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'startcount'.tr,
+                      style: TextStyle(
+                          color: mPrimaryColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      height: 25,
+                      width: 30.w,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: mPrimaryColor,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Text(
+                        startCount.toString(),
+                        style: TextStyle(
+                            color: mNewColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 1.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'totalMoartal'.tr,
+                      style: TextStyle(
+                          color: mPrimaryColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      height: 25,
+                      width: 30.w,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: mPrimaryColor,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Text(
+                        mortal.toString(),
+                        style: TextStyle(
+                            color: mNewColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 1.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'totallive'.tr,
+                      style: TextStyle(
+                          color: mPrimaryColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      height: 25,
+                      width: 30.w,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: mPrimaryColor,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Text(
+                        (startCount - mortal).toString(),
+                        style: TextStyle(
+                            color: mNewColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 1.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "totalfeedweight".tr,
+                      style: TextStyle(
+                          color: mPrimaryColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      height: 25,
+                      width: 30.w,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: mPrimaryColor,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Text(
+                        (noBag * avgBagWeight).toString() + " kg",
+                        style: TextStyle(
+                            color: mNewColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Center(
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 6.h,
+                    width: 60.w,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: mNewColor2,
+                        width: 5.0,
+                      ),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    child: Text(
+                      "FCR = " +
+                          (noBag *
+                                  avgBagWeight *
+                                  1000 /
+                                  ((startCount - mortal) * avgWeight))
+                              .toStringAsFixed(4),
+                      style: TextStyle(
+                          color: mNewColor,
+                          fontSize: 4.h,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        setState(() {
+                          startCount = int.parse(widget.totalChicksNavi);
+                          mortal = widget.mortalNavi;
+                          avgWeight = num.parse(_avgWeightController.text);
+                          noBag = num.parse(_numberofBagController.text);
+                          avgBagWeight = num.parse(_bagWeightController.text);
+                        });
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(200, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      primary: mPrimaryColor,
+                      elevation: 20,
+                      shadowColor: mSecondColor,
+                      textStyle: TextStyle(
+                        fontSize: 3.5.h,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    child: Text("calculate".tr),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 

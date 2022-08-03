@@ -11,12 +11,14 @@ import 'package:sizer/sizer.dart';
 
 class DeleteFeedScreen extends StatefulWidget {
   final String id_flock;
-  String startDateNavi;
+  final String startDateNavi;
+  final String strainNavi;
   // const AddBodyWeight({Key? key}) : super(key: key);
   DeleteFeedScreen({
     Key? key,
     required this.id_flock,
     required this.startDateNavi,
+    required this.strainNavi,
   }) : super(key: key);
 
   @override

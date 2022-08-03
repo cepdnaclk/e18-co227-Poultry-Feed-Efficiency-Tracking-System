@@ -11,12 +11,14 @@ import 'package:sizer/sizer.dart';
 
 class UpdateBodyWeight extends StatefulWidget {
   final String id_flock;
-  String startDateNavi;
+  final String startDateNavi;
+  final String strainNavi;
   // const AddBodyWeight({Key? key}) : super(key: key);
   UpdateBodyWeight({
     Key? key,
     required this.id_flock,
     required this.startDateNavi,
+    required this.strainNavi,
   }) : super(key: key);
 
   @override
@@ -34,11 +36,6 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
   final TextEditingController _datecontroller = TextEditingController();
   final TextEditingController _numcontroller = TextEditingController();
 
-  ///weightDataCobb500 = ViewScreen;
-  double translateX = 0.0;
-  double translateY = 0.0;
-  double scale = 1;
-  bool toggle = false;
   late StreamBuilder _widget;
 
   @override
