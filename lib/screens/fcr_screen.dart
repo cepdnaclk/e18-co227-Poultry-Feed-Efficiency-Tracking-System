@@ -149,7 +149,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                     },
                     //icon: Icon(Icons.menu),
                   ),
-                  title: Text("FCR CALCULATION"),
+                  title: Text("FCRCalculation".tr),
                   backgroundColor: mPrimaryColor,
                 ),
                 body: Column(
@@ -258,7 +258,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    child: Text("Calculate FCR"),
+                                    child: Text("calculatefcr".tr),
                                   ),
                                 ),
                                 SizedBox(
@@ -269,7 +269,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "   Start Date: ",
+                                      "startdate".tr,
                                       style: TextStyle(
                                           fontSize: 15, color: mPrimaryColor),
                                     ),
@@ -297,7 +297,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "   Type: ",
+                                      "type".tr,
                                       style: TextStyle(
                                           fontSize: 15, color: mPrimaryColor),
                                     ),
@@ -325,7 +325,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "   Days: ",
+                                      "days".tr,
                                       style: TextStyle(
                                           fontSize: 15, color: mPrimaryColor),
                                     ),
@@ -353,7 +353,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "   Ideal weight of a chick: ",
+                                      "idealWeight".tr,
                                       style: TextStyle(
                                           fontSize: 15, color: mPrimaryColor),
                                     ),
@@ -381,7 +381,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "   Ideal feed weight per chick: ",
+                                      "idealFeed".tr,
                                       style: TextStyle(
                                           fontSize: 15, color: mPrimaryColor),
                                     ),
@@ -417,7 +417,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                                             BorderRadius.circular(10.0),
                                       ),
                                       child: Text(
-                                        "Expected FCR: " +
+                                        "expectedfcr".tr +
                                             (idealFeedperchick /
                                                     idealWeightperchick)
                                                 .toStringAsPrecision(3),
