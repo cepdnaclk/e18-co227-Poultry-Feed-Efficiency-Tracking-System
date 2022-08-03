@@ -9,6 +9,7 @@ import 'package:home_login/screens/selectBodyWeight.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/manualFCR.dart';
 import 'package:sizer/sizer.dart';
+import 'package:home_login/screens/strain.dart' as strainList;
 
 import 'drawerMenu.dart';
 
@@ -20,8 +21,14 @@ class FCRScreen extends StatefulWidget {
 }
 
 class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
+  String startDate = '';
+  String strainType = '';
+  List<strainList.PoultryData> weightDataStrain = [];
+  List<strainList.PoultryData> feedtDataStrain = [];
+
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
   final TextEditingController _datecontroller = TextEditingController();
   double translateX = 0.0;
   double translateY = 0.0;
@@ -30,6 +37,9 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
   late AnimationController _animationController;
   int mortal = 0, s_count = 0;
   String totalChick = '';
+  int days = 0;
+  num idealWeightperchick = 0;
+  num idealFeedperchick = 0;
   // num feedbag = 0, bagWeight = 0;
   // num avgWeight = 0;
 
@@ -47,28 +57,6 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return Stack(
       children: [
-        StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection('Farmers')
-                .doc(FirebaseAuth.instance.currentUser!.uid)
-                .collection('flock')
-                .where(FieldPath.documentId, isEqualTo: args.flockID)
-                .snapshots(), // your stream url,
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (!snapshot.hasData) {
-                return CircularProgressIndicator();
-              } else {
-                //print(snapshot.toString());
-                mortal = snapshot.data?.docs[0]['Mortal'];
-                totalChick = snapshot.data?.docs[0]['count'];
-                s_count = int.parse(totalChick);
-                print(mortal);
-                print(totalChick);
-              }
-
-              return Container(); // Your grid code.
-            }),
         //Feed intake
         // StreamBuilder(
         //     stream: FirebaseFirestore.instance
@@ -168,56 +156,129 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('Farmers')
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .collection('flock')
+                            .where(FieldPath.documentId,
+                                isEqualTo: args.flockID)
+                            .snapshots(), // your stream url,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (!snapshot.hasData) {
+                            return CircularProgressIndicator();
+                          } else {
+                            //print(snapshot.toString());
+                            mortal = snapshot.data?.docs[0]['Mortal'];
+                            totalChick = snapshot.data?.docs[0]['count'];
+                            startDate = snapshot.data?.docs[0]['startdays'];
+                            strainType = snapshot.data?.docs[0]['strain'];
+                            days = date
+                                .difference(DateTime.parse(startDate))
+                                .inDays;
+                            //print(_list[13].valueOf(13));
+                            if (strainType == 'Cobb 500 - Broiler') {
+                              weightDataStrain =
+                                  strainList.PoultryData.weightDataCobb500;
+                              feedtDataStrain =
+                                  strainList.PoultryData.feedDataCobb500;
+                            } else if (strainType == 'Ross 308 - Broiler') {
+                              weightDataStrain =
+                                  strainList.PoultryData.weightDataRoss308;
+                              feedtDataStrain =
+                                  strainList.PoultryData.feedDataRoss308;
+                            } else if (strainType == 'Dekalb White - Layer') {
+                              weightDataStrain =
+                                  strainList.PoultryData.weightDataDekalbWhite;
+                              feedtDataStrain =
+                                  strainList.PoultryData.feedDataDekalbWhite;
+                            } else if (strainType == 'Shaver Brown - Layer') {
+                              weightDataStrain =
+                                  strainList.PoultryData.weightDataShaverBrown;
+                              feedtDataStrain =
+                                  strainList.PoultryData.feedDataShavorBrown;
+                            }
+
+                            s_count = int.parse(totalChick);
+                            idealWeightperchick =
+                                weightDataStrain[days].valueOf(days);
+                            idealFeedperchick =
+                                feedtDataStrain[days].valueOf(days);
+
+                            print(mortal);
+                            print(totalChick);
+                            print(startDate);
+                            print(strainType);
+                          }
+
+                          return Container(
+                            child: Column(children: [
+                              SizedBox(
+                                height: 15.h,
+                              ),
+                              Center(
+                                child: Image.asset(
+                                  "assets/images/FCR-new.png",
+                                  fit: BoxFit.fitWidth,
+                                  width: context.width * 0.65,
+                                  // height: 420,
+                                  //color: Colors.purple,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              Center(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => FCRManualScreen(
+                                          mortalNavi: mortal,
+                                          totalChicksNavi: totalChick,
+                                        ),
+                                      ),
+                                    );
+                                    //displayFCRdialog();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    fixedSize: const Size(300, 50),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                    primary: mPrimaryColor,
+                                    elevation: 20,
+                                    shadowColor: mSecondColor,
+                                    textStyle: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  child: Text("Calculate FCR Manually"),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 30.0,
+                              ),
+                              Text("Start Date: " + startDate),
+                              Text("Type: " + strainType),
+                              Text("Days: " + days.toString()),
+                              Text("Weight of a chick: " +
+                                  idealWeightperchick.toString() +
+                                  " g"),
+                              Text("Feed weight per chick: " +
+                                  idealFeedperchick.toString() +
+                                  " g"),
+                              Text("Expected FCR = " +
+                                  (idealFeedperchick / idealWeightperchick)
+                                      .toStringAsPrecision(3)),
+                            ]),
+                          ); // Your grid code.
+                        }),
                     //reuseTextField("Mortality"),
 
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Center(
-                      child: Image.asset(
-                        "assets/images/FCR-new.png",
-                        fit: BoxFit.fitWidth,
-                        width: context.width * 0.65,
-                        // height: 420,
-                        //color: Colors.purple,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => FCRManualScreen(
-                                mortalNavi: mortal,
-                                totalChicksNavi: totalChick,
-                              ),
-                            ),
-                          );
-                          //displayFCRdialog();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(300, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          primary: mPrimaryColor,
-                          elevation: 20,
-                          shadowColor: mSecondColor,
-                          textStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        child: Text("Calculate FCR Manually"),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30.0,
-                    ),
                     // Row(
                     //   //mainAxisAlignment: MainAxisAlignment.start,
                     //   crossAxisAlignment: CrossAxisAlignment.start,
