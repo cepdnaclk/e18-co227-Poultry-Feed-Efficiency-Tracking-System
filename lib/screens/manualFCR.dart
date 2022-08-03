@@ -100,7 +100,7 @@ class _FCRManualScreenState extends State<FCRManualScreen>
                         padding: const EdgeInsets.symmetric(
                             horizontal: 6.0, vertical: 10.0),
                         child: reuseTextField("Avg. weight of a chick",
-                            _avgWeightController, "g"),
+                            _avgWeightController, "kg"),
                       ),
                       Row(
                         //mainAxisAlignment: MainAxisAlignment.start,
