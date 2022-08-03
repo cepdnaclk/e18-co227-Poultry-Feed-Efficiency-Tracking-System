@@ -139,8 +139,8 @@ class DrawerMenu extends StatelessWidget {
                 title: "view".tr,
                 iconName: Icons.view_module,
                 press: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ViewScreen()));
+                  Navigator.pushNamed(context, GridDashboard.routeView,
+                      arguments: ScreenArguments(flockID));
                 }),
             MenuList(
                 title: "language".tr,
