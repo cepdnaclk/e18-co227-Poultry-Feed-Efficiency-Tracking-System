@@ -12,6 +12,7 @@ import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
+import 'package:sizer/sizer.dart';
 import 'drawerMenu.dart';
 
 class MortalityScreen extends StatefulWidget {
@@ -117,7 +118,19 @@ class _MortalityScreenState extends State<MortalityScreen>
                           return Container(); // Your grid code.
                         }),
                     SizedBox(
-                      height: 20,
+                      height: 10.h,
+                    ),
+                    Center(
+                      child: Image.asset(
+                        "assets/images/cccc.png",
+                        fit: BoxFit.fitWidth,
+                        width: context.width * 0.5,
+                        // height: 420,
+                        //color: Colors.purple,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 2.h,
                     ),
                     Center(
                       child: ElevatedButton(
