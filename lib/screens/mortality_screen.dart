@@ -14,14 +14,15 @@ import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
 import 'drawerMenu.dart';
 
-class Mortal extends StatefulWidget {
-  const Mortal({Key? key}) : super(key: key);
+class MortalityScreen extends StatefulWidget {
+  const MortalityScreen({Key? key}) : super(key: key);
 
   @override
-  State<Mortal> createState() => _MortalState();
+  State<MortalityScreen> createState() => _MortalityScreenState();
 }
 
-class _MortalState extends State<Mortal> with TickerProviderStateMixin {
+class _MortalityScreenState extends State<MortalityScreen>
+    with TickerProviderStateMixin {
   List weightDataCobb500 = [];
   String startDate = '';
 
