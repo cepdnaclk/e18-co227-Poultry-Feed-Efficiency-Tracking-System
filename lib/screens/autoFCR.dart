@@ -38,9 +38,9 @@ class _FCRAutoScreenState extends State<FCRAutoScreen> {
   // num feedbag = 0, bagWeight = 0;
   // num avgWeight = 0;
   int mortal = 0, s_count = 0;
-  String totalChick = '', flockID = '';
+  String totalChick = '', flockID = '', strain = '';
   num feedbag = 0, bagWeight = 0;
-  num avgWeight = 0;
+  num avgWeight = 0, numEggs = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +64,11 @@ class _FCRAutoScreenState extends State<FCRAutoScreen> {
                 //print(snapshot.toString());
                 mortal = snapshot.data?.docs[0]['Mortal'];
                 totalChick = snapshot.data?.docs[0]['count'];
+                strain = snapshot.data?.docs[0]['strain'];
                 s_count = int.parse(totalChick);
                 print(mortal);
                 print(totalChick);
+                print(strain);
               }
 
               return Container(); // Your grid code.
@@ -124,6 +126,34 @@ class _FCRAutoScreenState extends State<FCRAutoScreen> {
               } else {
                 //print(snapshot.toString());
                 avgWeight = snapshot.data?.docs[0]['Average_Weight'];
+                print(selectedDate.toString().substring(0, 10) +
+                    avgWeight.toString());
+              }
+
+              return Container(); // Your grid code.
+            }),
+
+        StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection("Farmers")
+                .doc(FirebaseAuth.instance.currentUser!.uid)
+                .collection('flock')
+                .doc(flockID)
+                .collection('NumberofEggs')
+                .where(FieldPath.documentId,
+                    isEqualTo: selectedDate.toString().substring(0, 10))
+                .snapshots(), // your stream url,
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (!snapshot.hasData) {
+                return CircularProgressIndicator();
+              } else if (snapshot.data!.docs.isEmpty ||
+                  snapshot.data!.docs.isEmpty) {
+                return CircularProgressIndicator();
+                //return "Please update the Feed Page";
+              } else {
+                //print(snapshot.toString());
+                numEggs = snapshot.data?.docs[0]['Amount'];
                 print(selectedDate.toString().substring(0, 10) +
                     avgWeight.toString());
               }
@@ -220,9 +250,17 @@ class _FCRAutoScreenState extends State<FCRAutoScreen> {
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
-                        print(selectedDate);
-                        displayFCRdialog(
-                            s_count, mortal, avgWeight, feedbag, bagWeight);
+                        if (strain == "Dekalb White - Layer" ||
+                            strain == "Shaver Brown - Layer") {
+                          print(selectedDate);
+                          displayFCRdialog(
+                              s_count, mortal, numEggs, feedbag, bagWeight);
+                        } else {
+                          print(selectedDate);
+                          displayFCRdialog(
+                              s_count, mortal, avgWeight, feedbag, bagWeight);
+                        }
+
                         //popupDialog(s_count, mortal, flockID);
                         // Navigator.push(
                         //   context,
@@ -254,8 +292,8 @@ class _FCRAutoScreenState extends State<FCRAutoScreen> {
     );
   }
 
-  void displayFCRdialog(
-      int startCount, int mortal, num avgWeight, num noBag, num avgBagWeight) {
+  void displayFCRdialog(int startCount, int mortal, num avgEggsWeight,
+      num noBag, num avgBagWeight) {
     showDialog(
         context: context,
         builder: (builder) {
@@ -275,7 +313,7 @@ class _FCRAutoScreenState extends State<FCRAutoScreen> {
                 (noBag * avgBagWeight).toString() +
                 " kg" +
                 "\n\nFCR = " +
-                (noBag * avgBagWeight / ((startCount - mortal) * avgWeight))
+                (noBag * avgBagWeight / ((startCount - mortal) * avgEggsWeight))
                     .toStringAsFixed(3)),
             actions: [
               TextButton(

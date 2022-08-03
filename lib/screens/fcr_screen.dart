@@ -36,10 +36,14 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
   bool toggle = false;
   late AnimationController _animationController;
   int mortal = 0, s_count = 0;
+<<<<<<< HEAD
+  String totalChick = '', strain = '';
+=======
   String totalChick = '';
   int days = 0;
   num idealWeightperchick = 0;
   num idealFeedperchick = 0;
+>>>>>>> 2ab7fb82a3aa48aca97b0bbe113771059f0ee0dd
   // num feedbag = 0, bagWeight = 0;
   // num avgWeight = 0;
 
@@ -57,6 +61,33 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return Stack(
       children: [
+<<<<<<< HEAD
+        StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection('Farmers')
+                .doc(FirebaseAuth.instance.currentUser!.uid)
+                .collection('flock')
+                .where(FieldPath.documentId, isEqualTo: args.flockID)
+                .snapshots(), // your stream url,
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (!snapshot.hasData) {
+                return CircularProgressIndicator();
+              } else {
+                //print(snapshot.toString());
+                mortal = snapshot.data?.docs[0]['Mortal'];
+                totalChick = snapshot.data?.docs[0]['count'];
+                strain = snapshot.data?.docs[0]['strain'];
+                s_count = int.parse(totalChick);
+                print(mortal);
+                print(totalChick);
+                print(strain);
+              }
+
+              return Container(); // Your grid code.
+            }),
+=======
+>>>>>>> 2ab7fb82a3aa48aca97b0bbe113771059f0ee0dd
         //Feed intake
         // StreamBuilder(
         //     stream: FirebaseFirestore.instance
@@ -156,6 +187,23 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+<<<<<<< HEAD
+                    //reuseTextField("Mortality"),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FCRManualScreen(
+                                mortalNavi: mortal,
+                                totalChicksNavi: totalChick,
+                                strainNavi: strain,
+                              ),
+=======
                     StreamBuilder(
                         stream: FirebaseFirestore.instance
                             .collection('Farmers')
@@ -426,6 +474,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                                       )),
                                 ),
                               ]),
+>>>>>>> 2ab7fb82a3aa48aca97b0bbe113771059f0ee0dd
                             ),
                           ); // Your grid code.
                         }),
