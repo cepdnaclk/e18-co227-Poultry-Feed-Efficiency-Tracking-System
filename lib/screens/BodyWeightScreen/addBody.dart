@@ -130,6 +130,83 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
                       );
                     }
                   }),
+              Row(
+                //mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6.0, vertical: 15.0),
+                      child: reusableTextField3(
+                          date.toString().substring(0, 10),
+                          Icons.date_range,
+                          false,
+                          _datecontroller,
+                          null,
+                          false),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6.0, vertical: 15.0),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          DateTime? ndate = await showDatePicker(
+                            context: context,
+                            initialDate: date,
+                            firstDate: DateTime(2022),
+                            lastDate: DateTime.now(),
+                            builder: (context, child) {
+                              return Theme(
+                                data: Theme.of(context).copyWith(
+                                  colorScheme: ColorScheme.light(
+                                    primary: mNewColor,
+                                    onPrimary: Colors.white, // <-- SEE HERE
+                                    onSurface: mSecondColor, // <-- SEE HERE
+                                  ),
+                                  textButtonTheme: TextButtonThemeData(
+                                    style: TextButton.styleFrom(
+                                      primary:
+                                          mPrimaryColor, // button text color
+                                    ),
+                                  ),
+                                ),
+                                child: child!,
+                              );
+                            },
+                          );
+                          if (ndate == null) return;
+                          if (ndate.difference(startDate).inDays < 0) return;
+                          setState(() => date = ndate);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(180, 50),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              side: BorderSide(
+                                width: 2.0,
+                                color: mPrimaryColor,
+                              )),
+                          primary: mBackgroundColor,
+                          elevation: 20,
+                          shadowColor: Colors.transparent,
+                          textStyle: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        child: Text(
+                          "pickDate".tr,
+                          style: TextStyle(color: Colors.black38),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
               Center(
                 child: Container(
                   alignment: Alignment.center,
@@ -215,82 +292,6 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
 
                 child: reusableTextField2("avgWeightofChick".tr, Icons.numbers,
                     false, _numcontroller, null, "g"),
-              ),
-              Row(
-                //mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 6.0, vertical: 15.0),
-                      child: reusableTextField3(
-                          date.toString().substring(0, 10),
-                          Icons.date_range,
-                          false,
-                          _datecontroller,
-                          null,
-                          false),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 6.0, vertical: 15.0),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          DateTime? ndate = await showDatePicker(
-                            context: context,
-                            initialDate: date,
-                            firstDate: DateTime(2022),
-                            lastDate: DateTime.now(),
-                            builder: (context, child) {
-                              return Theme(
-                                data: Theme.of(context).copyWith(
-                                  colorScheme: ColorScheme.light(
-                                    primary: mNewColor,
-                                    onPrimary: Colors.white, // <-- SEE HERE
-                                    onSurface: mSecondColor, // <-- SEE HERE
-                                  ),
-                                  textButtonTheme: TextButtonThemeData(
-                                    style: TextButton.styleFrom(
-                                      primary:
-                                          mPrimaryColor, // button text color
-                                    ),
-                                  ),
-                                ),
-                                child: child!,
-                              );
-                            },
-                          );
-                          if (ndate == null) return;
-                          if (ndate.difference(startDate).inDays < 0) return;
-                          setState(() => date = ndate);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(180, 50),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                              side: BorderSide(
-                                width: 2.0,
-                                color: mPrimaryColor,
-                              )),
-                          primary: mBackgroundColor,
-                          elevation: 20,
-                          shadowColor: Colors.transparent,
-                          textStyle: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        child: Text(
-                          "pickDate".tr,
-                          style: TextStyle(color: Colors.black38),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
               ),
 
               SizedBox(

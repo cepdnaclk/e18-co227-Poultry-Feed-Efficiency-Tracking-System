@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       },
                       //icon: Icon(Icons.menu),
                     ),
-                    title: Text('home'.tr),
+                    title: Text('Home'),
                     // backgroundColor: mPrimaryColor,
                     actions: <Widget>[
                       IconButton(
@@ -167,46 +167,108 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     const SizedBox(
                                       height: 2,
                                     ),
-                                    Text(
-                                      "Farm   ".tr + " : " + widget.farmName,
-                                      style: TextStyle(
-                                        color: mTitleTextColor,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          width: 60,
+                                          child: Text(
+                                            "Farm",
+                                            style: TextStyle(
+                                              color: mTitleTextColor,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          " : " + widget.farmName,
+                                          style: TextStyle(
+                                            color: mTitleTextColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     const SizedBox(
                                       height: 2,
                                     ),
-                                    Text(
-                                      "Branch".tr + " : " + widget.branchName,
-                                      style: TextStyle(
-                                        color: mTitleTextColor,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 60,
+                                          child: Text(
+                                            "Branch",
+                                            style: TextStyle(
+                                              color: mTitleTextColor,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          " : " + widget.branchName,
+                                          style: TextStyle(
+                                            color: mTitleTextColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     const SizedBox(
                                       height: 2,
                                     ),
-                                    Text(
-                                      "Shed   ".tr + " : " + widget.shedName,
-                                      style: TextStyle(
-                                        color: mTitleTextColor,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 60,
+                                          child: Text(
+                                            "Shed",
+                                            style: TextStyle(
+                                              color: mTitleTextColor,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          " : " + widget.shedName,
+                                          style: TextStyle(
+                                            color: mTitleTextColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     const SizedBox(
                                       height: 2,
                                     ),
-                                    Text(
-                                      "Flock  ".tr + " : " + widget.flockName,
-                                      style: TextStyle(
-                                        color: mTitleTextColor,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 60,
+                                          child: Text(
+                                            "Flock",
+                                            style: TextStyle(
+                                              color: mTitleTextColor,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          " : " + widget.flockName,
+                                          style: TextStyle(
+                                            color: mTitleTextColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),

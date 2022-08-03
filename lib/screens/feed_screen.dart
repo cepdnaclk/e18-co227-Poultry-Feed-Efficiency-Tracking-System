@@ -116,11 +116,11 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                           return Container(); // Your grid code.
                         }),
                     SizedBox(
-                      height: 10.h,
+                      height: 15.h,
                     ),
                     Center(
                       child: Image.asset(
-                        "assets/images/cccc.png",
+                        "assets/images/feed-new.png",
                         fit: BoxFit.fitWidth,
                         width: context.width * 0.5,
                         // height: 420,
