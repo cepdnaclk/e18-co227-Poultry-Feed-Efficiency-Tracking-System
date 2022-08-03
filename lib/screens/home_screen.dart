@@ -172,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
-                                          width: 60,
+                                          width: 65,
                                           child: Text(
                                             "Farm",
                                             style: TextStyle(
@@ -198,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     Row(
                                       children: [
                                         Container(
-                                          width: 60,
+                                          width: 65,
                                           child: Text(
                                             "Branch",
                                             style: TextStyle(
@@ -224,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     Row(
                                       children: [
                                         Container(
-                                          width: 60,
+                                          width: 65,
                                           child: Text(
                                             "Shed",
                                             style: TextStyle(
@@ -250,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     Row(
                                       children: [
                                         Container(
-                                          width: 60,
+                                          width: 65,
                                           child: Text(
                                             "Flock",
                                             style: TextStyle(

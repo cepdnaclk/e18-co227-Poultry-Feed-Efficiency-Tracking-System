@@ -232,7 +232,7 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
                 children: [
                   Text(
                     "   Ideal " + widget.strainNavi + " avg weight",
-                    style: TextStyle(fontSize: 17, color: mPrimaryColor),
+                    style: TextStyle(fontSize: 15, color: mPrimaryColor),
                   ),
                   Container(
                     alignment: Alignment.center,
@@ -259,7 +259,7 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
                 children: [
                   Text(
                     "   Start Date",
-                    style: TextStyle(fontSize: 17, color: mPrimaryColor),
+                    style: TextStyle(fontSize: 15, color: mPrimaryColor),
                   ),
                   Container(
                     alignment: Alignment.center,
