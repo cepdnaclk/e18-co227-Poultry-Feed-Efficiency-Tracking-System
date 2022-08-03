@@ -147,7 +147,7 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
                 //child: reuseTextField1("Number of chicks"),
 
                 child: reusableTextField2("avgWeightofChick".tr, Icons.numbers,
-                    false, _numcontroller, null),
+                    false, _numcontroller, null, "g"),
               ),
               Row(
                 //mainAxisAlignment: MainAxisAlignment.start,

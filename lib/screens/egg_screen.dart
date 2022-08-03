@@ -133,7 +133,7 @@ class _EggScreenState extends State<EggScreen> with TickerProviderStateMixin {
                       //child: reuseTextField1("Number of chicks"),
 
                       child: reusableTextField2("Enter Number of eggs".tr,
-                          Icons.numbers, false, _numcontroller, null),
+                          Icons.numbers, false, _numcontroller, null, ""),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,

@@ -100,7 +100,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                 //child: reuseTextField1("Number of chicks"),
 
                 child: reusableTextField2("noofBags".tr, Icons.numbers, false,
-                    _numcontrollerBags, null),
+                    _numcontrollerBags, null, ""),
               ),
               SizedBox(
                 height: 10.0,
@@ -111,7 +111,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                 //child: reuseTextField1("Number of chicks"),
 
                 child: reusableTextField2("bagWeight".tr, Icons.numbers, false,
-                    _numcontrollerBagWeight, null),
+                    _numcontrollerBagWeight, null, "kg"),
               ),
               Row(
                 //mainAxisAlignment: MainAxisAlignment.start,

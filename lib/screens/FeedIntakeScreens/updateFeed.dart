@@ -326,7 +326,8 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen> {
                                                           10.0),
                                                 ),
                                                 child: Text(
-                                                  "${recordedBag_weight}",
+                                                  "${recordedBag_weight}" +
+                                                      " kg",
                                                   style: TextStyle(
                                                       fontSize: 16,
                                                       color: mPrimaryColor),
@@ -392,7 +393,7 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen> {
                 //child: reuseTextField1("Number of chicks"),
 
                 child: reusableTextField2("noofBags".tr, Icons.numbers, false,
-                    _numcontrollerBags, null),
+                    _numcontrollerBags, null, ""),
               ),
               SizedBox(
                 height: 5.0,
@@ -403,7 +404,7 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen> {
                 //child: reuseTextField1("Number of chicks"),
 
                 child: reusableTextField2("bagWeight".tr, Icons.numbers, false,
-                    _numcontrollerBagWeight, null),
+                    _numcontrollerBagWeight, null, "kg"),
               ),
 
               SizedBox(
