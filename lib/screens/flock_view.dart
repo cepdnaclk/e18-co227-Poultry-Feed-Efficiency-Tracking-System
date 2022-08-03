@@ -137,7 +137,7 @@ class _FlockScreen extends State<FlockScreen> {
                             padding: const EdgeInsets.only(
                                 top: 20.0, left: 25.0, right: 25),
                             child: Container(
-                              height: MediaQuery.of(context).size.height / 12,
+                              height: MediaQuery.of(context).size.height / 8,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(14.5),
                                 color: Colors.white,
@@ -182,12 +182,128 @@ class _FlockScreen extends State<FlockScreen> {
                                             ),
                                           ),*/
 
-                                          Text(
-                                            " ${document['FlockName']}",
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                            ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              //alignment: Alignment.centerLeft,
+
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  RichText(
+                                                      text: TextSpan(children: [
+                                                    WidgetSpan(
+                                                        child: Icon(
+                                                      Icons.text_fields,
+                                                      size: 16,
+                                                    )),
+                                                    TextSpan(
+                                                      text:
+                                                          " ${document['FlockName']}",
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16,
+                                                      ),
+                                                    )
+                                                  ])),
+                                                  RichText(
+                                                      text: TextSpan(children: [
+                                                    WidgetSpan(
+                                                        child: Icon(
+                                                      Icons.egg,
+                                                      size: 16,
+                                                    )),
+                                                    TextSpan(
+                                                      text:
+                                                          " ${document['strain']}    ",
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16,
+                                                      ),
+                                                    )
+                                                  ])),
+                                                  RichText(
+                                                      text: TextSpan(children: [
+                                                    WidgetSpan(
+                                                        child: Icon(
+                                                      Icons.start,
+                                                      size: 16,
+                                                    )),
+                                                    TextSpan(
+                                                      text:
+                                                          " ${document['birthDate']}",
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16,
+                                                      ),
+                                                    )
+                                                  ])),
+                                                ],
+                                              ),
+                                              SizedBox(),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  RichText(
+                                                      text: TextSpan(children: [
+                                                    WidgetSpan(
+                                                        child: Icon(
+                                                      Icons.numbers,
+                                                      size: 16,
+                                                    )),
+                                                    TextSpan(
+                                                      text:
+                                                          " ${document['count']}",
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16,
+                                                      ),
+                                                    )
+                                                  ])),
+                                                  RichText(
+                                                      text: TextSpan(children: [
+                                                    WidgetSpan(
+                                                        child: Icon(
+                                                      Icons.warning,
+                                                      size: 16,
+                                                    )),
+                                                    TextSpan(
+                                                      text:
+                                                          " ${document['Mortal']}",
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16,
+                                                      ),
+                                                    )
+                                                  ])),
+                                                  RichText(
+                                                      text: TextSpan(children: [
+                                                    WidgetSpan(
+                                                        child: Icon(
+                                                      Icons.app_registration,
+                                                      size: 16,
+                                                    )),
+                                                    TextSpan(
+                                                      text:
+                                                          " ${document['startdays']}",
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16,
+                                                      ),
+                                                    )
+                                                  ])),
+                                                ],
+                                              ),
+                                            ],
                                           ),
                                           PopupMenuButton<int>(
                                               itemBuilder: (context) => [
