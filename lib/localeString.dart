@@ -23,6 +23,22 @@ class LocalString extends Translations {
           'language': 'Language',
           'logout': 'Logout',
 
+          //FCR page
+          'FCRCalculation': 'FCR CALCULATION',
+          'calculatefcr': 'Calculate FCR',
+          'type': '   Type: ',
+          'days': '   Days: ',
+          'idealWeight': '   Ideal weight of a chick: ',
+          'idealFeed': '   Ideal feed weight per chick: ',
+          'expectedfcr': 'Expected FCR: ',
+          'no_bags': 'No. of Feed Bags',
+          'bag_weight': 'Weight per Bag',
+          'startcount': '   Starting Count: ',
+          'totalMoartal': '   Total Mortality:',
+          'totallive': '   Total Chicks Live: ',
+          'totalfeedweight': '   Total Weight of Feed: ',
+          'calculate': 'Calculate',
+
           //bodyWeight
           'bodyWeightSelect': 'BODY WEIGHT',
           'add': 'Add',
@@ -35,6 +51,7 @@ class LocalString extends Translations {
           'addBodyWeight': 'ADD BODY WEIGHT',
           'pickDate': 'Touch to Pick Date',
           'deleteBodyweight': 'DELETE BODY WEIGHT',
+          'avgWeight': ' avg weight',
 
           //feedIntake
           'feedIntakeSelect': 'FEED INTAKE',
@@ -45,6 +62,9 @@ class LocalString extends Translations {
           'recordedBagWeight': 'Recorded Weight of a Bag:',
           'noofBags': 'Number of Feed Bags',
           'bagWeight': 'Weight of a Bag',
+          'startdate': '   Start Date:',
+          'ideal': '   Ideal ',
+          'feed': ' feed',
 
           //home page
           'home': 'Home',
@@ -136,6 +156,22 @@ class LocalString extends Translations {
           'language': 'மொழி',
           'logout': 'வெளியேறு',
 
+          //FCR page
+          'FCRCalculation': 'FCR கணக்கீடு',
+          'calculatefcr': 'கணக்கிடு FCR',
+          'type': '   வகை: ',
+          'days': '   நாட்கள்: ',
+          'idealWeight': '   ஒரு குஞ்சின் எடை: ',
+          'idealFeed': '   ஒரு குஞ்சின் தீவன எடை: ',
+          'expectedfcr': 'எதிர்பார்த்த FCR: ',
+          'no_bags': 'பைகள் தொகை',
+          'bag_weight': 'பையின் எடை',
+          'startcount': '   தொடக்க தொகை: ',
+          'totalMoartal': '   மொத்த இறப்பு:',
+          'totallive': '   வாழும் குஞ்சுகள்: ',
+          'totalfeedweight': '   மொத்த உணவு : ',
+          'calculate': 'கணக்கிடு',
+
           //bodyWeight
           'bodyWeightSelect': 'உடல் எடை',
           'add': 'கூட்டு',
@@ -143,11 +179,12 @@ class LocalString extends Translations {
           'updateBodyWeight': 'உடல் எடையைப் புதுப்பிக்கவும்',
           'selectDate': 'திகதி',
           'selectedDate': 'தேர்ந்தெடுக்கப்பட்ட திகதி:',
-          'recordedweight': 'பதிவு செய்யப்பட்ட சராசரி எடை:',
+          'recordedweight': 'பதிவு செய்த சராசரி எடை:',
           'avgWeightofChick': 'குஞ்சுகளின் சராசரி எடை',
           'addBodyWeight': 'உடல் எடையைச் சேர்க்கவும்',
           'pickDate': 'திகதி',
           'deleteBodyweight': 'உடல் எடையை நீக்கவும்',
+          'avgWeight': ' சராசரி எடை',
 
           //feedIntake
           'feedIntakeSelect': 'உணவு உட்கொள்ளல்',
@@ -155,9 +192,12 @@ class LocalString extends Translations {
           'addfeedIntake': 'உட்கொள்ளலைச் சேர்க்கவும்',
           'deletefeedIntake': 'உட்கொள்ளலை நீக்கவும்',
           'recordedBags': 'பதிவு செய்த பைகள்:',
-          'recordedBagWeight': 'ஒரு பையின் பதிவு செய்த எடை:',
+          'recordedBagWeight': 'ஒரு பையின் பதிந்த எடை:',
           'noofBags': 'பைகளின் எண்ணிக்கை',
           'bagWeight': 'ஒரு பையின் எடை',
+          'startdate': '   தொடக்க தேதி',
+          'ideal': '   ',
+          'feed': ' உணவு',
 
           //home
           'home': 'வீடு',
@@ -261,18 +301,35 @@ class LocalString extends Translations {
           'language': 'භාෂාව',
           'logout': 'පිටවීම',
 
+          //FCR page
+          'FCRCalculation': 'FCR ගණනය කිරීම',
+          'calculatefcr': 'FCR ගණනය',
+          'type': '   ටයිප්: ',
+          'days': '   දවස්: ',
+          'idealWeight': '   පැටියෙකුගේ අයිඩියල් බර: ',
+          'idealFeed': '   පැටියෙකුගේ කදිම කෑම බර: ',
+          'expectedfcr': 'අපේක්ෂා කර FCR: ',
+          'no_bags': 'ආහාර මලු ගණන',
+          'bag_weight': 'බෑගයක බර',
+          'startcount': '   ආරම්භක ගණන: ',
+          'totalMoartal': '   සම්පූර්ණ මරණ:',
+          'totallive': '   මුළු පැටවුන් සජීවීව: ',
+          'totalfeedweight': '   ආහාරයේ සම්පූර්ණ බර:',
+          'calculate': 'ගණනය',
+
           //bodyWeight
           'bodyWeightSelect': 'ශරීර බර',
           'add': 'එකතු කරන්න',
           'update': 'යාවත්කාලීන',
           'updateBodyWeight': 'ශරීර බර යාවත්කාලීන කරන්න',
-          'selectDate': 'දිනය තෝරන්න',
+          'selectDate': 'දිනය',
           'selectedDate': 'තෝරාගත් දිනය:',
           'recordedweight': 'වාර්තාගත සාමාන්ය බර:',
           'avgWeightofChick': 'පැටවෙකුගේ සාමාන්ය බර',
           'addBodyWeight': 'ශරීර බර එකතු කරන්න',
           'pickDate': 'දිනය',
           'deleteBodyweight': 'සිරුරේ බර මකන්න',
+          'avgWeight': ' සාමා.බර',
 
           //feedIntake
           'feedIntakeSelect': 'ආහාර ගැනීම',
@@ -283,6 +340,9 @@ class LocalString extends Translations {
           'recordedBagWeight': 'බෑගයක වාර්තාගත බර:',
           'noofBags': 'ආහාර මලු ගණන',
           'bagWeight': 'බෑගයක බර',
+          'startdate': '   ආරම්භක දිනය',
+          'ideal': '   කදිම ',
+          'feed': ' ආහාර',
 
           //home
           'home': 'නිවස',
@@ -293,10 +353,10 @@ class LocalString extends Translations {
 
           //selection page
           'batch_Selection': "කණ්ඩායම් තේරීම",
-          'Choose your Farm': 'ඔබේ ගොවිපල තෝරන්න',
-          'Choose your Branch': 'ඔබේ ශාඛාව තෝරන්න   ',
-          'Choose your Shed': 'ඔබේ මඩුව තෝරන්න      ',
-          'Choose your Flock': 'ඔබේ රැළ තෝරන්න        ',
+          'Choose your Farm': 'ගොවිපල තෝරන්න',
+          'Choose your Branch': 'ශාඛාව තෝරන්න   ',
+          'Choose your Shed': 'මඩුව තෝරන්න      ',
+          'Choose your Flock': 'රැළ තෝරන්න        ',
           'Proceed': 'ඉදිරියට යන්න',
 
           //gridboard

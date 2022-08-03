@@ -223,7 +223,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "   Ideal " + widget.strainNavi + " feed:",
+                    "ideal".tr + widget.strainNavi + "feed".tr,
                     style: TextStyle(fontSize: 17, color: mPrimaryColor),
                   ),
                   Container(
@@ -249,7 +249,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "   Start Date",
+                    "startdate".tr,
                     style: TextStyle(fontSize: 17, color: mPrimaryColor),
                   ),
                   Container(

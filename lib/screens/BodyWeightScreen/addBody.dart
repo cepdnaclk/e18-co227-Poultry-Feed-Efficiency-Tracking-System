@@ -231,7 +231,7 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "   Ideal " + widget.strainNavi + " avg weight",
+                    "ideal".tr + widget.strainNavi + "avgWeight".tr,
                     style: TextStyle(fontSize: 15, color: mPrimaryColor),
                   ),
                   Container(

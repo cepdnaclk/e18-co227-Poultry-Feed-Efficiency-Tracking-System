@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:home_login/constants.dart';
 import 'package:sizer/sizer.dart';
 
@@ -35,7 +36,7 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
         key: formKey,
         child: Scaffold(
           appBar: AppBar(
-            title: Text("FCR CALCULATION Manual"),
+            title: Text("FCRCalculation".tr),
             backgroundColor: mPrimaryColor,
           ),
           body: SingleChildScrollView(
@@ -55,7 +56,7 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 6.0, vertical: 10.0),
                   child: reuseTextField(
-                      "Avg. weight of a chick", _avgWeightController, "g"),
+                      "avgWeightofChick".tr, _avgWeightController, "g"),
                 ),
                 Row(
                   //mainAxisAlignment: MainAxisAlignment.start,
@@ -66,7 +67,7 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 6.0, vertical: 15.0),
                         child: reuseTextField(
-                            "No. of Feed Bags", _numberofBagController, ""),
+                            "no_bags".tr, _numberofBagController, ""),
                       ),
                     ),
                     Expanded(
@@ -74,7 +75,7 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 6.0, vertical: 15.0),
                         child: reuseTextField(
-                            "Weight per bag", _bagWeightController, "kg"),
+                            "bag_weight".tr, _bagWeightController, "kg"),
                       ),
                     ),
                   ],
@@ -99,7 +100,7 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '   Starting Count: ',
+                      'startcount'.tr,
                       style: TextStyle(
                           color: mPrimaryColor,
                           fontSize: 20,
@@ -132,7 +133,7 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '   Total Mortality:',
+                      'totalMoartal'.tr,
                       style: TextStyle(
                           color: mPrimaryColor,
                           fontSize: 20,
@@ -165,7 +166,7 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '   Total Chicks Live: ',
+                      'totallive'.tr,
                       style: TextStyle(
                           color: mPrimaryColor,
                           fontSize: 20,
@@ -198,7 +199,7 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "   Total Weight of Feed: ",
+                      "totalfeedweight".tr,
                       style: TextStyle(
                           color: mPrimaryColor,
                           fontSize: 20,
@@ -270,7 +271,7 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(180, 50),
+                      fixedSize: const Size(200, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
@@ -282,7 +283,7 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    child: Text("Calculate"),
+                    child: Text("calculate".tr),
                   ),
                 ),
               ],
