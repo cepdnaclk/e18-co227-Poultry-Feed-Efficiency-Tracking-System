@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             GridDashboard.routeFCR: (context) => const FCRScreen(),
             GridDashboard.routeFeed: (context) => const FeedScreen(),
             '/farm': (context) => FarmView(),
-            GridDashboard.routeMortal: (context) => const MortalityScreen(),
+            GridDashboard.routeMortal: (context) => const Mortal(),
             GridDashboard.routeWeight: (context) => const BodyWeight(),
             GridDashboard.routeView: (context) => ViewScreen(),
             //'/view': (context) => const ViewScreen(),
