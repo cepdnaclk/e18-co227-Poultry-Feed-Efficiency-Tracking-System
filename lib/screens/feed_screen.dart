@@ -25,6 +25,7 @@ class FeedScreen extends StatefulWidget {
 class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
   List weightDataCobb500 = [];
   String startDate = '';
+  String strainType = '';
 
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
@@ -103,6 +104,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                           } else {
                             //print(snapshot.toString());
                             startDate = snapshot.data?.docs[0]['startdays'];
+                            strainType = snapshot.data?.docs[0]['strain'];
                             //print(startDate);
                             updateFeedIntake(args.flockID, 0.4.toString(),
                                 50.toString(), startDate);
@@ -137,6 +139,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                               builder: (context) => UpdateFeedScreen(
                                 id_flock: args.flockID,
                                 startDateNavi: startDate,
+                                strainNavi: strainType,
                               ),
                             ),
                           );
@@ -167,8 +170,11 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  AddFeedScreen(id_flock: args.flockID),
+                              builder: (context) => AddFeedScreen(
+                                id_flock: args.flockID,
+                                startDateNavi: startDate,
+                                strainNavi: strainType,
+                              ),
                             ),
                           );
                         },
@@ -207,6 +213,7 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                               builder: (context) => DeleteFeedScreen(
                                 id_flock: args.flockID,
                                 startDateNavi: startDate,
+                                strainNavi: strainType,
                               ),
                             ),
                           );

@@ -36,11 +36,6 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
   final TextEditingController _datecontroller = TextEditingController();
   final TextEditingController _numcontroller = TextEditingController();
 
-  ///weightDataCobb500 = ViewScreen;
-  double translateX = 0.0;
-  double translateY = 0.0;
-  double scale = 1;
-  bool toggle = false;
   late StreamBuilder _widget;
 
   @override

@@ -41,7 +41,7 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
   final TextEditingController _datecontroller = TextEditingController();
   final TextEditingController _numcontroller = TextEditingController();
 
-  List<strainList.PoultryData> _list = strainList.PoultryData.feedDataCobb500;
+  //List<strainList.PoultryData> _list = strainList.PoultryData.feedDataCobb500;
   @override
   void initState() {
     startDate = DateTime.parse(widget.startDateNavi);
@@ -65,7 +65,7 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
       weightDataStrain = strainList.PoultryData.weightDataShaverBrown;
       feedtDataStrain = strainList.PoultryData.feedDataShavorBrown;
     }
-    print(_list[days].valueOf(days));
+    //print(_list[days].valueOf(days));
 
     // strainList.PoultryData chick = weightDataCobb500[20];
 
