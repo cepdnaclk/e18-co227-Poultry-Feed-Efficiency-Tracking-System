@@ -6,13 +6,19 @@ import 'package:home_login/constants.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
+import 'package:home_login/screens/strain.dart' as strainList;
+import 'package:sizer/sizer.dart';
 
 class AddFeedScreen extends StatefulWidget {
   final String id_flock;
+  final String startDateNavi;
+  final String strainNavi;
   // const AddBodyWeight({Key? key}) : super(key: key);
   AddFeedScreen({
     Key? key,
     required this.id_flock,
+    required this.startDateNavi,
+    required this.strainNavi,
   }) : super(key: key);
 
   @override
@@ -20,6 +26,13 @@ class AddFeedScreen extends StatefulWidget {
 }
 
 class _AddFeedScreenState extends State<AddFeedScreen> {
+  List<strainList.PoultryData> weightDataStrain = [];
+  List<strainList.PoultryData> feedtDataStrain = [];
+
+  late DateTime startDate;
+  int days = 0;
+  int index = 0;
+
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
@@ -28,7 +41,28 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
   final TextEditingController _numcontrollerBagWeight = TextEditingController();
 
   @override
+  void initState() {
+    startDate = DateTime.parse(widget.startDateNavi);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    days = date.difference(startDate).inDays;
+    //print(_list[13].valueOf(13));
+    if (widget.strainNavi == 'Cobb 500 - Broiler') {
+      weightDataStrain = strainList.PoultryData.weightDataCobb500;
+      feedtDataStrain = strainList.PoultryData.feedDataCobb500;
+    } else if (widget.strainNavi == 'Ross 308 - Broiler') {
+      weightDataStrain = strainList.PoultryData.weightDataRoss308;
+      feedtDataStrain = strainList.PoultryData.feedDataRoss308;
+    } else if (widget.strainNavi == 'Dekalb White - Layer') {
+      weightDataStrain = strainList.PoultryData.weightDataDekalbWhite;
+      feedtDataStrain = strainList.PoultryData.feedDataDekalbWhite;
+    } else if (widget.strainNavi == 'Shaver Brown - Layer') {
+      weightDataStrain = strainList.PoultryData.weightDataShaverBrown;
+      feedtDataStrain = strainList.PoultryData.feedDataShavorBrown;
+    }
     //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -46,7 +80,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 20.0,
+                height: 1.h,
               ),
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
@@ -89,30 +123,6 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                       );
                     }
                   }),
-
-              //reuseTextField("Mortality"),
-              SizedBox(
-                height: 20.0,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
-                //child: reuseTextField1("Number of chicks"),
-
-                child: reusableTextField2("noofBags".tr, Icons.numbers, false,
-                    _numcontrollerBags, null, ""),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
-                //child: reuseTextField1("Number of chicks"),
-
-                child: reusableTextField2("bagWeight".tr, Icons.numbers, false,
-                    _numcontrollerBagWeight, null, "kg"),
-              ),
               Row(
                 //mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,6 +171,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                             },
                           );
                           if (ndate == null) return;
+                          if (ndate.difference(startDate).inDays < 0) return;
                           setState(() => date = ndate);
                         },
                         style: ElevatedButton.styleFrom(
@@ -188,9 +199,103 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                   ),
                 ],
               ),
+              Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 5.h,
+                  width: 30.w,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: mPrimaryColor,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Text(
+                    "Days: " + days.toString(),
+                    style: TextStyle(fontSize: 18, color: mNewColor),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "   Ideal " + widget.strainNavi + " feed/chick:",
+                    style: TextStyle(fontSize: 17, color: mPrimaryColor),
+                  ),
+                  Container(
+                      alignment: Alignment.center,
+                      height: 25,
+                      width: 30.w,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: mPrimaryColor,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Text(
+                        feedtDataStrain[days].valueOf(days).toString() + " g",
+                        style: TextStyle(fontSize: 17, color: mNewColor),
+                      )),
+                ],
+              ),
+              SizedBox(
+                height: 1.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "   Start Date",
+                    style: TextStyle(fontSize: 17, color: mPrimaryColor),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 25,
+                    width: 30.w,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: mPrimaryColor,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Text(
+                      widget.startDateNavi,
+                      style: TextStyle(fontSize: 17, color: mNewColor),
+                    ),
+                  ),
+                ],
+              ),
+
+              //reuseTextField("Mortality"),
+              SizedBox(
+                height: 20.0,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
+                //child: reuseTextField1("Number of chicks"),
+
+                child: reusableTextField2("noofBags".tr, Icons.numbers, false,
+                    _numcontrollerBags, null, ""),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
+                //child: reuseTextField1("Number of chicks"),
+
+                child: reusableTextField2("bagWeight".tr, Icons.numbers, false,
+                    _numcontrollerBagWeight, null, "kg"),
+              ),
 
               SizedBox(
-                height: 30,
+                height: 1.h,
               ),
               Center(
                 child: Image.asset(
@@ -202,7 +307,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                 ),
               ),
               SizedBox(
-                height: 50,
+                height: 1.h,
               ),
               Center(
                 child: ElevatedButton(

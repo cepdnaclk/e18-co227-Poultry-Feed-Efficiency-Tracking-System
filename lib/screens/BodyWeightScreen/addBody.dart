@@ -8,6 +8,7 @@ import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
 import 'package:home_login/screens/strain.dart' as strainList;
+import 'package:sizer/sizer.dart';
 
 class AddBodyWeight extends StatefulWidget {
   final String id_flock;
@@ -40,7 +41,7 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
   final TextEditingController _datecontroller = TextEditingController();
   final TextEditingController _numcontroller = TextEditingController();
 
-  List<strainList.PoultryData> _list = strainList.PoultryData.feedDataCobb500;
+  //List<strainList.PoultryData> _list = strainList.PoultryData.feedDataCobb500;
   @override
   void initState() {
     startDate = DateTime.parse(widget.startDateNavi);
@@ -64,7 +65,7 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
       weightDataStrain = strainList.PoultryData.weightDataShaverBrown;
       feedtDataStrain = strainList.PoultryData.feedDataShavorBrown;
     }
-    print(_list[days].valueOf(days));
+    //print(_list[days].valueOf(days));
 
     // strainList.PoultryData chick = weightDataCobb500[20];
 
@@ -129,26 +130,6 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
                       );
                     }
                   }),
-              Text(
-                "Days: " + days.toString(),
-              ),
-              Text("Expected avg weight: " +
-                  weightDataStrain[days].valueOf(days).toString()),
-              // Text("Expected feed intake: " +
-              //     weightDataStrain[index].valueOf(days).toString()),
-
-              //reuseTextField("Mortality"),
-              SizedBox(
-                height: 20.0,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
-                //child: reuseTextField1("Number of chicks"),
-
-                child: reusableTextField2("avgWeightofChick".tr, Icons.numbers,
-                    false, _numcontroller, null, "g"),
-              ),
               Row(
                 //mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -224,6 +205,93 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
                     ),
                   ),
                 ],
+              ),
+
+              Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 5.h,
+                  width: 30.w,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: mPrimaryColor,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Text(
+                    "Days: " + days.toString(),
+                    style: TextStyle(fontSize: 18, color: mNewColor),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "   Ideal " + widget.strainNavi + " avg weight",
+                    style: TextStyle(fontSize: 17, color: mPrimaryColor),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 25,
+                    width: 30.w,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: mPrimaryColor,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Text(
+                      weightDataStrain[days].valueOf(days).toString() + " g",
+                      style: TextStyle(fontSize: 17, color: mNewColor),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 1.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "   Start Date",
+                    style: TextStyle(fontSize: 17, color: mPrimaryColor),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 25,
+                    width: 30.w,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: mPrimaryColor,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Text(
+                      widget.startDateNavi,
+                      style: TextStyle(fontSize: 17, color: mNewColor),
+                    ),
+                  ),
+                ],
+              ),
+              // Text("Expected feed intake: " +
+              //     weightDataStrain[index].valueOf(days).toString()),
+
+              //reuseTextField("Mortality"),
+              SizedBox(
+                height: 20.0,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
+                //child: reuseTextField1("Number of chicks"),
+
+                child: reusableTextField2("avgWeightofChick".tr, Icons.numbers,
+                    false, _numcontroller, null, "g"),
               ),
 
               SizedBox(
