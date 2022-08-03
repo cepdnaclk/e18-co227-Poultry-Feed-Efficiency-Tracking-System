@@ -7,6 +7,7 @@ import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/strain.dart' as strainList;
+import 'package:sizer/sizer.dart';
 
 class AddFeedScreen extends StatefulWidget {
   final String id_flock;
@@ -79,7 +80,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 20.0,
+                height: 1.h,
               ),
               StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
@@ -122,35 +123,6 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                       );
                     }
                   }),
-              Text(
-                "Days: " + days.toString(),
-              ),
-              Text("Expected feed: " +
-                  feedtDataStrain[days].valueOf(days).toString()),
-
-              //reuseTextField("Mortality"),
-              SizedBox(
-                height: 20.0,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
-                //child: reuseTextField1("Number of chicks"),
-
-                child: reusableTextField2("noofBags".tr, Icons.numbers, false,
-                    _numcontrollerBags, null, ""),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
-                //child: reuseTextField1("Number of chicks"),
-
-                child: reusableTextField2("bagWeight".tr, Icons.numbers, false,
-                    _numcontrollerBagWeight, null, "kg"),
-              ),
               Row(
                 //mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -227,9 +199,103 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                   ),
                 ],
               ),
+              Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 5.h,
+                  width: 30.w,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: mPrimaryColor,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Text(
+                    "Days: " + days.toString(),
+                    style: TextStyle(fontSize: 18, color: mNewColor),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "   Ideal " + widget.strainNavi + " feed/chick:",
+                    style: TextStyle(fontSize: 17, color: mPrimaryColor),
+                  ),
+                  Container(
+                      alignment: Alignment.center,
+                      height: 25,
+                      width: 30.w,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: mPrimaryColor,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Text(
+                        feedtDataStrain[days].valueOf(days).toString() + " g",
+                        style: TextStyle(fontSize: 17, color: mNewColor),
+                      )),
+                ],
+              ),
+              SizedBox(
+                height: 1.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "   Start Date",
+                    style: TextStyle(fontSize: 17, color: mPrimaryColor),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 25,
+                    width: 30.w,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: mPrimaryColor,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Text(
+                      widget.startDateNavi,
+                      style: TextStyle(fontSize: 17, color: mNewColor),
+                    ),
+                  ),
+                ],
+              ),
+
+              //reuseTextField("Mortality"),
+              SizedBox(
+                height: 20.0,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
+                //child: reuseTextField1("Number of chicks"),
+
+                child: reusableTextField2("noofBags".tr, Icons.numbers, false,
+                    _numcontrollerBags, null, ""),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
+                //child: reuseTextField1("Number of chicks"),
+
+                child: reusableTextField2("bagWeight".tr, Icons.numbers, false,
+                    _numcontrollerBagWeight, null, "kg"),
+              ),
 
               SizedBox(
-                height: 30,
+                height: 1.h,
               ),
               Center(
                 child: Image.asset(
@@ -241,7 +307,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                 ),
               ),
               SizedBox(
-                height: 50,
+                height: 1.h,
               ),
               Center(
                 child: ElevatedButton(

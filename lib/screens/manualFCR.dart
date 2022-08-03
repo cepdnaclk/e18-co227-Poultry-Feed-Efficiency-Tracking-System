@@ -293,7 +293,8 @@ class _FCRManualScreenState extends State<FCRManualScreen>
                             child: Text(
                               "FCR = " +
                                   (noBag *
-                                          avgBagWeight /
+                                          avgBagWeight *
+                                          1000 /
                                           ((startCount - mortal) * avgWeight))
                                       .toStringAsFixed(4),
                               style: TextStyle(

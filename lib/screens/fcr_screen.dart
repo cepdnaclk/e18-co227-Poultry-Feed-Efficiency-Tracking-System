@@ -295,34 +295,34 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                     //     ),
                     //   ],
                     // ),
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          print(date);
-                          popupDialog(s_count, mortal, args.flockID);
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => FCRAutoScreen(),
-                          //   ),
-                          // );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(300, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          primary: mPrimaryColor,
-                          elevation: 20,
-                          shadowColor: mSecondColor,
-                          textStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        child: Text("Calculate FCR automatically"),
-                      ),
-                    ),
+                    // Center(
+                    //   child: ElevatedButton(
+                    //     onPressed: () {
+                    //       print(date);
+                    //       popupDialog(s_count, mortal, args.flockID);
+                    //       // Navigator.push(
+                    //       //   context,
+                    //       //   MaterialPageRoute(
+                    //       //     builder: (context) => FCRAutoScreen(),
+                    //       //   ),
+                    //       // );
+                    //     },
+                    //     style: ElevatedButton.styleFrom(
+                    //       fixedSize: const Size(300, 50),
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(30.0),
+                    //       ),
+                    //       primary: mPrimaryColor,
+                    //       elevation: 20,
+                    //       shadowColor: mSecondColor,
+                    //       textStyle: TextStyle(
+                    //         fontSize: 20,
+                    //         fontWeight: FontWeight.bold,
+                    //       ),
+                    //     ),
+                    //     child: Text("Calculate FCR automatically"),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
