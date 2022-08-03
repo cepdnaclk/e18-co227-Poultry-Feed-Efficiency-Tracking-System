@@ -116,7 +116,19 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                           return Container(); // Your grid code.
                         }),
                     SizedBox(
-                      height: 25.h,
+                      height: 10.h,
+                    ),
+                    Center(
+                      child: Image.asset(
+                        "assets/images/cccc.png",
+                        fit: BoxFit.fitWidth,
+                        width: context.width * 0.5,
+                        // height: 420,
+                        //color: Colors.purple,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 2.h,
                     ),
                     Center(
                       child: ElevatedButton(
