@@ -8,6 +8,7 @@ import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
 import 'package:home_login/screens/strain.dart' as strainList;
+import 'package:sizer/sizer.dart';
 
 class AddBodyWeight extends StatefulWidget {
   final String id_flock;
@@ -129,11 +130,77 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
                       );
                     }
                   }),
-              Text(
-                "Days: " + days.toString(),
+              Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 5.h,
+                  width: 30.w,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: mPrimaryColor,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Text(
+                    "Days: " + days.toString(),
+                    style: TextStyle(fontSize: 18, color: mNewColor),
+                  ),
+                ),
               ),
-              Text("Expected avg weight: " +
-                  weightDataStrain[days].valueOf(days).toString()),
+              SizedBox(
+                height: 2.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "   Ideal " + widget.strainNavi + " avg weight",
+                    style: TextStyle(fontSize: 17, color: mPrimaryColor),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 25,
+                    width: 30.w,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: mPrimaryColor,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Text(
+                      weightDataStrain[days].valueOf(days).toString() + " g",
+                      style: TextStyle(fontSize: 17, color: mNewColor),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 1.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "   Start Date",
+                    style: TextStyle(fontSize: 17, color: mPrimaryColor),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 25,
+                    width: 30.w,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: mPrimaryColor,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Text(
+                      widget.startDateNavi,
+                      style: TextStyle(fontSize: 17, color: mNewColor),
+                    ),
+                  ),
+                ],
+              ),
               // Text("Expected feed intake: " +
               //     weightDataStrain[index].valueOf(days).toString()),
 

@@ -120,15 +120,10 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                     ),
                     Center(
                       child: Image.asset(
-                        "assets/images/cccc.png",
+                        "assets/images/weight-new.png",
                         fit: BoxFit.fitWidth,
-                        width: context.width * 0.5,
-                        // height: 420,
-                        //color: Colors.purple,
+                        width: 80.w,
                       ),
-                    ),
-                    SizedBox(
-                      height: 2.h,
                     ),
                     Center(
                       child: ElevatedButton(
