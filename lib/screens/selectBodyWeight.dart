@@ -22,6 +22,7 @@ class BodyWeight extends StatefulWidget {
 class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
   List weightDataCobb500 = [];
   String startDate = '';
+  String strainType = '';
 
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
@@ -103,6 +104,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                           } else {
                             //print(snapshot.toString());
                             startDate = snapshot.data?.docs[0]['startdays'];
+                            strainType = snapshot.data?.docs[0]['strain'];
                             //print(startDate);
                             addBodyWeight(
                                 args.flockID, 40.toString(), startDate);
@@ -125,6 +127,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                               builder: (context) => UpdateBodyWeight(
                                 id_flock: args.flockID,
                                 startDateNavi: startDate,
+                                strainNavi: strainType,
                               ),
                             ),
                           );
@@ -155,8 +158,11 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  AddBodyWeight(id_flock: args.flockID),
+                              builder: (context) => AddBodyWeight(
+                                id_flock: args.flockID,
+                                startDateNavi: startDate,
+                                strainNavi: strainType,
+                              ),
                             ),
                           );
                         },
@@ -195,6 +201,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                               builder: (context) => DeleteBodyWeight(
                                 id_flock: args.flockID,
                                 startDateNavi: startDate,
+                                strainNavi: strainType,
                               ),
                             ),
                           );
