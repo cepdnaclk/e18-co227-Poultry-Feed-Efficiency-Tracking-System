@@ -213,68 +213,220 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                           }
 
                           return Container(
-                            child: Column(children: [
-                              SizedBox(
-                                height: 15.h,
-                              ),
-                              Center(
-                                child: Image.asset(
-                                  "assets/images/FCR-new.png",
-                                  fit: BoxFit.fitWidth,
-                                  width: context.width * 0.65,
-                                  // height: 420,
-                                  //color: Colors.purple,
+                            child: SingleChildScrollView(
+                              child: Column(children: [
+                                SizedBox(
+                                  height: 10.h,
                                 ),
-                              ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Center(
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => FCRManualScreen(
-                                          mortalNavi: mortal,
-                                          totalChicksNavi: totalChick,
-                                        ),
-                                      ),
-                                    );
-                                    //displayFCRdialog();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    fixedSize: const Size(300, 50),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                    ),
-                                    primary: mPrimaryColor,
-                                    elevation: 20,
-                                    shadowColor: mSecondColor,
-                                    textStyle: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                Center(
+                                  child: Image.asset(
+                                    "assets/images/FCR-new.png",
+                                    fit: BoxFit.fitWidth,
+                                    width: context.width * 0.65,
+                                    // height: 420,
+                                    //color: Colors.purple,
                                   ),
-                                  child: Text("Calculate FCR Manually"),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 30.0,
-                              ),
-                              Text("Start Date: " + startDate),
-                              Text("Type: " + strainType),
-                              Text("Days: " + days.toString()),
-                              Text("Weight of a chick: " +
-                                  idealWeightperchick.toString() +
-                                  " g"),
-                              Text("Feed weight per chick: " +
-                                  idealFeedperchick.toString() +
-                                  " g"),
-                              Text("Expected FCR = " +
-                                  (idealFeedperchick / idealWeightperchick)
-                                      .toStringAsPrecision(3)),
-                            ]),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                                Center(
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => FCRManualScreen(
+                                            mortalNavi: mortal,
+                                            totalChicksNavi: totalChick,
+                                          ),
+                                        ),
+                                      );
+                                      //displayFCRdialog();
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      fixedSize: const Size(200, 50),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
+                                      primary: mPrimaryColor,
+                                      elevation: 20,
+                                      shadowColor: mSecondColor,
+                                      textStyle: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    child: Text("Calculate FCR"),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 3.h,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "   Start Date: ",
+                                      style: TextStyle(
+                                          fontSize: 15, color: mPrimaryColor),
+                                    ),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        height: 25,
+                                        width: 40.w,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: mPrimaryColor,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        child: Text(
+                                          startDate,
+                                          style: TextStyle(
+                                              fontSize: 15, color: mNewColor),
+                                        )),
+                                  ],
+                                ),
+                                SizedBox(height: 1.h),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "   Type: ",
+                                      style: TextStyle(
+                                          fontSize: 15, color: mPrimaryColor),
+                                    ),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        height: 25,
+                                        width: 40.w,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: mPrimaryColor,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        child: Text(
+                                          strainType,
+                                          style: TextStyle(
+                                              fontSize: 15, color: mNewColor),
+                                        )),
+                                  ],
+                                ),
+                                SizedBox(height: 1.h),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "   Days: ",
+                                      style: TextStyle(
+                                          fontSize: 15, color: mPrimaryColor),
+                                    ),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        height: 25,
+                                        width: 40.w,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: mPrimaryColor,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        child: Text(
+                                          days.toString(),
+                                          style: TextStyle(
+                                              fontSize: 15, color: mNewColor),
+                                        )),
+                                  ],
+                                ),
+                                SizedBox(height: 1.h),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "   Ideal weight of a chick: ",
+                                      style: TextStyle(
+                                          fontSize: 15, color: mPrimaryColor),
+                                    ),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        height: 25,
+                                        width: 40.w,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: mPrimaryColor,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        child: Text(
+                                          idealWeightperchick.toString() + " g",
+                                          style: TextStyle(
+                                              fontSize: 15, color: mNewColor),
+                                        )),
+                                  ],
+                                ),
+                                SizedBox(height: 1.h),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "   Ideal feed weight per chick: ",
+                                      style: TextStyle(
+                                          fontSize: 15, color: mPrimaryColor),
+                                    ),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        height: 25,
+                                        width: 40.w,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: mPrimaryColor,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        child: Text(
+                                          idealFeedperchick.toString() + " g",
+                                          style: TextStyle(
+                                              fontSize: 15, color: mNewColor),
+                                        )),
+                                  ],
+                                ),
+                                SizedBox(height: 2.h),
+                                Center(
+                                  child: Container(
+                                      alignment: Alignment.center,
+                                      height: 5.h,
+                                      width: 75.w,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: mPrimaryColor,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Text(
+                                        "Expected FCR: " +
+                                            (idealFeedperchick /
+                                                    idealWeightperchick)
+                                                .toStringAsPrecision(3),
+                                        style: TextStyle(
+                                            fontSize: 2.5.h, color: mNewColor),
+                                      )),
+                                ),
+                              ]),
+                            ),
                           ); // Your grid code.
                         }),
                     //reuseTextField("Mortality"),
