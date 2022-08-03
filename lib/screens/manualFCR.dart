@@ -8,12 +8,14 @@ import 'drawerMenu.dart';
 class FCRManualScreen extends StatefulWidget {
   final String totalChicksNavi;
   final int mortalNavi;
+  final String strainNavi;
 
   //const FCRManualScreen({Key? key}) : super(key: key);
   FCRManualScreen({
     Key? key,
     required this.totalChicksNavi,
     required this.mortalNavi,
+    required this.strainNavi,
   }) : super(key: key);
 
   @override
@@ -24,7 +26,8 @@ class _FCRManualScreenState extends State<FCRManualScreen>
     with TickerProviderStateMixin {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   int startCount = 0, mortal = 0;
-  num avgWeight = 0, noBag = 0, avgBagWeight = 0;
+  num avgWeight = 0, noBag = 0, avgBagWeight = 0, avgEggs = 0;
+  String text = '', unit = '';
 
   double translateX = 0.0;
   double translateY = 0.0;
@@ -41,11 +44,20 @@ class _FCRManualScreenState extends State<FCRManualScreen>
     super.initState();
   }
 
-  final TextEditingController _avgWeightController = TextEditingController();
+  final TextEditingController _avgEggWeightController = TextEditingController();
   final TextEditingController _numberofBagController = TextEditingController();
   final TextEditingController _bagWeightController = TextEditingController();
+  // final TextEditingController _avgeggController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    if (widget.strainNavi == "Dekalb White - Layer" ||
+        widget.strainNavi == "Shaver Brown - Layer") {
+      text = "Totla number of eggs per a flock";
+      unit = " ";
+    } else {
+      text = "Avg. weight of a chick";
+      unit = "g";
+    }
     return Stack(
       children: [
         //DrawerMenu(),
@@ -85,7 +97,7 @@ class _FCRManualScreenState extends State<FCRManualScreen>
                       },
                       //icon: Icon(Icons.menu),
                     ),
-                    title: Text("FCR CALCULATION Manual"),
+                    title: Text("FCR CALCULATION Manually"),
                     backgroundColor: mPrimaryColor,
                   ),
                   body: Column(
@@ -96,11 +108,12 @@ class _FCRManualScreenState extends State<FCRManualScreen>
                       SizedBox(
                         height: 30.0,
                       ),
+
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 6.0, vertical: 10.0),
-                        child: reuseTextField("Avg. weight of a chick",
-                            _avgWeightController, "g"),
+                        child:
+                            reuseTextField(text, _avgEggWeightController, unit),
                       ),
                       Row(
                         //mainAxisAlignment: MainAxisAlignment.start,
@@ -130,10 +143,12 @@ class _FCRManualScreenState extends State<FCRManualScreen>
                       Center(
                         child: ElevatedButton(
                           onPressed: () {
-                            if (formKey.currentState!.validate()) {
+                            if (formKey.currentState!.validate() ||
+                                widget.strainNavi == "Dekalb White - Layer" ||
+                                widget.strainNavi == "Shaver Brown - Layer") {
                               startCount = int.parse(widget.totalChicksNavi);
                               mortal = widget.mortalNavi;
-                              avgWeight = num.parse(_avgWeightController.text);
+                              avgEggs = num.parse(_avgEggWeightController.text);
                               noBag = num.parse(_numberofBagController.text);
                               avgBagWeight =
                                   num.parse(_bagWeightController.text);
@@ -141,8 +156,22 @@ class _FCRManualScreenState extends State<FCRManualScreen>
                               // print(_avgWeightController.text);
                               // print(_bagWeightController.text);
                               // print(_numberofBagController.text);
-                              displayFCRdialog(startCount, mortal, avgWeight,
+                              displayEggFCRdialog(startCount, mortal, avgEggs,
                                   noBag, avgBagWeight);
+                            } else {
+                              startCount = int.parse(widget.totalChicksNavi);
+                              mortal = widget.mortalNavi;
+                              avgWeight =
+                                  num.parse(_avgEggWeightController.text);
+                              noBag = num.parse(_numberofBagController.text);
+                              avgBagWeight =
+                                  num.parse(_bagWeightController.text);
+                              // print(startCount);
+                              // print(_avgWeightController.text);
+                              // print(_bagWeightController.text);
+                              // print(_numberofBagController.text);
+                              displayWeightFCRdialog(startCount, mortal,
+                                  avgWeight, noBag, avgBagWeight);
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -179,7 +208,7 @@ class _FCRManualScreenState extends State<FCRManualScreen>
   //   return null;
   // }
 
-  void displayFCRdialog(
+  void displayWeightFCRdialog(
       int start, int mortal, num avgWeight, num noBag, num avgBagWeight) {
     showDialog(
         context: context,
@@ -206,7 +235,47 @@ class _FCRManualScreenState extends State<FCRManualScreen>
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  _avgWeightController.clear();
+                  _avgEggWeightController.clear();
+                  _numberofBagController.clear();
+                  _bagWeightController.clear();
+                },
+                child: Text("Close"),
+              ),
+            ],
+            //child: ListView.separated(
+            //shrinkWrap: true,
+          );
+        });
+  }
+
+  void displayEggFCRdialog(
+      int start, int mortal, num avgEggs, num noBag, num avgBagWeight) {
+    showDialog(
+        context: context,
+        builder: (builder) {
+          return AlertDialog(
+            backgroundColor: mBackgroundColor,
+            title: const Text(
+              "Current FCR",
+              textAlign: TextAlign.center,
+            ),
+            content: Text("Starting Count: " +
+                start.toString() +
+                "\nTotal Mortality: " +
+                mortal.toString() +
+                "\nTotal Chicks Live: " +
+                (start - mortal).toString() +
+                "\nTotal Weight of Feed: " +
+                (noBag * avgBagWeight).toString() +
+                " kg" +
+                "\n\nFCR = " +
+                (noBag * avgBagWeight / ((start - mortal) * avgEggs))
+                    .toStringAsFixed(3)),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  _avgEggWeightController.clear();
                   _numberofBagController.clear();
                   _bagWeightController.clear();
                 },

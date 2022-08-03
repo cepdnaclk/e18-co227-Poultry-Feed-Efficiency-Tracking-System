@@ -28,7 +28,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
   bool toggle = false;
   late AnimationController _animationController;
   int mortal = 0, s_count = 0;
-  String totalChick = '';
+  String totalChick = '', strain = '';
   // num feedbag = 0, bagWeight = 0;
   // num avgWeight = 0;
 
@@ -61,9 +61,11 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                 //print(snapshot.toString());
                 mortal = snapshot.data?.docs[0]['Mortal'];
                 totalChick = snapshot.data?.docs[0]['count'];
+                strain = snapshot.data?.docs[0]['strain'];
                 s_count = int.parse(totalChick);
                 print(mortal);
                 print(totalChick);
+                print(strain);
               }
 
               return Container(); // Your grid code.
@@ -180,6 +182,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                               builder: (context) => FCRManualScreen(
                                 mortalNavi: mortal,
                                 totalChicksNavi: totalChick,
+                                strainNavi: strain,
                               ),
                             ),
                           );
