@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:home_login/constants.dart';
+import 'package:sizer/sizer.dart';
 
 import 'drawerMenu.dart';
 
@@ -88,80 +89,258 @@ class _FCRManualScreenState extends State<FCRManualScreen>
                     title: Text("FCR CALCULATION Manual"),
                     backgroundColor: mPrimaryColor,
                   ),
-                  body: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //reuseTextField("Mortality"),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6.0, vertical: 10.0),
-                        child: reuseTextField("Avg. weight of a chick",
-                            _avgWeightController, "kg"),
-                      ),
-                      Row(
-                        //mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6.0, vertical: 15.0),
-                              child: reuseTextField("No. of Feed Bags",
-                                  _numberofBagController, ""),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6.0, vertical: 15.0),
-                              child: reuseTextField(
-                                  "Weight per bag", _bagWeightController, "kg"),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Center(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              startCount = int.parse(widget.totalChicksNavi);
-                              mortal = widget.mortalNavi;
-                              avgWeight = num.parse(_avgWeightController.text);
-                              noBag = num.parse(_numberofBagController.text);
-                              avgBagWeight =
-                                  num.parse(_bagWeightController.text);
-                              // print(startCount);
-                              // print(_avgWeightController.text);
-                              // print(_bagWeightController.text);
-                              // print(_numberofBagController.text);
-                              displayFCRdialog(startCount, mortal, avgWeight,
-                                  noBag, avgBagWeight);
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(180, 50),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            primary: mPrimaryColor,
-                            elevation: 20,
-                            shadowColor: mSecondColor,
-                            textStyle: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          child: Text("Calculate"),
+                  body: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 2.h,
                         ),
-                      ),
-                    ],
+
+                        //reuseTextField("Mortality"),
+                        SizedBox(
+                          height: 30.0,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6.0, vertical: 10.0),
+                          child: reuseTextField("Avg. weight of a chick",
+                              _avgWeightController, "g"),
+                        ),
+                        Row(
+                          //mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 6.0, vertical: 15.0),
+                                child: reuseTextField("No. of Feed Bags",
+                                    _numberofBagController, ""),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 6.0, vertical: 15.0),
+                                child: reuseTextField("Weight per bag",
+                                    _bagWeightController, "kg"),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        Center(
+                          child: Image.asset(
+                            "assets/images/1234.png",
+                            fit: BoxFit.fitHeight,
+                            width: 100.w,
+                            // height: 420,
+                            //color: Colors.purple,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '   Starting Count: ',
+                              style: TextStyle(
+                                  color: mPrimaryColor,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              height: 25,
+                              width: 30.w,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: mPrimaryColor,
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Text(
+                                startCount.toString(),
+                                style: TextStyle(
+                                    color: mNewColor,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 1.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '   Total Mortality:',
+                              style: TextStyle(
+                                  color: mPrimaryColor,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              height: 25,
+                              width: 30.w,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: mPrimaryColor,
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Text(
+                                mortal.toString(),
+                                style: TextStyle(
+                                    color: mNewColor,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 1.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '   Total Chicks Live: ',
+                              style: TextStyle(
+                                  color: mPrimaryColor,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              height: 25,
+                              width: 30.w,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: mPrimaryColor,
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Text(
+                                (startCount - mortal).toString(),
+                                style: TextStyle(
+                                    color: mNewColor,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 1.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "   Total Weight of Feed: ",
+                              style: TextStyle(
+                                  color: mPrimaryColor,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              height: 25,
+                              width: 30.w,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: mPrimaryColor,
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Text(
+                                (noBag * avgBagWeight).toString() + " kg",
+                                style: TextStyle(
+                                    color: mNewColor,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Center(
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 6.h,
+                            width: 60.w,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: mNewColor2,
+                                width: 5.0,
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child: Text(
+                              "FCR = " +
+                                  (noBag *
+                                          avgBagWeight /
+                                          ((startCount - mortal) * avgWeight))
+                                      .toStringAsFixed(4),
+                              style: TextStyle(
+                                  color: mNewColor,
+                                  fontSize: 4.h,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Center(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                setState(() {
+                                  startCount =
+                                      int.parse(widget.totalChicksNavi);
+                                  mortal = widget.mortalNavi;
+                                  avgWeight =
+                                      num.parse(_avgWeightController.text);
+                                  noBag =
+                                      num.parse(_numberofBagController.text);
+                                  avgBagWeight =
+                                      num.parse(_bagWeightController.text);
+                                });
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: const Size(180, 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              primary: mPrimaryColor,
+                              elevation: 20,
+                              shadowColor: mSecondColor,
+                              textStyle: TextStyle(
+                                fontSize: 3.5.h,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            child: Text("Calculate"),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
