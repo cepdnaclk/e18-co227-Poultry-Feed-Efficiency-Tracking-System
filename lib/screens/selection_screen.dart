@@ -75,45 +75,49 @@ class _SelectionScreenState extends State<SelectionScreen> {
                         //Icon(FontAwesomeIcons.coins,
                         //size: 25.0, color: Color(0xff11b719)),
                         //SizedBox(width: 10.0),
-                        DropdownButton<String>(
-                          alignment: Alignment.centerLeft,
-                          items: farmItems,
-                          onChanged: (farmValue) {
-                            final snackBar = SnackBar(
-                              content: Text(
-                                'Selected farm is $farmValue',
-                                //style: TextStyle(color: Color(0xff11b719)),
-                                style: TextStyle(color: mTitleTextColor),
+                        SizedBox(
+                          width: 200,
+                          child: DropdownButton<String>(
+                            alignment: Alignment.centerLeft,
+                            items: farmItems,
+                            onChanged: (farmValue) {
+                              final snackBar = SnackBar(
+                                content: Text(
+                                  'Selected farm is $farmValue',
+                                  //style: TextStyle(color: Color(0xff11b719)),
+                                  style: TextStyle(color: mTitleTextColor),
+                                ),
+                              );
+
+                              //Scaffold.of(context).showSnackBar(snackBar);
+                              setState(() {
+                                selectedFarm = farmValue!;
+                                //farmName = getFarm(selectedFarm.toString());
+                                void getFarm() async {
+                                  final doc = await FirebaseFirestore.instance
+                                      .collection('Farmers')
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                      .collection('Farms')
+                                      .doc(selectedFarm)
+                                      .get();
+
+                                  farmName = doc['Name'];
+                                  setState(() {});
+                                }
+
+                                getFarm();
+                                //farmName = ;
+                              });
+                            },
+                            value: selectedFarm,
+                            isExpanded: false,
+                            hint: new Text(
+                              'Choose your Farm'.tr,
+                              style: TextStyle(
+                                color: mPrimaryColor,
+                                fontSize: 17,
                               ),
-                            );
-
-                            //Scaffold.of(context).showSnackBar(snackBar);
-                            setState(() {
-                              selectedFarm = farmValue!;
-                              //farmName = getFarm(selectedFarm.toString());
-                              void getFarm() async {
-                                final doc = await FirebaseFirestore.instance
-                                    .collection('Farmers')
-                                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                                    .collection('Farms')
-                                    .doc(selectedFarm)
-                                    .get();
-
-                                farmName = doc['Name'];
-                                setState(() {});
-                              }
-
-                              getFarm();
-                              //farmName = ;
-                            });
-                          },
-                          value: selectedFarm,
-                          isExpanded: false,
-                          hint: new Text(
-                            'Choose your Farm'.tr,
-                            style: TextStyle(
-                              color: mPrimaryColor,
-                              fontSize: 17,
                             ),
                           ),
                         ),

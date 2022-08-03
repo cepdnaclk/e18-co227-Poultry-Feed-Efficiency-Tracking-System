@@ -8,6 +8,7 @@ import 'package:home_login/screens/autoFCR.dart';
 import 'package:home_login/screens/selectBodyWeight.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/manualFCR.dart';
+import 'package:sizer/sizer.dart';
 
 import 'drawerMenu.dart';
 
@@ -168,8 +169,21 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     //reuseTextField("Mortality"),
+
                     SizedBox(
-                      height: 30.0,
+                      height: 15.h,
+                    ),
+                    Center(
+                      child: Image.asset(
+                        "assets/images/FCR-new.png",
+                        fit: BoxFit.fitWidth,
+                        width: context.width * 0.65,
+                        // height: 420,
+                        //color: Colors.purple,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5.h,
                     ),
                     Center(
                       child: ElevatedButton(

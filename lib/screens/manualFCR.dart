@@ -99,8 +99,8 @@ class _FCRManualScreenState extends State<FCRManualScreen>
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 6.0, vertical: 10.0),
-                        child: reuseTextField(
-                            "Avg. weight of a chick", _avgWeightController),
+                        child: reuseTextField("Avg. weight of a chick",
+                            _avgWeightController, "kg"),
                       ),
                       Row(
                         //mainAxisAlignment: MainAxisAlignment.start,
@@ -110,8 +110,8 @@ class _FCRManualScreenState extends State<FCRManualScreen>
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 6.0, vertical: 15.0),
-                              child: reuseTextField(
-                                  "No. of Feed Bags", _numberofBagController),
+                              child: reuseTextField("No. of Feed Bags",
+                                  _numberofBagController, ""),
                             ),
                           ),
                           Expanded(
@@ -119,7 +119,7 @@ class _FCRManualScreenState extends State<FCRManualScreen>
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 6.0, vertical: 15.0),
                               child: reuseTextField(
-                                  "Weight per bag", _bagWeightController),
+                                  "Weight per bag", _bagWeightController, "kg"),
                             ),
                           ),
                         ],
@@ -220,7 +220,8 @@ class _FCRManualScreenState extends State<FCRManualScreen>
   }
 }
 
-TextFormField reuseTextField(String text, TextEditingController controller) {
+TextFormField reuseTextField(
+    String text, TextEditingController controller, String unit) {
   return TextFormField(
     controller: controller,
     validator: (value) {
@@ -229,6 +230,7 @@ TextFormField reuseTextField(String text, TextEditingController controller) {
       }
     },
     decoration: InputDecoration(
+      suffixText: unit,
       labelText: text,
       labelStyle: TextStyle(color: Colors.black38),
       filled: true,

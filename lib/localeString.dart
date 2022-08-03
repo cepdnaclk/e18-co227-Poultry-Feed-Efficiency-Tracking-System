@@ -19,7 +19,7 @@ class LocalString extends Translations {
           'farmreg': 'Farm Registration',
           'mortality': 'Mortality',
           'body_weight': 'Body Weight',
-          'view': 'View',
+          'view': 'Analytics',
           'language': 'Language',
           'logout': 'Logout',
 

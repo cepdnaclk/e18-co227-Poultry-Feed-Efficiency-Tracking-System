@@ -9,6 +9,7 @@ import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
+import 'package:sizer/sizer.dart';
 import 'drawerMenu.dart';
 
 class BodyWeight extends StatefulWidget {
@@ -21,6 +22,7 @@ class BodyWeight extends StatefulWidget {
 class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
   List weightDataCobb500 = [];
   String startDate = '';
+  String strainType = '';
 
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
@@ -102,6 +104,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                           } else {
                             //print(snapshot.toString());
                             startDate = snapshot.data?.docs[0]['startdays'];
+                            strainType = snapshot.data?.docs[0]['strain'];
                             //print(startDate);
                             addBodyWeight(
                                 args.flockID, 40.toString(), startDate);
@@ -113,7 +116,19 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                           return Container(); // Your grid code.
                         }),
                     SizedBox(
-                      height: 20,
+                      height: 10.h,
+                    ),
+                    Center(
+                      child: Image.asset(
+                        "assets/images/cccc.png",
+                        fit: BoxFit.fitWidth,
+                        width: context.width * 0.5,
+                        // height: 420,
+                        //color: Colors.purple,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 2.h,
                     ),
                     Center(
                       child: ElevatedButton(
@@ -124,6 +139,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                               builder: (context) => UpdateBodyWeight(
                                 id_flock: args.flockID,
                                 startDateNavi: startDate,
+                                strainNavi: strainType,
                               ),
                             ),
                           );
@@ -154,8 +170,11 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  AddBodyWeight(id_flock: args.flockID),
+                              builder: (context) => AddBodyWeight(
+                                id_flock: args.flockID,
+                                startDateNavi: startDate,
+                                strainNavi: strainType,
+                              ),
                             ),
                           );
                         },
@@ -194,6 +213,7 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                               builder: (context) => DeleteBodyWeight(
                                 id_flock: args.flockID,
                                 startDateNavi: startDate,
+                                strainNavi: strainType,
                               ),
                             ),
                           );

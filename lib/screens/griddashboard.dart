@@ -54,7 +54,7 @@ class _GridDashboardState extends State<GridDashboard> {
 
   Items item6 = Items(
     title: "view".tr,
-    img: "assets/images/view.png",
+    img: "assets/images/analytics2.png",
     routeName: '/view',
   );
 

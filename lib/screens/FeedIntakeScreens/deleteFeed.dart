@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:home_login/constants.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/view_screen.dart';
-//import 'drawerMenu.dart';
+import 'package:sizer/sizer.dart';
 
 class DeleteFeedScreen extends StatefulWidget {
   final String id_flock;
@@ -22,8 +23,7 @@ class DeleteFeedScreen extends StatefulWidget {
   State<DeleteFeedScreen> createState() => _DeleteFeedScreenState();
 }
 
-class _DeleteFeedScreenState extends State<DeleteFeedScreen>
-    with TickerProviderStateMixin {
+class _DeleteFeedScreenState extends State<DeleteFeedScreen> {
   List<DropdownMenuItem<String>> dateItems = [];
   String selectedDate = "";
   num recordedNo_Bag = 0;
@@ -35,412 +35,409 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen>
   final TextEditingController _datecontroller = TextEditingController();
   final TextEditingController _numcontroller = TextEditingController();
 
-  ///weightDataCobb500 = ViewScreen;
-  double translateX = 0.0;
-  double translateY = 0.0;
-  double scale = 1;
-  bool toggle = false;
-  late AnimationController _animationController;
+  late StreamBuilder _widget;
+
   @override
   void initState() {
     selectedDate = widget.startDateNavi;
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
+
+    _widget = StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection("Farmers")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('flock')
+            .doc(widget.id_flock)
+            .collection('FeedIntake')
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            for (int i = 0; i < snapshot.data!.docs.length; i++) {
+              DocumentSnapshot snap = snapshot.data!.docs[i];
+
+              double amount = -1;
+              String date;
+              try {
+                // amount =
+                //     snapshot.data?.docs[i]['Average_Weight'];
+                date = snapshot.data!.docs[i].id;
+                //print(date);
+
+                //print(snapshot.data!.docs[i].id);
+
+                //print(amount);
+                //print("----------------------");
+                //print('');
+                //weightDataCurrent.add(PoultryData(i, amount));
+                //dateItems.add(date);
+                dateItems.add(
+                  DropdownMenuItem(
+                    child: Text(
+                      date,
+                      style: TextStyle(color: mPrimaryColor),
+                    ),
+
+                    //value: "${snap.id}",
+                    value: "$date",
+                  ),
+                );
+
+                // print(date);
+
+                //print(dateItems);
+                //amount = 0.0;
+                //print(dateItems);
+              } catch (e) {
+                //amount = -1;
+              }
+            }
+            //print(dateItems);
+            return Container();
+            print(dateItems);
+          }
+        });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-    return Stack(
-      children: [
-        //DrawerMenu(args.flockID),
-        AnimatedContainer(
-          duration: Duration(milliseconds: 500),
-          transform: Matrix4.translationValues(translateX, translateY, 0)
-            ..scale(scale),
-          child: GestureDetector(
-            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-            child: ClipRRect(
-              borderRadius: (toggle)
-                  ? BorderRadius.circular(20)
-                  : BorderRadius.circular(0),
-              child: Scaffold(
-                appBar: AppBar(
-                  leading: IconButton(
-                    icon: AnimatedIcon(
-                      icon: AnimatedIcons.menu_arrow,
-                      progress: _animationController,
-                    ),
-                    onPressed: () {
-                      toggle = !toggle;
-                      if (toggle) {
-                        translateX = 200.0;
-                        translateY = 80.0;
-                        scale = 0.8;
-                        _animationController.forward();
-                      } else {
-                        translateX = 0.0;
-                        translateY = 0.0;
-                        scale = 1;
-                        _animationController.reverse();
-                      }
-                      setState(() {});
-                    },
-                    //icon: Icon(Icons.menu),
-                  ),
-                  title: Text(
-                    "deletefeedIntake".tr,
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  backgroundColor: mPrimaryColor,
-                ),
-                body: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      StreamBuilder<QuerySnapshot>(
-                          stream: FirebaseFirestore.instance
-                              .collection("Farmers")
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .collection('flock')
-                              .doc(widget.id_flock)
-                              .collection('FeedIntake')
-                              .snapshots(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            if (!snapshot.hasData) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else {
-                              //List<String> flockItems;
-
-                              //late final List <ChartData> weightDataCurrent;
-
-                              //final Map<String, int> someMap = {
-
-                              //};
-                              for (int i = 0;
-                                  i < snapshot.data!.docs.length;
-                                  i++) {
-                                DocumentSnapshot snap = snapshot.data!.docs[i];
-
-                                double amount = -1;
-                                String date;
-                                try {
-                                  // amount =
-                                  //     snapshot.data?.docs[i]['Average_Weight'];
-                                  date = snapshot.data!.docs[i].id;
-                                  //print(date);
-
-                                  //print(snapshot.data!.docs[i].id);
-
-                                  //print(amount);
-                                  //print("----------------------");
-                                  //print('');
-                                  //weightDataCurrent.add(PoultryData(i, amount));
-                                  //dateItems.add(date);
-                                  dateItems.add(
-                                    DropdownMenuItem(
-                                      child: Text(
-                                        date,
-                                        style: TextStyle(color: mPrimaryColor),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "deletefeedIntake".tr,
+            style: TextStyle(fontSize: 16),
+          ),
+          backgroundColor: mPrimaryColor,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _widget,
+              StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection("Farmers")
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .collection('flock')
+                      .doc(widget.id_flock)
+                      .collection('FeedIntake')
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      //print(dateItems);
+                      return Container(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 50,
+                            ),
+                            Center(
+                              child: Container(
+                                height: 25,
+                                width: 40.w,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: mPrimaryColor,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: DropdownButton(
+                                    alignment: Alignment.center,
+                                    hint: new Text(
+                                      'selectDate'.tr,
+                                      style: TextStyle(
+                                        color: mPrimaryColor,
+                                        fontSize: 18,
                                       ),
-
-                                      //value: "${snap.id}",
-                                      value: "$date",
                                     ),
-                                  );
-
-                                  // print(date);
-
-                                  //print(dateItems);
-                                  //amount = 0.0;
-                                  //print(dateItems);
-                                } catch (e) {
-                                  //amount = -1;
-                                }
-                              }
-                              //print(dateItems);
-                              return Container(
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 50,
+                                    items: dateItems.toSet().toList(),
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        selectedDate = newValue
+                                            .toString()
+                                            .substring(0, 10);
+                                        //Text(selectedDate);
+                                        print(selectedDate);
+                                      });
+                                    }),
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "    " + "selectedDate".tr,
+                                  style: TextStyle(
+                                      fontSize: 16, color: mPrimaryColor),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  height: 25,
+                                  width: 30.w,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: mPrimaryColor,
                                     ),
-                                    Center(
-                                      child: DropdownButton(
-                                          alignment: Alignment.center,
-                                          hint: new Text(
-                                            'selectDate'.tr,
-                                            style: TextStyle(
-                                              color: mPrimaryColor,
-                                              fontSize: 18,
-                                            ),
-                                          ),
-                                          items: dateItems.toSet().toList(),
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              selectedDate = newValue
-                                                  .toString()
-                                                  .substring(0, 10);
-                                              //Text(selectedDate);
-                                              print(selectedDate);
-                                            });
-                                          }),
-                                    ),
-                                    SizedBox(height: 20),
-                                    Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text(
-                                          "selectedDate".tr,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: mPrimaryColor),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            "${selectedDate}",
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: mPrimaryColor),
-                                          ),
-                                        ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: Text(
+                                    "${selectedDate}",
+                                    style: TextStyle(
+                                        fontSize: 16, color: mPrimaryColor),
+                                  ),
+                                ),
 
-                                        /*TextField(
-                                         decoration: InputDecoration(
-                                           enabledBorder: OutlineInputBorder(
-                                             borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
-                                           ),
-                                           hintText: "$selectedDate" ,
-                                         ),
-                                       )
-                                        */
-                                      ],
-                                    ),
-                                    StreamBuilder<QuerySnapshot>(
-                                        stream: FirebaseFirestore.instance
-                                            .collection("Farmers")
-                                            .doc(FirebaseAuth
-                                                .instance.currentUser!.uid)
-                                            .collection('flock')
-                                            .doc(widget.id_flock)
-                                            .collection('FeedIntake')
-                                            .where(FieldPath.documentId,
-                                                isEqualTo: selectedDate
-                                                    .toString()
-                                                    .substring(0, 10))
-                                            .snapshots(),
-                                        builder: (BuildContext context,
-                                            AsyncSnapshot<QuerySnapshot>
-                                                snapshot) {
-                                          num amount = -1;
-                                          num amount2 = -1;
-                                          try {
-                                            amount = snapshot.data?.docs[0]
-                                                ['Number_of_bags'];
-                                            amount2 = snapshot.data?.docs[0]
-                                                ['Weight_of_a_bag'];
-                                            recordedNo_Bag = amount;
-                                            recordedBag_weight = amount2;
-                                            //print(amount);
-                                          } catch (e) {
-                                            amount = -1;
-                                          }
-                                          if (amount == -1 || amount == 0) {
-                                            return Center(
-                                                // child: Text(
-                                                //   "You haven't recorded average weight for " +
-                                                //       date
-                                                //           .toString()
-                                                //           .substring(0, 10),
-                                                //   textAlign: TextAlign.center,
-                                                //   style: TextStyle(
-                                                //       fontSize: 20,
-                                                //       color: mPrimaryTextColor),
-                                                // ),
-                                                );
-                                          } else {
-                                            return Container(
-                                              child: Column(
-                                                children: [
-                                                  SizedBox(height: 20),
-                                                  Row(
-                                                    children: [
-                                                      SizedBox(
-                                                        width: 20,
-                                                      ),
-                                                      Text(
-                                                        "recordedBags".tr,
-                                                        style: TextStyle(
-                                                            fontSize: 16,
-                                                            color:
-                                                                mPrimaryColor),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      Container(
-                                                        child: Text(
-                                                          "${recordedNo_Bag}",
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              color:
-                                                                  mPrimaryColor),
-                                                        ),
-                                                      ),
-
-                                                      /*TextField(
-                                         decoration: InputDecoration(
-                                           enabledBorder: OutlineInputBorder(
-                                             borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
-                                           ),
-                                           hintText: "$selectedDate" ,
-                                         ),
-                                       )
-                                        */
-                                                    ],
+                                /*TextField(
+                                 decoration: InputDecoration(
+                                   enabledBorder: OutlineInputBorder(
+                                     borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
+                                   ),
+                                   hintText: "$selectedDate" ,
+                                 ),
+                               )
+                                */
+                              ],
+                            ),
+                            StreamBuilder<QuerySnapshot>(
+                                stream: FirebaseFirestore.instance
+                                    .collection("Farmers")
+                                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                                    .collection('flock')
+                                    .doc(widget.id_flock)
+                                    .collection('FeedIntake')
+                                    .where(FieldPath.documentId,
+                                        isEqualTo: selectedDate
+                                            .toString()
+                                            .substring(0, 10))
+                                    .snapshots(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                                  num amount = -1;
+                                  num amount2 = -1;
+                                  try {
+                                    amount = snapshot.data?.docs[0]
+                                        ['Number_of_bags'];
+                                    amount2 = snapshot.data?.docs[0]
+                                        ['Weight_of_a_bag'];
+                                    recordedNo_Bag = amount;
+                                    recordedBag_weight = amount2;
+                                    //print(amount);
+                                  } catch (e) {
+                                    amount = -1;
+                                  }
+                                  if (amount == -1 || amount == 0) {
+                                    return Center(
+                                        // child: Text(
+                                        //   "You haven't recorded average weight for " +
+                                        //       date
+                                        //           .toString()
+                                        //           .substring(0, 10),
+                                        //   textAlign: TextAlign.center,
+                                        //   style: TextStyle(
+                                        //       fontSize: 20,
+                                        //       color: mPrimaryTextColor),
+                                        // ),
+                                        );
+                                  } else {
+                                    return Container(
+                                      child: Column(
+                                        children: [
+                                          SizedBox(height: 20),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "    " + "recordedBags".tr,
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: mPrimaryColor),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 25,
+                                                width: 30.w,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: mPrimaryColor,
                                                   ),
-                                                  SizedBox(height: 20),
-                                                  Row(
-                                                    children: [
-                                                      SizedBox(
-                                                        width: 20,
-                                                      ),
-                                                      Text(
-                                                        "recordedBagWeight".tr,
-                                                        style: TextStyle(
-                                                            fontSize: 16,
-                                                            color:
-                                                                mPrimaryColor),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      Container(
-                                                        child: Text(
-                                                          "${recordedBag_weight}",
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              color:
-                                                                  mPrimaryColor),
-                                                        ),
-                                                      ),
-
-                                                      /*TextField(
-                                         decoration: InputDecoration(
-                                           enabledBorder: OutlineInputBorder(
-                                             borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
-                                           ),
-                                           hintText: "$selectedDate" ,
-                                         ),
-                                       )
-                                        */
-                                                    ],
-                                                  )
-                                                ],
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Text(
+                                                  "${recordedNo_Bag}",
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: mPrimaryColor),
+                                                ),
                                               ),
 
-                                              // child: Text(
-                                              //   "You have already recorded ${snapshot.data?.docs[0]['Average_Weight']} average weight for ${date.toString().substring(0, 10)}",
-                                              //   textAlign: TextAlign.center,
-                                              //   style: TextStyle(
-                                              //       fontSize: 20,
-                                              //       color: mPrimaryTextColor),
-                                              // ),
-                                            );
-                                          }
-                                        }),
+                                              /*TextField(
+                                 decoration: InputDecoration(
+                                   enabledBorder: OutlineInputBorder(
+                                     borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
+                                   ),
+                                   hintText: "$selectedDate" ,
+                                 ),
+                               )
+                                */
+                                            ],
+                                          ),
+                                          SizedBox(height: 20),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "    " + "recordedBagWeight".tr,
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: mPrimaryColor),
+                                              ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 25,
+                                                width: 30.w,
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: mPrimaryColor,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Text(
+                                                  "${recordedBag_weight}" +
+                                                      " kg",
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: mPrimaryColor),
+                                                ),
+                                              ),
 
-                                    /*
-                                   Row(
-                                     children: [
-                                       Text("Selected Date"),
-                                       TextField(
-                                         decoration: InputDecoration(
-                                           border: OutlineInputBorder(),
-                                           hintText: "$selectedDate" ,
-                                         ),
-                                       ),
-                                     ],
-                                   )
-                                   */
-                                  ],
-                                ),
-                              );
-                              print(dateItems);
-                            }
-                          }),
+                                              /*TextField(
+                                 decoration: InputDecoration(
+                                   enabledBorder: OutlineInputBorder(
+                                     borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
+                                   ),
+                                   hintText: "$selectedDate" ,
+                                 ),
+                               )
+                                */
+                                            ],
+                                          )
+                                        ],
+                                      ),
 
-                      SizedBox(
-                        height: 20.0,
-                      ),
+                                      // child: Text(
+                                      //   "You have already recorded ${snapshot.data?.docs[0]['Average_Weight']} average weight for ${date.toString().substring(0, 10)}",
+                                      //   textAlign: TextAlign.center,
+                                      //   style: TextStyle(
+                                      //       fontSize: 20,
+                                      //       color: mPrimaryTextColor),
+                                      // ),
+                                    );
+                                  }
+                                }),
 
-                      //reuseTextField("Mortality"),
-
-                      SizedBox(
-                        height: 40,
-                      ),
-                      Center(
-                        child: Image.asset(
-                          "assets/images/weight.png",
-                          fit: BoxFit.fitWidth,
-                          width: context.width * 0.4,
-                          // height: 420,
-                          //color: Colors.purple,
+                            /*
+                           Row(
+                             children: [
+                               Text("Selected Date"),
+                               TextField(
+                                 decoration: InputDecoration(
+                                   border: OutlineInputBorder(),
+                                   hintText: "$selectedDate" ,
+                                 ),
+                               ),
+                             ],
+                           )
+                           */
+                          ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 50,
-                      ),
-                      Center(
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            // print(args.flockID);
-                            // print(_numcontroller.text);
-                            // print(date);
-                            await deleteFeedIntake(widget.id_flock,
-                                selectedDate.toString().substring(0, 10));
-                            // _numcontroller.clear();
-                            setState(() {});
-                            //Navigator.of(context).pop();
+                      );
+                      print(dateItems);
+                    }
+                  }),
 
-                            ///displayFCRdialog();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(200, 50),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            primary: mPrimaryColor,
-                            elevation: 20,
-                            shadowColor: mSecondColor,
-                            textStyle: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          child: Text("Delete".tr),
-                        ),
-                      ),
-                    ],
-                  ),
+              SizedBox(
+                height: 20.0,
+              ),
+
+              //reuseTextField("Mortality"),
+
+              SizedBox(
+                height: 40,
+              ),
+              Center(
+                child: Image.asset(
+                  "assets/images/feed-new.png",
+                  fit: BoxFit.fitWidth,
+                  width: context.width * 0.4,
+                  // height: 420,
+                  //color: Colors.purple,
                 ),
               ),
-            ),
+              SizedBox(
+                height: 50,
+              ),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    // print(args.flockID);
+                    // print(_numcontroller.text);
+                    // print(date);
+                    await deleteFeedIntake(widget.id_flock,
+                        selectedDate.toString().substring(0, 10));
+                    // _numcontroller.clear();
+                    setState(() {});
+                    //Navigator.of(context).pop();
+
+                    ///displayFCRdialog();
+                    Fluttertoast.showToast(
+                        msg: 'Successfully Deleted!',
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: mNewColor3,
+                        textColor: mPrimaryColor);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(200, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    primary: mPrimaryColor,
+                    elevation: 20,
+                    shadowColor: mSecondColor,
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  child: Text("Delete".tr),
+                ),
+              ),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 
