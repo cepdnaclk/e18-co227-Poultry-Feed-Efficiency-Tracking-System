@@ -6,13 +6,18 @@ import 'package:home_login/constants.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
+import 'package:home_login/screens/strain.dart' as strainList;
 
 class AddFeedScreen extends StatefulWidget {
   final String id_flock;
+  final String startDateNavi;
+  final String strainNavi;
   // const AddBodyWeight({Key? key}) : super(key: key);
   AddFeedScreen({
     Key? key,
     required this.id_flock,
+    required this.startDateNavi,
+    required this.strainNavi,
   }) : super(key: key);
 
   @override
@@ -20,6 +25,13 @@ class AddFeedScreen extends StatefulWidget {
 }
 
 class _AddFeedScreenState extends State<AddFeedScreen> {
+  List<strainList.PoultryData> weightDataStrain = [];
+  List<strainList.PoultryData> feedtDataStrain = [];
+
+  late DateTime startDate;
+  int days = 0;
+  int index = 0;
+
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
@@ -28,7 +40,28 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
   final TextEditingController _numcontrollerBagWeight = TextEditingController();
 
   @override
+  void initState() {
+    startDate = DateTime.parse(widget.startDateNavi);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    days = date.difference(startDate).inDays;
+    //print(_list[13].valueOf(13));
+    if (widget.strainNavi == 'Cobb 500 - Broiler') {
+      weightDataStrain = strainList.PoultryData.weightDataCobb500;
+      feedtDataStrain = strainList.PoultryData.feedDataCobb500;
+    } else if (widget.strainNavi == 'Ross 308 - Broiler') {
+      weightDataStrain = strainList.PoultryData.weightDataRoss308;
+      feedtDataStrain = strainList.PoultryData.feedDataRoss308;
+    } else if (widget.strainNavi == 'Dekalb White - Layer') {
+      weightDataStrain = strainList.PoultryData.weightDataDekalbWhite;
+      feedtDataStrain = strainList.PoultryData.feedDataDekalbWhite;
+    } else if (widget.strainNavi == 'Shaver Brown - Layer') {
+      weightDataStrain = strainList.PoultryData.weightDataShaverBrown;
+      feedtDataStrain = strainList.PoultryData.feedDataShavorBrown;
+    }
     //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -89,6 +122,11 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                       );
                     }
                   }),
+              Text(
+                "Days: " + days.toString(),
+              ),
+              Text("Expected feed: " +
+                  feedtDataStrain[days].valueOf(days).toString()),
 
               //reuseTextField("Mortality"),
               SizedBox(
@@ -161,6 +199,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                             },
                           );
                           if (ndate == null) return;
+                          if (ndate.difference(startDate).inDays < 0) return;
                           setState(() => date = ndate);
                         },
                         style: ElevatedButton.styleFrom(
