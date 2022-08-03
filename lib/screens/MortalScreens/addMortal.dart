@@ -149,7 +149,7 @@ class _AddMortalState extends State<AddMortal> with TickerProviderStateMixin {
                         //child: reuseTextField1("Number of chicks"),
 
                         child: reusableTextField2("Enter Number of chicks".tr,
-                            Icons.numbers, false, _numcontroller, null),
+                            Icons.numbers, false, _numcontroller, null, ""),
                       ),
                       Row(
                         //mainAxisAlignment: MainAxisAlignment.start,
