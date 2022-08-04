@@ -9,6 +9,7 @@ import '../net/auth.dart';
 import 'drawerMenu.dart';
 import 'griddashboard.dart';
 import 'package:home_login/constants.dart';
+import 'package:home_login/localeString.dart';
 
 class HomeScreen extends StatefulWidget {
   final String farmNavi,
@@ -101,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       },
                       //icon: Icon(Icons.menu),
                     ),
-                    title: Text('Home'),
+                    title: Text("Home".tr),
                     // backgroundColor: mPrimaryColor,
                     actions: <Widget>[
                       IconButton(
@@ -174,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                         Container(
                                           width: 65,
                                           child: Text(
-                                            "Farm",
+                                            "Farm".tr,
                                             style: TextStyle(
                                               color: mTitleTextColor,
                                               fontSize: 18,
@@ -200,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                         Container(
                                           width: 65,
                                           child: Text(
-                                            "Branch",
+                                            "Branch".tr,
                                             style: TextStyle(
                                               color: mTitleTextColor,
                                               fontSize: 18,
@@ -226,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                         Container(
                                           width: 65,
                                           child: Text(
-                                            "Shed",
+                                            "Shed".tr,
                                             style: TextStyle(
                                               color: mTitleTextColor,
                                               fontSize: 18,
@@ -252,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                         Container(
                                           width: 65,
                                           child: Text(
-                                            "Flock",
+                                            "Flock".tr,
                                             style: TextStyle(
                                               color: mTitleTextColor,
                                               fontSize: 18,
