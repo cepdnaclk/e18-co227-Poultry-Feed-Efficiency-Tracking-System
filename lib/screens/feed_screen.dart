@@ -87,154 +87,156 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                   title: Text("feedIntakeSelect".tr),
                   backgroundColor: mPrimaryColor,
                 ),
-                body: Column(
-                  children: [
-                    StreamBuilder(
-                        stream: FirebaseFirestore.instance
-                            .collection('Farmers')
-                            .doc(FirebaseAuth.instance.currentUser!.uid)
-                            .collection('flock')
-                            .where(FieldPath.documentId,
-                                isEqualTo: args.flockID)
-                            .snapshots(), // your stream url,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (!snapshot.hasData) {
-                            return CircularProgressIndicator();
-                          } else {
-                            //print(snapshot.toString());
-                            startDate = snapshot.data?.docs[0]['startdays'];
-                            strainType = snapshot.data?.docs[0]['strain'];
-                            //print(startDate);
-                            updateFeedIntake(args.flockID, 0.4.toString(),
-                                50.toString(), startDate);
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('Farmers')
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .collection('flock')
+                              .where(FieldPath.documentId,
+                                  isEqualTo: args.flockID)
+                              .snapshots(), // your stream url,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (!snapshot.hasData) {
+                              return CircularProgressIndicator();
+                            } else {
+                              //print(snapshot.toString());
+                              startDate = snapshot.data?.docs[0]['startdays'];
+                              strainType = snapshot.data?.docs[0]['strain'];
+                              //print(startDate);
+                              updateFeedIntake(args.flockID, 0.4.toString(),
+                                  50.toString(), startDate);
 
-                            //print(mortal);
-                            //print(totalChick);
-                          }
+                              //print(mortal);
+                              //print(totalChick);
+                            }
 
-                          return Container(); // Your grid code.
-                        }),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Center(
-                      child: Image.asset(
-                        "assets/images/feed-new.png",
-                        fit: BoxFit.fitWidth,
-                        width: context.width * 0.5,
-                        // height: 420,
-                        //color: Colors.purple,
+                            return Container(); // Your grid code.
+                          }),
+                      SizedBox(
+                        height: 15.h,
                       ),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => UpdateFeedScreen(
-                                id_flock: args.flockID,
-                                startDateNavi: startDate,
-                                strainNavi: strainType,
+                      Center(
+                        child: Image.asset(
+                          "assets/images/feed-new.png",
+                          fit: BoxFit.fitWidth,
+                          width: context.width * 0.5,
+                          // height: 420,
+                          //color: Colors.purple,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => UpdateFeedScreen(
+                                  id_flock: args.flockID,
+                                  startDateNavi: startDate,
+                                  strainNavi: strainType,
+                                ),
                               ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: const Size(200, 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
                             ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(200, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
+                            primary: mPrimaryColor,
+                            elevation: 20,
+                            shadowColor: mSecondColor,
+                            textStyle: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          primary: mPrimaryColor,
-                          elevation: 20,
-                          shadowColor: mSecondColor,
-                          textStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          child: Text("update".tr),
                         ),
-                        child: Text("update".tr),
                       ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          print(args.flockID);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AddFeedScreen(
-                                id_flock: args.flockID,
-                                startDateNavi: startDate,
-                                strainNavi: strainType,
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            print(args.flockID);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AddFeedScreen(
+                                  id_flock: args.flockID,
+                                  startDateNavi: startDate,
+                                  strainNavi: strainType,
+                                ),
                               ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: const Size(200, 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
                             ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(200, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
+                            primary: mBackgroundColor,
+                            side: BorderSide(color: mPrimaryColor),
+                            elevation: 20,
+                            shadowColor: mSecondColor,
+                            textStyle: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          primary: mBackgroundColor,
-                          side: BorderSide(color: mPrimaryColor),
-                          elevation: 20,
-                          shadowColor: mSecondColor,
-                          textStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        child: Text(
-                          "add".tr,
-                          style: TextStyle(
-                            color: mPrimaryColor,
-                            fontSize: 17,
+                          child: Text(
+                            "add".tr,
+                            style: TextStyle(
+                              color: mPrimaryColor,
+                              fontSize: 17,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DeleteFeedScreen(
-                                id_flock: args.flockID,
-                                startDateNavi: startDate,
-                                strainNavi: strainType,
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DeleteFeedScreen(
+                                  id_flock: args.flockID,
+                                  startDateNavi: startDate,
+                                  strainNavi: strainType,
+                                ),
                               ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: const Size(200, 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
                             ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(200, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
+                            primary: mPrimaryColor,
+                            elevation: 20,
+                            shadowColor: mSecondColor,
+                            textStyle: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          primary: mPrimaryColor,
-                          elevation: 20,
-                          shadowColor: mSecondColor,
-                          textStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          child: Text("Delete".tr),
                         ),
-                        child: Text("Delete".tr),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
