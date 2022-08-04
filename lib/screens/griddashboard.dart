@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:home_login/localeString.dart';
 
 import 'package:get/get.dart';
 
@@ -23,7 +24,7 @@ class _GridDashboardState extends State<GridDashboard> {
 
   _GridDashboardState(this.flockID);
   Items item1 = Items(
-    title: "FCR",
+    title: "FCR".tr,
     img: "assets/images/feeding.png",
     routeName: '/FCR',
   );
@@ -59,7 +60,7 @@ class _GridDashboardState extends State<GridDashboard> {
   );
 
   Items item7 = Items(
-    title: "Monitor Eggs",
+    title: "Monitor Eggs".tr,
     img: "assets/images/eggs.png",
     routeName: '/eggs',
   );
@@ -88,7 +89,7 @@ class _GridDashboardState extends State<GridDashboard> {
               print("Layer Detected");
             } else {
               mylist = [item1, item2, item3, item4, item5, item6];
-              print("Not a layer");
+              print("Not a layer".tr);
             }
           }
 
