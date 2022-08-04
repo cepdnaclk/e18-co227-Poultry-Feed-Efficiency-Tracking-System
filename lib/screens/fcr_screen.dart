@@ -25,6 +25,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
   String strainType = '';
   List<strainList.PoultryData> weightDataStrain = [];
   List<strainList.PoultryData> feedtDataStrain = [];
+  List<strainList.PoultryData> eggDataStrain = [];
 
   DateTime date =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
@@ -36,9 +37,10 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
   bool toggle = false;
   late AnimationController _animationController;
   int mortal = 0, s_count = 0;
-  String totalChick = '';
+  String totalChick = '', text = " ", unit = " ";
   int days = 0;
   num idealWeightperchick = 0;
+  int eggs = 0;
   num idealFeedperchick = 0;
   // num feedbag = 0, bagWeight = 0;
   // num avgWeight = 0;
@@ -190,20 +192,32 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                                 feedtDataStrain =
                                     strainList.PoultryData.feedDataRoss308;
                               } else if (strainType == 'Dekalb White - Layer') {
-                                weightDataStrain = strainList
-                                    .PoultryData.weightDataDekalbWhite;
+                                //weightDataStrain = strainList.PoultryData.weightDataDekalbWhite;
                                 feedtDataStrain =
                                     strainList.PoultryData.feedDataDekalbWhite;
+                                eggDataStrain =
+                                    strainList.PoultryData.eggDataDekalbWhite;
                               } else if (strainType == 'Shaver Brown - Layer') {
-                                weightDataStrain = strainList
-                                    .PoultryData.weightDataShaverBrown;
+                                // weightDataStrain = strainList.PoultryData.weightDataShaverBrown;
                                 feedtDataStrain =
                                     strainList.PoultryData.feedDataShavorBrown;
+                                eggDataStrain =
+                                    strainList.PoultryData.eggDataShavorBrown;
                               }
 
                               s_count = int.parse(totalChick);
-                              idealWeightperchick =
-                                  weightDataStrain[days].valueOf(days);
+                              if (strainType == 'Dekalb White - Layer' ||
+                                  strainType == 'Shaver Brown - Layer') {
+                                idealWeightperchick =
+                                    (eggDataStrain[days].valueOf(days)).round();
+                                text = "   Ideal Number of eggs".tr;
+                                unit = " ";
+                              } else {
+                                idealWeightperchick =
+                                    weightDataStrain[days].valueOf(days);
+                                text = "   Ideal weight".tr;
+                                unit = "g";
+                              }
                               idealFeedperchick =
                                   feedtDataStrain[days].valueOf(days);
 
@@ -241,6 +255,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                                                 FCRManualScreen(
                                               mortalNavi: mortal,
                                               totalChicksNavi: totalChick,
+                                              strainNavi: strainType,
                                             ),
                                           ),
                                         );
@@ -355,7 +370,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        "idealWeight".tr,
+                                        text,
                                         style: TextStyle(
                                             fontSize: 15, color: mPrimaryColor),
                                       ),
@@ -372,7 +387,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                                           ),
                                           child: Text(
                                             idealWeightperchick.toString() +
-                                                " g",
+                                                unit,
                                             style: TextStyle(
                                                 fontSize: 15, color: mNewColor),
                                           )),
@@ -587,8 +602,8 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
     );
   }
 
-  void displayFCRdialog(
-      int startCount, int mortal, num avgWeight, num noBag, num avgBagWeight) {
+  void displayFCRdialog(int startCount, int mortal, num eggorWeight, num noBag,
+      num avgBagWeight) {
     showDialog(
         context: context,
         builder: (builder) {
@@ -608,7 +623,7 @@ class _FCRScreenState extends State<FCRScreen> with TickerProviderStateMixin {
                 (noBag * avgBagWeight).toString() +
                 " kg" +
                 "\n\nFCR = " +
-                (noBag * avgBagWeight / ((startCount - mortal) * avgWeight))
+                (noBag * avgBagWeight / ((startCount - mortal) * eggorWeight))
                     .toStringAsFixed(3)),
             actions: [
               TextButton(
