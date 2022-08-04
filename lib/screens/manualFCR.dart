@@ -6,13 +6,14 @@ import 'package:home_login/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class FCRManualScreen extends StatefulWidget {
-  final String totalChicksNavi;
+  final String totalChicksNavi, strainNavi;
   final int mortalNavi;
 
   //const FCRManualScreen({Key? key}) : super(key: key);
   FCRManualScreen({
     Key? key,
     required this.totalChicksNavi,
+    required this.strainNavi,
     required this.mortalNavi,
   }) : super(key: key);
 
@@ -23,13 +24,22 @@ class FCRManualScreen extends StatefulWidget {
 class _FCRManualScreenState extends State<FCRManualScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   int startCount = 0, mortal = 0;
-  num avgWeight = 0, noBag = 0, avgBagWeight = 0;
+  num eggWeight = 0, noBag = 0, avgBagWeight = 0;
+  String text = " ", unit = " ";
 
-  final TextEditingController _avgWeightController = TextEditingController();
+  final TextEditingController _eggWeightController = TextEditingController();
   final TextEditingController _numberofBagController = TextEditingController();
   final TextEditingController _bagWeightController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    if (widget.strainNavi == 'Dekalb White - Layer' ||
+        widget.strainNavi == 'Shaver Brown - Layer') {
+      text = "Total number of eggs of flock".tr;
+      unit = " ";
+    } else {
+      text = "avgWeightofChick".tr;
+      unit = " g".tr;
+    }
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Form(
@@ -55,8 +65,7 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 6.0, vertical: 10.0),
-                  child: reuseTextField(
-                      "avgWeightofChick".tr, _avgWeightController, "g"),
+                  child: reuseTextField(text, _eggWeightController, unit),
                 ),
                 Row(
                   //mainAxisAlignment: MainAxisAlignment.start,
@@ -245,7 +254,7 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
                           (noBag *
                                   avgBagWeight *
                                   1000 /
-                                  ((startCount - mortal) * avgWeight))
+                                  ((startCount - mortal) * eggWeight))
                               .toStringAsFixed(4),
                       style: TextStyle(
                           color: mNewColor,
@@ -264,7 +273,7 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
                         setState(() {
                           startCount = int.parse(widget.totalChicksNavi);
                           mortal = widget.mortalNavi;
-                          avgWeight = num.parse(_avgWeightController.text);
+                          eggWeight = num.parse(_eggWeightController.text);
                           noBag = num.parse(_numberofBagController.text);
                           avgBagWeight = num.parse(_bagWeightController.text);
                         });
@@ -302,7 +311,7 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
   // }
 
   void displayFCRdialog(
-      int start, int mortal, num avgWeight, num noBag, num avgBagWeight) {
+      int start, int mortal, num eggWeight, num noBag, num avgBagWeight) {
     showDialog(
         context: context,
         builder: (builder) {
@@ -322,13 +331,13 @@ class _FCRManualScreenState extends State<FCRManualScreen> {
                 (noBag * avgBagWeight).toString() +
                 " kg" +
                 "\n\nFCR = " +
-                (noBag * avgBagWeight / ((start - mortal) * avgWeight))
+                (noBag * avgBagWeight / ((start - mortal) * eggWeight))
                     .toStringAsFixed(3)),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  _avgWeightController.clear();
+                  _eggWeightController.clear();
                   _numberofBagController.clear();
                   _bagWeightController.clear();
                 },
