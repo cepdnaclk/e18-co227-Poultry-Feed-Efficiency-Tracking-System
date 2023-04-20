@@ -3,10 +3,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:home_login/net/auth.dart';
 import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/selection_screen.dart';
-import 'package:home_login/screens/signin_screen.dart';
+import 'package:home_login/screens/UserRegScreens/signin_screen.dart';
 import 'package:sizer/sizer.dart';
 
-import '../constants.dart';
+import '../Colors.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

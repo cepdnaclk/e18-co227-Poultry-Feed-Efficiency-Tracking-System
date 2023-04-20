@@ -2,19 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:home_login/constants.dart';
-import 'package:home_login/screens/griddashboard.dart';
+import 'package:home_login/Colors.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
-import 'package:home_login/screens/view_screen.dart';
-import 'package:home_login/screens/strain.dart' as strainList;
+import 'package:home_login/screens/IdealStrain.dart' as strainList;
 import 'package:sizer/sizer.dart';
 
 class AddBodyWeight extends StatefulWidget {
   final String id_flock;
   final String startDateNavi;
   final String strainNavi;
-  // const AddBodyWeight({Key? key}) : super(key: key);
+
   AddBodyWeight({
     Key? key,
     required this.id_flock,
@@ -27,7 +25,7 @@ class AddBodyWeight extends StatefulWidget {
 }
 
 class _AddBodyWeightState extends State<AddBodyWeight> {
-  //List weightDataCobb500 = [];
+
   List<strainList.PoultryData> weightDataStrain = [];
   List<strainList.PoultryData> feedtDataStrain = [];
 
@@ -41,7 +39,7 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
   final TextEditingController _datecontroller = TextEditingController();
   final TextEditingController _numcontroller = TextEditingController();
 
-  //List<strainList.PoultryData> _list = strainList.PoultryData.feedDataCobb500;
+
   @override
   void initState() {
     startDate = DateTime.parse(widget.startDateNavi);
@@ -51,7 +49,7 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
   @override
   Widget build(BuildContext context) {
     days = date.difference(startDate).inDays;
-    //print(_list[13].valueOf(13));
+
     if (widget.strainNavi == 'Cobb 500 - Broiler') {
       weightDataStrain = strainList.PoultryData.weightDataCobb500;
       feedtDataStrain = strainList.PoultryData.feedDataCobb500;
@@ -65,12 +63,7 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
       weightDataStrain = strainList.PoultryData.weightDataShaverBrown;
       feedtDataStrain = strainList.PoultryData.feedDataShavorBrown;
     }
-    //print(_list[days].valueOf(days));
 
-    // strainList.PoultryData chick = weightDataCobb500[20];
-
-    // print(chick);
-    //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -110,28 +103,17 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
                     if (amount == -1 || amount == 0) {
                       return SizedBox(
                         height: 30.0,
-                        // child: Text(
-                        //   "You haven't recorded average weight for " +
-                        //       date.toString().substring(0, 10),
-                        //   textAlign: TextAlign.center,
-                        //   style: TextStyle(
-                        //       fontSize: 20, color: mPrimaryTextColor),
-                        // ),
+
                       );
                     } else {
                       return SizedBox(
                         height: 30.0,
-                        // child: Text(
-                        //   "You have already recorded ${snapshot.data?.docs[0]['Average_Weight']} average weight for ${date.toString().substring(0, 10)}",
-                        //   textAlign: TextAlign.center,
-                        //   style: TextStyle(
-                        //       fontSize: 20, color: mPrimaryTextColor),
-                        // ),
+
                       );
                     }
                   }),
               Row(
-                //mainAxisAlignment: MainAxisAlignment.start,
+
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
@@ -163,13 +145,12 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
                                 data: Theme.of(context).copyWith(
                                   colorScheme: ColorScheme.light(
                                     primary: mNewColor,
-                                    onPrimary: Colors.white, // <-- SEE HERE
-                                    onSurface: mSecondColor, // <-- SEE HERE
+                                    onPrimary: Colors.white,
+                                    onSurface: mSecondColor,
                                   ),
                                   textButtonTheme: TextButtonThemeData(
                                     style: TextButton.styleFrom(
-                                      primary:
-                                          mPrimaryColor, // button text color
+                                      foregroundColor: mPrimaryColor, // button text color
                                     ),
                                   ),
                                 ),
@@ -182,14 +163,13 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
                           setState(() => date = ndate);
                         },
                         style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(180, 50),
+                          fixedSize: const Size(180, 50), backgroundColor: mBackgroundColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                               side: BorderSide(
                                 width: 2.0,
                                 color: mPrimaryColor,
                               )),
-                          primary: mBackgroundColor,
                           elevation: 20,
                           shadowColor: Colors.transparent,
                           textStyle: TextStyle(
@@ -245,7 +225,8 @@ class _AddBodyWeightState extends State<AddBodyWeight> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Text(
-                      weightDataStrain[days].valueOf(days).toString() + " g",
+                      //////////////////2023/3 update//////////////////
+                      ((weightDataStrain.length <= days) ? weightDataStrain[0].valueOf(0) : weightDataStrain[days].valueOf(days)).toString() + " g",
                       style: TextStyle(fontSize: 17, color: mNewColor),
                     ),
                   ),

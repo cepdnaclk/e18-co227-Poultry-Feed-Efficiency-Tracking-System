@@ -3,19 +3,16 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:home_login/localeString.dart';
-
-import 'package:flutter/services.dart';
-
-import 'package:home_login/screens/RegScreens/farmReg_screen.dart';
-import 'package:home_login/screens/egg_screen.dart';
-import 'package:home_login/screens/farm_view.dart';
+import 'package:home_login/screens/Analysis/analytics_selection.dart';
+import 'package:home_login/screens/EggMonScreens/egg_select.dart';
+import 'package:home_login/screens/EggMonScreens/update_egg.dart';
+import 'package:home_login/screens/RegScreens/ViewScreens/farm_view.dart';
 import 'package:home_login/screens/fcr_screen.dart';
-import 'package:home_login/screens/feed_screen.dart';
+import 'package:home_login/screens/FeedIntakeScreens/feed_selection.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/mortality_screen.dart';
-import 'package:home_login/screens/view_screen.dart';
-import 'package:home_login/screens/signin_screen.dart';
-import 'package:home_login/screens/selectBodyWeight.dart';
+import 'package:home_login/screens/Analysis/compare_ideal.dart';
+import 'package:home_login/screens/BodyWeightScreen/select_bodyweight.dart';
 import 'package:home_login/screens/welcome_screen.dart';
 import 'package:sizer/sizer.dart';
 
@@ -45,9 +42,9 @@ class MyApp extends StatelessWidget {
             '/farm': (context) => FarmView(),
             GridDashboard.routeMortal: (context) => const MortalityScreen(),
             GridDashboard.routeWeight: (context) => const BodyWeight(),
-            GridDashboard.routeView: (context) => ViewScreen(),
+            GridDashboard.routeView: (context) => AnalyticsSelection(),
             //'/view': (context) => const ViewScreen(),
-            '/eggs': (context) => const EggScreen(),
+            '/eggs': (context) => const EggSelectScreen(),
           },
           // ignore: prefer_const_constructors
           home: SplashScreen(),

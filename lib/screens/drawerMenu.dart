@@ -3,17 +3,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:home_login/constants.dart';
+import 'package:home_login/Colors.dart';
 import 'package:home_login/net/auth.dart';
-import 'package:home_login/screens/selectBodyWeight.dart';
-import 'package:home_login/screens/farm_view.dart';
+import 'package:home_login/screens/BodyWeightScreen/select_bodyweight.dart';
+import 'package:home_login/screens/RegScreens/ViewScreens/farm_view.dart';
 import 'package:home_login/screens/fcr_screen.dart';
-import 'package:home_login/screens/feed_screen.dart';
+import 'package:home_login/screens/FeedIntakeScreens/feed_selection.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/mortality_screen.dart';
 import 'package:home_login/screens/selection_screen.dart';
-import 'package:home_login/screens/view_screen.dart';
-import 'package:home_login/screens/signin_screen.dart';
+import 'package:home_login/screens/Analysis/compare_ideal.dart';
+import 'package:home_login/screens/UserRegScreens/signin_screen.dart';
 
 class DrawerMenu extends StatelessWidget {
   final String flockID;

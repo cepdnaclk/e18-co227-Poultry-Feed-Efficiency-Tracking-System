@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:home_login/localeString.dart';
 
 import 'package:get/get.dart';
 
@@ -93,7 +92,7 @@ class _GridDashboardState extends State<GridDashboard> {
             }
           }
 
-          //var color = 0xff453658;
+
           var color = 0xffd16fb2;
 
           return Flexible(

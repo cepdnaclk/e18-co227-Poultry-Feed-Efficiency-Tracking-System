@@ -2,11 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:home_login/constants.dart';
-import 'package:home_login/screens/griddashboard.dart';
+import 'package:home_login/Colors.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
-import 'package:home_login/screens/view_screen.dart';
 import 'package:sizer/sizer.dart';
 
 class UpdateBodyWeight extends StatefulWidget {
@@ -30,10 +28,9 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
   String selectedDate = "";
   num recordedWeight = 0;
 
-  //DateTime date =
-  //DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
-  final TextEditingController _datecontroller = TextEditingController();
+
+
   final TextEditingController _numcontroller = TextEditingController();
 
   late StreamBuilder _widget;
@@ -57,23 +54,14 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
             );
           } else {
             for (int i = 0; i < snapshot.data!.docs.length; i++) {
-              DocumentSnapshot snap = snapshot.data!.docs[i];
 
-              double amount = -1;
+
+
               String date;
               try {
-                // amount =
-                //     snapshot.data?.docs[i]['Average_Weight'];
+
                 date = snapshot.data!.docs[i].id;
-                //print(date);
 
-                //print(snapshot.data!.docs[i].id);
-
-                //print(amount);
-                //print("----------------------");
-                //print('');
-                //weightDataCurrent.add(PoultryData(i, amount));
-                //dateItems.add(date);
                 dateItems.add(
                   DropdownMenuItem(
                     child: Text(
@@ -81,16 +69,12 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
                       style: TextStyle(color: mPrimaryColor),
                     ),
 
-                    //value: "${snap.id}",
+
                     value: "$date",
                   ),
                 );
 
-                // print(date);
 
-                //print(dateItems);
-                //amount = 0.0;
-                //print(dateItems);
               } catch (e) {
                 //amount = -1;
               }
@@ -106,7 +90,7 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
 
   @override
   Widget build(BuildContext context) {
-    //final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -260,44 +244,18 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
                                                 ),
                                               ),
 
-                                              /*TextField(
-                                 decoration: InputDecoration(
-                                   enabledBorder: OutlineInputBorder(
-                                     borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
-                                   ),
-                                   hintText: "$selectedDate" ,
-                                 ),
-                               )
-                                */
+
                                             ],
                                           )
                                         ],
                                       ),
 
-                                      // child: Text(
-                                      //   "You have already recorded ${snapshot.data?.docs[0]['Average_Weight']} average weight for ${date.toString().substring(0, 10)}",
-                                      //   textAlign: TextAlign.center,
-                                      //   style: TextStyle(
-                                      //       fontSize: 20,
-                                      //       color: mPrimaryTextColor),
-                                      // ),
+
                                     );
                                   }
                                 }),
 
-                            /*
-                           Row(
-                             children: [
-                               Text("Selected Date"),
-                               TextField(
-                                 decoration: InputDecoration(
-                                   border: OutlineInputBorder(),
-                                   hintText: "$selectedDate" ,
-                                 ),
-                               ),
-                             ],
-                           )
-                           */
+
                           ],
                         ),
                       );
@@ -354,11 +312,10 @@ class _UpdateBodyWeightState extends State<UpdateBodyWeight> {
                         textColor: mPrimaryColor);
                   },
                   style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(200, 50),
+                    fixedSize: const Size(200, 50), backgroundColor: mPrimaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
-                    primary: mPrimaryColor,
                     elevation: 20,
                     shadowColor: mSecondColor,
                     textStyle: TextStyle(

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:home_login/constants.dart';
+import 'package:home_login/Colors.dart';
 import 'package:home_login/screens/BodyWeightScreen/addBody.dart';
 import 'package:home_login/screens/BodyWeightScreen/deleteBody.dart';
 import 'package:home_login/screens/BodyWeightScreen/updateBody.dart';
@@ -11,7 +11,7 @@ import 'package:home_login/screens/MortalScreens/updateMortal.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
-import 'package:home_login/screens/view_screen.dart';
+import 'package:home_login/screens/Analysis/compare_ideal.dart';
 import 'package:sizer/sizer.dart';
 import 'drawerMenu.dart';
 

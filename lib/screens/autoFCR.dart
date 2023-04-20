@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:home_login/constants.dart';
-import 'package:home_login/screens/selectBodyWeight.dart';
+import 'package:home_login/Colors.dart';
+import 'package:home_login/screens/BodyWeightScreen/select_bodyweight.dart';
 import 'package:home_login/screens/griddashboard.dart';
 
 class FCRAutoScreen extends StatefulWidget {
