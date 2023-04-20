@@ -3,14 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
-import 'package:home_login/screens/flock_view.dart';
+import 'package:home_login/screens/RegScreens/ViewScreens/flock_view.dart';
 import 'package:home_login/screens/RegScreens/shedReg_screen.dart';
-import 'package:home_login/screens/branch_view.dart';
 import 'package:get/get.dart';
 import 'package:home_login/screens/selection_screen.dart';
-import '../constants.dart';
-import '../net/flutter_fire.dart';
-import 'package:home_login/screens/signin_screen.dart';
+import '../../../Colors.dart';
+import '../../../net/flutter_fire.dart';
+import 'package:home_login/screens/UserRegScreens/signin_screen.dart';
 
 class ShedScreen extends StatefulWidget {
   final String farmID;
@@ -127,22 +126,7 @@ class _ShedScreen extends State<ShedScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          SizedBox(),
-                                          /*Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 20),
-                                            child: ElevatedButton.icon(
-                                              onPressed: () async {
-                                                //print("elevated");
-                                                await openDialog(document.id,
-                                                    document['BranchName']);
-                                              },
-                                              icon: const Icon(Icons.edit),
-                                              label: const Text("Edit"),
-                                              style: ElevatedButton.styleFrom(
-                                                  primary: mNewColor),
-                                            ),
-                                          ),*/
+
                                           Text(
                                             " ${document['ShedName']}",
                                             style: const TextStyle(
@@ -150,64 +134,39 @@ class _ShedScreen extends State<ShedScreen> {
                                               fontSize: 18,
                                             ),
                                           ),
-                                          PopupMenuButton<int>(
-                                              itemBuilder: (context) => [
-                                                    // popupmenu item 1
-                                                    PopupMenuItem(
-                                                      value: 1,
-                                                      // row has two child icon and text.
-                                                      child: Row(
-                                                        children: [
-                                                          Icon(Icons.edit),
-                                                          SizedBox(
-                                                            // sized box with width 10
-                                                            width: 10,
-                                                          ),
-                                                          Text("Edit".tr)
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    // popupmenu item 2
-                                                    PopupMenuItem(
-                                                      value: 2,
-                                                      // row has two child icon and text
-                                                      child: Row(
-                                                        children: [
-                                                          Icon(Icons.delete),
-                                                          SizedBox(
-                                                            // sized box with width 10
-                                                            width: 10,
-                                                          ),
-                                                          Text("Delete".tr)
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                              offset: Offset(-20, 15),
-                                              color: mNewColor,
-                                              elevation: 2,
-                                              onSelected: (value) async {
-                                                if (value == 1) {
-                                                  openDialog(document.id,
-                                                      document['ShedName']);
-                                                } else if (value == 2) {
-                                                  openDialogDelete(document.id,
-                                                      document['ShedName']);
-                                                }
-                                              }),
-                                          /*IconButton(
-                                            icon: Icon(
-                                              Icons.delete,
-                                              color: mNewColor,
-                                            ),
-                                            alignment: Alignment.centerRight,
-                                            onPressed: () async {
-                                              //print("Delete Shed Dialog Box");
-                                              await openDialogDelete(
-                                                  document.id,
-                                                  document['BranchName']);
+
+                                          GestureDetector(
+                                            onTap: () {
+                                              openDialog(document.id, document['ShedName']);
                                             },
-                                          ),*/
+                                            child: Padding(
+                                              padding: EdgeInsets.only(right: 10),
+                                              child: Icon(
+                                                Icons.edit,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 10),
+                                            child: Icon(
+                                              Icons.file_open,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              openDialogDelete(document.id,document['ShedName']);
+                                            },
+                                            child: Padding(
+                                              padding: EdgeInsets.only(right: 10),
+                                              child: Icon(
+                                                Icons.delete,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+
                                         ],
                                       ))),
                             )));
@@ -216,21 +175,45 @@ class _ShedScreen extends State<ShedScreen> {
               }),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ShedRegScreen(branchID, farmID),
+
+      floatingActionButtonLocation: null,
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(left: 30,bottom: 10),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: mBackgroundColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+              side: BorderSide(color: mPrimaryColor),
             ),
-          );
-        },
-        backgroundColor: mNewColor,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return ShedRegScreen(branchID, farmID);
+                },
+              ),
+            );
+          },
+          child: Container(
+
+            alignment: Alignment.center,
+            width: double.infinity,
+            height: 20,
+            child: Text(
+              "Add New Shed",
+              style: TextStyle(
+                color: mPrimaryColor,
+                fontSize: 17,
+              ),
+            ),
+          ),
         ),
       ),
+
+
     );
   }
 

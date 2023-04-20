@@ -4,12 +4,12 @@ import 'package:get/get.dart';
 import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/selection_screen.dart';
-import 'package:home_login/screens/signin_screen.dart';
+import 'package:home_login/screens/UserRegScreens/signin_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../constants.dart';
+import '../../Colors.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);

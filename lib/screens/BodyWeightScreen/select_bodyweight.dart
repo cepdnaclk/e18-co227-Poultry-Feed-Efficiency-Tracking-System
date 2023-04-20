@@ -1,16 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:home_login/constants.dart';
+import 'package:home_login/Colors.dart';
 import 'package:home_login/screens/BodyWeightScreen/addBody.dart';
 import 'package:home_login/screens/BodyWeightScreen/deleteBody.dart';
 import 'package:home_login/screens/BodyWeightScreen/updateBody.dart';
 import 'package:home_login/screens/griddashboard.dart';
-import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
-import 'package:home_login/screens/view_screen.dart';
 import 'package:sizer/sizer.dart';
-import 'drawerMenu.dart';
+import '../drawerMenu.dart';
 
 class BodyWeight extends StatefulWidget {
   const BodyWeight({Key? key}) : super(key: key);
@@ -24,11 +22,8 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
   String startDate = '';
   String strainType = '';
 
-  DateTime date =
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime date = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
-  final TextEditingController _datecontroller = TextEditingController();
-  final TextEditingController _numcontroller = TextEditingController();
 
   double translateX = 0.0;
   double translateY = 0.0;
@@ -142,11 +137,10 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(200, 50),
+                            fixedSize: const Size(200, 50), backgroundColor: mPrimaryColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
-                            primary: mPrimaryColor,
                             elevation: 20,
                             shadowColor: mSecondColor,
                             textStyle: TextStyle(
@@ -323,44 +317,6 @@ class _BodyWeightState extends State<BodyWeight> with TickerProviderStateMixin {
   }
 }
 
-// TextField reuseTextField1(String text) {
-//   return TextField(
-//     decoration: InputDecoration(
-//       labelText: text,
-//       labelStyle: TextStyle(color: Colors.black38),
-//       filled: true,
-//       floatingLabelBehavior: FloatingLabelBehavior.auto,
-//       fillColor: Colors.white,
-//       focusedBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(30.0),
-//           borderSide: BorderSide(
-//             width: 2.0,
-//             color: mPrimaryColor,
-//           )),
-//       enabledBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(30.0),
-//         borderSide: BorderSide(
-//           color: mPrimaryColor,
-//           width: 2.0,
-//         ),
-//       ),
-//       errorBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(30.0),
-//         borderSide: BorderSide(
-//           color: mPrimaryColor,
-//           width: 2.0,
-//         ),
-//       ),
-//       focusedErrorBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(30.0),
-//         borderSide: BorderSide(
-//           color: mPrimaryColor,
-//           width: 2.0,
-//         ),
-//       ),
-//     ),
-//   );
-// }
 
 TextFormField reusableTextField3(
     String text,

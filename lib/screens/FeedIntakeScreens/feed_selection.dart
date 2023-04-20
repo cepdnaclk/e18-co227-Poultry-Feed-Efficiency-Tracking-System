@@ -1,19 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:home_login/constants.dart';
-import 'package:home_login/screens/BodyWeightScreen/addBody.dart';
-import 'package:home_login/screens/BodyWeightScreen/deleteBody.dart';
-import 'package:home_login/screens/BodyWeightScreen/updateBody.dart';
+import 'package:home_login/Colors.dart';
 import 'package:home_login/screens/FeedIntakeScreens/addFeed.dart';
 import 'package:home_login/screens/FeedIntakeScreens/deleteFeed.dart';
 import 'package:home_login/screens/FeedIntakeScreens/updateFeed.dart';
 import 'package:home_login/screens/griddashboard.dart';
-import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
-import 'package:home_login/screens/view_screen.dart';
 import 'package:sizer/sizer.dart';
-import 'drawerMenu.dart';
+import '../drawerMenu.dart';
+import '../FeedCostScreens/feedCostView.dart';
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -103,29 +99,27 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                             if (!snapshot.hasData) {
                               return CircularProgressIndicator();
                             } else {
-                              //print(snapshot.toString());
+
                               startDate = snapshot.data?.docs[0]['startdays'];
                               strainType = snapshot.data?.docs[0]['strain'];
-                              //print(startDate);
+
                               updateFeedIntake(args.flockID, 0.4.toString(),
                                   50.toString(), startDate);
 
-                              //print(mortal);
-                              //print(totalChick);
+
                             }
 
                             return Container(); // Your grid code.
                           }),
                       SizedBox(
-                        height: 15.h,
+                        height: 50,
                       ),
                       Center(
                         child: Image.asset(
-                          "assets/images/feed-new.png",
+                          "assets/images/chickFeeding.png",
                           fit: BoxFit.fitWidth,
                           width: context.width * 0.5,
-                          // height: 420,
-                          //color: Colors.purple,
+
                         ),
                       ),
                       SizedBox(
@@ -146,11 +140,10 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(200, 50),
+                            fixedSize: const Size(200, 50), backgroundColor: mPrimaryColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
-                            primary: mPrimaryColor,
                             elevation: 20,
                             shadowColor: mSecondColor,
                             textStyle: TextStyle(
@@ -180,11 +173,10 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(200, 50),
+                            fixedSize: const Size(200, 50), backgroundColor: mBackgroundColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
-                            primary: mBackgroundColor,
                             side: BorderSide(color: mPrimaryColor),
                             elevation: 20,
                             shadowColor: mSecondColor,
@@ -220,11 +212,10 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            fixedSize: const Size(200, 50),
+                            fixedSize: const Size(200, 50), backgroundColor: mPrimaryColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
-                            primary: mPrimaryColor,
                             elevation: 20,
                             shadowColor: mSecondColor,
                             textStyle: TextStyle(
@@ -233,6 +224,47 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
                             ),
                           ),
                           child: Text("Delete".tr),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            print(args.flockID);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FeedCostView(
+                                  id_flock: args.flockID,
+                                  startDateNavi: startDate,
+                                  strainNavi: strainType,
+                                ),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: const Size(200, 50), backgroundColor: mBackgroundColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            side: BorderSide(color: mPrimaryColor),
+                            elevation: 20,
+                            shadowColor: mSecondColor,
+                            textStyle: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          child: Text(
+                            "Feed Cost".tr,
+                            style: TextStyle(
+                              color: mPrimaryColor,
+                              fontSize: 17,
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -295,83 +327,13 @@ class _FeedScreenState extends State<FeedScreen> with TickerProviderStateMixin {
       // return false;
     }
     try {
-      //print("try 2");
-      /*  DocumentReference<Map<String, dynamic>> documentReference2 =
-          FirebaseFirestore.instance
-              .collection('Farmers')
-              .doc(FirebaseAuth.instance.currentUser!.uid)
-              .collection('flock')
-              .doc(id);
 
-      FirebaseFirestore.instance.runTransaction((transaction2) async {
-        DocumentSnapshot<Map<String, dynamic>> snapshot2 =
-            await transaction2.get(documentReference2);
-        print(documentReference2);
-        if (!snapshot2.exists) {
-          //print("snap 2 noy exist");
-          documentReference2.update({'Avg_BodyWeight': value});
-          print("done 2");
-          print(value);
-          //return true;
-        } else {
-          try {
-            print("done 2.2 before");
-            num n = snapshot2.data()!['Avg_BodyWeight'];
-            num newAmount = n - current + value;
-            print("done 2.2 before 2");
-            transaction2
-                .update(documentReference2, {'Avg_BodyWeight': newAmount});
-            print("done 2.2");
-            //return true;
-          } catch (e) {
-            //rethrow;
-          }
-        }
-      });*/
     } catch (e) {
       //
     }
   }
 }
 
-// TextField reuseTextField1(String text) {
-//   return TextField(
-//     decoration: InputDecoration(
-//       labelText: text,
-//       labelStyle: TextStyle(color: Colors.black38),
-//       filled: true,
-//       floatingLabelBehavior: FloatingLabelBehavior.auto,
-//       fillColor: Colors.white,
-//       focusedBorder: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(30.0),
-//           borderSide: BorderSide(
-//             width: 2.0,
-//             color: mPrimaryColor,
-//           )),
-//       enabledBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(30.0),
-//         borderSide: BorderSide(
-//           color: mPrimaryColor,
-//           width: 2.0,
-//         ),
-//       ),
-//       errorBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(30.0),
-//         borderSide: BorderSide(
-//           color: mPrimaryColor,
-//           width: 2.0,
-//         ),
-//       ),
-//       focusedErrorBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(30.0),
-//         borderSide: BorderSide(
-//           color: mPrimaryColor,
-//           width: 2.0,
-//         ),
-//       ),
-//     ),
-//   );
-// }
 
 TextFormField reusableTextField3(
     String text,
