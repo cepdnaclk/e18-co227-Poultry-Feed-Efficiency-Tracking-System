@@ -2,18 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:home_login/constants.dart';
-import 'package:home_login/screens/griddashboard.dart';
-import 'package:home_login/screens/reusable.dart';
+import 'package:home_login/Colors.dart';
 import 'package:get/get.dart';
-import 'package:home_login/screens/view_screen.dart';
 import 'package:sizer/sizer.dart';
 
 class DeleteFeedScreen extends StatefulWidget {
   final String id_flock;
   final String startDateNavi;
   final String strainNavi;
-  // const AddBodyWeight({Key? key}) : super(key: key);
+
   DeleteFeedScreen({
     Key? key,
     required this.id_flock,
@@ -63,18 +60,9 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen> {
               double amount = -1;
               String date;
               try {
-                // amount =
-                //     snapshot.data?.docs[i]['Average_Weight'];
+
                 date = snapshot.data!.docs[i].id;
-                //print(date);
 
-                //print(snapshot.data!.docs[i].id);
-
-                //print(amount);
-                //print("----------------------");
-                //print('');
-                //weightDataCurrent.add(PoultryData(i, amount));
-                //dateItems.add(date);
                 dateItems.add(
                   DropdownMenuItem(
                     child: Text(
@@ -87,11 +75,6 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen> {
                   ),
                 );
 
-                // print(date);
-
-                //print(dateItems);
-                //amount = 0.0;
-                //print(dateItems);
               } catch (e) {
                 //amount = -1;
               }
@@ -204,15 +187,7 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen> {
                                   ),
                                 ),
 
-                                /*TextField(
-                                 decoration: InputDecoration(
-                                   enabledBorder: OutlineInputBorder(
-                                     borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
-                                   ),
-                                   hintText: "$selectedDate" ,
-                                 ),
-                               )
-                                */
+
                               ],
                             ),
                             StreamBuilder<QuerySnapshot>(
@@ -244,16 +219,7 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen> {
                                   }
                                   if (amount == -1 || amount == 0) {
                                     return Center(
-                                        // child: Text(
-                                        //   "You haven't recorded average weight for " +
-                                        //       date
-                                        //           .toString()
-                                        //           .substring(0, 10),
-                                        //   textAlign: TextAlign.center,
-                                        //   style: TextStyle(
-                                        //       fontSize: 20,
-                                        //       color: mPrimaryTextColor),
-                                        // ),
+
                                         );
                                   } else {
                                     return Container(
@@ -290,15 +256,7 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen> {
                                                 ),
                                               ),
 
-                                              /*TextField(
-                                 decoration: InputDecoration(
-                                   enabledBorder: OutlineInputBorder(
-                                     borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
-                                   ),
-                                   hintText: "$selectedDate" ,
-                                 ),
-                               )
-                                */
+
                                             ],
                                           ),
                                           SizedBox(height: 20),
@@ -333,15 +291,6 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen> {
                                                 ),
                                               ),
 
-                                              /*TextField(
-                                 decoration: InputDecoration(
-                                   enabledBorder: OutlineInputBorder(
-                                     borderSide: BorderSide(width: 1, color: mPrimaryColor), //<-- SEE HERE
-                                   ),
-                                   hintText: "$selectedDate" ,
-                                 ),
-                               )
-                                */
                                             ],
                                           )
                                         ],
@@ -447,15 +396,7 @@ class _DeleteFeedScreenState extends State<DeleteFeedScreen> {
     //num current = 0;
     //num value = double.parse(amount);
     try {
-      //print("try 1");
-      // String uid = FirebaseAuth.instance.currentUser!.uid;
-      // FirebaseFirestore.instance
-      //     .collection('Farmers')
-      //     .doc(uid)
-      //     .collection('flock')
-      //     .doc(id)
-      //     .collection('Body Weight")
-      //     .delete();
+
       DocumentReference<Map<String, dynamic>> documentReference =
           FirebaseFirestore.instance
               .collection('Farmers')

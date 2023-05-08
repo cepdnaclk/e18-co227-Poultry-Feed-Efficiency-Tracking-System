@@ -1,12 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:home_login/constants.dart';
+import 'package:home_login/Colors.dart';
 import 'package:home_login/net/flutter_fire.dart';
-import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
-import 'package:home_login/screens/signup_screen.dart';
-import 'package:home_login/constants.dart';
 
 class FarmRegScreen extends StatefulWidget {
   const FarmRegScreen({Key? key}) : super(key: key);
@@ -16,8 +12,7 @@ class FarmRegScreen extends StatefulWidget {
 }
 
 class _FarmRegScreenState extends State<FarmRegScreen> {
-  //GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  //late String _username,_password;
+
 
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _farmNameController = TextEditingController();

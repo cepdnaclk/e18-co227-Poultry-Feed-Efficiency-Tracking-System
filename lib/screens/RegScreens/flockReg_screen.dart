@@ -1,10 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:home_login/constants.dart';
+import 'package:home_login/Colors.dart';
 import 'package:home_login/net/flutter_fire.dart';
-import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
-import 'package:home_login/screens/signup_screen.dart';
+import 'package:home_login/screens/UserRegScreens/signup_screen.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -15,10 +13,10 @@ class FlockRegScreen extends StatefulWidget {
 
   @override
   State<FlockRegScreen> createState() =>
-      _BranchRegScreenState(shedID, branchID, farmID);
+      _FlockRegScreenState(shedID, branchID, farmID);
 }
 
-class _BranchRegScreenState extends State<FlockRegScreen> {
+class _FlockRegScreenState extends State<FlockRegScreen> {
   List<String> items = [
     'Cobb 500 - Broiler',
     'Ross 308 - Broiler',
@@ -33,7 +31,7 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
   //GlobalKey<FormState> formKey = GlobalKey<FormState>();
   //late String _username,_password;
   late String shedID, branchID, farmID;
-  _BranchRegScreenState(this.shedID, this.branchID, this.farmID);
+  _FlockRegScreenState(this.shedID, this.branchID, this.farmID);
 
   //final TextEditingController _locationController = TextEditingController();
   final TextEditingController _branchNameController = TextEditingController();
@@ -83,27 +81,7 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  /*reusableTextField("Enter Start Date".tr, Icons.date_range,
-                      false, _startDateController, null),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  reusableTextField("Enter Birth Date".tr, Icons.date_range,
-                      false, _birthDateController, null),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  reusableTextField("Enter the type".tr, Icons.type_specimen,
-                      false, _typeController, null),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  
-                  reusableTextField("Enter the strain".tr, Icons.egg, false,
-                      _strainController, null),
-                  const SizedBox(
-                    height: 20,
-                  ),*/
+
                   reusableTextField2("Enter the number of chickens".tr,
                       Icons.numbers, false, _numberController, null, ""),
                   const SizedBox(
@@ -256,8 +234,7 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                                       ),
                                       textButtonTheme: TextButtonThemeData(
                                         style: TextButton.styleFrom(
-                                          primary:
-                                              mPrimaryColor, // button text color
+                                          foregroundColor: mPrimaryColor, // button text color
                                         ),
                                       ),
                                     ),
@@ -269,14 +246,13 @@ class _BranchRegScreenState extends State<FlockRegScreen> {
                               setState(() => bdate = ndate);
                             },
                             style: ElevatedButton.styleFrom(
-                              fixedSize: const Size(180, 50),
+                              fixedSize: const Size(180, 50), backgroundColor: mBackgroundColor,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                   side: BorderSide(
                                     width: 2.0,
                                     color: mPrimaryColor,
                                   )),
-                              primary: mBackgroundColor,
                               elevation: 20,
                               shadowColor: Colors.transparent,
                               textStyle: TextStyle(

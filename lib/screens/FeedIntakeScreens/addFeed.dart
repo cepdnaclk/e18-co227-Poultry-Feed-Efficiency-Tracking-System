@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:home_login/constants.dart';
+import 'package:home_login/Colors.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
-import 'package:home_login/screens/strain.dart' as strainList;
+import 'package:home_login/screens/IdealStrain.dart' as strainList;
 import 'package:sizer/sizer.dart';
 
 class AddFeedScreen extends StatefulWidget {
@@ -161,8 +161,7 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                                   ),
                                   textButtonTheme: TextButtonThemeData(
                                     style: TextButton.styleFrom(
-                                      primary:
-                                          mPrimaryColor, // button text color
+                                      foregroundColor: mPrimaryColor, // button text color
                                     ),
                                   ),
                                 ),
@@ -237,7 +236,8 @@ class _AddFeedScreenState extends State<AddFeedScreen> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Text(
-                        feedtDataStrain[days].valueOf(days).toString() + " g",
+                        //////////////////2023/3 update//////////////////
+                        ((feedtDataStrain.length <= days) ? feedtDataStrain[0].valueOf(0) : feedtDataStrain[days].valueOf(days)).toString() + " g",
                         style: TextStyle(fontSize: 17, color: mNewColor),
                       )),
                 ],

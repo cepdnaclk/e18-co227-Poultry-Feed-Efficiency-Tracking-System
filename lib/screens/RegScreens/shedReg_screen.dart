@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:home_login/constants.dart';
+import 'package:home_login/Colors.dart';
 import 'package:home_login/net/flutter_fire.dart';
 import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
-import 'package:home_login/screens/signup_screen.dart';
+import 'package:home_login/screens/UserRegScreens/signup_screen.dart';
 import 'package:get/get.dart';
 
 class ShedRegScreen extends StatefulWidget {

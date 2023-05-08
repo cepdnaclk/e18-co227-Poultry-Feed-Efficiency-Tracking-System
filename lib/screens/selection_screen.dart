@@ -1,15 +1,13 @@
-//import 'dart:js_util';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:home_login/constants.dart';
-import 'package:home_login/screens/farm_view.dart';
+import 'package:home_login/Colors.dart';
+import 'package:home_login/screens/RegScreens/ViewScreens/farm_view.dart';
 import 'package:home_login/screens/home_screen.dart';
-
-import '../net/flutter_fire.dart';
+import '../net/auth.dart';
+import 'UserRegScreens/signin_screen.dart';
 
 class SelectionScreen extends StatefulWidget {
   const SelectionScreen({Key? key}) : super(key: key);
@@ -19,23 +17,55 @@ class SelectionScreen extends StatefulWidget {
 }
 
 class _SelectionScreenState extends State<SelectionScreen> {
+  List<DropdownMenuItem<String>> farmItems = [];
+  List<DropdownMenuItem<String>> branchItems = [];
+  List<DropdownMenuItem<String>> shedItems = [];
+
+
+  List<String> legalBranchNames=[];
+  List<String> legalShedNames=[];
+  List<String> legalFlockNames=[];
+
   var selectedFarm, selectedBranch, selectedFlock, selectedShed;
   String branchName = "", farmName = "", shedName = "", flockName = "";
   bool _isButtonDisabled = true;
+  bool _islegal = false;
+  AuthClass auth = AuthClass();
+
+  bool isSelectedFarmBranchShed=false;
+  bool isSelectedFarm=false;
+  bool isSelectedFarmBranch =false;
+
+
 
   @override
   Widget build(BuildContext context) {
-    print(selectedFarm);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: mPrimaryColor,
           title: Text('batch_Selection'.tr),
+            actions: <Widget>[
+              ///////// 2023/3 update /////////
+              IconButton(
+                  onPressed: () async {
+                    await auth.logout();
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (builder) => SignInScreen()),
+                            (route) => false);
+                  },
+                  icon: Icon(Icons.logout)),
+
+
+              ///////// 2023/3 update /////////
+            ]
         ),
         // ignore: unnecessary_new
         body: new ListView(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           children: <Widget>[
-            SizedBox(height: 40.0),
+            SizedBox(height: 20.0),
 
             //For Farm
             StreamBuilder<QuerySnapshot>(
@@ -47,18 +77,20 @@ class _SelectionScreenState extends State<SelectionScreen> {
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return  Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(mPrimaryColor),
+                      ),
                     );
                   } else {
-                    List<DropdownMenuItem<String>> farmItems = [];
+                    farmItems = [];
                     for (int i = 0; i < snapshot.data!.docs.length; i++) {
                       DocumentSnapshot snap = snapshot.data!.docs[i];
                       farmItems.add(
                         DropdownMenuItem(
                           child: Text(
                             snap['Name'],
-                            style: TextStyle(color: mPrimaryColor),
+                            style: TextStyle(color: Colors.red),
                           ),
 
                           //value: "${snap.id}",
@@ -72,22 +104,14 @@ class _SelectionScreenState extends State<SelectionScreen> {
                         SizedBox(
                           width: 70,
                         ),
-                        //Icon(FontAwesomeIcons.coins,
-                        //size: 25.0, color: Color(0xff11b719)),
-                        //SizedBox(width: 10.0),
+
                         SizedBox(
                           width: 200,
                           child: DropdownButton<String>(
                             alignment: Alignment.centerLeft,
                             items: farmItems,
                             onChanged: (farmValue) {
-                              final snackBar = SnackBar(
-                                content: Text(
-                                  'Selected farm is $farmValue',
-                                  //style: TextStyle(color: Color(0xff11b719)),
-                                  style: TextStyle(color: mTitleTextColor),
-                                ),
-                              );
+
 
                               //Scaffold.of(context).showSnackBar(snackBar);
                               setState(() {
@@ -136,97 +160,100 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     .collection("Farmers")
                     .doc(FirebaseAuth.instance.currentUser!.uid)
                     .collection('Branch')
-                    .where('FarmID', isEqualTo: selectedFarm)
+                    .orderBy('FarmID')
+                    .where('FarmID', isLessThanOrEqualTo: selectedFarm)
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return  Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(mPrimaryColor),
+                      ),
                     );
                   } else {
-                    List<DropdownMenuItem<String>> branchItems = [];
-
+                    branchItems = [];
+                    legalBranchNames=[];
                     for (int i = 0; i < snapshot.data!.docs.length; i++) {
+
+                      isSelectedFarmBranchShed=false;
                       DocumentSnapshot snap = snapshot.data!.docs[i];
+
+                      if(snap['FarmID'] == selectedFarm){
+
+                         legalBranchNames.add(snap['BranchName']);
+                         isSelectedFarmBranchShed=true;
+
+                      }
+
+
                       branchItems.add(
                         DropdownMenuItem(
                           alignment: Alignment.centerLeft,
                           child: Text(
                             snap['BranchName'],
                             //snap.id,
-                            style: TextStyle(color: mPrimaryColor),
+                            style: TextStyle(
+                                color:  isSelectedFarmBranchShed ? Colors.red : mPrimaryColor),
                           ),
                           value: "${snap.id}",
                         ),
                       );
                     }
                     return Row(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      //rcrossAxisAlignment: CrossAxisAlignment.star
                       children: <Widget>[
                         SizedBox(
                           width: 70,
                         ),
-                        //SizedBox(width: 10.0),
                         farmName != ""
                             ? DropdownButton<String>(
-                                //alignment: AlignmentDirectional.centerEnd,
-                                items: branchItems,
-                                onChanged: (branchValue) {
-                                  final snackBar = SnackBar(
-                                    content: Text(
-                                      'Selected branch is $branchValue',
-                                      style: TextStyle(color: mTitleTextColor),
-                                    ),
-                                  );
+                          items: branchItems,
+                          onChanged: (branchValue) {
+                            setState(() {
+                              selectedBranch = branchValue!;
+                              void getBranch() async {
+                                final doc = await FirebaseFirestore
+                                    .instance
+                                    .collection('Farmers')
+                                    .doc(FirebaseAuth
+                                    .instance.currentUser!.uid)
+                                    .collection('Branch')
+                                    .doc(selectedBranch)
+                                    .get();
 
-                                  //Scaffold.of(context).showSnackBar(snackBar);
-                                  setState(() {
-                                    selectedBranch = branchValue!;
-                                    void getBranch() async {
-                                      final doc = await FirebaseFirestore
-                                          .instance
-                                          .collection('Farmers')
-                                          .doc(FirebaseAuth
-                                              .instance.currentUser!.uid)
-                                          .collection('Branch')
-                                          .doc(selectedBranch)
-                                          .get();
+                                branchName = doc['BranchName'];
+                                setState(() {});
+                              }
 
-                                      branchName = doc['BranchName'];
-                                      setState(() {});
-                                    }
-
-                                    getBranch();
-                                  });
-                                },
-                                value: selectedBranch,
-                                isExpanded: false,
-                                hint: new Text(
-                                  "Choose your Branch".tr,
-                                  style: TextStyle(
-                                    color: mPrimaryColor,
-                                    fontSize: 17,
-                                  ),
-                                ),
-                              )
+                              getBranch();
+                            });
+                          },
+                          value: selectedBranch,
+                          isExpanded: false,
+                          hint: new Text(
+                            "Choose your Location".tr,
+                            style: TextStyle(
+                              color: mPrimaryColor,
+                              fontSize: 17,
+                            ),
+                          ),
+                        )
                             : IgnorePointer(
-                                ignoring: true,
-                                child: DropdownButton<String>(
-                                  items: null,
-                                  onChanged: null,
-                                  value: selectedBranch,
-                                  isExpanded: false,
-                                  hint: new Text(
-                                    "Choose your Branch".tr,
-                                    style: TextStyle(
-                                      color: mPrimaryColor,
-                                      fontSize: 17,
-                                    ),
-                                  ),
-                                ),
-                              )
+                          ignoring: true,
+                          child: DropdownButton<String>(
+                            items: null,
+                            onChanged: null,
+                            value: selectedBranch,
+                            isExpanded: false,
+                            hint: new Text(
+                              "Choose your Location".tr,
+                              style: TextStyle(
+                                color: mPrimaryColor,
+                                fontSize: 17,
+                              ),
+                            ),
+                          ),
+                        )
                       ],
                     );
                   }
@@ -235,106 +262,112 @@ class _SelectionScreenState extends State<SelectionScreen> {
             SizedBox(
               height: 15.0,
             ),
+
+
             //For Shed
             StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection("Farmers")
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .collection('Shed')
-                    .where('BranchID', isEqualTo: selectedBranch)
-                    .where('FarmID', isEqualTo: selectedFarm)
-                    .snapshots(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
-                    List<DropdownMenuItem<String>> shedItems = [];
+              stream: FirebaseFirestore.instance
+                  .collection("Farmers")
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .collection('Shed')
+                  .snapshots(),
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (!snapshot.hasData) {
+                  return  Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(mPrimaryColor),
 
-                    for (int i = 0; i < snapshot.data!.docs.length; i++) {
-                      DocumentSnapshot snap = snapshot.data!.docs[i];
-                      shedItems.add(
-                        DropdownMenuItem(
-                          child: Text(
-                            snap['ShedName'],
-                            style: TextStyle(color: mPrimaryColor),
-                          ),
-                          value: "${snap.id}",
-                        ),
-                      );
+                    ),
+                  );
+                } else {
+                  shedItems = [];
+                  legalShedNames=[];
+
+                  for (int i = 0; i < snapshot.data!.docs.length; i++) {
+
+                    isSelectedFarmBranch=false;
+                    DocumentSnapshot snap = snapshot.data!.docs[i];
+
+                    if(snap['BranchID'] == selectedBranch && snap['FarmID'] == selectedFarm){
+                      legalShedNames.add( snap['ShedName']);
+                      isSelectedFarmBranch=true;
                     }
-                    return Row(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(
-                          width: 70,
+
+
+
+                    shedItems.add(
+                      DropdownMenuItem(
+                        child: Text(
+                          snap['ShedName'],
+                          style: TextStyle(
+                            color: isSelectedFarmBranch ? Colors.red : mPrimaryColor,
+                          ),
                         ),
-                        //SizedBox(width: 10.0),
-                        branchName != ""
-                            ? DropdownButton<String>(
-                                items: shedItems,
-                                onChanged: (shedValue) {
-                                  final snackBar = SnackBar(
-                                    content: Text(
-                                      'Selected Shed is $shedValue',
-                                      style: TextStyle(color: mTitleTextColor),
-                                    ),
-                                  );
-
-                                  //Scaffold.of(context).showSnackBar(snackBar);
-                                  setState(() {
-                                    selectedShed = shedValue!;
-                                    void getShed() async {
-                                      final doc = await FirebaseFirestore
-                                          .instance
-                                          .collection('Farmers')
-                                          .doc(FirebaseAuth
-                                              .instance.currentUser!.uid)
-                                          .collection('Shed')
-                                          .doc(selectedShed)
-                                          .get();
-
-                                      shedName = doc['ShedName'];
-                                      setState(() {});
-                                    }
-
-                                    getShed();
-                                  });
-                                },
-                                value: selectedShed,
-                                isExpanded: false,
-                                hint: Center(
-                                  child: new Text(
-                                    "Choose your Shed".tr,
-                                    style: TextStyle(
-                                      color: mPrimaryColor,
-                                      fontSize: 17,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            : IgnorePointer(
-                                ignoring: true,
-                                child: DropdownButton<String>(
-                                  items: null,
-                                  onChanged: null,
-                                  value: selectedShed,
-                                  isExpanded: false,
-                                  hint: new Text(
-                                    "Choose your Shed".tr,
-                                    style: TextStyle(
-                                      color: mPrimaryColor,
-                                      fontSize: 17,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                      ],
+                        value: "${snap.id}",
+                      ),
                     );
                   }
-                }),
+                  return Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 70,
+                      ),
+                      branchName != ""
+                          ? DropdownButton<String>(
+                        items: shedItems,
+                        onChanged: (shedValue) {
+                          setState(() {
+                            selectedShed = shedValue!;
+                            void getShed() async {
+                              final doc = await FirebaseFirestore.instance
+                                  .collection('Farmers')
+                                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                                  .collection('Shed')
+                                  .doc(selectedShed)
+                                  .get();
+
+                              shedName = doc['ShedName'];
+                              setState(() {});
+                            }
+
+                            getShed();
+                          });
+                        },
+                        value: selectedShed,
+                        isExpanded: false,
+                        hint: Center(
+                          child: new Text(
+                            "Choose your Shed".tr,
+                            style: TextStyle(
+                              color: mPrimaryColor,
+                              fontSize: 17,
+                            ),
+                          ),
+                        ),
+                      )
+                          : IgnorePointer(
+                        ignoring: true,
+                        child: DropdownButton<String>(
+                          items: null,
+                          onChanged: null,
+                          value: selectedShed,
+                          isExpanded: false,
+                          hint: new Text(
+                            "Choose your Shed".tr,
+                            style: TextStyle(
+                              color: mPrimaryColor,
+                              fontSize: 17,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              },
+            ),
+
+
             SizedBox(
               height: 15.0,
             ),
@@ -346,26 +379,42 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     .collection("Farmers")
                     .doc(FirebaseAuth.instance.currentUser!.uid)
                     .collection('flock')
-                    .where('ShedID', isEqualTo: selectedShed)
-                    .where('BranchID', isEqualTo: selectedBranch)
-                    .where('FarmID', isEqualTo: selectedFarm)
+                    //.where('ShedID', isEqualTo: selectedShed)
+                    //.where('BranchID', isEqualTo: selectedBranch)
+                    //.where('FarmID', isEqualTo: selectedFarm)
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return  Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(mPrimaryColor),
+
+                      ),
                     );
                   } else {
                     List<DropdownMenuItem<String>> flockItems = [];
 
+
+
                     for (int i = 0; i < snapshot.data!.docs.length; i++) {
+
+                      isSelectedFarmBranchShed = false;
                       DocumentSnapshot snap = snapshot.data!.docs[i];
+
+                      if(snap['BranchID'] == selectedBranch && snap['FarmID'] == selectedFarm && snap['ShedID'] == selectedShed){
+                          legalFlockNames.add(snap['FlockName']);
+                          isSelectedFarmBranchShed = true;
+                      }
+
+
                       flockItems.add(
                         DropdownMenuItem(
                           child: Text(
                             snap['FlockName'],
-                            style: TextStyle(color: mPrimaryColor),
+                            style: TextStyle(
+                              color: isSelectedFarmBranchShed ? Colors.red : mPrimaryColor,
+                            ),
                           ),
                           value: "${snap.id}",
                         ),
@@ -382,12 +431,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                             ? DropdownButton<String>(
                                 items: flockItems,
                                 onChanged: (flockValue) {
-                                  final snackBar = SnackBar(
-                                    content: Text(
-                                      'Selected flock is $flockValue',
-                                      style: TextStyle(color: mTitleTextColor),
-                                    ),
-                                  );
+
                                   //Scaffold.of(context).showSnackBar(snackBar);
                                   setState(() {
                                     selectedFlock = flockValue!;
@@ -396,7 +440,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                                           .instance
                                           .collection('Farmers')
                                           .doc(FirebaseAuth
-                                              .instance.currentUser!.uid)
+                                          .instance.currentUser!.uid)
                                           .collection('flock')
                                           .doc(selectedFlock)
                                           .get();
@@ -405,6 +449,9 @@ class _SelectionScreenState extends State<SelectionScreen> {
                                     }
 
                                     _isButtonDisabled = false;
+
+
+
                                     getFlock();
                                   });
                                 },
@@ -446,9 +493,12 @@ class _SelectionScreenState extends State<SelectionScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+
+
+
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: mPrimaryColor,
+                    backgroundColor: mPrimaryColor,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(36.0),
                     ),
@@ -456,6 +506,12 @@ class _SelectionScreenState extends State<SelectionScreen> {
                   onPressed: _isButtonDisabled
                       ? null
                       : () {
+
+                       //checks whether the selected fields actually represent a batch
+                        if(legalBranchNames.contains(branchName) &&
+                            legalShedNames.contains(shedName) &&
+                            legalFlockNames.contains(flockName)){
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -472,6 +528,18 @@ class _SelectionScreenState extends State<SelectionScreen> {
                               },
                             ),
                           );
+
+                        }
+                        else{
+                          Fluttertoast.showToast(
+                              msg: "Please Select fields decribed by red colour or else change the Farm",
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: mSecondColor,
+                              textColor: Colors.white);
+                        }
+
                         },
                   child: Container(
                     width: double.infinity,
@@ -491,9 +559,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    //foregroundColor: mPrimaryColor,
-                    //backgroundColor: ,
-                    primary: mBackgroundColor,
+                    backgroundColor: mBackgroundColor,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(36.0),
                     ),
@@ -523,9 +589,62 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                helpOption(context),
+
               ],
             ),
           ],
         ));
   }
+
+  Row helpOption(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Help"),
+                  content: Text("Proceed button will be only available \n"
+                      "-If the user selects exactly one entity from all the dropdown menu\n"
+                      "-If the user has  registered for atleast one field under each category\n\n"
+                      "-If all the fields the user selected under each dropdown is in red\n\n"
+                      "If you are unable to move in please use the Farm Registration button to Register "
+                      "the farm details.\n"
+                      "It is mandatory for a farm to have a tuple of farm/location/shed/flock",
+                   style: TextStyle(color: mNewColor),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text("OK",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          child: Text(
+            "Need help?",
+            style: TextStyle(
+              color: mPrimaryColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
 }
+
