@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:home_login/constants.dart';
+import 'package:home_login/Colors.dart';
 import 'package:sizer/sizer.dart';
 
 class FCRManualScreen extends StatefulWidget {

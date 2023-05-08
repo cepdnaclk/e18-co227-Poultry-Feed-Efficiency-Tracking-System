@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:home_login/constants.dart';
+import 'package:home_login/Colors.dart';
 import 'package:home_login/screens/griddashboard.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:get/get.dart';
-import 'package:home_login/screens/view_screen.dart';
+import 'package:home_login/screens/Analysis/compare_ideal.dart';
 import 'package:sizer/sizer.dart';
 
 class UpdateFeedScreen extends StatefulWidget {
@@ -31,10 +31,7 @@ class _UpdateFeedScreenState extends State<UpdateFeedScreen> {
   num recordedNo_Bag = 0;
   num recordedBag_weight = 0;
 
-  //DateTime date =
-  //DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
-  final TextEditingController _datecontroller = TextEditingController();
   final TextEditingController _numcontrollerBags = TextEditingController();
   final TextEditingController _numcontrollerBagWeight = TextEditingController();
 

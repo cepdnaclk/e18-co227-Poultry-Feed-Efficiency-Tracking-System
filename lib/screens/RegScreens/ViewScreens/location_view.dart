@@ -1,58 +1,43 @@
-// import 'dart:html';
-//import 'package:firebase_autString id, h/firebase_auth.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
-import 'package:home_login/constants.dart';
+import 'package:home_login/Colors.dart';
 import 'package:home_login/screens/selection_screen.dart';
-import 'package:home_login/screens/shed_view.dart';
-import 'package:home_login/screens/RegScreens/branchReg_screen.dart';
+import 'package:home_login/screens/RegScreens/ViewScreens/shed_view.dart';
+import 'package:home_login/screens/RegScreens/locationReg_screen.dart';
 import 'package:get/get.dart';
-import 'package:home_login/screens/signin_screen.dart';
+import 'package:home_login/screens/UserRegScreens/signin_screen.dart';
 
-import '../net/flutter_fire.dart';
+import '../../../net/flutter_fire.dart';
 
-/* class BranchScreen extends StatelessWidget{//StatefulWidget {
-  //const BranchScreen({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
 
-    return const Scaffold(
-
-      body: Center(
-          child: Text("Welcome to the Branch View Screen")
-      )
-    );
-  }
-}
- */
-
-class BranchScreen extends StatefulWidget {
+class LocationScreen extends StatefulWidget {
   final String farmName;
   final String farmID;
-  const BranchScreen(this.farmName, this.farmID, {Key? key}) : super(key: key);
-  //const BranchScreen({Key? key}) : super(key: key);
+  const LocationScreen(this.farmName, this.farmID, {Key? key}) : super(key: key);
+
 
   @override
   // ignore: library_private_types_in_public_api, no_logic_in_create_state
-  _BranchScreen createState() => _BranchScreen(farmName, farmID);
+  _LocationScreen createState() => _LocationScreen(farmName, farmID);
 }
 
-class _BranchScreen extends State<BranchScreen> {
+class _LocationScreen extends State<LocationScreen> {
   String farmName;
   String farmID;
-  _BranchScreen(this.farmName, this.farmID);
-  // _BranchScreen(this.farmID);
+  _LocationScreen(this.farmName, this.farmID);
+
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(farmName + " farm branches".tr),
+          title: Text(farmName + " farm locations".tr),
           backgroundColor: mPrimaryColor,
           //foregroundColor: Colors.amber,
           actions: <Widget>[
@@ -140,88 +125,48 @@ class _BranchScreen extends State<BranchScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          SizedBox(),
-                                          /*Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 20),
-                                            child: ElevatedButton.icon(
-                                              onPressed: () async {
-                                                //print("elevated");
-                                                await openDialog(document.id,
-                                                    document['FarmName']);
-                                              },
-                                              icon: const Icon(Icons.edit),
-                                              label: Text("Edit"),
-                                              style: ElevatedButton.styleFrom(
-                                                  primary: mNewColor),
-                                            ),
-                                          ),*/
+
                                           Text(
-                                            //" ${document.id}"
+
                                             " ${document['BranchName']}",
                                             style: const TextStyle(
                                               color: Colors.white,
-                                              fontSize: 18,
+                                              fontSize: 20,
                                             ),
                                           ),
-                                          PopupMenuButton<int>(
-                                              itemBuilder: (context) => [
-                                                    // popupmenu item 1
-                                                    PopupMenuItem(
-                                                      value: 1,
-                                                      // row has two child icon and text.
-                                                      child: Row(
-                                                        children: [
-                                                          Icon(Icons.edit),
-                                                          SizedBox(
-                                                            // sized box with width 10
-                                                            width: 10,
-                                                          ),
-                                                          Text("Edit".tr)
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    // popupmenu item 2
-                                                    PopupMenuItem(
-                                                      value: 2,
-                                                      // row has two child icon and text
-                                                      child: Row(
-                                                        children: [
-                                                          Icon(Icons.delete),
-                                                          SizedBox(
-                                                            // sized box with width 10
-                                                            width: 10,
-                                                          ),
-                                                          Text("Delete".tr)
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                              offset: Offset(-20, 15),
-                                              color: mNewColor,
-                                              elevation: 2,
-                                              onSelected: (value) async {
-                                                if (value == 1) {
-                                                  openDialog(document.id,
-                                                      document['BranchName']);
-                                                } else if (value == 2) {
-                                                  openDialogDelete(document.id,
-                                                      document['BranchName']);
-                                                }
-                                              }),
-                                          /*IconButton(
-                                            icon: Icon(
-                                              Icons.delete,
-                                              color: mNewColor,
-                                            ),
-                                            alignment: Alignment.centerRight,
-                                            onPressed: () async {
-                                              //print("Delete Branch Dialog Box");
-                                              await openDialogDelete(
-                                                  document.id,
-                                                  document['FarmName']);
+                                          GestureDetector(
+                                            onTap: () {
+                                              openDialog(document.id, document['BranchName']);
                                             },
-                                          ),*/
+                                            child: Padding(
+                                              padding: EdgeInsets.only(right: 10),
+                                              child: Icon(
+                                                Icons.edit,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 10),
+                                            child: Icon(
+                                              Icons.file_open,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              openDialogDelete(document.id, document['BranchName']);
+                                            },
+                                            child: Padding(
+                                              padding: EdgeInsets.only(right: 10),
+                                              child: Icon(
+                                                Icons.delete,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+
+
                                         ],
                                       ))),
                             )));
@@ -230,32 +175,58 @@ class _BranchScreen extends State<BranchScreen> {
               }),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => BranchRegScreen(farmID),
+
+      floatingActionButtonLocation: null,
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(left: 30,bottom: 10),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: mBackgroundColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+              side: BorderSide(color: mPrimaryColor),
             ),
-          );
-        },
-        backgroundColor: mNewColor,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return LocationRegScreen(farmID);
+                },
+              ),
+            );
+          },
+          child: Container(
+
+            alignment: Alignment.center,
+            width: double.infinity,
+            height: 20,
+            child: Text(
+              "Add New Location",
+              style: TextStyle(
+                color: mPrimaryColor,
+                fontSize: 17,
+              ),
+            ),
+          ),
         ),
       ),
+
+
+
+
     );
   }
 
-  Future openDialog(String id, String branchName) => showDialog(
+  Future openDialog(String id, String locationName) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Edit Branch Name".tr),
+          title: Text("Edit Location Name".tr),
           content: TextField(
             controller: _controller,
             autofocus: true,
-            decoration: InputDecoration(hintText: branchName),
+            decoration: InputDecoration(hintText: locationName),
           ),
           actions: [
             TextButton(
@@ -274,7 +245,7 @@ class _BranchScreen extends State<BranchScreen> {
   Future openDialogDelete(String id, String branchName) => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Want to delete".tr + branchName + " branch details?".tr),
+          title: Text("Want to delete".tr + branchName + " location details?".tr),
           actions: [
             TextButton(
                 onPressed: () async {

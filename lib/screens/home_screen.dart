@@ -2,14 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:home_login/constants.dart';
+import 'package:home_login/Colors.dart';
 import 'package:home_login/screens/selection_screen.dart';
-import 'package:home_login/screens/signin_screen.dart';
+import 'package:home_login/screens/UserRegScreens/signin_screen.dart';
 import '../net/auth.dart';
 import 'drawerMenu.dart';
 import 'griddashboard.dart';
-import 'package:home_login/constants.dart';
-import 'package:home_login/localeString.dart';
+
 
 class HomeScreen extends StatefulWidget {
   final String farmNavi,
@@ -21,7 +20,7 @@ class HomeScreen extends StatefulWidget {
       shedName,
       flockName;
 
-  //const HomeScreen({Key? key}) : super(key: key);
+
 
   HomeScreen({
     Key? key,
@@ -62,8 +61,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      //backgroundColor: const Color(0xff392850),
-      //backgroundColor: Colors.white,
+
       children: [
         DrawerMenu(widget.flockNavi),
         AnimatedContainer(
@@ -105,6 +103,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     title: Text("Home".tr),
                     // backgroundColor: mPrimaryColor,
                     actions: <Widget>[
+                      Container(
+                        width: 40,
+                        height:40,
+                        child: IconButton(
+                          icon: Image.asset('assets/icons/SelectionIcon.png'),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                    const SelectionScreen()));
+                            // Handle button tap
+                          },
+                        ),
+                      ),
                       IconButton(
                         icon: Icon(Icons.language),
                         onPressed: () {
@@ -121,7 +134,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 (route) => false);
                           },
                           icon: Icon(Icons.logout))
-                    ]),
+                    ]
+                ),
                 body: Stack(
                   children: <Widget>[
                     Container(

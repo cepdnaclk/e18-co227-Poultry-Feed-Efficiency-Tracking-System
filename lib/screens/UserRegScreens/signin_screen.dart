@@ -2,14 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:home_login/net/auth.dart';
-import 'package:home_login/screens/home_screen.dart';
+import 'package:home_login/screens/UserRegScreens/reset_password.dart';
 import 'package:home_login/screens/reusable.dart';
 import 'package:home_login/screens/selection_screen.dart';
-import 'package:home_login/screens/signup_screen.dart';
+import 'package:home_login/screens/UserRegScreens/signup_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 
-import '../constants.dart';
+import '../../Colors.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -70,6 +70,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     reusableTextField("enterPassword".tr, Icons.lock_sharp,
                         true, _passwordTextController, validatePasswordSignIn),
+
+                    forgetPassword(context),
                     firebaseUIButton(context, "singin".tr, () async {
                       if (_key.currentState!.validate()) {
                         try {
@@ -117,6 +119,33 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       ),
     );
+  }
+
+  Widget forgetPassword(BuildContext context){
+     return Container(
+       width: MediaQuery.of(context).size.width,
+       height: 30,
+       alignment: Alignment.bottomRight,
+       child: TextButton(
+         onPressed: () {
+           Navigator.push(
+               context,
+               MaterialPageRoute(
+                   builder: (context) =>
+                   const ResetPasswordScreen()));
+
+         },
+         child: Text(
+           "Forgot Password?",
+           textAlign: TextAlign.right,
+           style: TextStyle(
+             color: mNewColor,
+             fontSize: 12
+
+           ),
+         ),
+       ),
+     );
   }
 
   Row signUpOption() {
@@ -211,19 +240,22 @@ String? validateEmail(String? formEmail) {
   return null;
 }
 
+
+
+ ////////// 2023/3 update/////////
 String? validatePassword(String? formPassword) {
   if (formPassword == null || formPassword.isEmpty) {
     return 'Password is required.';
   }
 
-  String pattern =
-      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+  String pattern = r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+{}\[\]|\\:;"<>,./?]).{8,}$';
   RegExp regex = RegExp(pattern);
   if (!regex.hasMatch(formPassword))
     return '''
-      Password must be at least 8 characters,
-      include an uppercase letter, number and symbol.
-      ''';
+      Password must be at least 8 characters long, 
+      and include at least one uppercase letter, 
+      one number, and one symbol (!@#\$%^&*()_+{}[]|\\:;"<>,./?)
+    ''';
 
   return null;
 }

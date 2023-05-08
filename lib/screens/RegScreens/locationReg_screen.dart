@@ -1,27 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:home_login/constants.dart';
+import 'package:home_login/Colors.dart';
 import 'package:home_login/net/flutter_fire.dart';
 import 'package:home_login/screens/home_screen.dart';
 import 'package:home_login/screens/reusable.dart';
-import 'package:home_login/screens/signup_screen.dart';
+import 'package:home_login/screens/UserRegScreens/signup_screen.dart';
 import 'package:get/get.dart';
 
-class BranchRegScreen extends StatefulWidget {
+class LocationRegScreen extends StatefulWidget {
   late String farmName;
-  BranchRegScreen(this.farmName);
+  LocationRegScreen(this.farmName);
   //const BrachRegScreen({Key? key}) : super(key: key);
 
   @override
-  State<BranchRegScreen> createState() => _BranchRegScreenState(farmName);
+  State<LocationRegScreen> createState() => _LocationRegScreenState(farmName);
 }
 
-class _BranchRegScreenState extends State<BranchRegScreen> {
+class _LocationRegScreenState extends State<LocationRegScreen> {
   //GlobalKey<FormState> formKey = GlobalKey<FormState>();
   //late String _username,_password;
   late String farmName;
-  _BranchRegScreenState(this.farmName);
-  //final TextEditingController _locationController = TextEditingController();
+  _LocationRegScreenState(this.farmName);
+
   final TextEditingController _branchNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -41,20 +41,20 @@ class _BranchRegScreenState extends State<BranchRegScreen> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    "Add Branch".tr,
+                    "Add Location".tr,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
                         color: mPrimaryColor),
                   ),
                   Image.asset(
-                    "assets/icons/branchNew.jpg",
+                    "assets/icons/locationNew.jpg",
                     fit: BoxFit.fitWidth,
                     width: MediaQuery.of(context).size.width * 0.9,
                     height: MediaQuery.of(context).size.width * 0.9,
                     //color: Colors.purple,
                   ),
-                  reusableTextField("Enter Branch Name".tr, Icons.house, false,
+                  reusableTextField("Enter Location Name".tr, Icons.house, false,
                       _branchNameController, null),
                   const SizedBox(
                     height: 20,
